@@ -11,6 +11,7 @@ import 'package:masjiduserapp/user_map_tab.dart';
 
 
 import 'common.color.dart';
+import 'dammy_data.dart';
 import 'notice_user_tab.dart';
 
 class MasjitNameLocationJoined extends StatefulWidget {
@@ -315,10 +316,10 @@ shrinkWrap: true,
     return Stack(
       children: [
         Visibility(visible:
-        mapScreen, child: UserMapLocation()),
+        mapScreen, child: UserMapLocation(latitude:'20.42796133580664', longitude: '75.885749655962',)),
         Visibility(visible: trusteeScreen, child: TrusteeUserTab()),
         Visibility(visible: noticeScreen, child: NoticeUserTab()),
-        Visibility(//
+        Visibility(
           visible: showDetails,
           child: SingleChildScrollView(
 

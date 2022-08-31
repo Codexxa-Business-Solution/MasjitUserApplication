@@ -16,7 +16,17 @@ Future<void> main() async{
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget with WidgetsBindingObserver{
+  void initState() {
+   // super.initState();
+    WidgetsBinding.instance!.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance!.removeObserver(this);
+    //super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

@@ -35,10 +35,18 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   carousel_slider: ^4.0.0
-  avoid_keyboard: ^0.3.0
+  avoid_keyboard:
   keyboard_actions:
   pinput:
-
+  google_maps_flutter:
+  location:
+  http:
+  shared_preferences:
+  place_picker:
+  geolocator: ^8.2.0
+  geocoding: ^2.0.2
+  flutter_polyline_points:
+  url_launcher: ^6.1.5
 dev_dependencies:
   flutter_test:
     sdk: flutter

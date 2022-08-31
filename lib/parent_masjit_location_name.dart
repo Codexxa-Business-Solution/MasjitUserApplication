@@ -269,7 +269,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
       //color: Colors.blue,
       child: Stack(
         children: [
-          Visibility(visible: mapScreen, child: UserMapLocation()),
+          Visibility(visible: mapScreen, child: UserMapLocation(latitude: '20.42796133580664', longitude: '75.885749655962')),
           Visibility(visible: trusteeScreen, child: TrusteeUserTab()),
           Visibility(visible: noticeScreen, child: NoticeUserTab()),
           Visibility(

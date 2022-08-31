@@ -27,6 +27,15 @@
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>Allow location service to fetch and manage user location.</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>Allow location service to fetch and manage user location.</string>
+    <key>NSLocationUsageDescription</key>
+    <string>Allow location service to fetch and manage user location.</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Your location will be used to show your location on the map and see how far away your friends and devices are.</string>
+    <key>NSMicrophoneUsageDescription</key>
 	<string>Main</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
@@ -43,5 +52,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>io.flutter.embedded_views_preview</key>
+    <true/>
 </dict>
 </plist>
