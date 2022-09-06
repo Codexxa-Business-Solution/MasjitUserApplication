@@ -18,6 +18,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'common.color.dart';
 import 'database/masjit_user_app_preferances.dart';
 import 'localization_item.dart';
+import 'package:http/http.dart' as http;
 class UserMapLocation extends StatefulWidget {
   const UserMapLocation({Key? key, required this.latitude, required this.longitude,}) : super(key: key);
   final String latitude ;
@@ -308,7 +309,7 @@ class _UserMapLocationState extends State<UserMapLocation> with TickerProviderSt
         ),
         child: TextButton(
             onPressed: () async{
-              String googleUrl = 'https://www.google.com/maps/place/Rahul+Talkies+70+MM/@18.5315026,73.8464694,15z/data=!4m5!3m4!1s0x0:0xba33fc3bcc21df91!8m2!3d18.5315026!4d73.8464694';
+              String googleUrl ='https://www.google.com/maps/place/Rahul+Talkies+70+MM/@18.5315026,73.8464694,15z/data=!4m5!3m4!1s0x0:0xba33fc3bcc21df91!8m2!3d18.5315026!4d73.8464694';
               if (await canLaunch(googleUrl)) {
                 await launch(googleUrl);
               } else {

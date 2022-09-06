@@ -46,7 +46,7 @@ class _AllMasjitListState extends State<AllMasjitList> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return ListView.builder(
-                    itemCount: snapshot.data.toString().length,
+                    itemCount: snapshot.data?.length,
                     padding: const EdgeInsets.only(bottom: 20, top: 5),
                     itemBuilder: (context, index) {
                       return Padding(
@@ -106,21 +106,21 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                           width: parentWidth *
                                                               0.17,
                                                           decoration:
-                                                              BoxDecoration(
+                                                          BoxDecoration(
 
-                                                                  image:
-                                                                      DecorationImage(
-                                                                    image:
-                                                                        NetworkImage(
-                                                                      "${snapshot.data?[index].images}",
-                                                                    ),
-                                                                    fit: BoxFit
-                                                                        .cover,
-                                                                  ),
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              10))),
+                                                              image:
+                                                              DecorationImage(
+                                                                image:
+                                                                NetworkImage(
+                                                                    "${snapshot.data?[0].images?[0]}",
+                                                                ),
+                                                                fit: BoxFit
+                                                                    .cover,
+                                                              ),
+                                                              borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                  10))),
                                                     ),
                                                   ],
                                                 ),
@@ -130,49 +130,49 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                     left: parentHeight * 0.02),
                                                 child: Column(
                                                   crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.start,
                                                   children: [
                                                     Row(
                                                       mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
+                                                      MainAxisAlignment
+                                                          .start,
                                                       crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
+                                                      CrossAxisAlignment
+                                                          .center,
                                                       //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                       children: [
                                                         Padding(
                                                           padding:
-                                                              EdgeInsets.only(
-                                                                  // right: parentWidth * 0.05,
-                                                                  top:
-                                                                      parentHeight *
-                                                                          0.01),
+                                                          EdgeInsets.only(
+                                                            // right: parentWidth * 0.05,
+                                                              top:
+                                                              parentHeight *
+                                                                  0.01),
                                                           child: Text(
-                                                            "${snapshot.data![index].location?.place}",
+                                                            "${snapshot.data![0].location?.place}",
                                                             style: TextStyle(
                                                               fontSize: SizeConfig
-                                                                      .blockSizeHorizontal *
+                                                                  .blockSizeHorizontal *
                                                                   4.3,
                                                               fontFamily:
-                                                                  'Roboto_Bold',
+                                                              'Roboto_Bold',
                                                               fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
+                                                              FontWeight
+                                                                  .w500,
                                                               color: CommonColor
                                                                   .MASJIT_NAME,
                                                             ),
                                                             textAlign:
-                                                                TextAlign.start,
+                                                            TextAlign.start,
                                                             overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
+                                                            TextOverflow
+                                                                .ellipsis,
                                                             maxLines: 1,
                                                           ),
                                                         ),
                                                         Padding(
                                                           padding:
-                                                              EdgeInsets.only(
+                                                          EdgeInsets.only(
                                                             top: parentHeight *
                                                                 0.01,
                                                             left: parentWidth *
@@ -180,13 +180,13 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                           ),
                                                           child: Container(
                                                               height:
-                                                                  parentHeight *
-                                                                      0.04,
+                                                              parentHeight *
+                                                                  0.04,
                                                               width:
-                                                                  parentHeight *
-                                                                      0.12,
+                                                              parentHeight *
+                                                                  0.12,
                                                               decoration:
-                                                                  BoxDecoration(
+                                                              BoxDecoration(
                                                                 gradient: LinearGradient(
                                                                     begin: Alignment
                                                                         .centerLeft,
@@ -198,22 +198,22 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                                           .RIGHT_COLOR
                                                                     ]),
                                                                 borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10),
+                                                                BorderRadius
+                                                                    .circular(
+                                                                    10),
                                                               ),
                                                               child: Center(
                                                                 child: Text(
                                                                   "JOIN",
                                                                   style: TextStyle(
                                                                       fontFamily:
-                                                                          "Roboto_Regular",
+                                                                      "Roboto_Regular",
                                                                       fontWeight:
-                                                                          FontWeight
-                                                                              .w700,
+                                                                      FontWeight
+                                                                          .w700,
                                                                       fontSize:
-                                                                          SizeConfig.blockSizeHorizontal *
-                                                                              4.3,
+                                                                      SizeConfig.blockSizeHorizontal *
+                                                                          4.3,
                                                                       color: CommonColor
                                                                           .WHITE_COLOR),
                                                                 ),
@@ -228,22 +228,22 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                         Padding(
                                                           padding: EdgeInsets.only(
                                                               right:
-                                                                  parentHeight *
-                                                                      0.02,
+                                                              parentHeight *
+                                                                  0.02,
                                                               top:
-                                                                  parentHeight *
-                                                                      0.0),
+                                                              parentHeight *
+                                                                  0.0),
                                                           child: Text(
                                                               "Location :",
                                                               style: TextStyle(
                                                                 fontSize: SizeConfig
-                                                                        .blockSizeHorizontal *
+                                                                    .blockSizeHorizontal *
                                                                     4.0,
                                                                 fontFamily:
-                                                                    'Roboto_Bold',
+                                                                'Roboto_Bold',
                                                                 fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
+                                                                FontWeight
+                                                                    .w400,
                                                                 color: CommonColor
                                                                     .BLACK_COLOR,
                                                               )),
@@ -276,7 +276,6 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                       fontFamily: 'Roboto_Bold',
                                                       fontWeight: FontWeight.w500,
                                                       color: CommonColor.BLACK_COLOR,)),
-
                                                   ),
                                                   Padding(
                                                     padding:EdgeInsets.only(right: parentWidth*0.02,top: parentHeight*0.01),
@@ -293,7 +292,6 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                       fontFamily: 'Roboto_Bold',
                                                       fontWeight: FontWeight.w500,
                                                       color: CommonColor.BLACK_COLOR,)),
-
                                                   ),
                                                   Padding(
                                                     padding:EdgeInsets.only(right: parentWidth*0.0,top: parentHeight*0.01),
@@ -822,18 +820,18 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                   padding: EdgeInsets.only(
                                                       left: parentWidth * 0.04,
                                                       top:
-                                                          parentHeight * 0.025),
+                                                      parentHeight * 0.025),
                                                   child: Text("Azan",
                                                       style: TextStyle(
                                                         fontSize: SizeConfig
-                                                                .blockSizeHorizontal *
+                                                            .blockSizeHorizontal *
                                                             3.5,
                                                         fontFamily:
-                                                            'Roboto_Bold',
+                                                        'Roboto_Bold',
                                                         fontWeight:
-                                                            FontWeight.w500,
+                                                        FontWeight.w500,
                                                         color:
-                                                            Colors.transparent,
+                                                        Colors.transparent,
                                                       )),
                                                 ),
                                                 Padding(
@@ -846,26 +844,26 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                         height: parentHeight *
                                                             0.028,
                                                         decoration:
-                                                            BoxDecoration(
-                                                                // color: Colors.red,
-                                                                border: Border(
-                                                                    bottom: BorderSide(
-                                                                        color: Colors
-                                                                            .grey,
-                                                                        width: parentHeight *
-                                                                            0.001))),
+                                                        BoxDecoration(
+                                                          // color: Colors.red,
+                                                            border: Border(
+                                                                bottom: BorderSide(
+                                                                    color: Colors
+                                                                        .grey,
+                                                                    width: parentHeight *
+                                                                        0.001))),
                                                         width:
-                                                            parentWidth * 0.185,
+                                                        parentWidth * 0.185,
                                                         child: Text("AZAN",
                                                             style: TextStyle(
                                                               fontSize: SizeConfig
-                                                                      .blockSizeHorizontal *
+                                                                  .blockSizeHorizontal *
                                                                   3.5,
                                                               fontFamily:
-                                                                  'Roboto_Bold',
+                                                              'Roboto_Bold',
                                                               fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
+                                                              FontWeight
+                                                                  .w500,
                                                               color: CommonColor
                                                                   .BLACK_COLOR,
                                                             )),
@@ -880,12 +878,12 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                   child: Text("JAMAA'T",
                                                       style: TextStyle(
                                                         fontSize: SizeConfig
-                                                                .blockSizeHorizontal *
+                                                            .blockSizeHorizontal *
                                                             3.5,
                                                         fontFamily:
-                                                            'Roboto_Bold',
+                                                        'Roboto_Bold',
                                                         fontWeight:
-                                                            FontWeight.w500,
+                                                        FontWeight.w500,
                                                         color: CommonColor
                                                             .BLACK_COLOR,
                                                       )),
@@ -899,10 +897,10 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                               child: ListView.builder(
                                                 itemCount: 6,
                                                 scrollDirection:
-                                                    Axis.horizontal,
+                                                Axis.horizontal,
                                                 itemBuilder:
                                                     (BuildContext context,
-                                                        int index) {
+                                                    int index) {
                                                   return Padding(
                                                     padding: EdgeInsets.only(
                                                         left: parentWidth *
@@ -912,33 +910,33 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                         Padding(
                                                           padding: EdgeInsets.only(
                                                               left:
-                                                                  parentWidth *
-                                                                      0.0,
+                                                              parentWidth *
+                                                                  0.0,
                                                               top:
-                                                                  parentHeight *
-                                                                      0.02),
+                                                              parentHeight *
+                                                                  0.02),
                                                           child: Row(
                                                             children: [
                                                               Padding(
                                                                 padding:
-                                                                    EdgeInsets
-                                                                        .only(
+                                                                EdgeInsets
+                                                                    .only(
                                                                   right:
-                                                                      parentWidth *
-                                                                          0.02,
+                                                                  parentWidth *
+                                                                      0.02,
                                                                 ),
                                                                 child: Text(
                                                                     "${snapshot.data![index].weeklyNamaz?[index].day}",
                                                                     style:
-                                                                        TextStyle(
+                                                                    TextStyle(
                                                                       fontSize:
-                                                                          SizeConfig.blockSizeHorizontal *
-                                                                              2.8,
+                                                                      SizeConfig.blockSizeHorizontal *
+                                                                          2.8,
                                                                       fontFamily:
-                                                                          'Roboto_Bold',
+                                                                      'Roboto_Bold',
                                                                       fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
+                                                                      FontWeight
+                                                                          .w500,
                                                                       color: CommonColor
                                                                           .BLACK_COLOR,
                                                                     )),
@@ -949,24 +947,24 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                         Padding(
                                                           padding: EdgeInsets.only(
                                                               left:
-                                                                  parentWidth *
-                                                                      0.0,
+                                                              parentWidth *
+                                                                  0.0,
                                                               top:
-                                                                  parentHeight *
-                                                                      0.01),
+                                                              parentHeight *
+                                                                  0.01),
                                                           child: Container(
                                                             child: Text("08:85",
                                                                 style:
-                                                                    TextStyle(
+                                                                TextStyle(
                                                                   fontSize:
-                                                                      SizeConfig
-                                                                              .blockSizeHorizontal *
-                                                                          3.3,
+                                                                  SizeConfig
+                                                                      .blockSizeHorizontal *
+                                                                      3.3,
                                                                   fontFamily:
-                                                                      'Roboto_Regular',
+                                                                  'Roboto_Regular',
                                                                   fontWeight:
-                                                                      FontWeight
-                                                                          .w400,
+                                                                  FontWeight
+                                                                      .w400,
                                                                   color: CommonColor
                                                                       .BLACK_COLOR,
                                                                 )),
@@ -976,21 +974,21 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                         Padding(
                                                           padding: EdgeInsets.only(
                                                               left:
-                                                                  parentWidth *
-                                                                      0.0,
+                                                              parentWidth *
+                                                                  0.0,
                                                               top:
-                                                                  parentHeight *
-                                                                      0.01),
+                                                              parentHeight *
+                                                                  0.01),
                                                           child: Text("08:85",
                                                               style: TextStyle(
                                                                 fontSize: SizeConfig
-                                                                        .blockSizeHorizontal *
+                                                                    .blockSizeHorizontal *
                                                                     3.3,
                                                                 fontFamily:
-                                                                    'Roboto_Regular',
+                                                                'Roboto_Regular',
                                                                 fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
+                                                                FontWeight
+                                                                    .w400,
                                                                 color: CommonColor
                                                                     .BLACK_COLOR,
                                                               )),
@@ -1017,22 +1015,18 @@ class _AllMasjitListState extends State<AllMasjitList> {
 }
 /*  Future<AllMasjitListResponceModel> getAllMasjidList(userId) async {
     print("userId $userId");
-
     Map<String, String> headers = {
       'Content-Type': 'application/json',
       'authorization': 'Basic c3R1ZHlkb3RlOnN0dWR5ZG90ZTEyMw=='
     };
     final msg = jsonEncode({"id": 1});
-
     var response = await http.post(
       Uri.parse('http://sangh.bizz-manager.com/'),
       headers: headers,
       body: msg,
     );
-
     if (response.statusCode == 200) {
       print("Yess.. ${response.body}");
-
       return getAllMasjidFromJson(response.body);
     } else {
       // If the server did not return a 201 CREATED response,
@@ -1047,18 +1041,11 @@ class _AllMasjitListState extends State<AllMasjitList> {
       await http.post(Uri.parse("http://sangh.bizz-manager.com/"), body: {
         "id": 1,
       });
-
       print("statusCode ${result.statusCode}");
-
       if (result.statusCode == 200) {
-
-
         print("Yess.. ${result.body}");
-
         print("Hiii");
-
       }
-
       return getPostOrderFromJson(result.body);
     } catch (e) {
       throw e;

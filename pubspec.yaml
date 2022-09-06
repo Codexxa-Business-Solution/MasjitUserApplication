@@ -41,6 +41,7 @@ dependencies:
   google_maps_flutter:
   location:
   http:
+  get: ^4.3.8
   shared_preferences:
   place_picker:
   geolocator: ^8.2.0

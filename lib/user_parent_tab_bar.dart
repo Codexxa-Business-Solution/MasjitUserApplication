@@ -204,10 +204,16 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
           ),
         ),
       ),
-      body: Container(
-          height: SizeConfig.screenHeight * 0.90,
-          child: getAddGameTabLayout(
-              SizeConfig.screenHeight, SizeConfig.screenWidth)
+      body: ListView(
+
+        padding: EdgeInsets.only(bottom: 20),
+        children: [
+          Container(
+              height: SizeConfig.screenHeight * 0.90,
+              child: getAddGameTabLayout(
+                  SizeConfig.screenHeight, SizeConfig.screenWidth)
+          ),
+        ],
       ),
       drawer: Padding(
         padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.04),

@@ -1,16 +1,14 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/notice_response_model.dart';
 import 'package:masjiduserapp/size_config.dart';
 import 'package:masjiduserapp/trustee_user_tab.dart';
 import 'package:masjiduserapp/user_map_tab.dart';
 import 'package:masjiduserapp/user_parent_tab_bar.dart';
-
-
 import 'common.color.dart';
-import 'masjit_name_masjit_jioned_user.dart';
 import 'notice_user_tab.dart';
+import 'package:http/http.dart' as http;
+
 
 class MasjitNameLocation extends StatefulWidget {
   const MasjitNameLocation({Key? key}) : super(key: key);
@@ -22,9 +20,9 @@ class MasjitNameLocation extends StatefulWidget {
 class _MasjitNameLocationState extends State<MasjitNameLocation>
     with SingleTickerProviderStateMixin {
   final List<Tab> tabs = <Tab>[
-    new Tab(text: "Featured"),
-    new Tab(text: "Popular"),
-    new Tab(text: "Latest")
+    const Tab(text: "Featured"),
+    const Tab(text: "Popular"),
+    const Tab(text: "Latest")
   ];
 
   TabController? _tabController;
@@ -46,14 +44,19 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
     "images/nature6.jpg",
   ];
 
+  var getMasjidInfo;
+
   @override
   void initState() {
     super.initState();
-    if (mounted)
+    if (mounted) {
       setState(() {
         showDetails = true;
+        getMasjidInfo = getNoticeSection();
+        print(getMasjidInfo);
       });
-    _tabController = new TabController(vsync: this, length: tabs.length);
+    }
+    _tabController = TabController(vsync: this, length: tabs.length);
   }
 
   @override
@@ -84,12 +87,12 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
                       bottom: BorderSide(
                           width: 1, color: CommonColor.RIGHT_COLOR))),
               child:
-                  MainHeading(SizeConfig.screenHeight, SizeConfig.screenWidth),
+              MainHeading(SizeConfig.screenHeight, SizeConfig.screenWidth),
             ),
             Container(
               height: SizeConfig.screenHeight * 0.1,
               child:
-                  CityContant(SizeConfig.screenHeight, SizeConfig.screenWidth),
+              CityContant(SizeConfig.screenHeight, SizeConfig.screenWidth),
             ),
             Container(
               height: SizeConfig.screenHeight * 0.8,
@@ -101,56 +104,47 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
   }
 
   Widget MainHeading(double parentHeight, double parentWidth) {
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            onDoubleTap: () {},
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          onDoubleTap: () {},
+          child: Padding(
+            padding: EdgeInsets.only(left: parentWidth * .04),
             child: Padding(
-              padding: EdgeInsets.only(left: parentWidth * .04),
-              child: Container(
-                child: Padding(
-                  padding: EdgeInsets.only(top: parentHeight * 0.04),
-                  child: Icon(
-                    Icons.arrow_back_ios,
-                    size: parentHeight * .03,
-                    color: CommonColor.WHITE_COLOR,
-                  ),
-                ),
+              padding: EdgeInsets.only(top: parentHeight * 0.04),
+              child: Icon(
+                Icons.arrow_back_ios,
+                size: parentHeight * .03,
+                color: CommonColor.WHITE_COLOR,
               ),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(top: parentHeight * 0.04),
-            child: Text(
-              "Registration",
-              style: TextStyle(
-                  fontSize: SizeConfig.blockSizeHorizontal * 5.0,
-                  fontFamily: 'Roboto_Medium',
-                  letterSpacing: parentWidth * 0.003,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.transparent),
-            ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: parentHeight * 0.04),
+          child: Text(
+            "Registration",
+            style: TextStyle(
+                fontSize: SizeConfig.blockSizeHorizontal * 5.0,
+                fontFamily: 'Roboto_Medium',
+                letterSpacing: parentWidth * 0.003,
+                fontWeight: FontWeight.w400,
+                color: Colors.transparent),
           ),
-          Padding(
-            padding: EdgeInsets.only(right: parentWidth * .04),
-            child: Container(
-              child: Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: Icon(
-                  Icons.arrow_back_ios,
-                  size: parentHeight * .03,
-                  color: Colors.transparent,
-                ),
-              ),
-            ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(right: parentWidth * .04),
+          child: Icon(
+            Icons.arrow_back_ios,
+            size: parentHeight * .03,
+            color: Colors.transparent,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -195,13 +189,14 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
         GestureDetector(
           onDoubleTap: () {},
           onTap: () {
-            if (mounted)
+            if (mounted) {
               setState(() {
                 mapScreen = false;
                 trusteeScreen = true;
                 showDetails = false;
                 noticeScreen = false;
               });
+            }
           },
           child: Container(
             width: parentWidth * 0.3,
@@ -216,7 +211,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
               child: Text(
                 "Trustee",
                 style: TextStyle(
-                  color: trusteeScreen  ? Colors.white : Colors.black,
+                  color: trusteeScreen ? Colors.white : Colors.black,
                   fontWeight: FontWeight.w400,
                   fontSize: SizeConfig.blockSizeHorizontal * 3.5,
                   fontFamily: 'Roboto_Medium',
@@ -228,13 +223,14 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
         GestureDetector(
           onDoubleTap: () {},
           onTap: () {
-            if (mounted)
+            if (mounted) {
               setState(() {
                 mapScreen = false;
                 showDetails = false;
                 trusteeScreen = false;
                 noticeScreen = true;
               });
+            }
           },
           child: Container(
             width: parentWidth * 0.3,
@@ -264,116 +260,141 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
 
   Widget showScreenLayout(double parentHeight, double parentWidth) {
     return Container(
-      //child: Container(
       height: parentHeight * 0.8,
       //color: Colors.blue,
       child: Stack(
         children: [
-          Visibility(visible: mapScreen, child: UserMapLocation(latitude: '20.42796133580664', longitude: '75.885749655962')),
-          Visibility(visible: trusteeScreen, child: TrusteeUserTab()),
-          Visibility(visible: noticeScreen, child: NoticeUserTab()),
+          Visibility(
+              visible: mapScreen,
+              child: const UserMapLocation(
+                  latitude: '20.42796133580664', longitude: '75.885749655962')),
+          Visibility(visible: trusteeScreen, child: const TrusteeUserTab()),
+          Visibility(visible: noticeScreen, child: const NoticeUserTab()),
+
+
+
           Visibility(
             visible: showDetails,
             child: ListView(
                 padding: EdgeInsets.only(bottom: parentHeight * 0.03),
                 shrinkWrap: true,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(left: parentHeight * 0.02),
-                        child: Text(
-                          "Masjid Name",
-                          style: TextStyle(
-                              fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                              color: CommonColor.BLACK,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'Roboto_bold'),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: parentHeight * 0.003,
-                            left: parentHeight * 0.02),
-                        child: Text(
-                          "Location :",
-                          style: TextStyle(
-                              fontSize: SizeConfig.blockSizeHorizontal * 3.5,
-                              color: CommonColor.BLACK,
-                              fontWeight: FontWeight.w500,
-                              height: 1.6,
-                              fontFamily: 'Roboto_Regular'),
-                        ),
-                      ),
-                      Container(
-                          // height: SizeConfig.screenHeight*.74,
-                          width: SizeConfig.screenWidth,
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                bottom: SizeConfig.screenHeight * .0,
-                                top: SizeConfig.screenHeight * .0),
-                            child: CarouselSlider.builder(
-                                // carouselController: _controller,
-                                itemCount: listPaths.length,
-                                //widget.getChatGroupInfoData.length,
-                                options: CarouselOptions(
-                                  onPageChanged: (index, reason) {
-                                    setState(() {
-                                      currentIndex = index;
-                                    });
-                                  },
-                                  initialPage: 1,
-                                  height: SizeConfig.screenHeight * .27,
-                                  // aspectRatio: 1.1,
-                                  viewportFraction: 1.0,
-                                  enableInfiniteScroll: false,
-                                  autoPlay: false,
-                                  enlargeStrategy:
-                                      CenterPageEnlargeStrategy.height,
-                                ),
-                                itemBuilder: (BuildContext context,
-                                    int itemIndex, int index) {
-                                  return getFirstImageFrame(
-                                      SizeConfig.screenHeight,
-                                      SizeConfig.screenWidth);
-                                }),
-                          )),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          for (int i = 0; i < listPaths.length; i++)
-                            Container(
-                              width: 7,
-                              height: 7,
-                              margin: EdgeInsets.all(2),
-                              decoration: BoxDecoration(
-                                color: currentIndex == i
-                                    ? Colors.green
-                                    : Colors.grey.shade400,
-                                shape: BoxShape.circle,
-                              ),
-                            )
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          getAddFazarLayout(
-                              SizeConfig.screenHeight, SizeConfig.screenWidth),
-                          getAddshariIftarLayout(
-                              SizeConfig.screenHeight, SizeConfig.screenWidth),
-                          getAddEidLayout(
-                              SizeConfig.screenHeight, SizeConfig.screenWidth),
-                          ContinueButton(
-                              SizeConfig.screenHeight, SizeConfig.screenWidth)
-                        ],
-                      )
 
-                      /* Text("Masjid Name"),
-                        Text ("Location :")*/
-                    ],
-                  ),
+
+
+                  FutureBuilder<NoticeResponceModel>(
+                      future: getMasjidInfo,
+                      builder: (context, snapshot) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(left: parentHeight * 0.02),
+                              child: Text(
+                                "${snapshot.data?.location?.place}",
+                                style: TextStyle(
+                                    fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+                                    color: CommonColor.BLACK,
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: 'Roboto_bold'),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  top: parentHeight * 0.003,
+                                  left: parentHeight * 0.02),
+                              child: Text(
+                                "Location :",
+                                style: TextStyle(
+                                    fontSize: SizeConfig.blockSizeHorizontal * 3.5,
+                                    color: CommonColor.BLACK,
+                                    fontWeight: FontWeight.w500,
+                                    height: 1.6,
+                                    fontFamily: 'Roboto_Regular'),
+                              ),
+                            ),
+                            Container(
+                              // height: SizeConfig.screenHeight*.74,
+                                width: SizeConfig.screenWidth,
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          bottom: SizeConfig.screenHeight * .0,
+                                          top: SizeConfig.screenHeight * .0),
+                                      child: Column(
+                                        children: [
+                                          CarouselSlider.builder(
+                                            // carouselController: _controller,
+                                              itemCount: snapshot.data?.images?.length,
+                                              //widget.getChatGroupInfoData.length,
+                                              options: CarouselOptions(
+                                                onPageChanged: (index, reason) {
+                                                  setState(() {
+                                                    currentIndex = index;
+                                                  });
+                                                },
+                                                initialPage: 1,
+                                                height: SizeConfig.screenHeight * .27,
+                                                // aspectRatio: 1.1,
+                                                viewportFraction: 1.0,
+                                                enableInfiniteScroll: false,
+                                                autoPlay: false,
+                                                enlargeStrategy:
+                                                CenterPageEnlargeStrategy.height,
+                                              ),
+                                              itemBuilder: (BuildContext context,
+                                                  int itemIndex, int index) {
+                                                return getFirstImageFrame(
+                                                    SizeConfig.screenHeight,
+                                                    SizeConfig.screenWidth,
+                                                    snapshot.data?.images?[index],
+                                                    snapshot.data?.images?.length);
+                                              }),
+                                          Padding(
+                                            padding: EdgeInsets.only(top: parentHeight*0.007),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              children: [
+                                                for (int i = 0; i < int.parse("${snapshot.data?.images?.length}"); i++)
+                                                  Container(
+                                                    width: 7,
+                                                    height: 7,
+                                                    margin: const EdgeInsets.all(2),
+                                                    decoration: BoxDecoration(
+                                                      color: currentIndex == i
+                                                          ? Colors.green
+                                                          : Colors.grey.shade400,
+                                                      shape: BoxShape.circle,
+                                                    ),
+                                                  )
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                )),
+                            Column(
+                              children: [
+                                getAddFazarLayout(
+                                    SizeConfig.screenHeight, SizeConfig.screenWidth),
+                                getAddshariIftarLayout(
+                                    SizeConfig.screenHeight, SizeConfig.screenWidth),
+                                getAddEidLayout(
+                                    SizeConfig.screenHeight, SizeConfig.screenWidth),
+                                ContinueButton(
+                                    SizeConfig.screenHeight, SizeConfig.screenWidth)
+                              ],
+                            )
+                          ],
+                        );
+                      }),
+
+
+
                 ]),
           ),
         ],
@@ -381,11 +402,12 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
     );
   }
 
-  Widget getFirstImageFrame(double parentHeight, double parentWidth) {
+  Widget getFirstImageFrame(double parentHeight, double parentWidth, images, imageLen) {
     return Padding(
       padding: EdgeInsets.only(left: parentWidth * 0.03),
       child: Container(
         width: parentWidth,
+        // color:Colors.red,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -396,17 +418,14 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
                 width: parentWidth * .94,
                 decoration: BoxDecoration(
                     color: CommonColor.GRAY_COLOR,
-                    borderRadius: BorderRadius.circular(0)),
-
-                /* child: ClipRRect(
-                 borderRadius: BorderRadius.all(Radius.circular(20)),
-
-                // borderRadius: BorderRadius.circular(8),
-                child: const Image(
-                    image: AssetImage("assets/images/frame_one.png"),
-                    fit: BoxFit.cover,
-                  ),
-               ),*/
+                    borderRadius: BorderRadius.circular(0),
+                    image: DecorationImage(
+                        image:images != null ?
+                        NetworkImage(
+                          images.toString(),
+                        ) : NetworkImage(""),
+                        fit: BoxFit.cover
+                    )),
               ),
             ),
           ],
@@ -428,26 +447,27 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
               color: Colors.grey.shade300,
               spreadRadius: 1,
               blurRadius: 5,
-              offset: Offset(0, 5),
+              offset: const Offset(0, 5),
             ),
             BoxShadow(
               color: Colors.grey.shade50,
-              offset: Offset(-5, 0),
+              offset: const Offset(-5, 0),
             ),
             BoxShadow(
               color: Colors.grey.shade50,
-              offset: Offset(5, 0),
+              offset: const Offset(5, 0),
             )
           ],
         ),
-        child: Column(
+        child:
+        /*Column(
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                   topRight: Radius.circular(10), topLeft: Radius.circular(10)),
               child: Container(
                 height: parentHeight * 0.04,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     gradient: LinearGradient(
                         begin: Alignment.centerLeft,
                         end: Alignment.centerRight,
@@ -712,6 +732,157 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
               ],
             )
           ],
+        )*/
+        Column(
+          children: [
+
+            ClipRRect(
+              borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(10), topLeft: Radius.circular(10)),
+              child: Container(
+                height: parentHeight * 0.04,
+                decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: [
+                          CommonColor.LEFT_COLOR,
+                          CommonColor.RIGHT_COLOR
+                        ])),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Jammat Time",
+                      style: TextStyle(
+                        fontSize: SizeConfig.blockSizeHorizontal * 4.3,
+                        fontFamily: 'Roboto_Bold',
+                        fontWeight: FontWeight.w600,
+                        color: CommonColor.WHITE_COLOR,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            Container(
+              height: parentHeight*0.19,
+              // color: Colors.red,
+              child: Row(
+                children: [
+                  Column(
+                    children: [
+
+
+                      Padding(
+                        padding: EdgeInsets.only(top: parentHeight*0.03),
+                        child: const Text("AZAN",
+                          style: TextStyle(
+                              color: Colors.transparent
+                          ),),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: parentHeight*0.04),
+                        child: Container(
+                            width: parentWidth*0.2,
+                            height: parentHeight*0.027,
+                            decoration: const BoxDecoration(
+                              // color: Colors.blue,
+                                border: Border(bottom: BorderSide(width: 1, color: CommonColor.SEARCH_COLOR))
+                            ),
+                            child: Padding(
+                              padding:  EdgeInsets.only(left: parentWidth*0.05),
+                              child: const Text("AZAN"),
+                            )
+                        ),
+                      ),
+
+
+                      Padding(
+                        padding: EdgeInsets.only(top: parentHeight*0.01, left: parentWidth*0.03),
+                        child: Row(
+                          children: const [
+                            Text("JAMAA'T"),
+                          ],
+                        ),
+                      ),
+
+                    ],
+                  ),
+
+                  FutureBuilder<NoticeResponceModel>(
+                      future: getMasjidInfo,
+                      builder: (context, snapshot) {
+                        return
+                          snapshot.data?.weeklyNamaz?.length != null ?
+                          Expanded(
+                            child: ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: snapshot.data?.weeklyNamaz?.length,
+                                scrollDirection: Axis.horizontal,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemBuilder:
+                                    (context, index) {
+                                  return  Column(
+                                    children: [
+
+
+                                      Padding(
+                                        padding: EdgeInsets.only(top: parentHeight*0.03),
+                                        child: Text("${snapshot.data?.weeklyNamaz?[index].day}",
+                                          style: TextStyle(
+                                              fontSize: SizeConfig.blockSizeHorizontal*3.0
+                                          ),),
+                                      ),
+
+
+                                      Padding(
+                                        padding: EdgeInsets.only(top: parentHeight*0.04),
+                                        child: Container(
+                                            width: parentWidth*0.135,
+                                            height: parentHeight*0.031,
+                                            decoration: const BoxDecoration(
+                                              // color: Colors.blue,
+                                                border: Border(bottom: BorderSide(width: 1,  color: CommonColor.SEARCH_COLOR))
+                                            ),
+                                            child: Padding(
+                                              padding: EdgeInsets.only(left: parentWidth*0.03),
+                                              child: Text("${snapshot.data?.weeklyNamaz?[index].azan}",
+                                                style: TextStyle(
+                                                    fontSize: SizeConfig.blockSizeHorizontal*3.0
+                                                ),),
+                                            )
+                                        ),
+                                      ),
+
+                                      Padding(
+                                        padding: EdgeInsets.only(top: parentHeight*0.01),
+                                        child: Row(
+                                          children: [
+                                            Text("${snapshot.data?.weeklyNamaz?[index].jammt}",
+                                              style: TextStyle(
+                                                  fontSize: SizeConfig.blockSizeHorizontal*3.0
+                                              ),),
+                                          ],
+                                        ),
+                                      ),
+
+                                    ],
+                                  ) ;
+                                }),
+                          )
+                              : Container();
+                      })
+
+
+
+
+                ],
+              ),
+            )
+
+          ],
         ),
       ),
     );
@@ -721,247 +892,253 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
     return Padding(
       padding: EdgeInsets.only(top: parentHeight * 0.03),
       child: Container(
-        height: parentHeight * 0.16,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-              color: Colors.grey.shade300,
-              spreadRadius: 1,
-              blurRadius: 5,
-              offset: Offset(0, 5),
-            ),
-            BoxShadow(
-              color: Colors.grey.shade50,
-              offset: Offset(-5, 0),
-            ),
-            BoxShadow(
-              color: Colors.grey.shade50,
-              offset: Offset(5, 0),
-            )
-          ],
-        ),
-        child: Column(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(10), topLeft: Radius.circular(10)),
-              child: Container(
-                height: parentHeight * 0.04,
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                        colors: [
-                      CommonColor.LEFT_COLOR,
-                      CommonColor.RIGHT_COLOR
-                    ])),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+          height: parentHeight * 0.16,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                color: Colors.grey.shade300,
+                spreadRadius: 1,
+                blurRadius: 5,
+                offset: const Offset(0, 5),
+              ),
+              BoxShadow(
+                color: Colors.grey.shade50,
+                offset: const Offset(-5, 0),
+              ),
+              BoxShadow(
+                color: Colors.grey.shade50,
+                offset: const Offset(5, 0),
+              )
+            ],
+          ),
+          child:  FutureBuilder<NoticeResponceModel>(
+              future: getMasjidInfo,
+              builder: (context, snapshot) {
+                return Column(
                   children: [
-                    Text(
-                      "SAHR / IFTAR",
-                      style: TextStyle(
-                        fontSize: SizeConfig.blockSizeHorizontal * 4.3,
-                        fontFamily: 'Roboto_Bold',
-                        fontWeight: FontWeight.w600,
-                        color: CommonColor.WHITE_COLOR,
+                    ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                          topRight: Radius.circular(10), topLeft: Radius.circular(10)),
+                      child: Container(
+                        height: parentHeight * 0.04,
+                        decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                                colors: [
+                                  CommonColor.LEFT_COLOR,
+                                  CommonColor.RIGHT_COLOR
+                                ])),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "SAHR / IFTAR",
+                              style: TextStyle(
+                                fontSize: SizeConfig.blockSizeHorizontal * 4.3,
+                                fontFamily: 'Roboto_Bold',
+                                fontWeight: FontWeight.w600,
+                                color: CommonColor.WHITE_COLOR,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ],
-                ),
-              ),
-            ),
-            Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: parentWidth * 0.1, top: parentHeight * 0.02),
-                      child: Text("SAHR",
-                          style: TextStyle(
-                            fontSize: SizeConfig.blockSizeHorizontal * 4.3,
-                            fontFamily: 'Roboto_Bold',
-                            fontWeight: FontWeight.w600,
-                            color: CommonColor.BLACK_COLOR,
-                          )),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          right: parentWidth * 0.1, top: parentHeight * 0.02),
-                      child: Text("04:30",
-                          style: TextStyle(
-                            fontSize: SizeConfig.blockSizeHorizontal * 4.3,
-                            fontFamily: 'Roboto_Bold',
-                            fontWeight: FontWeight.w600,
-                            color: CommonColor.BLACK_COLOR,
-                          )),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: parentHeight * 0.05, top: parentHeight * 0.03),
-                      child: Text("IFTAR",
-                          style: TextStyle(
-                            fontSize: SizeConfig.blockSizeHorizontal * 4.3,
-                            fontFamily: 'Roboto_Bold',
-                            fontWeight: FontWeight.w600,
-                            color: CommonColor.BLACK_COLOR,
-                          )),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          right: parentWidth * 0.1, top: parentHeight * 0.02),
-                      child: Text("07:10",
-                          style: TextStyle(
-                            fontSize: SizeConfig.blockSizeHorizontal * 4.3,
-                            fontFamily: 'Roboto_Bold',
-                            fontWeight: FontWeight.w600,
-                            color: CommonColor.BLACK_COLOR,
-                          )),
+                    Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: parentWidth * 0.1, top: parentHeight * 0.02),
+                              child: Text("SAHR",
+                                  style: TextStyle(
+                                    fontSize: SizeConfig.blockSizeHorizontal * 4.3,
+                                    fontFamily: 'Roboto_Bold',
+                                    fontWeight: FontWeight.w600,
+                                    color: CommonColor.BLACK_COLOR,
+                                  )),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  right: parentWidth * 0.1, top: parentHeight * 0.02),
+                              child: snapshot.data?.sahr != null ?
+                              Text("${snapshot.data?.sahr}",
+                                  style: TextStyle(
+                                    fontSize: SizeConfig.blockSizeHorizontal * 4.3,
+                                    fontFamily: 'Roboto_Bold',
+                                    fontWeight: FontWeight.w600,
+                                    color: CommonColor.BLACK_COLOR,
+                                  )) : Container(),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: parentHeight * 0.05, top: parentHeight * 0.03),
+                              child: Text("IFTAR",
+                                  style: TextStyle(
+                                    fontSize: SizeConfig.blockSizeHorizontal * 4.3,
+                                    fontFamily: 'Roboto_Bold',
+                                    fontWeight: FontWeight.w600,
+                                    color: CommonColor.BLACK_COLOR,
+                                  )),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  right: parentWidth * 0.1, top: parentHeight * 0.02),
+                              child:snapshot.data?.iftar != null ?
+                              Text("${snapshot.data?.iftar}",
+                                  style: TextStyle(
+                                    fontSize: SizeConfig.blockSizeHorizontal * 4.3,
+                                    fontFamily: 'Roboto_Bold',
+                                    fontWeight: FontWeight.w600,
+                                    color: CommonColor.BLACK_COLOR,
+                                  ))
+                                  : Text(""),
+                            )
+                          ],
+                        )
+                      ],
                     )
                   ],
-                )
-              ],
-            )
-          ],
-        ),
+                );
+              })
+
       ),
     );
   }
 
   Widget getAddEidLayout(double parentHeight, double parentWidth) {
     return Padding(
-      padding: EdgeInsets.only(top: parentHeight * 0.03),
+      padding: EdgeInsets.only(top: parentHeight * 0.02),
       child: Container(
-        height: parentHeight * 0.16,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-              color: Colors.grey.shade300,
-              spreadRadius: 1,
-              blurRadius: 5,
-              offset: Offset(0, 5),
-            ),
-            BoxShadow(
-              color: Colors.grey.shade50,
-              offset: Offset(-5, 0),
-            ),
-            BoxShadow(
-              color: Colors.grey.shade50,
-              offset: Offset(5, 0),
-            )
-          ],
-        ),
-        child: Column(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(10), topLeft: Radius.circular(10)),
-              child: Container(
-                height: parentHeight * 0.04,
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                        colors: [
-                      CommonColor.LEFT_COLOR,
-                      CommonColor.RIGHT_COLOR
-                    ])),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "EID",
-                      style: TextStyle(
-                        fontSize: SizeConfig.blockSizeHorizontal * 4.3,
-                        fontFamily: 'Roboto_Bold',
-                        fontWeight: FontWeight.w600,
-                        color: CommonColor.WHITE_COLOR,
-                      ),
-                    ),
-                  ],
-                ),
+          height: parentHeight * 0.16,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                color: Colors.grey.shade300,
+                spreadRadius: 1,
+                blurRadius: 5,
+                offset: const Offset(0, 5),
               ),
-            ),
-            Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: parentWidth * 0.1, top: parentHeight * 0.02),
-                      child: Text("EID AL-FITR",
-                          style: TextStyle(
-                            fontSize: SizeConfig.blockSizeHorizontal * 4.3,
-                            fontFamily: 'Roboto_Bold',
-                            fontWeight: FontWeight.w600,
-                            color: CommonColor.BLACK_COLOR,
-                          )),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          right: parentWidth * 0.1, top: parentHeight * 0.02),
-                      child: Text("Jamaat 08:30",
-                          style: TextStyle(
-                            fontSize: SizeConfig.blockSizeHorizontal * 4.3,
-                            fontFamily: 'Roboto_Bold',
-                            fontWeight: FontWeight.w600,
-                            color: CommonColor.BLACK_COLOR,
-                          )),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: parentHeight * 0.05, top: parentHeight * 0.03),
-                      child: Text("EID AL-ADHA",
-                          style: TextStyle(
-                            fontSize: SizeConfig.blockSizeHorizontal * 4.3,
-                            fontFamily: 'Roboto_Bold',
-                            fontWeight: FontWeight.w600,
-                            color: CommonColor.BLACK_COLOR,
-                          )),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          right: parentWidth * 0.1, top: parentHeight * 0.02),
-                      child: Text("Jamaat 07:30",
-                          style: TextStyle(
-                            fontSize: SizeConfig.blockSizeHorizontal * 4.3,
-                            fontFamily: 'Roboto_Bold',
-                            fontWeight: FontWeight.w600,
-                            color: CommonColor.BLACK_COLOR,
-                          )),
-                    )
-                  ],
-                )
-              ],
-            )
-          ],
-        ),
+              BoxShadow(
+                color: Colors.grey.shade50,
+                offset: Offset(-5, 0),
+              ),
+              BoxShadow(
+                color: Colors.grey.shade50,
+                offset: const Offset(5, 0),
+              )
+            ],
+          ),
+          child:   FutureBuilder<NoticeResponceModel>(
+              future: getMasjidInfo,
+              builder: (context, snapshot) {
+                return
+                  snapshot.data?.weeklyNamaz?.length != null ?
+                  Column(
+                    children: [
+
+                      ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                            topRight: Radius.circular(10), topLeft: Radius.circular(10)),
+                        child: Container(
+                          height: parentHeight * 0.04,
+                          decoration: const BoxDecoration(
+                              gradient: LinearGradient(
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.centerRight,
+                                  colors: [
+                                    CommonColor.LEFT_COLOR,
+                                    CommonColor.RIGHT_COLOR
+                                  ])),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "EID",
+                                style: TextStyle(
+                                  fontSize: SizeConfig.blockSizeHorizontal * 4.3,
+                                  fontFamily: 'Roboto_Bold',
+                                  fontWeight: FontWeight.w600,
+                                  color: CommonColor.WHITE_COLOR,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+
+                      Expanded(
+                        child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: snapshot.data?.ed?.length,
+                            // physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder:
+                                (context, index) {
+                              return  Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            left: parentWidth * 0.1, top: parentHeight * 0.01),
+                                        child: Text("${snapshot.data?.ed?[index].name}",
+                                            style: TextStyle(
+                                              fontSize: SizeConfig.blockSizeHorizontal * 4.3,
+                                              fontFamily: 'Roboto_Bold',
+                                              fontWeight: FontWeight.w600,
+                                              color: CommonColor.BLACK_COLOR,
+                                            )),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            right: parentWidth * 0.05, top: parentHeight * 0.01),
+                                        child: Text("Jammat  ${snapshot.data?.ed?[index].jammat?[index].time}",
+                                            style: TextStyle(
+                                              fontSize: SizeConfig.blockSizeHorizontal * 4.3,
+                                              fontFamily: 'Roboto_Bold',
+                                              fontWeight: FontWeight.w600,
+                                              color: CommonColor.BLACK_COLOR,
+                                            )),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              );
+                            }),
+                      ),
+                    ],
+                  )
+                      : Container();
+              })
+
+
+
+
+
       ),
-    );//////
+    ); //////
   }
 
   Widget ContinueButton(double parentHeight, double parentWidth) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => ParentTabBarScreen()));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const ParentTabBarScreen()));
       },
       child: Padding(
         padding: EdgeInsets.only(
@@ -971,7 +1148,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
         child: Container(
             height: parentHeight * 0.06,
             decoration: BoxDecoration(
-              gradient: LinearGradient(
+              gradient: const LinearGradient(
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
                   colors: [CommonColor.LEFT_COLOR, CommonColor.RIGHT_COLOR]),
@@ -990,4 +1167,42 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
       ),
     );
   }
+
+
+  Future<NoticeResponceModel> getNoticeSection() async {
+    // print(" userId ${userId}");
+
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'authorization': 'Basic c3R1ZHlkb3RlOnN0dWR5ZG90ZTEyMw=='
+    };
+
+    // final msg = jsonEncode({
+    //   "user_id": userId.toString(),
+    // });
+
+    var response = await http.post(
+      Uri.parse("http://sangh.bizz-manager.com/?id=1"),
+      headers: headers,
+    );
+
+    if (response.statusCode == 200) {
+      // If the server did return a 201 CREATED response,
+      // then parse the JSON.
+
+      // circularLoader = false;
+
+      print("Yess.. ${response.body}");
+
+      print("Hiii");
+
+      return noticeResponceModelFromJson(response.body);
+    } else {
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      throw Exception('Failed to create album.');
+    }
+  }
+
+
 }
