@@ -159,31 +159,24 @@ class _UserMapLocationState extends State<UserMapLocation> with TickerProviderSt
                 FocusScope.of(context).requestFocus(FocusNode());
               },
               onDoubleTap: () {},
-              child: Stack(
-                alignment: Alignment.bottomCenter,
-                children: [
-                  Container(
+              child: Container(
+                height: SizeConfig.screenHeight*0.9,
               // color: Colors.red,
-                    child: ListView(
-                      shrinkWrap: true,
+                child: ListView(
+                  shrinkWrap: true,
+                  children: [
+
+                    Stack(
+                      alignment: Alignment.bottomCenter,
                       children: [
-                        // getFilterNameLayout(
-                        //     SizeConfig.screenHeight, SizeConfig.screenWidth),
-                      /*  Padding(
-                          padding: EdgeInsets.only(top: SizeConfig.screenHeight * .01,
-                              left: SizeConfig.screenWidth * .06, right: SizeConfig.screenWidth * .05),
-                          child: SearchLocationInput(onSearchInput: searchPlace,key: searchGlobalKey,),
-                        ),*/
-                        // getSearchBarLayout(
-                        //     SizeConfig.screenHeight, SizeConfig.screenWidth),
                         getGoogleMapLayout(
-                            SizeConfig.screenHeight, SizeConfig.screenWidth)
+                            SizeConfig.screenHeight, SizeConfig.screenWidth),
+                        getAddDoneButtonLayout(
+                            SizeConfig.screenHeight, SizeConfig.screenWidth),
                       ],
-                    ),
-                  ),
-                  getAddDoneButtonLayout(
-                      SizeConfig.screenHeight, SizeConfig.screenWidth),
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),
@@ -199,78 +192,65 @@ class _UserMapLocationState extends State<UserMapLocation> with TickerProviderSt
   /* Get Add Google Map Layout */
   Widget getGoogleMapLayout(double parentHeight, double parentWidth) {
     // createMarker(context);
-    return Padding(
-      padding: EdgeInsets.only(top: parentHeight * 0.02),
-      child: Container(
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                Container(
-                  height: parentHeight * 0.66,
-                  // color: Colors.red,
-                  child: GoogleMap(
-                    rotateGesturesEnabled: false,
-                    myLocationEnabled: true,
-                    myLocationButtonEnabled: true,
-                    indoorViewEnabled: true,
-                    trafficEnabled: true,
-                    zoomControlsEnabled: false,
-                    // buildingsEnabled: false,
-                    minMaxZoomPreference: MinMaxZoomPreference.unbounded,
-                    cameraTargetBounds: CameraTargetBounds.unbounded,
-                    zoomGesturesEnabled: true,
+    return Container(
+      height: parentHeight * 0.75,
+      // color: Colors.red,
+      child: GoogleMap(
+        rotateGesturesEnabled: false,
+        myLocationEnabled: true,
+        myLocationButtonEnabled: true,
+        indoorViewEnabled: true,
+        trafficEnabled: true,
+        zoomControlsEnabled: false,
+        // buildingsEnabled: false,
+        minMaxZoomPreference: MinMaxZoomPreference.unbounded,
+        cameraTargetBounds: CameraTargetBounds.unbounded,
+        zoomGesturesEnabled: true,
 
-                    mapType: MapType.normal,
-                    //enable Zoom in, out on map
-                    initialCameraPosition: CameraPosition(
-                      //innital position in map
-                      target: showLocation, //initial position
-                      zoom: 12.0,
-                      //initial zoom level
-                    ),
-                    onTap: (latLng){
-                      setState(() {
-                        markers.clear();
-                        showLocation=latLng;
-                        reverseGeocodeLatLng(showLocation);
-                        markers.add(
-                          Marker(
-                            markerId: MarkerId("1"),
-                            position:latLng,
-                          ),
-                        );
-                      });
-                    },
-
-                    onCameraMove: (position) {
-                      if (mounted)
-                        setState(() {
-                          showLocation = (position.target);
-                          print("onCameraMove   $showLocation");
-                          print("position   ${position.target}");
-                          reverseGeocodeLatLng(showLocation);
-
-                          markers.add(
-                            Marker(
-                              markerId: MarkerId('1'),
-                              position: position.target,
-                            ),
-                          );
-                        });
-                    },
-                    //markers to show on map
-                    //mapType: MapType.normal, //map type
-                    onMapCreated: onMapCreated,
-
-                    markers: markers.toSet(),
-
-                  ),
-                ),
-              ],
-            ),
-          ],
+        mapType: MapType.normal,
+        //enable Zoom in, out on map
+        initialCameraPosition: CameraPosition(
+          //innital position in map
+          target: showLocation, //initial position
+          zoom: 12.0,
+          //initial zoom level
         ),
+        onTap: (latLng){
+          setState(() {
+            markers.clear();
+            showLocation=latLng;
+            reverseGeocodeLatLng(showLocation);
+            markers.add(
+              Marker(
+                markerId: MarkerId("1"),
+                position:latLng,
+              ),
+            );
+          });
+        },
+
+        onCameraMove: (position) {
+          if (mounted)
+            setState(() {
+              showLocation = (position.target);
+              print("onCameraMove   $showLocation");
+              print("position   ${position.target}");
+              reverseGeocodeLatLng(showLocation);
+
+              markers.add(
+                Marker(
+                  markerId: MarkerId('1'),
+                  position: position.target,
+                ),
+              );
+            });
+        },
+        //markers to show on map
+        //mapType: MapType.normal, //map type
+        onMapCreated: onMapCreated,
+
+        markers: markers.toSet(),
+
       ),
     );
   }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:masjiduserapp/map_screen.dart';
+import 'package:masjiduserapp/masjit_main_new_screen.dart';
 import 'package:masjiduserapp/privacy_policy.dart';
 import 'package:masjiduserapp/size_config.dart';
 import 'package:masjiduserapp/terms_and_condition.dart';
@@ -205,6 +207,8 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
         ),
       ),
       body: ListView(
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
 
         padding: EdgeInsets.only(bottom: 20),
         children: [
@@ -380,7 +384,8 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                       child: TabBarView(
                         controller: _tabController,
                         children: [
-                          MasjitNameLocationJoined(),
+                          MasjitMainScreen(),
+                         AllMasjitList(),
                           /* GestureDetector(
                                 onTap: (){
                                _tabController.animateTo(1);
@@ -448,7 +453,7 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                             ),*/
 
                             */
-                          AllMasjitList(),
+
                           //JoinedMasjitThreeTabs()
 
 

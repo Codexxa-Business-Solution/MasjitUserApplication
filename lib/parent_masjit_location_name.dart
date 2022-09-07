@@ -149,112 +149,137 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
   }
 
   Widget CityContant(double parentHeight, double parentWidth) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        GestureDetector(
-          onDoubleTap: () {},
-          onTap: () {
-            if (mounted) {
-              setState(() {
-                mapScreen = true;
-                trusteeScreen = false;
-                showDetails = false;
-                noticeScreen = false;
-              });
-            }
-          },
-          child: Container(
-            width: parentWidth * 0.3,
-            height: parentHeight * 0.05,
-            decoration: BoxDecoration(
-                color: mapScreen == true
-                    ? CommonColor.REGISTRARTION_TRUSTEE.withOpacity(0.9)
-                    : Colors.white,
-                borderRadius: BorderRadius.circular(50),
-                border: Border.all(color: CommonColor.RIGHT_COLOR, width: 1)),
-            child: Center(
-              child: Text(
-                "Map",
-                style: TextStyle(
-                  color: mapScreen == true ? Colors.white : Colors.black,
-                  fontWeight: FontWeight.w400,
-                  fontSize: SizeConfig.blockSizeHorizontal * 3.5,
-                  fontFamily: 'Roboto_Medium',
+    return Container(
+height: parentHeight*0.8,
+
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: Colors.grey.shade300,
+            spreadRadius: 1,
+            blurRadius: 5,
+            offset: const Offset(0, 5),
+          ),
+          BoxShadow(
+            color: Colors.grey.shade50,
+            offset: const Offset(-5, 0),
+          ),
+          BoxShadow(
+            color: Colors.grey.shade50,
+            offset: const Offset(5, 0),
+          )
+        ],
+      ),
+
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          GestureDetector(
+            onDoubleTap: () {},
+            onTap: () {
+              if (mounted) {
+                setState(() {
+                  mapScreen = true;
+                  trusteeScreen = false;
+                  showDetails = false;
+                  noticeScreen = false;
+                });
+              }
+            },
+            child: Container(
+              width: parentWidth * 0.3,
+              height: parentHeight * 0.05,
+              decoration: BoxDecoration(
+                  color: mapScreen == true
+                      ? CommonColor.REGISTRARTION_TRUSTEE.withOpacity(0.9)
+                      : Colors.white,
+                  borderRadius: BorderRadius.circular(50),
+                  border: Border.all(color: CommonColor.RIGHT_COLOR, width: 1)),
+              child: Center(
+                child: Text(
+                  "Map",
+                  style: TextStyle(
+                    color: mapScreen == true ? Colors.white : Colors.black,
+                    fontWeight: FontWeight.w400,
+                    fontSize: SizeConfig.blockSizeHorizontal * 3.5,
+                    fontFamily: 'Roboto_Medium',
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-        GestureDetector(
-          onDoubleTap: () {},
-          onTap: () {
-            if (mounted) {
-              setState(() {
-                mapScreen = false;
-                trusteeScreen = true;
-                showDetails = false;
-                noticeScreen = false;
-              });
-            }
-          },
-          child: Container(
-            width: parentWidth * 0.3,
-            height: parentHeight * 0.05,
-            decoration: BoxDecoration(
-                color: trusteeScreen
-                    ? CommonColor.REGISTRARTION_TRUSTEE.withOpacity(0.9)
-                    : Colors.white,
-                borderRadius: BorderRadius.circular(50),
-                border: Border.all(color: CommonColor.RIGHT_COLOR, width: 1)),
-            child: Center(
-              child: Text(
-                "Trustee",
-                style: TextStyle(
-                  color: trusteeScreen ? Colors.white : Colors.black,
-                  fontWeight: FontWeight.w400,
-                  fontSize: SizeConfig.blockSizeHorizontal * 3.5,
-                  fontFamily: 'Roboto_Medium',
+          GestureDetector(
+            onDoubleTap: () {},
+            onTap: () {
+              if (mounted) {
+                setState(() {
+                  mapScreen = false;
+                  trusteeScreen = true;
+                  showDetails = false;
+                  noticeScreen = false;
+                });
+              }
+            },
+            child: Container(
+              width: parentWidth * 0.3,
+              height: parentHeight * 0.05,
+              decoration: BoxDecoration(
+                  color: trusteeScreen
+                      ? CommonColor.REGISTRARTION_TRUSTEE.withOpacity(0.9)
+                      : Colors.white,
+                  borderRadius: BorderRadius.circular(50),
+                  border: Border.all(color: CommonColor.RIGHT_COLOR, width: 1)),
+              child: Center(
+                child: Text(
+                  "Trustee",
+                  style: TextStyle(
+                    color: trusteeScreen ? Colors.white : Colors.black,
+                    fontWeight: FontWeight.w400,
+                    fontSize: SizeConfig.blockSizeHorizontal * 3.5,
+                    fontFamily: 'Roboto_Medium',
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-        GestureDetector(
-          onDoubleTap: () {},
-          onTap: () {
-            if (mounted) {
-              setState(() {
-                mapScreen = false;
-                showDetails = false;
-                trusteeScreen = false;
-                noticeScreen = true;
-              });
-            }
-          },
-          child: Container(
-            width: parentWidth * 0.3,
-            height: parentHeight * 0.05,
-            decoration: BoxDecoration(
-                color: noticeScreen
-                    ? CommonColor.REGISTRARTION_TRUSTEE.withOpacity(0.9)
-                    : Colors.white,
-                borderRadius: BorderRadius.circular(50),
-                border: Border.all(color: CommonColor.RIGHT_COLOR, width: 1)),
-            child: Center(
-              child: Text(
-                "Notice",
-                style: TextStyle(
-                  color: noticeScreen == true ? Colors.white : Colors.black,
-                  fontWeight: FontWeight.w400,
-                  fontSize: SizeConfig.blockSizeHorizontal * 3.5,
-                  fontFamily: 'Roboto_Medium',
+          GestureDetector(
+            onDoubleTap: () {},
+            onTap: () {
+              if (mounted) {
+                setState(() {
+                  mapScreen = false;
+                  showDetails = false;
+                  trusteeScreen = false;
+                  noticeScreen = true;
+                });
+              }
+            },
+            child: Container(
+              width: parentWidth * 0.3,
+              height: parentHeight * 0.05,
+              decoration: BoxDecoration(
+                  color: noticeScreen
+                      ? CommonColor.REGISTRARTION_TRUSTEE.withOpacity(0.9)
+                      : Colors.white,
+                  borderRadius: BorderRadius.circular(50),
+                  border: Border.all(color: CommonColor.RIGHT_COLOR, width: 1)),
+              child: Center(
+                child: Text(
+                  "Notice",
+                  style: TextStyle(
+                    color: noticeScreen == true ? Colors.white : Colors.black,
+                    fontWeight: FontWeight.w400,
+                    fontSize: SizeConfig.blockSizeHorizontal * 3.5,
+                    fontFamily: 'Roboto_Medium',
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -357,7 +382,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               crossAxisAlignment: CrossAxisAlignment.center,
                                               children: [
-                                                for (int i = 0; i < int.parse("${snapshot.data?.images?.length}"); i++)
+                                                for (int i = 0; i <2; i++)
                                                   Container(
                                                     width: 7,
                                                     height: 7,
@@ -460,279 +485,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
           ],
         ),
         child:
-        /*Column(
-          children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(10), topLeft: Radius.circular(10)),
-              child: Container(
-                height: parentHeight * 0.04,
-                decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                        colors: [
-                      CommonColor.LEFT_COLOR,
-                      CommonColor.RIGHT_COLOR
-                    ])),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Jammat Time",
-                      style: TextStyle(
-                        fontSize: SizeConfig.blockSizeHorizontal * 4.3,
-                        fontFamily: 'Roboto_Bold',
-                        fontWeight: FontWeight.w600,
-                        color: CommonColor.WHITE_COLOR,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: parentHeight * 0.03),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(left: parentWidth * 0.18),
-                        child: Text("FAJR",
-                            style: TextStyle(
-                              fontSize: SizeConfig.blockSizeHorizontal * 3.5,
-                              fontFamily: 'Roboto_Bold',
-                              fontWeight: FontWeight.w500,
-                              color: CommonColor.BLACK_COLOR,
-                            )),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: parentWidth * 0.0),
-                        child: Text("ZUHAR",
-                            style: TextStyle(
-                              fontSize: SizeConfig.blockSizeHorizontal * 3.5,
-                              fontFamily: 'Roboto_Bold',
-                              fontWeight: FontWeight.w500,
-                              color: CommonColor.BLACK_COLOR,
-                            )),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: parentWidth * 0.0),
-                        child: Text("FAJR",
-                            style: TextStyle(
-                              fontSize: SizeConfig.blockSizeHorizontal * 3.5,
-                              fontFamily: 'Roboto_Bold',
-                              fontWeight: FontWeight.w500,
-                              color: CommonColor.BLACK_COLOR,
-                            )),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: parentWidth * 0.0),
-                        child: Text("FAJR",
-                            style: TextStyle(
-                              fontSize: SizeConfig.blockSizeHorizontal * 3.5,
-                              fontFamily: 'Roboto_Bold',
-                              fontWeight: FontWeight.w500,
-                              color: CommonColor.BLACK_COLOR,
-                            )),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: parentWidth * 0.0),
-                        child: Text("FAJR",
-                            style: TextStyle(
-                              fontSize: SizeConfig.blockSizeHorizontal * 3.5,
-                              fontFamily: 'Roboto_Bold',
-                              fontWeight: FontWeight.w500,
-                              color: CommonColor.BLACK_COLOR,
-                            )),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(right: parentWidth * 0.08),
-                        child: Text("FAJR",
-                            style: TextStyle(
-                              fontSize: SizeConfig.blockSizeHorizontal * 3.5,
-                              fontFamily: 'Roboto_Bold',
-                              fontWeight: FontWeight.w500,
-                              color: CommonColor.BLACK_COLOR,
-                            )),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-            Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: parentWidth * 0.03, top: parentHeight * 0.02),
-                      child: Text("AZAN",
-                          style: TextStyle(
-                            fontSize: SizeConfig.blockSizeHorizontal * 4.3,
-                            fontFamily: 'Roboto_Bold',
-                            fontWeight: FontWeight.w600,
-                            color: CommonColor.BLACK_COLOR,
-                          )),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: parentWidth * 0.0, top: parentHeight * 0.02),
-                      child: Text("05:00",
-                          style: TextStyle(
-                            fontSize: SizeConfig.blockSizeHorizontal * 3.3,
-                            fontFamily: 'Roboto_Regular',
-                            fontWeight: FontWeight.w400,
-                            color: CommonColor.BLACK_COLOR,
-                          )),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: parentWidth * 0.0, top: parentHeight * 0.02),
-                      child: Text("01:00",
-                          style: TextStyle(
-                            fontSize: SizeConfig.blockSizeHorizontal * 3.3,
-                            fontFamily: 'Roboto_Regular',
-                            fontWeight: FontWeight.w400,
-                            color: CommonColor.BLACK_COLOR,
-                          )),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: parentWidth * 0.0, top: parentHeight * 0.02),
-                      child: Text("05:00",
-                          style: TextStyle(
-                            fontSize: SizeConfig.blockSizeHorizontal * 3.3,
-                            fontFamily: 'Roboto_Regular',
-                            fontWeight: FontWeight.w400,
-                            color: CommonColor.BLACK_COLOR,
-                          )),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: parentWidth * 0.0, top: parentHeight * 0.02),
-                      child: Text("06:30",
-                          style: TextStyle(
-                            fontSize: SizeConfig.blockSizeHorizontal * 3.3,
-                            fontFamily: 'Roboto_Regular',
-                            fontWeight: FontWeight.w400,
-                            color: CommonColor.BLACK_COLOR,
-                          )),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: parentWidth * 0.0, top: parentHeight * 0.02),
-                      child: Text("08:30",
-                          style: TextStyle(
-                            fontSize: SizeConfig.blockSizeHorizontal * 3.3,
-                            fontFamily: 'Roboto_Regular',
-                            fontWeight: FontWeight.w400,
-                            color: CommonColor.BLACK_COLOR,
-                          )),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          right: parentWidth * 0.07, top: parentHeight * 0.02),
-                      child: Text("01:30",
-                          style: TextStyle(
-                            fontSize: SizeConfig.blockSizeHorizontal * 3.3,
-                            fontFamily: 'Roboto_Regular',
-                            fontWeight: FontWeight.w400,
-                            color: CommonColor.BLACK_COLOR,
-                          )),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: parentWidth * 0.03, top: parentHeight * 0.02),
-                      child: Text("JAMAA’T",
-                          style: TextStyle(
-                            fontSize: SizeConfig.blockSizeHorizontal * 4.3,
-                            fontFamily: 'Roboto_Bold',
-                            fontWeight: FontWeight.w600,
-                            color: CommonColor.BLACK_COLOR,
-                          )),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: parentWidth * 0.0, top: parentHeight * 0.02),
-                      child: Text("05:30",
-                          style: TextStyle(
-                            fontSize: SizeConfig.blockSizeHorizontal * 3.3,
-                            fontFamily: 'Roboto_Regular',
-                            fontWeight: FontWeight.w400,
-                            color: CommonColor.BLACK_COLOR,
-                          )),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: parentWidth * 0.0, top: parentHeight * 0.02),
-                      child: Text("01:30",
-                          style: TextStyle(
-                            fontSize: SizeConfig.blockSizeHorizontal * 3.3,
-                            fontFamily: 'Roboto_Regular',
-                            fontWeight: FontWeight.w400,
-                            color: CommonColor.BLACK_COLOR,
-                          )),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: parentWidth * 0.0, top: parentHeight * 0.02),
-                      child: Text("05:30",
-                          style: TextStyle(
-                            fontSize: SizeConfig.blockSizeHorizontal * 3.3,
-                            fontFamily: 'Roboto_Regular',
-                            fontWeight: FontWeight.w400,
-                            color: CommonColor.BLACK_COLOR,
-                          )),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: parentWidth * 0.0, top: parentHeight * 0.02),
-                      child: Text("06:35",
-                          style: TextStyle(
-                            fontSize: SizeConfig.blockSizeHorizontal * 3.3,
-                            fontFamily: 'Roboto_Regular',
-                            fontWeight: FontWeight.w400,
-                            color: CommonColor.BLACK_COLOR,
-                          )),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: parentWidth * 0.0, top: parentHeight * 0.02),
-                      child: Text("08:85",
-                          style: TextStyle(
-                            fontSize: SizeConfig.blockSizeHorizontal * 3.3,
-                            fontFamily: 'Roboto_Regular',
-                            fontWeight: FontWeight.w400,
-                            color: CommonColor.BLACK_COLOR,
-                          )),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          right: parentWidth * 0.07, top: parentHeight * 0.02),
-                      child: Text("01:45",
-                          style: TextStyle(
-                            fontSize: SizeConfig.blockSizeHorizontal * 3.3,
-                            fontFamily: 'Roboto_Regular',
-                            fontWeight: FontWeight.w400,
-                            color: CommonColor.BLACK_COLOR,
-                          )),
-                    ),
-                  ],
-                )
-              ],
-            )
-          ],
-        )*/
+
         Column(
           children: [
 
@@ -860,7 +613,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
                                         padding: EdgeInsets.only(top: parentHeight*0.01),
                                         child: Row(
                                           children: [
-                                            Text("${snapshot.data?.weeklyNamaz?[index].jammt}",
+                                            Text("${snapshot.data?.weeklyNamaz?[index].jammat}",
                                               style: TextStyle(
                                                   fontSize: SizeConfig.blockSizeHorizontal*3.0
                                               ),),
