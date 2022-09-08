@@ -159,23 +159,26 @@ class _UserMapLocationState extends State<UserMapLocation> with TickerProviderSt
                 FocusScope.of(context).requestFocus(FocusNode());
               },
               onDoubleTap: () {},
-              child: Container(
-                height: SizeConfig.screenHeight*0.9,
-              // color: Colors.red,
-                child: ListView(
-                  shrinkWrap: true,
-                  children: [
+              child: Padding(
+                padding:  EdgeInsets.only(bottom: SizeConfig.screenHeight*0.09),
+                child: Container(
+                  height: SizeConfig.screenHeight*0.9,
+                // color: Colors.red,
+                  child: ListView(
+                    shrinkWrap: true,
+                    children: [
 
-                    Stack(
-                      alignment: Alignment.bottomCenter,
-                      children: [
-                        getGoogleMapLayout(
-                            SizeConfig.screenHeight, SizeConfig.screenWidth),
-                        getAddDoneButtonLayout(
-                            SizeConfig.screenHeight, SizeConfig.screenWidth),
-                      ],
-                    )
-                  ],
+                      Stack(
+                        alignment: Alignment.bottomCenter,
+                        children: [
+                          getGoogleMapLayout(
+                              SizeConfig.screenHeight, SizeConfig.screenWidth),
+                          getAddDoneButtonLayout(
+                              SizeConfig.screenHeight, SizeConfig.screenWidth),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -193,7 +196,7 @@ class _UserMapLocationState extends State<UserMapLocation> with TickerProviderSt
   Widget getGoogleMapLayout(double parentHeight, double parentWidth) {
     // createMarker(context);
     return Container(
-      height: parentHeight * 0.75,
+      height: parentHeight * 0.80,
       // color: Colors.red,
       child: GoogleMap(
         rotateGesturesEnabled: false,

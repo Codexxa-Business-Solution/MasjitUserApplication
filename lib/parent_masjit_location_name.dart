@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:masjiduserapp/map_screen.dart';
 import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/notice_response_model.dart';
 import 'package:masjiduserapp/size_config.dart';
 import 'package:masjiduserapp/trustee_user_tab.dart';
@@ -152,26 +153,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
     return Container(
 height: parentHeight*0.8,
 
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: Colors.grey.shade300,
-            spreadRadius: 1,
-            blurRadius: 5,
-            offset: const Offset(0, 5),
-          ),
-          BoxShadow(
-            color: Colors.grey.shade50,
-            offset: const Offset(-5, 0),
-          ),
-          BoxShadow(
-            color: Colors.grey.shade50,
-            offset: const Offset(5, 0),
-          )
-        ],
-      ),
+
 
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -179,12 +161,17 @@ height: parentHeight*0.8,
           GestureDetector(
             onDoubleTap: () {},
             onTap: () {
+
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => MasjitMappScreen(
+                tabNum: "1",
+              )));
               if (mounted) {
                 setState(() {
-                  mapScreen = true;
+                 /* mapScreen = true;
                   trusteeScreen = false;
                   showDetails = false;
-                  noticeScreen = false;
+                  noticeScreen = false;*/
                 });
               }
             },
@@ -213,12 +200,17 @@ height: parentHeight*0.8,
           GestureDetector(
             onDoubleTap: () {},
             onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => MasjitMappScreen(
+                tabNum: "2",
+              )));
               if (mounted) {
                 setState(() {
-                  mapScreen = false;
+
+                 /* mapScreen = false;
                   trusteeScreen = true;
                   showDetails = false;
-                  noticeScreen = false;
+                  noticeScreen = false;*/
                 });
               }
             },
@@ -247,14 +239,18 @@ height: parentHeight*0.8,
           GestureDetector(
             onDoubleTap: () {},
             onTap: () {
-              if (mounted) {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => MasjitMappScreen(
+                tabNum: "3",
+              )));
+             /* if (mounted) {
                 setState(() {
-                  mapScreen = false;
+                 *//* mapScreen = false;
                   showDetails = false;
                   trusteeScreen = false;
-                  noticeScreen = true;
+                  noticeScreen = true;*//*
                 });
-              }
+              }*/
             },
             child: Container(
               width: parentWidth * 0.3,
@@ -301,7 +297,7 @@ height: parentHeight*0.8,
           Visibility(
             visible: showDetails,
             child: ListView(
-                padding: EdgeInsets.only(bottom: parentHeight * 0.03),
+                padding: EdgeInsets.only(bottom: parentHeight * 0.03,top: parentHeight*0.01),
                 shrinkWrap: true,
                 children: [
 
@@ -406,6 +402,8 @@ height: parentHeight*0.8,
                               children: [
                                 getAddFazarLayout(
                                     SizeConfig.screenHeight, SizeConfig.screenWidth),
+                                getAddjummaLayout(
+                                    SizeConfig.screenHeight, SizeConfig.screenWidth),
                                 getAddshariIftarLayout(
                                     SizeConfig.screenHeight, SizeConfig.screenWidth),
                                 getAddEidLayout(
@@ -460,7 +458,7 @@ height: parentHeight*0.8,
   }
 
   Widget getAddFazarLayout(double parentHeight, double parentWidth) {
-    return Padding(
+    return/* Padding(
       padding: EdgeInsets.only(top: parentHeight * 0.03),
       child: Container(
         height: parentHeight * 0.23,
@@ -638,7 +636,724 @@ height: parentHeight*0.8,
           ],
         ),
       ),
-    );
+    );*/
+      Padding(
+        padding: EdgeInsets.only(top: parentHeight * 0.03),
+        child: Container(
+          height: parentHeight * 0.20,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                color: Colors.grey.shade300,
+                spreadRadius: 1,
+                blurRadius: 5,
+                offset: Offset(0, 5),
+              ),
+              BoxShadow(
+                color: Colors.grey.shade50,
+                offset: Offset(-5, 0),
+              ),
+              BoxShadow(
+                color: Colors.grey.shade50,
+                offset: Offset(5, 0),
+              )
+            ],
+          ),
+          child: Column(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(10), topLeft: Radius.circular(10)),
+                child: Container(
+                  height: parentHeight * 0.04,
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                          colors: [
+                            CommonColor.LEFT_COLOR,
+                            CommonColor.RIGHT_COLOR
+                          ])),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "JAMMAT TIME",
+                        style: TextStyle(
+                          fontSize: SizeConfig.blockSizeHorizontal * 4.3,
+                          fontFamily: 'Roboto_Bold',
+                          fontWeight: FontWeight.w600,
+                          color: CommonColor.WHITE_COLOR,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              /*FutureBuilder<NoticeResponceModel>(
+
+                future: getNotice,
+
+                builder: (context, snapshot) {
+
+                  return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: 1,
+                      padding: const EdgeInsets.only(bottom: 0, top: 5),
+                      itemBuilder: (context, int index) {
+                        return Container(
+                          height: parentHeight * 0.12,
+
+                          child: Row(
+                            children: [
+                              Column(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        left: parentWidth * 0.04,
+                                        top: parentHeight * 0.025),
+                                    child: Text(
+                                        "Hi",
+                                        style: TextStyle(
+                                          fontSize:
+                                          SizeConfig.blockSizeHorizontal *
+                                              3.5,
+                                          fontFamily: 'Roboto_Bold',
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.transparent,
+                                        )),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        left: parentWidth * 0.0,
+                                        top: parentHeight * 0.0),
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          height: parentHeight * 0.028,
+                                          decoration: BoxDecoration(
+                                            // color: Colors.red,
+                                              border: Border(
+                                                  bottom: BorderSide(
+                                                      color: Colors.grey,
+                                                      width: parentHeight *
+                                                          0.001))),
+                                          width: parentWidth * 0.185,
+                                          child: Text("Azan",
+                                              style: TextStyle(
+                                                fontSize: SizeConfig
+                                                    .blockSizeHorizontal *
+                                                    3.5,
+                                                fontFamily: 'Roboto_Bold',
+                                                fontWeight: FontWeight.w500,
+                                                color:
+                                                CommonColor.BLACK_COLOR,
+                                              )),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        left: parentWidth * 0.0,
+                                        top: parentHeight * 0.0),
+                                    child: Text("JAMMA'T",
+                                        style: TextStyle(
+                                          fontSize:
+                                          SizeConfig.blockSizeHorizontal *
+                                              3.5,
+                                          fontFamily: 'Roboto_Bold',
+                                          fontWeight: FontWeight.w500,
+                                          color: CommonColor.BLACK_COLOR,
+                                        )),
+                                  ),
+                                ],
+                              ),
+                              Container(
+
+                                height: parentHeight * 0.5,
+                                width: parentWidth * 0.73,
+                                child: ListView.builder(
+                                  itemCount: 6,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder:
+                                      (BuildContext context, int index1) {
+                                    return Padding(
+                                      padding: EdgeInsets.only(
+                                          left: parentWidth * 0.019),
+                                      child: Column(
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                left: parentWidth * 0.0,
+                                                top: parentHeight * 0.02),
+                                            child: Row(
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsets.only(
+                                                    right: parentWidth * 0.02,
+                                                  ),
+                                                  child: Text(
+
+                                                     " ",
+                                                      style: TextStyle(
+                                                        fontSize: SizeConfig
+                                                            .blockSizeHorizontal *
+                                                            2.8,
+                                                        fontFamily:
+                                                        'Roboto_Bold',
+                                                        fontWeight:
+                                                        FontWeight.w500,
+                                                        color: CommonColor
+                                                            .BLACK_COLOR,
+                                                      )),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                top: parentHeight * 0.01),
+                                            child: Container(
+                                              child: Text(
+                                                  "5.00",
+                                                  style: TextStyle(
+                                                    fontSize: SizeConfig
+                                                        .blockSizeHorizontal *
+                                                        3.3,
+                                                    fontFamily:
+                                                    'Roboto_Regular',
+                                                    fontWeight:
+                                                    FontWeight.w400,
+                                                    color: CommonColor
+                                                        .BLACK_COLOR,
+                                                  )),
+                                            ),
+                                          ),
+                                          Divider(),
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                left: parentWidth * 0.0,
+                                                top: parentHeight * 0.0),
+                                            child: Text(
+                                                "5.30",
+                                                style: TextStyle(
+                                                  fontSize: SizeConfig
+                                                      .blockSizeHorizontal *
+                                                      3.3,
+                                                  fontFamily:
+                                                  'Roboto_Regular',
+                                                  fontWeight: FontWeight.w400,
+                                                  color:
+                                                  CommonColor.BLACK_COLOR,
+                                                )),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      });
+                }),*/
+              Container(
+                height: parentHeight * 0.16,
+
+                //  color: Colors.red,
+                child: Row(
+                  //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                              top: parentHeight * 0.042,
+                              left: parentHeight * 0.03),
+                          child: const Text(
+                            "AZAN",
+                            style: TextStyle(
+                                color: Colors.transparent,
+                                fontFamily: 'Roboto_Bold',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 13),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: parentHeight * 0.001),
+                          child: Container(
+                              width: parentWidth * 0.21,
+                              height: parentHeight * 0.026,
+                              decoration: const BoxDecoration(
+                                // color: Colors.blue,
+                                  border: Border(
+                                      bottom: BorderSide(
+                                          width: 1,
+                                          color: CommonColor.SEARCH_COLOR))),
+                              child: Padding(
+                                padding:
+                                EdgeInsets.only(left: parentWidth * 0.05),
+                                child: const Text(
+                                  "AZAN",
+                                  style: TextStyle(
+                                      fontFamily: 'Roboto_Bold',
+                                      fontWeight: FontWeight.w500,
+                                      color: CommonColor.BLACK_COLOR,
+                                      fontSize: 13),
+                                ),
+                              )),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              top: parentHeight * 0.01, left: parentWidth * 0.03),
+                          child: Row(
+                            children: const [
+                              Text(
+                                "JAMAA'T",
+                                style: TextStyle(
+                                    fontFamily: 'Roboto_Bold',
+                                    fontWeight: FontWeight.w500,
+                                    color: CommonColor.BLACK_COLOR,
+                                    fontSize: 13),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    FutureBuilder<NoticeResponceModel>(
+                        future: getMasjidInfo,
+                        builder: (context, snapshot) {
+                          return snapshot.data?.weeklyNamaz?.length != null
+                              ? Expanded(
+                            child: ListView.builder(
+                                shrinkWrap: true,
+                                itemCount:
+                                snapshot.data?.weeklyNamaz?.length,
+                                scrollDirection: Axis.horizontal,
+                                physics:
+                                const NeverScrollableScrollPhysics(),
+                                itemBuilder: (context, index) {
+                                  return Column(
+                                    // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            top: parentHeight * 0.03,
+                                            right: parentHeight * 0.006),
+                                        child: Text(
+                                          "${snapshot.data?.weeklyNamaz?[index].day}",
+                                          style: TextStyle(
+                                              fontFamily: 'Roboto_Bold',
+                                              fontWeight: FontWeight.w500,
+                                              color: CommonColor.BLACK_COLOR,
+                                              fontSize: 10),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            top: parentHeight * 0.013),
+                                        child: Container(
+                                          width: parentWidth * 0.145,
+                                          height: parentHeight * 0.031,
+                                          decoration: const BoxDecoration(
+                                            // color: Colors.blue,
+                                              border: Border(
+                                                  bottom: BorderSide(
+                                                      width: 1,
+                                                      color: CommonColor
+                                                          .SEARCH_COLOR))),
+                                          child:  Padding(
+                                            padding: EdgeInsets.only(
+                                              top: parentHeight * 0.003,
+                                                left: parentHeight * 0.006),
+                                            child: Row(
+                                              children: [
+                                                Text(
+                                                  "${snapshot.data?.weeklyNamaz?[index].azan}",
+                                                  style: TextStyle(
+                                                      fontSize: SizeConfig
+                                                          .blockSizeHorizontal *
+                                                          3.0),
+                                                ),
+                                              ],
+                                            ),
+                                          ),),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            top: parentHeight * 0.01,
+                                            right: parentHeight * 0.00),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              "${snapshot.data?.weeklyNamaz?[index].jammat}",
+                                              style: TextStyle(
+                                                  fontSize: SizeConfig
+                                                      .blockSizeHorizontal *
+                                                      3.0),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                }),
+                          )
+                              : Container();
+                        })
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      );
+  }
+  Widget getAddjummaLayout(double parentHeight, double parentWidth) {
+    return
+
+      Padding(
+        padding: EdgeInsets.only(top: parentHeight * 0.03),
+        child: Container(
+          height: parentHeight * 0.18,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                color: Colors.grey.shade300,
+                spreadRadius: 1,
+                blurRadius: 5,
+                offset: Offset(0, 5),
+              ),
+              BoxShadow(
+                color: Colors.grey.shade50,
+                offset: Offset(-5, 0),
+              ),
+              BoxShadow(
+                color: Colors.grey.shade50,
+                offset: Offset(5, 0),
+              )
+            ],
+          ),
+          child: Column(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(10), topLeft: Radius.circular(10)),
+                child: Container(
+                  height: parentHeight * 0.04,
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                          colors: [
+                            CommonColor.LEFT_COLOR,
+                            CommonColor.RIGHT_COLOR
+                          ])),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "JUMMA TIME",
+                        style: TextStyle(
+                          fontSize: SizeConfig.blockSizeHorizontal * 4.3,
+                          fontFamily: 'Roboto_Bold',
+                          fontWeight: FontWeight.w600,
+                          color: CommonColor.WHITE_COLOR,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              /*FutureBuilder<NoticeResponceModel>(
+
+                future: getNotice,
+
+                builder: (context, snapshot) {
+
+                  return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: 1,
+                      padding: const EdgeInsets.only(bottom: 0, top: 5),
+                      itemBuilder: (context, int index) {
+                        return Container(
+                          height: parentHeight * 0.12,
+
+                          child: Row(
+                            children: [
+                              Column(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        left: parentWidth * 0.04,
+                                        top: parentHeight * 0.025),
+                                    child: Text(
+                                        "Hi",
+                                        style: TextStyle(
+                                          fontSize:
+                                          SizeConfig.blockSizeHorizontal *
+                                              3.5,
+                                          fontFamily: 'Roboto_Bold',
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.transparent,
+                                        )),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        left: parentWidth * 0.0,
+                                        top: parentHeight * 0.0),
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          height: parentHeight * 0.028,
+                                          decoration: BoxDecoration(
+                                            // color: Colors.red,
+                                              border: Border(
+                                                  bottom: BorderSide(
+                                                      color: Colors.grey,
+                                                      width: parentHeight *
+                                                          0.001))),
+                                          width: parentWidth * 0.185,
+                                          child: Text("Azan",
+                                              style: TextStyle(
+                                                fontSize: SizeConfig
+                                                    .blockSizeHorizontal *
+                                                    3.5,
+                                                fontFamily: 'Roboto_Bold',
+                                                fontWeight: FontWeight.w500,
+                                                color:
+                                                CommonColor.BLACK_COLOR,
+                                              )),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        left: parentWidth * 0.0,
+                                        top: parentHeight * 0.0),
+                                    child: Text("JAMMA'T",
+                                        style: TextStyle(
+                                          fontSize:
+                                          SizeConfig.blockSizeHorizontal *
+                                              3.5,
+                                          fontFamily: 'Roboto_Bold',
+                                          fontWeight: FontWeight.w500,
+                                          color: CommonColor.BLACK_COLOR,
+                                        )),
+                                  ),
+                                ],
+                              ),
+                              Container(
+
+                                height: parentHeight * 0.5,
+                                width: parentWidth * 0.73,
+                                child: ListView.builder(
+                                  itemCount: 6,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder:
+                                      (BuildContext context, int index1) {
+                                    return Padding(
+                                      padding: EdgeInsets.only(
+                                          left: parentWidth * 0.019),
+                                      child: Column(
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                left: parentWidth * 0.0,
+                                                top: parentHeight * 0.02),
+                                            child: Row(
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsets.only(
+                                                    right: parentWidth * 0.02,
+                                                  ),
+                                                  child: Text(
+
+                                                     " ",
+                                                      style: TextStyle(
+                                                        fontSize: SizeConfig
+                                                            .blockSizeHorizontal *
+                                                            2.8,
+                                                        fontFamily:
+                                                        'Roboto_Bold',
+                                                        fontWeight:
+                                                        FontWeight.w500,
+                                                        color: CommonColor
+                                                            .BLACK_COLOR,
+                                                      )),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                top: parentHeight * 0.01),
+                                            child: Container(
+                                              child: Text(
+                                                  "5.00",
+                                                  style: TextStyle(
+                                                    fontSize: SizeConfig
+                                                        .blockSizeHorizontal *
+                                                        3.3,
+                                                    fontFamily:
+                                                    'Roboto_Regular',
+                                                    fontWeight:
+                                                    FontWeight.w400,
+                                                    color: CommonColor
+                                                        .BLACK_COLOR,
+                                                  )),
+                                            ),
+                                          ),
+                                          Divider(),
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                left: parentWidth * 0.0,
+                                                top: parentHeight * 0.0),
+                                            child: Text(
+                                                "5.30",
+                                                style: TextStyle(
+                                                  fontSize: SizeConfig
+                                                      .blockSizeHorizontal *
+                                                      3.3,
+                                                  fontFamily:
+                                                  'Roboto_Regular',
+                                                  fontWeight: FontWeight.w400,
+                                                  color:
+                                                  CommonColor.BLACK_COLOR,
+                                                )),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      });
+                }),*/
+              Row(
+                //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Column(
+                    children: [
+
+                      Padding(
+                        padding: EdgeInsets.only(top: parentHeight * 0.03),
+                        child: Padding(
+                          padding:
+                          EdgeInsets.only(left: parentWidth * 0.0),
+                          child: const Text(
+                            "AZAN",
+                            style: TextStyle(
+                                fontFamily: 'Roboto_Bold',
+                                fontWeight: FontWeight.w500,
+                                color: CommonColor.BLACK_COLOR,
+                                fontSize: 14),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: parentHeight * 0.01, left: parentWidth * 0.03),
+                        child: Row(
+                          children: const [
+                            Text(
+                              "JAMAA'T",
+                              style: TextStyle(
+                                  fontFamily: 'Roboto_Bold',
+                                  fontWeight: FontWeight.w500,
+                                  color: CommonColor.BLACK_COLOR,
+                                  fontSize: 14),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  FutureBuilder<NoticeResponceModel>(
+                      future: getMasjidInfo,
+                      builder: (context, snapshot) {
+
+
+                        return Column(
+                          // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  top: parentHeight * 0.03,right: parentHeight*0.25),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "${snapshot.data?.jumma?.azan}",
+                                    style: TextStyle(
+                                        fontSize: SizeConfig
+                                            .blockSizeHorizontal *
+                                            3.3),
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            Container(
+
+                                height: parentHeight*0.04,
+                                width: parentWidth*0.7,
+
+                                child:
+                                snapshot.data?.jumma?.jammat?.length != null
+                                    ?
+
+                                ListView.builder(
+                                  //physics: NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: snapshot.data?.jumma?.jammat?.length,
+                                    itemBuilder: (context, index) {
+
+                                      return
+
+                                        /* snapshot.data?.jumma?.jammat?.length != null
+                                       ?*/
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              top: parentHeight * 0.01,
+                                              left: parentHeight * 0.02),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "${snapshot.data?.jumma?.jammat?[index]}",
+                                                style: TextStyle(
+                                                    fontSize: SizeConfig
+                                                        .blockSizeHorizontal *
+                                                        3.3),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+
+                                    }):Container()
+                            ),
+
+                          ],
+                        );
+                      })
+                ],
+              ),
+            ],
+          ),
+        ),
+      );
   }
 
   Widget getAddshariIftarLayout(double parentHeight, double parentWidth) {
@@ -773,7 +1488,7 @@ height: parentHeight*0.8,
     return Padding(
       padding: EdgeInsets.only(top: parentHeight * 0.02),
       child: Container(
-          height: parentHeight * 0.16,
+          height: parentHeight * 0.18,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),

@@ -1,12 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/all_masjit_list_responce_model.dart';
 import 'package:masjiduserapp/parent_masjit_location_name.dart';
-import 'package:masjiduserapp/size_config.dart';
 import 'package:http/http.dart' as http;
+import 'package:masjiduserapp/size_config.dart';
 
 import 'common.color.dart';
 
@@ -28,6 +26,7 @@ class _AllMasjitListState extends State<AllMasjitList> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -82,6 +81,7 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                     ],
                                   ),
                                   child: Column(
+
                                     children: [
                                       Container(
                                         height: parentHeight * 0.1,
@@ -250,812 +250,195 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                         ),
                                                       ],
                                                     ),
-                                                    // Row(
-                                                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    //   children: [
-                                                    //     Padding(
-                                                    //         padding:  EdgeInsets.only(right: parentHeight*0.02,top: parentHeight*0.01),
-                                                    //       child: Text("FAZAR",style: TextStyle(
-                                                    //         fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                                                    //         fontFamily: 'Roboto_Bold',
-                                                    //        fontWeight: FontWeight.w500,
-                                                    //         color: CommonColor.BLACK_COLOR,)),
 
-                                                    //         ),
 
-                                                    //           ],
-                                                    //        ),
 
-                                                    /*             Row(
-                                                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Padding(
-                                                    padding:  EdgeInsets.only(right: parentHeight*0.0,top: parentHeight*0.01),
-                                                    child: Text("AZAN :",style: TextStyle(
-                                                      fontSize: SizeConfig.blockSizeHorizontal *4.0,
-                                                      fontFamily: 'Roboto_Bold',
-                                                      fontWeight: FontWeight.w500,
-                                                      color: CommonColor.BLACK_COLOR,)),
-                                                  ),
-                                                  Padding(
-                                                    padding:EdgeInsets.only(right: parentWidth*0.02,top: parentHeight*0.01),
-                                                    child: Text("05:30",style: TextStyle(
-                                                      fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                                                      fontFamily: 'Roboto_Bold',
-                                                      fontWeight: FontWeight.w600,
-                                                      color: CommonColor.BLACK_COLOR,)),
-                                                  ),
-                                                  Padding(
-                                                    padding:  EdgeInsets.only(right: parentHeight*0.01,top: parentHeight*0.01),
-                                                    child: Text("JAMA’AT :",style: TextStyle(
-                                                      fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                                                      fontFamily: 'Roboto_Bold',
-                                                      fontWeight: FontWeight.w500,
-                                                      color: CommonColor.BLACK_COLOR,)),
-                                                  ),
-                                                  Padding(
-                                                    padding:EdgeInsets.only(right: parentWidth*0.0,top: parentHeight*0.01),
-                                                    child: Text("05:30",style: TextStyle(
-                                                      fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                                                      fontFamily: 'Roboto_Bold',
-                                                      fontWeight: FontWeight.w600,
-                                                      color: CommonColor.BLACK_COLOR,)),
-                                                  )
-                                                ],
-                                              )*/
                                                   ],
                                                 ),
                                               )
                                             ],
                                           ),
-                                          /*    Column(
-                                                  //  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    Padding(
-                                                      padding: EdgeInsets.only(
-                                                          top: parentHeight * 0.01),
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceAround,
-                                                        children: [
-                                                          Padding(
-                                                            padding: EdgeInsets.only(
-                                                                left: parentWidth *
-                                                                    0.22),
-                                                            child: Text(  "${snapshot.data![index].weeklyNamaz?[index].day}",
-                                                                style: TextStyle(
-                                                                  fontSize: SizeConfig
-                                                                          .blockSizeHorizontal *
-                                                                      2.8,
-                                                                  fontFamily:
-                                                                      'Roboto_Bold',
-                                                                  fontWeight:
-                                                                      FontWeight.w500,
-                                                                  color: CommonColor
-                                                                      .BLACK_COLOR,
-                                                                )),
-                                                          ),
-                                                          Padding(
-                                                            padding: EdgeInsets.only(
-                                                                left: parentWidth *
-                                                                    0.01),
-                                                            child: Text("${snapshot.data![index].weeklyNamaz?[index].day}",
-                                                                style: TextStyle(
-                                                                  fontSize: SizeConfig
-                                                                          .blockSizeHorizontal *
-                                                                      2.8,
-                                                                  fontFamily:
-                                                                      'Roboto_Bold',
-                                                                  fontWeight:
-                                                                      FontWeight.w500,
-                                                                  color: CommonColor
-                                                                      .BLACK_COLOR,
-                                                                )),
-                                                          ),
-                                                          Padding(
-                                                            padding: EdgeInsets.only(
-                                                                left: parentWidth *
-                                                                    0.01),
-                                                            child: Text("${snapshot.data![index].weeklyNamaz?[index].day}",
-                                                                style: TextStyle(
-                                                                  fontSize: SizeConfig
-                                                                          .blockSizeHorizontal *
-                                                                      2.8,
-                                                                  fontFamily:
-                                                                      'Roboto_Bold',
-                                                                  fontWeight:
-                                                                      FontWeight.w500,
-                                                                  color: CommonColor
-                                                                      .BLACK_COLOR,
-                                                                )),
-                                                          ),
-                                                          Padding(
-                                                            padding: EdgeInsets.only(
-                                                                left: parentWidth *
-                                                                    0.01),
-                                                            child: Text("${snapshot.data![index].weeklyNamaz?[index].day}",
-                                                                style: TextStyle(
-                                                                  fontSize: SizeConfig
-                                                                          .blockSizeHorizontal *
-                                                                      2.8,
-                                                                  fontFamily:
-                                                                      'Roboto_Bold',
-                                                                  fontWeight:
-                                                                      FontWeight.w500,
-                                                                  color: CommonColor
-                                                                      .BLACK_COLOR,
-                                                                )),
-                                                          ),
-                                                          Padding(
-                                                            padding: EdgeInsets.only(
-                                                                left: parentWidth *
-                                                                    0.01),
-                                                            child: Text("${snapshot.data![index].weeklyNamaz?[index].day}",
-                                                                style: TextStyle(
-                                                                  fontSize: SizeConfig
-                                                                          .blockSizeHorizontal *
-                                                                      2.8,
-                                                                  fontFamily:
-                                                                      'Roboto_Bold',
-                                                                  fontWeight:
-                                                                      FontWeight.w500,
-                                                                  color: CommonColor
-                                                                      .BLACK_COLOR,
-                                                                )),
-                                                          ),
-                                                          Padding(
-                                                            padding: EdgeInsets.only(
-                                                              right:
-                                                                  parentWidth * 0.02,
-                                                            ),
-                                                            child: Text("${snapshot.data![index].weeklyNamaz?[index].day}",
-                                                                style: TextStyle(
-                                                                  fontSize: SizeConfig
-                                                                          .blockSizeHorizontal *
-                                                                      2.8,
-                                                                  fontFamily:
-                                                                      'Roboto_Bold',
-                                                                  fontWeight:
-                                                                      FontWeight.w500,
-                                                                  color: CommonColor
-                                                                      .BLACK_COLOR,
-                                                                )),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceAround,
-                                                      children: [
-                                                        Padding(
-                                                          padding: EdgeInsets.only(
-                                                              left:
-                                                                  parentWidth * 0.04,
-                                                              top: parentHeight *
-                                                                  0.02),
-                                                          child: Text("${snapshot.data![index].weeklyNamaz?[index].azan}",
-                                                              style: TextStyle(
-                                                                fontSize: SizeConfig
-                                                                        .blockSizeHorizontal *
-                                                                    3.5,
-                                                                fontFamily:
-                                                                    'Roboto_Bold',
-                                                                fontWeight:
-                                                                    FontWeight.w500,
-                                                                color: CommonColor
-                                                                    .BLACK_COLOR,
-                                                              )),
-                                                        ),
-                                                        Padding(
-                                                          padding: EdgeInsets.only(
-                                                              left:
-                                                                  parentWidth * 0.05,
-                                                              top: parentHeight *
-                                                                  0.02),
-                                                          child: Text("05:00",
-                                                              style: TextStyle(
-                                                                fontSize: SizeConfig
-                                                                        .blockSizeHorizontal *
-                                                                    3.3,
-                                                                fontFamily:
-                                                                    'Roboto_Regular',
-                                                                fontWeight:
-                                                                    FontWeight.w400,
-                                                                color: CommonColor
-                                                                    .BLACK_COLOR,
-                                                              )),
-                                                        ),
-                                                        Padding(
-                                                          padding: EdgeInsets.only(
-                                                              left: parentWidth * 0.0,
-                                                              top: parentHeight *
-                                                                  0.02),
-                                                          child: Text("01:00",
-                                                              style: TextStyle(
-                                                                fontSize: SizeConfig
-                                                                        .blockSizeHorizontal *
-                                                                    3.3,
-                                                                fontFamily:
-                                                                    'Roboto_Regular',
-                                                                fontWeight:
-                                                                    FontWeight.w400,
-                                                                color: CommonColor
-                                                                    .BLACK_COLOR,
-                                                              )),
-                                                        ),
-                                                        Padding(
-                                                          padding: EdgeInsets.only(
-                                                              left: parentWidth * 0.0,
-                                                              top: parentHeight *
-                                                                  0.02),
-                                                          child: Text("05:00",
-                                                              style: TextStyle(
-                                                                fontSize: SizeConfig
-                                                                        .blockSizeHorizontal *
-                                                                    3.3,
-                                                                fontFamily:
-                                                                    'Roboto_Regular',
-                                                                fontWeight:
-                                                                    FontWeight.w400,
-                                                                color: CommonColor
-                                                                    .BLACK_COLOR,
-                                                              )),
-                                                        ),
-                                                        Padding(
-                                                          padding: EdgeInsets.only(
-                                                              left: parentWidth * 0.0,
-                                                              top: parentHeight *
-                                                                  0.02),
-                                                          child: Text("06:30",
-                                                              style: TextStyle(
-                                                                fontSize: SizeConfig
-                                                                        .blockSizeHorizontal *
-                                                                    3.3,
-                                                                fontFamily:
-                                                                    'Roboto_Regular',
-                                                                fontWeight:
-                                                                    FontWeight.w400,
-                                                                color: CommonColor
-                                                                    .BLACK_COLOR,
-                                                              )),
-                                                        ),
-                                                        Padding(
-                                                          padding: EdgeInsets.only(
-                                                              left: parentWidth * 0.0,
-                                                              top: parentHeight *
-                                                                  0.02),
-                                                          child: Text("08:30",
-                                                              style: TextStyle(
-                                                                fontSize: SizeConfig
-                                                                        .blockSizeHorizontal *
-                                                                    3.3,
-                                                                fontFamily:
-                                                                    'Roboto_Regular',
-                                                                fontWeight:
-                                                                    FontWeight.w400,
-                                                                color: CommonColor
-                                                                    .BLACK_COLOR,
-                                                              )),
-                                                        ),
-                                                        Padding(
-                                                          padding: EdgeInsets.only(
-                                                              right:
-                                                                  parentWidth * 0.02,
-                                                              top: parentHeight *
-                                                                  0.02),
-                                                          child: Text("01:30",
-                                                              style: TextStyle(
-                                                                fontSize: SizeConfig
-                                                                        .blockSizeHorizontal *
-                                                                    3.3,
-                                                                fontFamily:
-                                                                    'Roboto_Regular',
-                                                                fontWeight:
-                                                                    FontWeight.w400,
-                                                                color: CommonColor
-                                                                    .BLACK_COLOR,
-                                                              )),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Padding(
-                                                      padding: EdgeInsets.only(
-                                                          top: parentHeight * 0.01,
-                                                          left: parentWidth * .02,
-                                                          right: parentWidth * 0.02),
-                                                      child: Container(
-                                                        color:
-                                                            CommonColor.SEARCH_COLOR,
-                                                        height: parentHeight * 0.001,
-                                                        width: parentWidth,
-                                                        child: Text(
-                                                          "hi",
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.transparent),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        Padding(
-                                                          padding: EdgeInsets.only(
-                                                              left:
-                                                                  parentWidth * 0.05,
-                                                              top: parentHeight *
-                                                                  0.01),
-                                                          child: Text("${snapshot.data![index].weeklyNamaz?[index].jammt}",
-                                                              style: TextStyle(
-                                                                fontSize: SizeConfig
-                                                                        .blockSizeHorizontal *
-                                                                    3.5,
-                                                                fontFamily:
-                                                                    'Roboto_Bold',
-                                                                fontWeight:
-                                                                    FontWeight.w600,
-                                                                color: CommonColor
-                                                                    .BLACK_COLOR,
-                                                              )),
-                                                        ),
-                                                        Padding(
-                                                          padding: EdgeInsets.only(
-                                                              left: parentWidth * 0.0,
-                                                              top: parentHeight *
-                                                                  0.01),
-                                                          child: Text("05:30",
-                                                              style: TextStyle(
-                                                                fontSize: SizeConfig
-                                                                        .blockSizeHorizontal *
-                                                                    3.3,
-                                                                fontFamily:
-                                                                    'Roboto_Regular',
-                                                                fontWeight:
-                                                                    FontWeight.w400,
-                                                                color: CommonColor
-                                                                    .BLACK_COLOR,
-                                                              )),
-                                                        ),
-                                                        Padding(
-                                                          padding: EdgeInsets.only(
-                                                              left: parentWidth * 0.0,
-                                                              top: parentHeight *
-                                                                  0.01),
-                                                          child: Text("01:30",
-                                                              style: TextStyle(
-                                                                fontSize: SizeConfig
-                                                                        .blockSizeHorizontal *
-                                                                    3.3,
-                                                                fontFamily:
-                                                                    'Roboto_Regular',
-                                                                fontWeight:
-                                                                    FontWeight.w400,
-                                                                color: CommonColor
-                                                                    .BLACK_COLOR,
-                                                              )),
-                                                        ),
-                                                        Padding(
-                                                          padding: EdgeInsets.only(
-                                                              left: parentWidth * 0.0,
-                                                              top: parentHeight *
-                                                                  0.01),
-                                                          child: Text("05:30",
-                                                              style: TextStyle(
-                                                                fontSize: SizeConfig
-                                                                        .blockSizeHorizontal *
-                                                                    3.3,
-                                                                fontFamily:
-                                                                    'Roboto_Regular',
-                                                                fontWeight:
-                                                                    FontWeight.w400,
-                                                                color: CommonColor
-                                                                    .BLACK_COLOR,
-                                                              )),
-                                                        ),
-                                                        Padding(
-                                                          padding: EdgeInsets.only(
-                                                              left: parentWidth * 0.0,
-                                                              top: parentHeight *
-                                                                  0.01),
-                                                          child: Text("06:35",
-                                                              style: TextStyle(
-                                                                fontSize: SizeConfig
-                                                                        .blockSizeHorizontal *
-                                                                    3.3,
-                                                                fontFamily:
-                                                                    'Roboto_Regular',
-                                                                fontWeight:
-                                                                    FontWeight.w400,
-                                                                color: CommonColor
-                                                                    .BLACK_COLOR,
-                                                              )),
-                                                        ),
-                                                        Padding(
-                                                          padding: EdgeInsets.only(
-                                                              left: parentWidth * 0.0,
-                                                              top: parentHeight *
-                                                                  0.01),
-                                                          child: Text("08:85",
-                                                              style: TextStyle(
-                                                                fontSize: SizeConfig
-                                                                        .blockSizeHorizontal *
-                                                                    3.3,
-                                                                fontFamily:
-                                                                    'Roboto_Regular',
-                                                                fontWeight:
-                                                                    FontWeight.w400,
-                                                                color: CommonColor
-                                                                    .BLACK_COLOR,
-                                                              )),
-                                                        ),
-                                                        Padding(
-                                                          padding: EdgeInsets.only(
-                                                              right:
-                                                                  parentWidth * 0.02,
-                                                              top: parentHeight *
-                                                                  0.01),
-                                                          child: Text("01:45",
-                                                              style: TextStyle(
-                                                                fontSize: SizeConfig
-                                                                        .blockSizeHorizontal *
-                                                                    3.3,
-                                                                fontFamily:
-                                                                    'Roboto_Regular',
-                                                                fontWeight:
-                                                                    FontWeight.w400,
-                                                                color: CommonColor
-                                                                    .BLACK_COLOR,
-                                                              )),
-                                                        ),
-                                                      ],
-                                                    )
-                                                  ],
-                                                )*/
 
-                                          /* ListView.builder(
-                                itemCount: snapshot.data.toString().length,
-                                padding:
-                                const EdgeInsets.only(bottom: 20, top: 5),
-                                itemBuilder: (context, index) {
-                                return Row(
-                                children: [
-                                  Column(
-                                    children: [
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                  left:
-                                                  parentWidth * 0.04,
-                                                  top: parentHeight *
-                                                      0.02),
-                                              child: Text("${snapshot.data![index].weeklyNamaz?[index].azan}",
-                                                  style: TextStyle(
-                                                    fontSize: SizeConfig
-                                                        .blockSizeHorizontal *
-                                                        3.5,
-                                                    fontFamily:
-                                                    'Roboto_Bold',
-                                                    fontWeight:
-                                                    FontWeight.w500,
-                                                    color: CommonColor
-                                                        .BLACK_COLOR,
-                                                  )),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                  left:
-                                                  parentWidth * 0.04,
-                                                  top: parentHeight *
-                                                      0.02),
-                                              child: Text("${snapshot.data![index].weeklyNamaz?[index].azan}",
-                                                  style: TextStyle(
-                                                    fontSize: SizeConfig
-                                                        .blockSizeHorizontal *
-                                                        3.5,
-                                                    fontFamily:
-                                                    'Roboto_Bold',
-                                                    fontWeight:
-                                                    FontWeight.w500,
-                                                    color: CommonColor
-                                                        .BLACK_COLOR,
-                                                  )),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                  left:
-                                                  parentWidth * 0.04,
-                                                  top: parentHeight *
-                                                      0.02),
-                                              child: Text("${snapshot.data![index].weeklyNamaz?[index].azan}",
-                                                  style: TextStyle(
-                                                    fontSize: SizeConfig
-                                                        .blockSizeHorizontal *
-                                                        3.5,
-                                                    fontFamily:
-                                                    'Roboto_Bold',
-                                                    fontWeight:
-                                                    FontWeight.w500,
-                                                    color: CommonColor
-                                                        .BLACK_COLOR,
-                                                  )),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                  top: parentHeight * 0.01,
-                                                  left: parentWidth * .02,
-                                                  right: parentWidth * 0.02),
-                                              child: Container(
-                                                color:
-                                                CommonColor.SEARCH_COLOR,
-                                                height: parentHeight * 0.001,
-                                                width: parentWidth,
-                                                child: Text(
-                                                  "hi",
-                                                  style: TextStyle(
-                                                      color:
-                                                      Colors.transparent),
-                                                ),
-                                              ),
-                                            ),
-                                    ],
-                                  )
-                                ],
-                                );
-                                    }
-                                  ),*/
                                         ]),
                                       ),
                                       Container(
-                                        height: parentHeight * 0.13,
+                                        height: parentHeight*0.13,
 
+                                       //  color: Colors.red,
                                         child: Row(
+                                          //mainAxisAlignment: MainAxisAlignment.spaceAround,
                                           children: [
+
                                             Column(
+
                                               children: [
+
+
                                                 Padding(
-                                                  padding: EdgeInsets.only(
-                                                      left: parentWidth * 0.04,
-                                                      top:
-                                                      parentHeight * 0.025),
-                                                  child: Text("Azan",
-                                                      style: TextStyle(
-                                                        fontSize: SizeConfig
-                                                            .blockSizeHorizontal *
-                                                            3.5,
-                                                        fontFamily:
-                                                        'Roboto_Bold',
-                                                        fontWeight:
-                                                        FontWeight.w500,
-                                                        color:
-                                                        Colors.transparent,
-                                                      )),
+                                                  padding: EdgeInsets.only(top: parentHeight*0.02,right: parentHeight*0.0),
+                                                  child: const Text("AZAN",
+                                                    style: TextStyle(
+                                                        color: Colors.transparent
+                                                    ),),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsets.only(
-                                                      left: parentWidth * 0.0,
-                                                      top: parentHeight * 0.0),
-                                                  child: Row(
-                                                    children: [
-                                                      Container(
-                                                        height: parentHeight *
-                                                            0.028,
-                                                        decoration:
-                                                        BoxDecoration(
-                                                          // color: Colors.red,
-                                                            border: Border(
-                                                                bottom: BorderSide(
-                                                                    color: Colors
-                                                                        .grey,
-                                                                    width: parentHeight *
-                                                                        0.001))),
-                                                        width:
-                                                        parentWidth * 0.185,
-                                                        child: Text("AZAN",
-                                                            style: TextStyle(
-                                                              fontSize: SizeConfig
-                                                                  .blockSizeHorizontal *
-                                                                  3.5,
-                                                              fontFamily:
-                                                              'Roboto_Bold',
-                                                              fontWeight:
-                                                              FontWeight
-                                                                  .w500,
-                                                              color: CommonColor
-                                                                  .BLACK_COLOR,
-                                                            )),
+                                                  padding: EdgeInsets.only(top: parentHeight*0.0),
+                                                  child: Container(
+                                                      width: parentWidth*0.14,
+                                                      height: parentHeight*0.024,
+                                                      decoration: const BoxDecoration(
+                                                        // color: Colors.blue,
+                                                          border: Border(bottom: BorderSide(width: 1, color: CommonColor.SEARCH_COLOR))
                                                       ),
+                                                      child: Padding(
+                                                        padding:  EdgeInsets.only(left: parentWidth*0.03),
+                                                        child: const Text("AZAN",style: TextStyle(
+                                                            fontFamily:
+                                                            'Roboto_Bold',
+                                                            fontWeight:
+                                                            FontWeight.w500,
+                                                            color: CommonColor
+                                                                .BLACK_COLOR,
+                                                          fontSize: 10
+                                                        ),),
+                                                      )
+                                                  ),
+                                                ),
+
+
+                                                Padding(
+                                                  padding: EdgeInsets.only(top: parentHeight*0.012, left: parentWidth*0.0),
+                                                  child: Row(
+                                                    children: const [
+                                                      Text("JAMAA'T",style: TextStyle(
+                                                          fontFamily:
+                                                          'Roboto_Bold',
+                                                          fontWeight:
+                                                          FontWeight.w500,
+                                                          color: CommonColor
+                                                              .BLACK_COLOR,
+                                                          fontSize: 10
+                                                      ),),
                                                     ],
                                                   ),
                                                 ),
-                                                Padding(
-                                                  padding: EdgeInsets.only(
-                                                      left: parentWidth * 0.0,
-                                                      top: parentHeight * 0.0),
-                                                  child: Text("JAMAA'T",
-                                                      style: TextStyle(
-                                                        fontSize: SizeConfig
-                                                            .blockSizeHorizontal *
-                                                            3.5,
-                                                        fontFamily:
-                                                        'Roboto_Bold',
-                                                        fontWeight:
-                                                        FontWeight.w500,
-                                                        color: CommonColor
-                                                            .BLACK_COLOR,
-                                                      )),
-                                                ),
+
                                               ],
                                             ),
-                                            Container(
 
-                                              height: parentHeight * 0.4,
-                                              width: parentWidth * 0.73,
-                                              child: ListView.builder(
-                                                itemCount: 6,
-                                                scrollDirection:
-                                                Axis.horizontal,
-                                                itemBuilder:
-                                                    (BuildContext context,
-                                                    int index) {
-                                                  return Padding(
-                                                    padding: EdgeInsets.only(
-                                                        left: parentWidth *
-                                                            0.019),
-                                                    child: Column(
-                                                      children: [
-                                                        Padding(
-                                                          padding: EdgeInsets.only(
-                                                              left:
-                                                              parentWidth *
-                                                                  0.0,
-                                                              top:
-                                                              parentHeight *
-                                                                  0.02),
-                                                          child: Row(
-                                                            children: [
-                                                              Padding(
-                                                                padding:
-                                                                EdgeInsets
-                                                                    .only(
-                                                                  right:
-                                                                  parentWidth *
-                                                                      0.02,
+                                            FutureBuilder<List<AllMasjitListResponceModel>>(
+                                                future: getAllListFuture,
+                                                builder: (context, snapshot) {
+                                                  return
+                                                    snapshot.data?[index].weeklyNamaz?.length != null ?
+                                                    Expanded(
+                                                      child: ListView.builder(
+                                                          shrinkWrap: true,
+                                                          itemCount: snapshot.data?[index].weeklyNamaz?.length,
+                                                          scrollDirection: Axis.horizontal,
+                                                          physics: const NeverScrollableScrollPhysics(),
+                                                          itemBuilder:
+                                                              (context, index) {
+                                                            return  Column(
+                                                             // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                              children: [
+
+
+                                                                Padding(
+                                                                  padding: EdgeInsets.only(top: parentHeight*0.01,right: parentHeight*0.0),
+                                                                  child: Text("${snapshot.data?[index].weeklyNamaz?[index].day}",
+                                                                    style: TextStyle(
+                                                                        fontSize: SizeConfig.blockSizeHorizontal*3.0,fontFamily: 'Roboto_Bold',
+                                                                    ),),
                                                                 ),
-                                                                child: Text(
-                                                                    "${snapshot.data![index].weeklyNamaz?[index].day}",
-                                                                    style:
-                                                                    TextStyle(
-                                                                      fontSize:
-                                                                      SizeConfig.blockSizeHorizontal *
-                                                                          2.8,
-                                                                      fontFamily:
-                                                                      'Roboto_Bold',
-                                                                      fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                      color: CommonColor
-                                                                          .BLACK_COLOR,
-                                                                    )),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        Padding(
-                                                          padding: EdgeInsets.only(
-                                                              left:
-                                                              parentWidth *
-                                                                  0.0,
-                                                              top:
-                                                              parentHeight *
-                                                                  0.01),
-                                                          child: Container(
-                                                            child: Text("08:85",
-                                                                style:
-                                                                TextStyle(
-                                                                  fontSize:
-                                                                  SizeConfig
-                                                                      .blockSizeHorizontal *
-                                                                      3.3,
-                                                                  fontFamily:
-                                                                  'Roboto_Regular',
-                                                                  fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
-                                                                  color: CommonColor
-                                                                      .BLACK_COLOR,
-                                                                )),
-                                                          ),
-                                                        ),
-                                                        Divider(),
-                                                        Padding(
-                                                          padding: EdgeInsets.only(
-                                                              left:
-                                                              parentWidth *
-                                                                  0.0,
-                                                              top:
-                                                              parentHeight *
-                                                                  0.01),
-                                                          child: Text("08:85",
-                                                              style: TextStyle(
-                                                                fontSize: SizeConfig
-                                                                    .blockSizeHorizontal *
-                                                                    3.3,
-                                                                fontFamily:
-                                                                'Roboto_Regular',
-                                                                fontWeight:
-                                                                FontWeight
-                                                                    .w400,
-                                                                color: CommonColor
-                                                                    .BLACK_COLOR,
-                                                              )),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  );
-                                                },
-                                              ),
-                                            ),
+
+
+                                                                /*Padding(
+                                                                  padding: EdgeInsets.only(top: parentHeight*0.01),
+                                                                  child: Container(
+                                                                      width: parentWidth*0.145,
+                                                                      height: parentHeight*0.031,
+                                                                      decoration: const BoxDecoration(
+                                                                        // color: Colors.blue,
+                                                                          border: Border(bottom: BorderSide(width: 1,  color: CommonColor.SEARCH_COLOR))
+                                                                      ),
+                                                                      child: Padding(
+                                                                        padding: EdgeInsets.only(left: parentWidth*0.03),
+                                                                        child: Text("${snapshot.data?[index].weeklyNamaz?[index].azan}",
+                                                                          style: TextStyle(
+                                                                              fontSize: SizeConfig.blockSizeHorizontal*3.0
+                                                                          ),),
+                                                                      )
+                                                                  ),
+                                                                ),*/
+
+                                                                Padding(
+                                                                  padding: EdgeInsets.only(top: parentHeight*0.008,),
+                                                                  child: Container(
+                                                                      width: parentWidth*0.145,
+                                                                      height: parentHeight*0.031,
+                                                                      decoration: const BoxDecoration(
+                                                                        // color: Colors.blue,
+                                                                          border: Border(bottom: BorderSide(width: 1,  color: CommonColor.SEARCH_COLOR))
+                                                                      ),
+                                                                      child:  Padding(
+                                                                        padding: EdgeInsets.only(top: parentHeight*0.0,left: parentHeight*0.0),
+                                                                        child: Row(
+                                                                          children: [
+                                                                            Text("${snapshot.data?[index].weeklyNamaz?[index].azan}",
+                                                                              style: TextStyle(
+                                                                                  fontSize: SizeConfig.blockSizeHorizontal*3.0
+                                                                              ),),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                  ),
+                                                                ),
+
+                                                                Padding(
+                                                                  padding: EdgeInsets.only(top: parentHeight*0.009,right: parentHeight*0.0),
+                                                                  child: Row(
+                                                                    children: [
+                                                                      Text("${snapshot.data?[index].weeklyNamaz?[index].jammat}",
+                                                                        style: TextStyle(
+                                                                            fontSize: SizeConfig.blockSizeHorizontal*3.0,
+                                                                        ),),
+                                                                    ],
+                                                                  ),
+                                                                ),
+
+                                                              ],
+                                                            ) ;
+                                                          }),
+                                                    )
+                                                        : Container();
+                                                })
+
+
+
+
                                           ],
                                         ),
-                                      ),
+                                      )
                                     ],
                                   ))));
                     });
                 /* ));*/
               }
-              return CircularProgressIndicator();
+              return Center(child: CircularProgressIndicator());
             })
       ],
     );
   }
 }
-/*  Future<AllMasjitListResponceModel> getAllMasjidList(userId) async {
-    print("userId $userId");
-    Map<String, String> headers = {
-      'Content-Type': 'application/json',
-      'authorization': 'Basic c3R1ZHlkb3RlOnN0dWR5ZG90ZTEyMw=='
-    };
-    final msg = jsonEncode({"id": 1});
-    var response = await http.post(
-      Uri.parse('http://sangh.bizz-manager.com/'),
-      headers: headers,
-      body: msg,
-    );
-    if (response.statusCode == 200) {
-      print("Yess.. ${response.body}");
-      return getAllMasjidFromJson(response.body);
-    } else {
-      // If the server did not return a 201 CREATED response,
-      // then throw an exception.
-      throw Exception('Failed to create album.');
-    }
-  }*/
 
-/*Future<AllMasjitListResponceModel> getAllMasjidList(userId) async {
-    try {
-      final result =
-      await http.post(Uri.parse("http://sangh.bizz-manager.com/"), body: {
-        "id": 1,
-      });
-      print("statusCode ${result.statusCode}");
-      if (result.statusCode == 200) {
-        print("Yess.. ${result.body}");
-        print("Hiii");
-      }
-      return getPostOrderFromJson(result.body);
-    } catch (e) {
-      throw e;
-    }
-  }*/
 Future<List<AllMasjitListResponceModel>> fetchPost() async {
   final response = await http.get(Uri.parse('http://sangh.bizz-manager.com/'));
 
   if (response.statusCode == 200) {
     final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
+
+    print("Hii ${response.body}");
 
     return parsed
         .map<AllMasjitListResponceModel>(

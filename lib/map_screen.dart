@@ -78,7 +78,7 @@ class _MasjitMappScreenState extends State<MasjitMappScreen> with SingleTickerPr
           shrinkWrap: true,
           children: [
             Container(
-              height: SizeConfig.screenHeight * 0.1,
+              height: SizeConfig.screenHeight * 0.07,
               decoration: const BoxDecoration(
                   gradient: LinearGradient(
                       begin: Alignment.centerLeft,
@@ -94,6 +94,7 @@ class _MasjitMappScreenState extends State<MasjitMappScreen> with SingleTickerPr
               MainHeading(SizeConfig.screenHeight, SizeConfig.screenWidth),
             ),
             Container(
+
                       child: ThreeTabWithDesign(SizeConfig.screenHeight,
                           SizeConfig.screenWidth),
                     ),
@@ -130,7 +131,7 @@ class _MasjitMappScreenState extends State<MasjitMappScreen> with SingleTickerPr
           child: Padding(
             padding: EdgeInsets.only(left: parentWidth * .04),
             child: Padding(
-              padding: EdgeInsets.only(top: parentHeight * 0.04),
+              padding: EdgeInsets.only(top: parentHeight * 0.01),
               child: Icon(
                 Icons.arrow_back_ios,
                 size: parentHeight * .03,
@@ -140,7 +141,7 @@ class _MasjitMappScreenState extends State<MasjitMappScreen> with SingleTickerPr
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(top: parentHeight * 0.04),
+          padding: EdgeInsets.only(top: parentHeight * 0.01),
           child: Text(
             "Registration",
             style: TextStyle(
@@ -152,7 +153,7 @@ class _MasjitMappScreenState extends State<MasjitMappScreen> with SingleTickerPr
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(right: parentWidth * .04),
+          padding: EdgeInsets.only(right: parentWidth * .01),
           child: Icon(
             Icons.arrow_back_ios,
             size: parentHeight * .03,

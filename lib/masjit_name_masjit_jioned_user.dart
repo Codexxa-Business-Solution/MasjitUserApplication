@@ -1591,61 +1591,7 @@ class _MasjitNameLocationJoinedState extends State<MasjitNameLocationJoined>
                                     ),
                                   ],
                                 ),
-                                // Row(
-                                //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                //   children: [
-                                //     Padding(
-                                //         padding:  EdgeInsets.only(right: parentHeight*0.02,top: parentHeight*0.01),
-                                //       child: Text("FAZAR",style: TextStyle(
-                                //         fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                                //         fontFamily: 'Roboto_Bold',
-                                //        fontWeight: FontWeight.w500,
-                                //         color: CommonColor.BLACK_COLOR,)),
 
-                                //         ),
-
-                                //           ],
-                                //        ),
-
-                                /*             Row(
-                                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                    padding:  EdgeInsets.only(right: parentHeight*0.0,top: parentHeight*0.01),
-                                    child: Text("AZAN :",style: TextStyle(
-                                      fontSize: SizeConfig.blockSizeHorizontal *4.0,
-                                      fontFamily: 'Roboto_Bold',
-                                      fontWeight: FontWeight.w500,
-                                      color: CommonColor.BLACK_COLOR,)),
-
-                                  ),
-                                  Padding(
-                                    padding:EdgeInsets.only(right: parentWidth*0.02,top: parentHeight*0.01),
-                                    child: Text("05:30",style: TextStyle(
-                                      fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                                      fontFamily: 'Roboto_Bold',
-                                      fontWeight: FontWeight.w600,
-                                      color: CommonColor.BLACK_COLOR,)),
-                                  ),
-                                  Padding(
-                                    padding:  EdgeInsets.only(right: parentHeight*0.01,top: parentHeight*0.01),
-                                    child: Text("JAMA’AT :",style: TextStyle(
-                                      fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                                      fontFamily: 'Roboto_Bold',
-                                      fontWeight: FontWeight.w500,
-                                      color: CommonColor.BLACK_COLOR,)),
-
-                                  ),
-                                  Padding(
-                                    padding:EdgeInsets.only(right: parentWidth*0.0,top: parentHeight*0.01),
-                                    child: Text("05:30",style: TextStyle(
-                                      fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                                      fontFamily: 'Roboto_Bold',
-                                      fontWeight: FontWeight.w600,
-                                      color: CommonColor.BLACK_COLOR,)),
-                                  )
-                                ],
-                              )*/
                               ],
                             ),
                           )

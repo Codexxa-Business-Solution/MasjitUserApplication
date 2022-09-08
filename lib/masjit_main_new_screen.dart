@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:masjiduserapp/all_masjit_list.dart';
 import 'package:masjiduserapp/common.color.dart';
@@ -65,23 +66,43 @@ void dispose() {
         itemBuilder: (context, index) {
           //shrinkWrap: true,
 
-           return Expanded(
+           return  Padding(
+             padding: EdgeInsets.only(top: SizeConfig.screenHeight*0.015),
              child: Container(
-               // height: SizeConfig.screenHeight*0.9,
 
-               /* decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(30),
-                    topLeft: Radius.circular(30),
-                  ),
+               decoration: BoxDecoration(
+                 borderRadius: BorderRadius.circular(30),
+                 boxShadow: <BoxShadow>[
+                   BoxShadow(
+                     color: Colors.grey.shade300,
+                     spreadRadius: 1,
+                     blurRadius: 5,
+                     offset: Offset(0, 5),
+                   ),
+                   BoxShadow(
+                     color: Colors.grey.shade50,
+                     offset: Offset(-5, 0),
+                   ),
+                   BoxShadow(
+                     color: Colors.grey.shade50,
+                     offset: Offset(5, 0),
+                   )
+                 ],
+               ),
+               child: Container(
 
-                  // color: Colors.red,
-                ),*/
-                child: ThreeTabWithDesign(SizeConfig.screenHeight,
-                    SizeConfig.screenWidth),
-              ),
 
+                     decoration: BoxDecoration(
 
+                       borderRadius: BorderRadius.only( topRight: Radius.circular(30),topLeft: Radius.circular(30),),
+
+                       // color: Colors.red,
+                     ),
+
+                  child: ThreeTabWithDesign(SizeConfig.screenHeight,
+                      SizeConfig.screenWidth),
+                ),
+             ),
            );
 
 
@@ -785,16 +806,17 @@ Widget getAddJammatTimeLayout(double parentHeight, double parentWidth) {
                                     child: Text(
                                       "${snapshot.data?.weeklyNamaz?[index].day}",
                                       style: TextStyle(
-                                          fontSize: SizeConfig
-                                              .blockSizeHorizontal *
-                                              2.8),
+                                          fontFamily: 'Roboto_Bold',
+                                          fontWeight: FontWeight.w500,
+                                          color: CommonColor.BLACK_COLOR,
+                                          fontSize: 10),
                                     ),
                                   ),
                                   Padding(
                                     padding: EdgeInsets.only(
                                         top: parentHeight * 0.01),
                                     child: Container(
-                                        width: parentWidth * 0.135,
+                                        width: parentWidth * 0.145,
                                         height: parentHeight * 0.031,
                                         decoration: const BoxDecoration(
                                           // color: Colors.blue,
@@ -803,23 +825,27 @@ Widget getAddJammatTimeLayout(double parentHeight, double parentWidth) {
                                                     width: 1,
                                                     color: CommonColor
                                                         .SEARCH_COLOR))),
-                                        child: Padding(
+                                        child:  Padding(
                                           padding: EdgeInsets.only(
-                                              left:
-                                              parentWidth * 0.025),
-                                          child: Text(
-                                            "${snapshot.data?.weeklyNamaz?[index].azan}",
-                                            style: TextStyle(
-                                                fontSize: SizeConfig
-                                                    .blockSizeHorizontal *
-                                                    3.0),
+                                              //left: parentHeight * 0.0,
+                                              left: parentHeight * 0.006),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                "${snapshot.data?.weeklyNamaz?[index].azan}",
+                                                style: TextStyle(
+                                                    fontSize: SizeConfig
+                                                        .blockSizeHorizontal *
+                                                        3.0),
+                                              ),
+                                            ],
                                           ),
-                                        )),
+                                        ),),
                                   ),
                                   Padding(
                                     padding: EdgeInsets.only(
                                         top: parentHeight * 0.01,
-                                        right: parentHeight * 0.005),
+                                        right: parentHeight * 0.00),
                                     child: Row(
                                       children: [
                                         Text(
@@ -900,114 +926,147 @@ Widget getAddFridayTimeLayout(double parentHeight, double parentWidth) {
               )),
           Visibility(
               visible: FridayTime,
-              child: Container(
-                  height: parentHeight * 0.13,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(20),
-                        bottomLeft: Radius.circular(20)),
-                    boxShadow: <BoxShadow>[
-                      BoxShadow(
-                        color: Colors.grey.shade300,
-                        spreadRadius: 1,
-                        blurRadius: 5,
-                        offset: Offset(0, 5),
-                      ),
-                      BoxShadow(
-                        color: Colors.grey.shade50,
-                        offset: Offset(-5, 0),
-                      ),
-                      BoxShadow(
-                        color: Colors.grey.shade50,
-                        offset: Offset(5, 0),
-                      )
-                    ],
-                  ),
-                  child: FutureBuilder<NoticeResponceModel>(
-                      future: getNotice,
-                      builder: (context, snapshot) {
-                        return Column(
-                          children: [
-                            Padding(
-                              padding:
-                              EdgeInsets.only(top: parentHeight * 0.02),
-                              child: Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        left: parentWidth * 0.1,
-                                        top: parentHeight * 0.0),
-                                    child: Text("SAHR",
-                                        style: TextStyle(
-                                          fontSize:
-                                          SizeConfig.blockSizeHorizontal *
-                                              4.3,
-                                          fontFamily: 'Roboto_Bold',
-                                          fontWeight: FontWeight.w600,
-                                          color: CommonColor.BLACK_COLOR,
-                                        )),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        right: parentWidth * 0.1,
-                                        top: parentHeight * 0.0),
-                                    child: snapshot.data?.sahr != null
-                                        ? Text("${snapshot.data?.sahr}",
-                                        style: TextStyle(
-                                          fontSize: SizeConfig
-                                              .blockSizeHorizontal *
-                                              4.3,
-                                          fontFamily: 'Roboto_Bold',
-                                          fontWeight: FontWeight.w600,
-                                          color: CommonColor.BLACK_COLOR,
-                                        ))
-                                        : Container(),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      left: parentHeight * 0.05,
-                                      top: parentHeight * 0.03),
-                                  child: Text("IFTAR",
-                                      style: TextStyle(
-                                        fontSize:
-                                        SizeConfig.blockSizeHorizontal *
-                                            4.3,
-                                        fontFamily: 'Roboto_Bold',
-                                        fontWeight: FontWeight.w600,
-                                        color: CommonColor.BLACK_COLOR,
-                                      )),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      right: parentWidth * 0.1,
-                                      top: parentHeight * 0.03),
-                                  child: snapshot.data?.iftar != null
-                                      ? Text("${snapshot.data?.iftar}",
-                                      style: TextStyle(
-                                        fontSize: SizeConfig
-                                            .blockSizeHorizontal *
-                                            4.3,
-                                        fontFamily: 'Roboto_Bold',
-                                        fontWeight: FontWeight.w600,
-                                        color: CommonColor.BLACK_COLOR,
-                                      ))
-                                      : Text(""),
-                                )
-                              ],
-                            )
-                          ],
-                        );
-                      })))
+         child:
+         Container(
+           height: parentHeight * 0.13,
+           decoration: BoxDecoration(
+             color: Colors.white,
+             borderRadius: BorderRadius.only(
+                 bottomRight: Radius.circular(20),
+                 bottomLeft: Radius.circular(20)),
+             boxShadow: <BoxShadow>[
+               BoxShadow(
+                 color: Colors.grey.shade300,
+                 spreadRadius: 1,
+                 blurRadius: 5,
+                 offset: Offset(0, 5),
+               ),
+               BoxShadow(
+                 color: Colors.grey.shade50,
+                 offset: Offset(-5, 0),
+               ),
+               BoxShadow(
+                 color: Colors.grey.shade50,
+                 offset: Offset(5, 0),
+               )
+             ],
+           ),
+           //  color: Colors.red,
+           child:
+
+           Row(
+             //mainAxisAlignment: MainAxisAlignment.spaceAround,
+             children: [
+               Column(
+                 children: [
+
+                   Padding(
+                     padding: EdgeInsets.only(top: parentHeight * 0.03),
+                     child: Padding(
+                       padding:
+                       EdgeInsets.only(left: parentWidth * 0.0),
+                       child: const Text(
+                         "AZAN",
+                         style: TextStyle(
+                             fontFamily: 'Roboto_Bold',
+                             fontWeight: FontWeight.w500,
+                             color: CommonColor.BLACK_COLOR,
+                             fontSize: 14),
+                       ),
+                     ),
+                   ),
+                   Padding(
+                     padding: EdgeInsets.only(
+                         top: parentHeight * 0.01, left: parentWidth * 0.03),
+                     child: Row(
+                       children: const [
+                         Text(
+                           "JAMAA'T",
+                           style: TextStyle(
+                               fontFamily: 'Roboto_Bold',
+                               fontWeight: FontWeight.w500,
+                               color: CommonColor.BLACK_COLOR,
+                               fontSize: 14),
+                         ),
+                       ],
+                     ),
+                   ),
+                 ],
+               ),
+               FutureBuilder<NoticeResponceModel>(
+                   future: getNotice,
+                   builder: (context, snapshot) {
+
+
+                     return Column(
+                       // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                       children: [
+
+                         Padding(
+                           padding: EdgeInsets.only(
+                               top: parentHeight * 0.03,right: parentHeight*0.25),
+                           child: Row(
+                             mainAxisAlignment: MainAxisAlignment.start,
+                             children: [
+                               Text(
+                                 "${snapshot.data?.jumma?.azan}",
+                                 style: TextStyle(
+                                     fontSize: SizeConfig
+                                         .blockSizeHorizontal *
+                                         3.3),
+                               ),
+                             ],
+                           ),
+                         ),
+
+                         Container(
+
+                           height: parentHeight*0.04,
+                           width: parentWidth*0.7,
+
+                           child:
+                           snapshot.data?.jumma?.jammat?.length != null
+                               ?
+
+                           ListView.builder(
+                              //physics: NeverScrollableScrollPhysics(),
+                               shrinkWrap: true,
+                               scrollDirection: Axis.horizontal,
+                               itemCount: snapshot.data?.jumma?.jammat?.length,
+                               itemBuilder: (context, index) {
+
+                                 return
+
+                                  /* snapshot.data?.jumma?.jammat?.length != null
+                                       ?*/
+                                   Padding(
+                                   padding: EdgeInsets.only(
+                                       top: parentHeight * 0.01,
+                                       left: parentHeight * 0.02),
+                                   child: Row(
+                                     mainAxisAlignment: MainAxisAlignment.start,
+                                     children: [
+                                       Text(
+                                         "${snapshot.data?.jumma?.jammat?[index]}",
+                                         style: TextStyle(
+                                             fontSize: SizeConfig
+                                                 .blockSizeHorizontal *
+                                                 3.3),
+                                       ),
+                                     ],
+                                   ),
+                                 );
+
+                               }):Container()
+                         ),
+
+                       ],
+                     );
+                   })
+             ],
+           ),
+         )
+          )
         ],
       ),
     ),
@@ -1268,6 +1327,7 @@ Widget getAddEidLayout(double parentHeight, double parentWidth) {
                         children: [
                           Expanded(
                             child: ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
                                 itemCount: snapshot.data?.ed?.length,
                                 // physics: const NeverScrollableScrollPhysics(),
@@ -1378,9 +1438,9 @@ Widget ContinueButton(double parentHeight, double parentWidth) {
 
 Widget SlideBanner(double parentHeight, double parentWidth) {
   return Padding(
-    padding: EdgeInsets.only(top: parentHeight * 0.03),
+    padding: EdgeInsets.only(top: parentHeight * 0.03,bottom: parentHeight*0.06),
     child: Container(
-        height: parentHeight * 0.20,
+        height: parentHeight * 0.17,
         decoration: BoxDecoration(
           color: Colors.grey.shade200,
           borderRadius: BorderRadius.circular(20),
@@ -1388,16 +1448,16 @@ Widget SlideBanner(double parentHeight, double parentWidth) {
             BoxShadow(
               color: Colors.grey.shade300,
               spreadRadius: 1,
-              blurRadius: 3,
-              offset: Offset(0, 3),
+              blurRadius: 2,
+              offset: Offset(0, 1),
             ),
             BoxShadow(
               color: Colors.grey.shade50,
-              offset: Offset(-5, 0),
+              offset: Offset(-3, 0),
             ),
             BoxShadow(
               color: Colors.grey.shade50,
-              offset: Offset(3, 0),
+              offset: Offset(1, 0),
             )
           ],
         ),
@@ -1711,7 +1771,7 @@ Widget MasjitNameLocation(double parentHeight, double parentWidth) {
                             Padding(
                               padding: EdgeInsets.only(
                                   left: parentWidth * 0.04,
-                                  top: parentHeight * 0.02),
+                                  top: parentHeight * 0.03),
                               child: Text("AZAN",
                                   style: TextStyle(
                                     fontSize:
