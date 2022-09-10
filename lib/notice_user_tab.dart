@@ -18,7 +18,7 @@ class _NoticeUserTabState extends State<NoticeUserTab> {
   @override
   void initState() {
     super.initState();
-    getNotice = getNoticeSection();
+   // getNotice = getNoticeSection();
     print(getNotice);
   }
 
@@ -29,17 +29,17 @@ class _NoticeUserTabState extends State<NoticeUserTab> {
       backgroundColor: Colors.white,
       body: Container(
         height: SizeConfig.screenHeight * 0.9,
-        child: getAddTermsTextLayout(
-            SizeConfig.screenHeight, SizeConfig.screenWidth),
+       /* child: getAddTermsTextLayout(
+            SizeConfig.screenHeight, SizeConfig.screenWidth),*/
       ),
     );
   }
 
-  Widget getAddTermsTextLayout(double parentHeight, double parentWidth) {
+  /*Widget getAddTermsTextLayout(double parentHeight, double parentWidth) {
     return Padding(
       padding:
       EdgeInsets.only(top: parentHeight * 0.01, left: parentWidth * 0.02),
-      child: FutureBuilder<NoticeResponceModel>(
+      child: FutureBuilder<AllMasjitDetailsResponceModel>(
           future: getNotice,
           builder: (context, snapshot) {
             return snapshot.data?.notices != null ?
@@ -78,7 +78,7 @@ class _NoticeUserTabState extends State<NoticeUserTab> {
     );
   }
 
-  Future<NoticeResponceModel> getNoticeSection() async {
+  Future<AllMasjitDetailsResponceModel> getNoticeSection() async {
     // print(" userId ${userId}");
 
     Map<String, String> headers = {
@@ -105,11 +105,11 @@ class _NoticeUserTabState extends State<NoticeUserTab> {
 
       print("Hiii");
 
-      return noticeResponceModelFromJson(response.body);
+      return allMasjitDetailsResponceModelFromJson(response.body);
     } else {
       // If the server did not return a 201 CREATED response,
       // then throw an exception.
       throw Exception('Failed to create album.');
     }
-  }
+  }*/
 }

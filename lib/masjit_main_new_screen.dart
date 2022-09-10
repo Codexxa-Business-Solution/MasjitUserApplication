@@ -275,16 +275,17 @@ void dispose() {
             padding:  EdgeInsets.only(top: parentHeight*0.03),
             child: Visibility(
                 visible: showDetails,
-                child: FutureBuilder<NoticeResponceModel>(
+                child: FutureBuilder<AllMasjitDetailsResponceModel>(
                     future: getNotice,
                     builder: (context, snapshot) {
                       return
-                        //snapshot.data?.trustee?.length != null ?
+
                         ListView.builder(
                             physics: NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
                             itemCount: 1,
                             itemBuilder: (context, index) {
+
                               // final data = snapshot.data!.notices?[index];
 
                               return Column(
@@ -294,7 +295,9 @@ void dispose() {
                                     padding: EdgeInsets.only(
                                         left: parentHeight * 0.02),
                                     child: Text(
-                                      "${snapshot.data?.location!.place}",
+
+                                      "${snapshot.data?.place}",
+
                                       style: TextStyle(
                                           fontSize:
                                           SizeConfig.blockSizeHorizontal *
@@ -460,8 +463,10 @@ void dispose() {
                     })),
           ),
         ],
+
       ),
     );
+
   }
 Widget getFirstImageFrame(
     double parentHeight, double parentWidth, images, imageLen) {
@@ -783,7 +788,7 @@ Widget getAddJammatTimeLayout(double parentHeight, double parentWidth) {
                     ),
                   ],
                 ),
-                FutureBuilder<NoticeResponceModel>(
+                FutureBuilder<AllMasjitDetailsResponceModel>(
                     future: getNotice,
                     builder: (context, snapshot) {
                       return snapshot.data?.weeklyNamaz?.length != null
@@ -993,7 +998,7 @@ Widget getAddFridayTimeLayout(double parentHeight, double parentWidth) {
                    ),
                  ],
                ),
-               FutureBuilder<NoticeResponceModel>(
+               FutureBuilder<AllMasjitDetailsResponceModel>(
                    future: getNotice,
                    builder: (context, snapshot) {
 
@@ -1150,7 +1155,7 @@ Widget getAddshariIftarLayout(double parentHeight, double parentWidth) {
                       )
                     ],
                   ),
-                  child: FutureBuilder<NoticeResponceModel>(
+                  child: FutureBuilder<AllMasjitDetailsResponceModel>(
                       future: getNotice,
                       builder: (context, snapshot) {
                         return Column(
@@ -1319,7 +1324,7 @@ Widget getAddEidLayout(double parentHeight, double parentWidth) {
                     )
                   ],
                 ),
-                child: FutureBuilder<NoticeResponceModel>(
+                child: FutureBuilder<AllMasjitDetailsResponceModel>(
                     future: getNotice,
                     builder: (context, snapshot) {
                       return snapshot.data?.weeklyNamaz?.length != null
@@ -1329,7 +1334,7 @@ Widget getAddEidLayout(double parentHeight, double parentWidth) {
                             child: ListView.builder(
                               physics: NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
-                                itemCount: snapshot.data?.ed?.length,
+                                itemCount: snapshot.data?.eid?.length,
                                 // physics: const NeverScrollableScrollPhysics(),
                                 itemBuilder: (context, index) {
                                   return Column(
@@ -1349,7 +1354,7 @@ Widget getAddEidLayout(double parentHeight, double parentWidth) {
                                                   top: parentHeight *
                                                       0.01),
                                               child: Text(
-                                                  "${snapshot.data?.ed?[index].name}",
+                                                  "${snapshot.data?.eid?[index].name}",
                                                   style: TextStyle(
                                                     fontSize: SizeConfig
                                                         .blockSizeHorizontal *
@@ -1369,7 +1374,7 @@ Widget getAddEidLayout(double parentHeight, double parentWidth) {
                                                   top: parentHeight *
                                                       0.01),
                                               child: Text(
-                                                  "Jammat  ${snapshot.data?.ed?[index].jammat?[index].time}",
+                                                  "Jammat  ${snapshot.data?.eid?[index].jammat?[0]}",
                                                   style: TextStyle(
                                                     fontSize: SizeConfig
                                                         .blockSizeHorizontal *
@@ -1981,22 +1986,26 @@ Widget MasjitNameLocation(double parentHeight, double parentWidth) {
       ) //////
   ]);
 }
-Future<NoticeResponceModel> getNoticeSection() async {
+Future<AllMasjitDetailsResponceModel> getNoticeSection() async {
   // print(" userId ${userId}");
 
-  Map<String, String> headers = {
-    'Content-Type': 'application/json',
-    'authorization': 'Basic c3R1ZHlkb3RlOnN0dWR5ZG90ZTEyMw=='
+  var headersList = {
+    'Accept': '*/*',
+    'User-Agent': 'Thunder Client (https://www.thunderclient.com)',
+    'Authorization': 'Bearer 11|CPdFOTzfo03qxkbi6XPmTY2uAnVfkSXrZRUbRRwo'
   };
 
   // final msg = jsonEncode({
   //   "user_id": userId.toString(),
   // });
 
-  var response = await http.post(
-    Uri.parse("http://sangh.bizz-manager.com/?id=1"),
-    headers: headers,
+
+
+  var response = await http.get(
+      Uri.parse('http://masjid.exportica.in/api/masjids/1'),
+      headers:headersList
   );
+
 
   if (response.statusCode == 200) {
     // If the server did return a 201 CREATED response,
@@ -2008,7 +2017,7 @@ Future<NoticeResponceModel> getNoticeSection() async {
 
     print("Hiii");
 
-    return noticeResponceModelFromJson(response.body);
+    return allMasjitDetailsResponceModelFromJson(response.body);
   } else {
     // If the server did not return a 201 CREATED response,
     // then throw an exception.

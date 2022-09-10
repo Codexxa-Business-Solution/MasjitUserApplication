@@ -42,7 +42,7 @@ class _TrusteeUserTabState extends State<TrusteeUserTab> {
   }
   Widget getAddTermsTextLayout(double parentHeight, double parentWidth) {
 
-    return FutureBuilder<NoticeResponceModel>(
+    return FutureBuilder<AllMasjitDetailsResponceModel>(
         future:getNotice ,
         builder: (context, snapshot){
          return
@@ -163,21 +163,24 @@ class _TrusteeUserTabState extends State<TrusteeUserTab> {
   }
 
 
-  Future<NoticeResponceModel> getNoticeSection() async {
+  Future<AllMasjitDetailsResponceModel> getNoticeSection() async {
     // print(" userId ${userId}");
 
-    Map<String, String> headers = {
-      'Content-Type': 'application/json',
-      'authorization': 'Basic c3R1ZHlkb3RlOnN0dWR5ZG90ZTEyMw=='
+    var headersList = {
+      'Accept': '*/*',
+      'User-Agent': 'Thunder Client (https://www.thunderclient.com)',
+      'Authorization': 'Bearer 11|CPdFOTzfo03qxkbi6XPmTY2uAnVfkSXrZRUbRRwo'
     };
 
     // final msg = jsonEncode({
     //   "user_id": userId.toString(),
     // });
 
-    var response = await http.post(
-      Uri.parse("http://sangh.bizz-manager.com/?id=1"),
-      headers: headers,
+
+
+    var response = await http.get(
+        Uri.parse('http://masjid.exportica.in/api/masjids/1'),
+        headers:headersList
     );
 
     if (response.statusCode == 200) {
@@ -190,7 +193,7 @@ class _TrusteeUserTabState extends State<TrusteeUserTab> {
 
       print("Hiii");
 
-      return noticeResponceModelFromJson(response.body);
+      return allMasjitDetailsResponceModelFromJson(response.body);
     } else {
       // If the server did not return a 201 CREATED response,
       // then throw an exception.

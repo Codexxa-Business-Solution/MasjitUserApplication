@@ -43,7 +43,8 @@ class _AllMasjitListState extends State<AllMasjitList> {
         FutureBuilder<AllMasjitListResponceModel>(
             future: getAllListFuture,
             builder: (context, snapshot) {
-              return ListView.builder(
+              return snapshot.data?.data?.length != null?
+        ListView.builder(
                   itemCount: snapshot.data?.data?.length,
                   padding: const EdgeInsets.only(bottom: 20, top: 5),
                   itemBuilder: (context, index) {
@@ -125,137 +126,204 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                 ],
                                               ),
                                             ),
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: parentHeight * 0.02),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                                children: [
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .start,
-                                                    crossAxisAlignment:
-                                                    CrossAxisAlignment
-                                                        .center,
-                                                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                        EdgeInsets.only(
-                                                          // right: parentWidth * 0.05,
-                                                            top:
-                                                            parentHeight *
-                                                                0.01),
-                                                        child: Text(
-                                                          "${snapshot.data?.data?[index].place?[0].masjidName}",
-                                                          style: TextStyle(
-                                                            fontSize: SizeConfig
-                                                                .blockSizeHorizontal *
-                                                                4.3,
-                                                            fontFamily:
-                                                            'Roboto_Bold',
-                                                            fontWeight:
-                                                            FontWeight
-                                                                .w500,
-                                                            color: CommonColor
-                                                                .MASJIT_NAME,
-                                                          ),
-                                                          textAlign:
-                                                          TextAlign.start,
-                                                          overflow:
-                                                          TextOverflow
-                                                              .ellipsis,
-                                                          maxLines: 1,
-                                                        ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                        EdgeInsets.only(
-                                                          top: parentHeight *
-                                                              0.01,
-                                                          left: parentWidth *
-                                                              0.10,
-                                                        ),
-                                                        child: Container(
-                                                            height:
-                                                            parentHeight *
-                                                                0.04,
-                                                            width:
-                                                            parentHeight *
-                                                                0.12,
-                                                            decoration:
-                                                            BoxDecoration(
-                                                              gradient: LinearGradient(
-                                                                  begin: Alignment
-                                                                      .centerLeft,
-                                                                  end: Alignment.centerRight,
-                                                                  colors: [
-                                                                    CommonColor
-                                                                        .LEFT_COLOR,
-                                                                    CommonColor
-                                                                        .RIGHT_COLOR
-                                                                  ]),
-                                                              borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                  10),
-                                                            ),
-                                                            child: Center(
-                                                              child: Text(
-                                                                "JOIN",
-                                                                style: TextStyle(
-                                                                    fontFamily:
-                                                                    "Roboto_Regular",
-                                                                    fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                    fontSize:
-                                                                    SizeConfig.blockSizeHorizontal *
-                                                                        4.3,
-                                                                    color: CommonColor
-                                                                        .WHITE_COLOR),
-                                                              ),
-                                                            )),
-                                                      ),
-                                                    ],
-                                                  ),
+                                            Container(
 
-                                                  Row(
-                                                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: [
-                                                      Padding(
-                                                        padding: EdgeInsets.only(
-                                                            right:
-                                                            parentHeight *
-                                                                0.02,
-                                                            top:
-                                                            parentHeight *
-                                                                0.0),
-                                                        child: Text(
-                                                            "${snapshot.data?.data?[0].place?[0].subLocality}",
+                                              width: parentWidth*0.44,
+                                              child: Padding(
+                                                padding: EdgeInsets.only(
+                                                    left: parentHeight * 0.02,top: parentWidth*0.03),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                                  children: [
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .start,
+                                                      crossAxisAlignment:
+                                                      CrossAxisAlignment
+                                                          .center,
+                                                      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                          EdgeInsets.only(
+                                                            // right: parentWidth * 0.05,
+                                                              top:
+                                                              parentHeight *
+                                                                  0.01),
+                                                          child: Text(
+                                                            "${snapshot.data?.data?[index].place?[0].masjidName}",
                                                             style: TextStyle(
                                                               fontSize: SizeConfig
                                                                   .blockSizeHorizontal *
-                                                                  4.0,
+                                                                  4.3,
                                                               fontFamily:
                                                               'Roboto_Bold',
                                                               fontWeight:
                                                               FontWeight
-                                                                  .w400,
+                                                                  .w500,
                                                               color: CommonColor
-                                                                  .BLACK_COLOR,
-                                                            )),
-                                                      ),
-                                                    ],
-                                                  ),
+                                                                  .MASJIT_NAME,
+                                                            ),
+                                                            textAlign:
+                                                            TextAlign.start,
+                                                            overflow:
+                                                            TextOverflow
+                                                                .ellipsis,
+                                                            maxLines: 1,
+                                                          ),
+                                                        ),
+                                                        /*Container(
+                                                          width: parentWidth*.1,
+                                                          child: Padding(
+                                                            padding:
+                                                            EdgeInsets.only(
+                                                              top: parentHeight *
+                                                                  0.01,
+                                                              left: parentWidth *
+                                                                  0.10,
+                                                            ),
+                                                            child: Container(
+                                                                height:
+                                                                parentHeight *
+                                                                    0.04,
+                                                                width:
+                                                                parentHeight *
+                                                                    0.12,
+                                                                decoration:
+                                                                BoxDecoration(
+                                                                  gradient: LinearGradient(
+                                                                      begin: Alignment
+                                                                          .centerLeft,
+                                                                      end: Alignment.centerRight,
+                                                                      colors: [
+                                                                        CommonColor
+                                                                            .LEFT_COLOR,
+                                                                        CommonColor
+                                                                            .RIGHT_COLOR
+                                                                      ]),
+                                                                  borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                      10),
+                                                                ),
+                                                               *//* child: Container(
+                                                                  color: Colors.yellow,
+                                                                  width: parentWidth*0.3,
+                                                                  child: Column(
+                                                                    children: [
+                                                                      Center(
+                                                                        child: Text(
+                                                                          "JOIN",
+                                                                          style: TextStyle(
+                                                                              fontFamily:
+                                                                              "Roboto_Regular",
+                                                                              fontWeight:
+                                                                              FontWeight
+                                                                                  .w700,
+                                                                              fontSize:
+                                                                              SizeConfig.blockSizeHorizontal *
+                                                                                  4.3,
+                                                                              color: CommonColor
+                                                                                  .WHITE_COLOR),
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                )*//*
+
+                                                            ),
+                                                          ),
+                                                        ),*/
+                                                      ],
+                                                    ),
+
+                                                    Row(
+                                                      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      children: [
+                                                        Padding(
+                                                          padding: EdgeInsets.only(
+                                                              right:
+                                                              parentHeight *
+                                                                  0.02,
+                                                              top:
+                                                              parentHeight *
+                                                                  0.0),
+                                                          child: Text(
+                                                              "${snapshot.data?.data?[0].place?[0].subLocality}",
+                                                              style: TextStyle(
+                                                                fontSize: SizeConfig
+                                                                    .blockSizeHorizontal *
+                                                                    4.0,
+                                                                fontFamily:
+                                                                'Roboto_Bold',
+                                                                fontWeight:
+                                                                FontWeight
+                                                                    .w400,
+                                                                color: CommonColor
+                                                                    .BLACK_COLOR,
+                                                              )),
+                                                        ),
+                                                      ],
+                                                    ),
 
 
 
-                                                ],
+                                                  ],
+                                                ),
                                               ),
-                                            )
+                                            ),
+                                            Padding(
+                                              padding:  EdgeInsets.only(left: parentWidth*0.05),
+                                              child: Container(
+                                                width: parentWidth*.23,
+                                                height: parentWidth*.08,
+                                               // color: Colors.yellow,
+                                                child: Container(
+                                                  height:
+                                                  parentHeight *
+                                                      0.04,
+                                                  width:
+                                                  parentWidth *
+                                                      0.3,
+                                                  decoration:
+                                                  BoxDecoration(
+                                                    gradient: LinearGradient(
+                                                        begin: Alignment
+                                                            .centerLeft,
+                                                        end: Alignment.centerRight,
+                                                        colors: [
+                                                          CommonColor
+                                                              .LEFT_COLOR,
+                                                          CommonColor
+                                                              .RIGHT_COLOR
+                                                        ]),
+                                                    borderRadius:
+                                                    BorderRadius
+                                                        .circular(
+                                                        7),
+                                                  ),
+                                                   child: Center(
+                                                     child: Text(
+                                                       "JOIN",
+                                                       style: TextStyle(
+                                                           fontFamily:
+                                                           "Roboto_Regular",
+                                                           fontWeight:
+                                                           FontWeight
+                                                               .w700,
+                                                           fontSize:
+                                                           SizeConfig.blockSizeHorizontal *
+                                                               4.3,
+                                                           color: CommonColor
+                                                               .WHITE_COLOR),
+                                                     ),
+                                                   )
+
+                                                ),
+                                              ),
+                                            ),
                                           ],
                                         ),
 
@@ -385,7 +453,7 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                                     padding: EdgeInsets.only(top: parentHeight*0.0,left: parentHeight*0.0),
                                                                     child: Row(
                                                                       children: [
-                                                                        Text("${snapshot.data?.data?[index].weeklyNamaz?[index].azan}",
+                                                                        Text("${snapshot.data?.data?[0].weeklyNamaz?[index].azan}",
                                                                           style: TextStyle(
                                                                               fontSize: SizeConfig.blockSizeHorizontal*3.0
                                                                           ),),
@@ -422,7 +490,8 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                     )
                                   ],
                                 ))));
-                  });
+                  })
+              :Container();
             })
       ],
     );

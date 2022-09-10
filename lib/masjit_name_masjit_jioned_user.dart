@@ -1,3 +1,4 @@
+/*
 import 'dart:convert';
 
 import 'package:carousel_slider/carousel_slider.dart';
@@ -498,13 +499,17 @@ class _MasjitNameLocationJoinedState extends State<MasjitNameLocationJoined>
                                       SizeConfig.screenHeight, SizeConfig.screenWidth),
                                   SlideBanner(
                                       SizeConfig.screenHeight, SizeConfig.screenWidth),
-                                  /* MasjitNameLocation(
-                          SizeConfig.screenHeight, SizeConfig.screenWidth),*/
+                                  */
+/* MasjitNameLocation(
+                          SizeConfig.screenHeight, SizeConfig.screenWidth),*//*
+
                                 ],
                               )
 
-                              /* Text("Masjid Name"),
-                Text ("Location :")*/
+                              */
+/* Text("Masjid Name"),
+                Text ("Location :")*//*
+
                             ],
                           );
                         });
@@ -604,7 +609,8 @@ class _MasjitNameLocationJoinedState extends State<MasjitNameLocationJoined>
                   ),
                 ),
               ),
-              /*FutureBuilder<NoticeResponceModel>(
+              */
+/*FutureBuilder<NoticeResponceModel>(
 
                 future: getNotice,
 
@@ -772,7 +778,8 @@ class _MasjitNameLocationJoinedState extends State<MasjitNameLocationJoined>
                           ),
                         );
                       });
-                }),*/
+                }),*//*
+
               Container(
                 height: parentHeight*0.13,
 
@@ -1458,8 +1465,10 @@ class _MasjitNameLocationJoinedState extends State<MasjitNameLocationJoined>
           padding: EdgeInsets.only(top: parentHeight * 0.03),
           child: GestureDetector(
               onTap: () {
-                /*Navigator.push(context,/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                              MaterialPageRoute(builder: (context) => MasjitNameLocation()));*/
+                */
+/*Navigator.push(context,/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                              MaterialPageRoute(builder: (context) => MasjitNameLocation()));*//*
+
               },
               child: Padding(
                 padding: EdgeInsets.only(top: parentHeight * 0.03),
@@ -1940,3 +1949,4 @@ class _MasjitNameLocationJoinedState extends State<MasjitNameLocationJoined>
 }
 
 
+*/

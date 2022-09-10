@@ -93,7 +93,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
             Container(
               height: SizeConfig.screenHeight * 0.1,
               child:
-              CityContant(SizeConfig.screenHeight, SizeConfig.screenWidth),
+              ThreeTabs(SizeConfig.screenHeight, SizeConfig.screenWidth),
             ),
             Container(
               height: SizeConfig.screenHeight * 0.8,
@@ -149,7 +149,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
     );
   }
 
-  Widget CityContant(double parentHeight, double parentWidth) {
+  Widget ThreeTabs(double parentHeight, double parentWidth) {
     return Container(
 height: parentHeight*0.8,
 
@@ -303,16 +303,17 @@ height: parentHeight*0.8,
 
 
 
-                  FutureBuilder<NoticeResponceModel>(
+                  FutureBuilder<AllMasjitDetailsResponceModel>(
                       future: getMasjidInfo,
                       builder: (context, snapshot) {
-                        return Column(
+                        return snapshot.data?.images?.length != null ?
+                      Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
                               padding: EdgeInsets.only(left: parentHeight * 0.02),
                               child: Text(
-                                "${snapshot.data?.location?.place}",
+                                "${snapshot.data?.place?.masjidName}",
                                 style: TextStyle(
                                     fontSize: SizeConfig.blockSizeHorizontal * 4.0,
                                     color: CommonColor.BLACK,
@@ -325,7 +326,7 @@ height: parentHeight*0.8,
                                   top: parentHeight * 0.003,
                                   left: parentHeight * 0.02),
                               child: Text(
-                                "Location :",
+                                "${snapshot.data?.place?.locality}",
                                 style: TextStyle(
                                     fontSize: SizeConfig.blockSizeHorizontal * 3.5,
                                     color: CommonColor.BLACK,
@@ -346,6 +347,7 @@ height: parentHeight*0.8,
                                       child: Column(
                                         children: [
                                           CarouselSlider.builder(
+
                                             // carouselController: _controller,
                                               itemCount: snapshot.data?.images?.length,
                                               //widget.getChatGroupInfoData.length,
@@ -413,7 +415,7 @@ height: parentHeight*0.8,
                               ],
                             )
                           ],
-                        );
+                        ):Container();
                       }),
 
 
@@ -458,7 +460,8 @@ height: parentHeight*0.8,
   }
 
   Widget getAddFazarLayout(double parentHeight, double parentWidth) {
-    return/* Padding(
+    return
+      /* Padding(
       padding: EdgeInsets.only(top: parentHeight * 0.03),
       child: Container(
         height: parentHeight * 0.23,
@@ -924,7 +927,7 @@ height: parentHeight*0.8,
                         ),
                       ],
                     ),
-                    FutureBuilder<NoticeResponceModel>(
+                    FutureBuilder<AllMasjitDetailsResponceModel>(
                         future: getMasjidInfo,
                         builder: (context, snapshot) {
                           return snapshot.data?.weeklyNamaz?.length != null
@@ -1278,7 +1281,7 @@ height: parentHeight*0.8,
                       ),
                     ],
                   ),
-                  FutureBuilder<NoticeResponceModel>(
+                  FutureBuilder<AllMasjitDetailsResponceModel>(
                       future: getMasjidInfo,
                       builder: (context, snapshot) {
 
@@ -1381,7 +1384,7 @@ height: parentHeight*0.8,
               )
             ],
           ),
-          child:  FutureBuilder<NoticeResponceModel>(
+          child:  FutureBuilder<AllMasjitDetailsResponceModel>(
               future: getMasjidInfo,
               builder: (context, snapshot) {
                 return Column(
@@ -1509,7 +1512,7 @@ height: parentHeight*0.8,
               )
             ],
           ),
-          child:   FutureBuilder<NoticeResponceModel>(
+          child:   FutureBuilder<AllMasjitDetailsResponceModel>(
               future: getMasjidInfo,
               builder: (context, snapshot) {
                 return
@@ -1550,7 +1553,7 @@ height: parentHeight*0.8,
                       Expanded(
                         child: ListView.builder(
                             shrinkWrap: true,
-                            itemCount: snapshot.data?.ed?.length,
+                            itemCount: snapshot.data?.eid?.length,
                             // physics: const NeverScrollableScrollPhysics(),
                             itemBuilder:
                                 (context, index) {
@@ -1562,7 +1565,7 @@ height: parentHeight*0.8,
                                       Padding(
                                         padding: EdgeInsets.only(
                                             left: parentWidth * 0.1, top: parentHeight * 0.01),
-                                        child: Text("${snapshot.data?.ed?[index].name}",
+                                        child: Text("${snapshot.data?.eid?[index].name}",
                                             style: TextStyle(
                                               fontSize: SizeConfig.blockSizeHorizontal * 4.3,
                                               fontFamily: 'Roboto_Bold',
@@ -1573,7 +1576,7 @@ height: parentHeight*0.8,
                                       Padding(
                                         padding: EdgeInsets.only(
                                             right: parentWidth * 0.05, top: parentHeight * 0.01),
-                                        child: Text("Jammat  ${snapshot.data?.ed?[index].jammat?[index].time}",
+                                        child: Text("Jammat  ${snapshot.data?.eid?[index].jammat?[0]}",
                                             style: TextStyle(
                                               fontSize: SizeConfig.blockSizeHorizontal * 4.3,
                                               fontFamily: 'Roboto_Bold',
@@ -1637,22 +1640,27 @@ height: parentHeight*0.8,
   }
 
 
-  Future<NoticeResponceModel> getNoticeSection() async {
+  Future<AllMasjitDetailsResponceModel>getNoticeSection () async {
     // print(" userId ${userId}");
 
-    Map<String, String> headers = {
-      'Content-Type': 'application/json',
-      'authorization': 'Basic c3R1ZHlkb3RlOnN0dWR5ZG90ZTEyMw=='
+    var headersList = {
+      'Accept': '*/*',
+      'User-Agent': 'Thunder Client (https://www.thunderclient.com)',
+      'Authorization': 'Bearer 11|CPdFOTzfo03qxkbi6XPmTY2uAnVfkSXrZRUbRRwo'
     };
 
     // final msg = jsonEncode({
     //   "user_id": userId.toString(),
     // });
 
-    var response = await http.post(
-      Uri.parse("http://sangh.bizz-manager.com/?id=1"),
-      headers: headers,
+
+
+    var response = await http.get(
+        Uri.parse('http://masjid.exportica.in/api/masjids/1'),
+        headers:headersList
     );
+
+
 
     if (response.statusCode == 200) {
       // If the server did return a 201 CREATED response,
@@ -1664,7 +1672,7 @@ height: parentHeight*0.8,
 
       print("Hiii");
 
-      return noticeResponceModelFromJson(response.body);
+      return allMasjitDetailsResponceModelFromJson(response.body);
     } else {
       // If the server did not return a 201 CREATED response,
       // then throw an exception.

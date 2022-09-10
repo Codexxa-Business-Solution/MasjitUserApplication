@@ -165,7 +165,7 @@ class _MasjitMappScreenState extends State<MasjitMappScreen> with SingleTickerPr
   }
   Widget ThreeTabWithDesign(double parentHeight, double parentWidth) {
     return Container(
-      child: FutureBuilder<NoticeResponceModel>(
+      child: FutureBuilder<AllMasjitDetailsResponceModel>(
           future: getNotice,
           builder: (context, snapshot) {
             return ListView.builder(
