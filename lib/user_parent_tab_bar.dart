@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:masjiduserapp/all_masjit_Joined_list.dart';
 import 'package:masjiduserapp/map_screen.dart';
 import 'package:masjiduserapp/masjit_main_new_screen.dart';
 import 'package:masjiduserapp/privacy_policy.dart';
@@ -127,6 +128,12 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                             decoration: InputDecoration(
                               isDense: true,
                               counterText: "",
+                              enabledBorder: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+
+                              errorBorder: InputBorder.none,
+                              disabledBorder: InputBorder.none,
+
                               hintText: "Search",
                               hintStyle: TextStyle(
                                 fontFamily: "Roboto_Regular",
@@ -384,8 +391,14 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                       child: TabBarView(
                         controller: _tabController,
                         children: [
-                          MasjitMainScreen(),
-                         AllMasjitList(),
+                          Stack(
+                            children: [
+                              MasjitMainScreen(),
+                            ],
+                          ),
+
+                          AllMasjitList(),
+
                           /* GestureDetector(
                                 onTap: (){
                                _tabController.animateTo(1);
@@ -458,7 +471,10 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
 
 
                         ],
+
                       ),
+
+
                     )
                 )
               ]),

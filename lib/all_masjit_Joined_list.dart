@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/all_masjit_joined_list_response.dart';
 import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/all_masjit_list_responce_model.dart';
 import 'package:masjiduserapp/parent_masjit_location_name.dart';
 import 'package:http/http.dart' as http;
@@ -8,24 +9,19 @@ import 'package:masjiduserapp/size_config.dart';
 
 import 'common.color.dart';
 
-class AllMasjitList extends StatefulWidget {
-  const AllMasjitList({Key? key}) : super(key: key);
+class AllMasjitJoinedList extends StatefulWidget {
+  const AllMasjitJoinedList({Key? key}) : super(key: key);
 
   @override
-  State<AllMasjitList> createState() => _AllMasjitListState();
+  State<AllMasjitJoinedList> createState() => _AllMasjitJoinedListState();
 }
 
-class _AllMasjitListState extends State<AllMasjitList> {
-  Future<void> onRefresh() async {
-    await Future.delayed(Duration(seconds: 3));
-    getAllListFuture = fetchPost();
-  }
+class _AllMasjitJoinedListState extends State<AllMasjitJoinedList> {
   var getAllListFuture;
 
   @override
   void initState() {
     getAllListFuture = fetchPost();
-    //getIncompletedData = getInCompleteOrderSection(widget.userId);
     print("masjid $getAllListFuture");
   }
 
@@ -37,16 +33,15 @@ class _AllMasjitListState extends State<AllMasjitList> {
       body: Container(
         height: SizeConfig.screenHeight,
         child: getAddTermsTextLayout(
-            SizeConfig.screenHeight, SizeConfig.screenWidth,),
+            SizeConfig.screenHeight, SizeConfig.screenWidth),
       ),
     );
   }
 
-  Widget getAddTermsTextLayout(double parentHeight, double parentWidth, ) {
-    //print("hhhhh ${widget.masjitId}");
+  Widget getAddTermsTextLayout(double parentHeight, double parentWidth) {
     return Stack(
       children: [
-        FutureBuilder<AllMasjitListResponceModel>(
+        FutureBuilder<AllMasjitDetailsJoinedListResponceModel>(
             future: getAllListFuture,
             builder: (context, snapshot) {
               return snapshot.data?.data?.length != null?
@@ -58,11 +53,11 @@ class _AllMasjitListState extends State<AllMasjitList> {
                         padding: EdgeInsets.only(top: parentHeight * 0.03),
                         child: GestureDetector(
                             onTap: () {
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) =>
-                              //             MasjitNameLocation(masjit: widget.masjitId)));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          MasjitNameLocation(masjitId: '',)));
                             },
                             child: Container(
                                 height: parentHeight * 0.23,
@@ -286,61 +281,47 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                 width: parentWidth*.23,
                                                 height: parentWidth*.08,
                                                // color: Colors.yellow,
-                                                child: GestureDetector(
-                                                  onTap: () {
-
-                                                    print("id ${snapshot.data?.data?[index].id}");
-
-                                                    Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                MasjitNameLocation(masjitId: "${snapshot.data?.data?[index].id}")));
-                                                  },
-
-
-                                                  child: Container(
-                                                    height:
-                                                    parentHeight *
-                                                        0.04,
-                                                    width:
-                                                    parentWidth *
-                                                        0.3,
-                                                    decoration:
-                                                    BoxDecoration(
-                                                      gradient: LinearGradient(
-                                                          begin: Alignment
-                                                              .centerLeft,
-                                                          end: Alignment.centerRight,
-                                                          colors: [
-                                                            CommonColor
-                                                                .LEFT_COLOR,
-                                                            CommonColor
-                                                                .RIGHT_COLOR
-                                                          ]),
-                                                      borderRadius:
-                                                      BorderRadius
-                                                          .circular(
-                                                          7),
-                                                    ),
-                                                     child: Center(
-                                                       child: Text(
-                                                         "JOIN",
-                                                         style: TextStyle(
-                                                             fontFamily:
-                                                             "Roboto_Regular",
-                                                             fontWeight:
-                                                             FontWeight
-                                                                 .w700,
-                                                             fontSize:
-                                                             SizeConfig.blockSizeHorizontal *
-                                                                 4.3,
-                                                             color: CommonColor
-                                                                 .WHITE_COLOR),
-                                                       ),
-                                                     )
-
+                                                child: Container(
+                                                  height:
+                                                  parentHeight *
+                                                      0.04,
+                                                  width:
+                                                  parentWidth *
+                                                      0.3,
+                                                  decoration:
+                                                  BoxDecoration(
+                                                    gradient: LinearGradient(
+                                                        begin: Alignment
+                                                            .centerLeft,
+                                                        end: Alignment.centerRight,
+                                                        colors: [
+                                                          CommonColor
+                                                              .LEFT_COLOR,
+                                                          CommonColor
+                                                              .RIGHT_COLOR
+                                                        ]),
+                                                    borderRadius:
+                                                    BorderRadius
+                                                        .circular(
+                                                        7),
                                                   ),
+                                                   child: Center(
+                                                     child: Text(
+                                                       "JOIN",
+                                                       style: TextStyle(
+                                                           fontFamily:
+                                                           "Roboto_Regular",
+                                                           fontWeight:
+                                                           FontWeight
+                                                               .w700,
+                                                           fontSize:
+                                                           SizeConfig.blockSizeHorizontal *
+                                                               4.3,
+                                                           color: CommonColor
+                                                               .WHITE_COLOR),
+                                                     ),
+                                                   )
+
                                                 ),
                                               ),
                                             ),
@@ -516,14 +497,13 @@ class _AllMasjitListState extends State<AllMasjitList> {
       ],
     );
   }
-
-  Future<AllMasjitListResponceModel>fetchPost () async {
-   // print(" userId ${masjitId}");
+  Future<AllMasjitDetailsJoinedListResponceModel>fetchPost () async {
+    // print(" userId ${userId}");
 
     var headersList = {
       'Accept': '*/*',
       'User-Agent': 'Thunder Client (https://www.thunderclient.com)',
-      'Authorization': 'Bearer 8|ZqL0Xvdz7hF098wrfFbh90UFLDKBiOrMDgfzgjIu'
+      'Authorization': 'Bearer 16|0p8uwTA93h5KF51bzDhqJW5eQLxs4BChvT9sr2yl'
     };
 
     // final msg = jsonEncode({
@@ -533,7 +513,7 @@ class _AllMasjitListState extends State<AllMasjitList> {
 
 
     var response = await http.get(
-      Uri.parse('http://masjid.exportica.in/api/masjids'),
+      Uri.parse('http://masjid.exportica.in/api/user/joined'),
     headers:headersList
     );
 
@@ -549,7 +529,7 @@ class _AllMasjitListState extends State<AllMasjitList> {
 
       print("Hiii");
 
-      return allMasjitListResponceModelFromJson(response.body);
+      return allMasjitDetailsJoinedListResponceModelFromJson(response.body);
     } else {
       // If the server did not return a 201 CREATED response,
       // then throw an exception.

@@ -27,7 +27,9 @@ var itemsCity = [
   'Pineapple'
 ];
 String? theArea = null;
+String? theState = null;
 String? theCity = null;
+String? theCountry = null;
 
 class _UserRegistrationState extends State<UserRegistration> {
   @override
@@ -179,36 +181,39 @@ class _UserRegistrationState extends State<UserRegistration> {
                 border: Border.all(color: Colors.green, width: 1.5),
                 borderRadius: BorderRadius.circular(10)),
             child: DropdownButtonHideUnderline(
-              child: DropdownButton(
-                value: theArea,
-                icon: Icon(Icons.keyboard_arrow_down),
-                items: <String>[
-                  'pune',
-                  'mumbai',
-                  'Aurangabad',
-                  'Solapur',
-                  'Nashik'
-                ]
-                    .map((String val) => DropdownMenuItem<String>(
-                  value: val,
-                  child: Text(val),
-                ))
-                    .toList(),
-                hint: Padding(
-                  padding: EdgeInsets.only(left: parentWidth * 0.03),
-                  child: Text(
-                    'Area',
-                    style: TextStyle(
-                      fontFamily: "Roboto_Regular",
-                      fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+              child: Padding(
+                padding:  EdgeInsets.only(left: parentWidth*0.04),
+                child: DropdownButton(
+                  value: theArea,
+                  icon: Icon(Icons.keyboard_arrow_down),
+                  items: <String>[
+                    'pune',
+                    'mumbai',
+                    'Aurangabad',
+                    'Solapur',
+                    'Nashik'
+                  ]
+                      .map((String val) => DropdownMenuItem<String>(
+                    value: val,
+                    child: Text(val),
+                  ))
+                      .toList(),
+                  hint: Padding(
+                    padding: EdgeInsets.only(left: parentWidth * 0.02),
+                    child: Text(
+                      'Area',
+                      style: TextStyle(
+                        fontFamily: "Roboto_Regular",
+                        fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+                      ),
                     ),
                   ),
+                  onChanged: (String? value) {
+                    setState(() {
+                      theArea = value!;
+                    });
+                  },
                 ),
-                onChanged: (String? value) {
-                  setState(() {
-                    theArea = value!;
-                  });
-                },
               ),
             ),
           ),),
@@ -268,36 +273,39 @@ class _UserRegistrationState extends State<UserRegistration> {
                 border: Border.all(color: Colors.green, width: 1.5),
                 borderRadius: BorderRadius.circular(10)),
             child: DropdownButtonHideUnderline(
-              child: DropdownButton(
-                value: theArea,
-                icon: Icon(Icons.keyboard_arrow_down),
-                items: <String>[
-                  'pune',
-                  'mumbai',
-                  'Aurangabad',
-                  'Solapur',
-                  'Nashik'
-                ]
-                    .map((String val) => DropdownMenuItem<String>(
-                  value: val,
-                  child: Text(val),
-                ))
-                    .toList(),
-                hint: Padding(
-                  padding: EdgeInsets.only(left: parentWidth * 0.03),
-                  child: Text(
-                    'State',
-                    style: TextStyle(
-                      fontFamily: "Roboto_Regular",
-                      fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+              child: Padding(
+                padding:  EdgeInsets.only(left: parentWidth*0.04),
+                child: DropdownButton(
+                  value: theState,
+                  icon: Icon(Icons.keyboard_arrow_down),
+                  items: <String>[
+                    'pune',
+                    'nashik',
+                    'Aurangabad',
+                    'kholapur',
+                    'Nashik'
+                  ]
+                      .map((String val) => DropdownMenuItem<String>(
+                    value: val,
+                    child: Text(val),
+                  ))
+                      .toList(),
+                  hint: Padding(
+                    padding: EdgeInsets.only(left: parentWidth * 0.01),
+                    child: Text(
+                      'State',
+                      style: TextStyle(
+                        fontFamily: "Roboto_Regular",
+                        fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+                      ),
                     ),
                   ),
+                  onChanged: (String? value) {
+                    setState(() {
+                      theState = value!;
+                    });
+                  },
                 ),
-                onChanged: (String? value) {
-                  setState(() {
-                    theArea = value!;
-                  });
-                },
               ),
             ),
           ),),
@@ -357,36 +365,39 @@ class _UserRegistrationState extends State<UserRegistration> {
                 border: Border.all(color: Colors.green, width: 1.5),
                 borderRadius: BorderRadius.circular(10)),
             child: DropdownButtonHideUnderline(
-              child: DropdownButton(
-                value: theArea,
-                icon: Icon(Icons.keyboard_arrow_down),
-                items: <String>[
-                  'pune',
-                  'mumbai',
-                  'Aurangabad',
-                  'Solapur',
-                  'Nashik'
-                ]
-                    .map((String val) => DropdownMenuItem<String>(
-                  value: val,
-                  child: Text(val),
-                ))
-                    .toList(),
-                hint: Padding(
-                  padding: EdgeInsets.only(left: parentWidth * 0.03),
-                  child: Text(
-                    'City',
-                    style: TextStyle(
-                      fontFamily: "Roboto_Regular",
-                      fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+              child: Padding(
+                padding:  EdgeInsets.only(left: parentWidth*0.04),
+                child: DropdownButton(
+                  value: theCity,
+                  icon: Icon(Icons.keyboard_arrow_down),
+                  items: <String>[
+                    'punesss',
+                    'mumbaiii',
+                    'Aurasssngabad',
+                    'Solssapur',
+                    'Nassshik'
+                  ]
+                      .map((String val) => DropdownMenuItem<String>(
+                    value: val,
+                    child: Text(val),
+                  ))
+                      .toList(),
+                  hint: Padding(
+                    padding: EdgeInsets.only(left: parentWidth * 0.01),
+                    child: Text(
+                      'City',
+                      style: TextStyle(
+                        fontFamily: "Roboto_Regular",
+                        fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+                      ),
                     ),
                   ),
+                  onChanged: (String? value) {
+                    setState(() {
+                      theCity = value!;
+                    });
+                  },
                 ),
-                onChanged: (String? value) {
-                  setState(() {
-                    theArea = value!;
-                  });
-                },
               ),
             ),
           ),),
@@ -446,36 +457,39 @@ class _UserRegistrationState extends State<UserRegistration> {
                 border: Border.all(color: Colors.green, width: 1.5),
                 borderRadius: BorderRadius.circular(10)),
             child: DropdownButtonHideUnderline(
-              child: DropdownButton(
-                value: theArea,
-                icon: Icon(Icons.keyboard_arrow_down),
-                items: <String>[
-                  'pune',
-                  'mumbai',
-                  'Aurangabad',
-                  'Solapur',
-                  'Nashik'
-                ]
-                    .map((String val) => DropdownMenuItem<String>(
-                  value: val,
-                  child: Text(val),
-                ))
-                    .toList(),
-                hint: Padding(
-                  padding: EdgeInsets.only(left: parentWidth * 0.03),
-                  child: Text(
-                    'Country',
-                    style: TextStyle(
-                      fontFamily: "Roboto_Regular",
-                      fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+              child: Padding(
+                padding:  EdgeInsets.only(left: parentWidth*0.04),
+                child: DropdownButton(
+                  value: theCountry,
+                  icon: Icon(Icons.keyboard_arrow_down),
+                  items: <String>[
+                    'puneeee',
+                    'mumbaiiii',
+                    'Aurangabadddd',
+                    'Solapurrrr',
+                    'Nashik'
+                  ]
+                      .map((String val) => DropdownMenuItem<String>(
+                    value: val,
+                    child: Text(val),
+                  ))
+                      .toList(),
+                  hint: Padding(
+                    padding: EdgeInsets.only(left: parentWidth * 0.01),
+                    child: Text(
+                      'Country',
+                      style: TextStyle(
+                        fontFamily: "Roboto_Regular",
+                        fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+                      ),
                     ),
                   ),
+                  onChanged: (String? value) {
+                    setState(() {
+                      theCountry = value!;
+                    });
+                  },
                 ),
-                onChanged: (String? value) {
-                  setState(() {
-                    theArea = value!;
-                  });
-                },
               ),
             ),
           ),),

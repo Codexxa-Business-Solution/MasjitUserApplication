@@ -7,7 +7,6 @@ import 'package:masjiduserapp/map_screen.dart';
 import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/notice_response_model.dart';
 import 'package:masjiduserapp/size_config.dart';
 import 'package:http/http.dart' as http;
-import 'package:masjiduserapp/user_map_tab.dart';
 class MasjitMainScreen extends StatefulWidget {
   const MasjitMainScreen({Key? key}) : super(key: key);
 
@@ -89,19 +88,8 @@ void dispose() {
                    )
                  ],
                ),
-               child: Container(
-
-
-                     decoration: BoxDecoration(
-
-                       borderRadius: BorderRadius.only( topRight: Radius.circular(30),topLeft: Radius.circular(30),),
-
-                       // color: Colors.red,
-                     ),
-
-                  child: ThreeTabWithDesign(SizeConfig.screenHeight,
-                      SizeConfig.screenWidth),
-                ),
+               child: ThreeTabWithDesign(SizeConfig.screenHeight,
+                   SizeConfig.screenWidth),
              ),
            );
 
@@ -118,6 +106,7 @@ void dispose() {
       child: Column(
         children: [
           Container(
+
 
             child:
 
@@ -312,7 +301,7 @@ void dispose() {
                                         top: parentHeight * 0.003,
                                         left: parentHeight * 0.02),
                                     child: Text(
-                                      "Location :",
+                                    "${snapshot.data?.place?.administrativeArea}",
                                       style: TextStyle(
                                           fontSize:
                                           SizeConfig.blockSizeHorizontal *

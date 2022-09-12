@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:masjiduserapp/map_screen.dart';
@@ -12,8 +14,8 @@ import 'package:http/http.dart' as http;
 
 
 class MasjitNameLocation extends StatefulWidget {
-  const MasjitNameLocation({Key? key}) : super(key: key);
-
+  const MasjitNameLocation({Key? key, required this.masjitId}) : super(key: key);
+final String masjitId;
   @override
   _MasjitNameLocationState createState() => _MasjitNameLocationState();
 }
@@ -53,8 +55,9 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
     if (mounted) {
       setState(() {
         showDetails = true;
-        getMasjidInfo = getNoticeSection();
+        getMasjidInfo = getNoticeSection(widget.masjitId);
         print(getMasjidInfo);
+        print("Id ${widget.masjitId}");
       });
     }
     _tabController = TabController(vsync: this, length: tabs.length);
@@ -306,7 +309,9 @@ height: parentHeight*0.8,
                   FutureBuilder<AllMasjitDetailsResponceModel>(
                       future: getMasjidInfo,
                       builder: (context, snapshot) {
-                        return snapshot.data?.images?.length != null ?
+                        print("${snapshot.data?.place?.masjidName}");
+
+                        return snapshot.data?.place?.masjidName?.length != null ?
                       Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -1640,7 +1645,7 @@ height: parentHeight*0.8,
   }
 
 
-  Future<AllMasjitDetailsResponceModel>getNoticeSection () async {
+  Future<AllMasjitDetailsResponceModel>getNoticeSection(masjitId) async {
     // print(" userId ${userId}");
 
     var headersList = {
@@ -1648,7 +1653,6 @@ height: parentHeight*0.8,
       'User-Agent': 'Thunder Client (https://www.thunderclient.com)',
       'Authorization': 'Bearer 11|CPdFOTzfo03qxkbi6XPmTY2uAnVfkSXrZRUbRRwo'
     };
-
     // final msg = jsonEncode({
     //   "user_id": userId.toString(),
     // });
@@ -1656,8 +1660,9 @@ height: parentHeight*0.8,
 
 
     var response = await http.get(
-        Uri.parse('http://masjid.exportica.in/api/masjids/1'),
-        headers:headersList
+        Uri.parse('http://masjid.exportica.in/api/masjids/${masjitId}'),
+        headers:headersList,
+    //  body: msg,
     );
 
 
@@ -1679,6 +1684,8 @@ height: parentHeight*0.8,
       throw Exception('Failed to create album.');
     }
   }
+
+
 
 
 }
