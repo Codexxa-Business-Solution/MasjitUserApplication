@@ -434,7 +434,7 @@ class _AllMasjitListState extends State<AllMasjitList> {
 
                                                               Padding(
                                                                 padding: EdgeInsets.only(top: parentHeight*0.01,right: parentHeight*0.0),
-                                                                child: Text("${snapshot.data?.data?[index].weeklyNamaz?[index].day}",
+                                                                child: Text("${snapshot.data?.data?[index].weeklyNamaz?[0].day}",
                                                                   style: TextStyle(
                                                                     fontSize: SizeConfig.blockSizeHorizontal*3.0,fontFamily: 'Roboto_Bold',
                                                                   ),),
@@ -473,7 +473,7 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                                     padding: EdgeInsets.only(top: parentHeight*0.0,left: parentHeight*0.0),
                                                                     child: Row(
                                                                       children: [
-                                                                        Text("${snapshot.data?.data?[0].weeklyNamaz?[index].azan}",
+                                                                        Text("${snapshot.data?.data?[index].weeklyNamaz?[0].azan}",
                                                                           style: TextStyle(
                                                                               fontSize: SizeConfig.blockSizeHorizontal*3.0
                                                                           ),),
@@ -487,7 +487,7 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                                 padding: EdgeInsets.only(top: parentHeight*0.009,right: parentHeight*0.0),
                                                                 child: Row(
                                                                   children: [
-                                                                    Text("${snapshot.data?.data?[index].weeklyNamaz?[index].jammat}",
+                                                                    Text("${snapshot.data?.data?[index].weeklyNamaz?[0].jammat}",
                                                                       style: TextStyle(
                                                                         fontSize: SizeConfig.blockSizeHorizontal*3.0,
                                                                       ),),
@@ -523,7 +523,7 @@ class _AllMasjitListState extends State<AllMasjitList> {
     var headersList = {
       'Accept': '*/*',
       'User-Agent': 'Thunder Client (https://www.thunderclient.com)',
-      'Authorization': 'Bearer 8|ZqL0Xvdz7hF098wrfFbh90UFLDKBiOrMDgfzgjIu'
+      'Authorization': 'Bearer 11|CPdFOTzfo03qxkbi6XPmTY2uAnVfkSXrZRUbRRwo'
     };
 
     // final msg = jsonEncode({
@@ -533,7 +533,7 @@ class _AllMasjitListState extends State<AllMasjitList> {
 
 
     var response = await http.get(
-      Uri.parse('http://masjid.exportica.in/api/masjids'),
+      Uri.parse('http://masjid.exportica.in/api/masjids/'),
     headers:headersList
     );
 
@@ -558,20 +558,4 @@ class _AllMasjitListState extends State<AllMasjitList> {
   }
 }
 
-/*
-Future<List<AllMasjitListResponceModel>> fetchPost() async {
-  final response = await http.get(Uri.parse('http://masjid.exportica.in/api/masjids'));
 
-  if (response.statusCode == 200) {
-   // final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
-
-    print("Hii ${response.body}");
-
-    return parsed
-        .map<AllMasjitListResponceModel>(
-            (json) => AllMasjitListResponceModel.fromJson(json))
-        .toList();
-  } else {
-    throw Exception('Failed to load album');
-  }
-}*/

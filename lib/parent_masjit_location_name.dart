@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:masjiduserapp/map_screen.dart';
+import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/all_masjit_joined_tab_button_response_model.dart';
 import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/notice_response_model.dart';
 import 'package:masjiduserapp/size_config.dart';
 import 'package:masjiduserapp/trustee_user_tab.dart';
@@ -48,6 +49,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
   ];
 
   var getMasjidInfo;
+  var getMasjidJoinButton;
 
   @override
   void initState() {
@@ -56,6 +58,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
       setState(() {
         showDetails = true;
         getMasjidInfo = getNoticeSection(widget.masjitId);
+      //  getMasjidJoinButton = getJoinButtonSection(widget.masjitId);
         print(getMasjidInfo);
         print("Id ${widget.masjitId}");
       });
@@ -311,7 +314,7 @@ height: parentHeight*0.8,
                       builder: (context, snapshot) {
                         print("${snapshot.data?.place?.masjidName}");
 
-                        return snapshot.data?.place?.masjidName?.length != null ?
+                        return snapshot.data?.images?.length != null?
                       Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -1559,7 +1562,7 @@ height: parentHeight*0.8,
                         child: ListView.builder(
                             shrinkWrap: true,
                             itemCount: snapshot.data?.eid?.length,
-                            // physics: const NeverScrollableScrollPhysics(),
+                            physics: const NeverScrollableScrollPhysics(),
                             itemBuilder:
                                 (context, index) {
                               return  Column(
@@ -1609,12 +1612,11 @@ height: parentHeight*0.8,
   }
 
   Widget ContinueButton(double parentHeight, double parentWidth) {
+    print("lllll   ${widget.masjitId}");
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => const ParentTabBarScreen()));
+        getJoinButtonSection(widget.masjitId);
+
       },
       child: Padding(
         padding: EdgeInsets.only(
@@ -1678,6 +1680,49 @@ height: parentHeight*0.8,
       print("Hiii");
 
       return allMasjitDetailsResponceModelFromJson(response.body);
+    } else {
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      throw Exception('Failed to create album.');
+    }
+  }
+  Future<AllMasjitJoinedTabButtonResponceModel>getJoinButtonSection(masjitId) async {
+    print(" userId ${masjitId}");
+
+    var headersList = {
+      'Accept': '*/*',
+      'User-Agent': 'Thunder Client (https://www.thunderclient.com)',
+      'Authorization': 'Bearer 16|0p8uwTA93h5KF51bzDhqJW5eQLxs4BChvT9sr2yl'
+    };
+    // final msg = jsonEncode({
+    //   "user_id": userId.toString(),
+    // });
+
+
+
+    var response = await http.get(
+      Uri.parse('http://masjid.exportica.in/api/user/join?masjid/${masjitId}'),
+      headers:headersList,
+      //  body: msg,
+    );
+
+
+
+    if (response.statusCode == 200) {
+       Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const ParentTabBarScreen()));
+      // If the server did return a 201 CREATED response,
+      // then parse the JSON.
+
+      // circularLoader = false;
+
+      print("Yess.. ${response.body}");
+
+      print("yyyyyy");
+
+      return allMasjitJoinedTabButtonResponceModelFromJson(response.body);
     } else {
       // If the server did not return a 201 CREATED response,
       // then throw an exception.

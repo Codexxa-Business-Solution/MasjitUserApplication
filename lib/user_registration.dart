@@ -257,7 +257,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                 Padding(
                   padding: EdgeInsets.only(
                       left: parentWidth * 0.03, top: parentHeight * 0.009),
-                  child: Text("State",style: TextStyle(
+                  child: Text("City",style: TextStyle(
                     color: CommonColor.REGISTRARTION_TRUSTEE
                   ),),
                 ),
@@ -293,7 +293,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                   hint: Padding(
                     padding: EdgeInsets.only(left: parentWidth * 0.01),
                     child: Text(
-                      'State',
+                      'City',
                       style: TextStyle(
                         fontFamily: "Roboto_Regular",
                         fontSize: SizeConfig.blockSizeHorizontal * 4.0,
@@ -349,7 +349,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                 Padding(
                   padding: EdgeInsets.only(
                       left: parentWidth * 0.03, top: parentHeight * 0.009),
-                  child: Text("City",style: TextStyle(
+                  child: Text("State",style: TextStyle(
                     color: CommonColor.REGISTRARTION_TRUSTEE
                   ),),
                 ),
@@ -385,7 +385,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                   hint: Padding(
                     padding: EdgeInsets.only(left: parentWidth * 0.01),
                     child: Text(
-                      'City',
+                      'State',
                       style: TextStyle(
                         fontFamily: "Roboto_Regular",
                         fontSize: SizeConfig.blockSizeHorizontal * 4.0,

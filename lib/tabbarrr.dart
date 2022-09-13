@@ -244,7 +244,7 @@ class _TabBarScreenState extends State<TabBarScreen> with SingleTickerProviderSt
                       ),
                     ),
                   ),
-                  ListTile(
+         /*         ListTile(
                     // leading: Icon(Icons.message),
                     title: Padding(
                       padding: EdgeInsets.only(left: 8),
@@ -257,7 +257,7 @@ class _TabBarScreenState extends State<TabBarScreen> with SingleTickerProviderSt
                             color: CommonColor.REGISTRARTION_COLOR),
                       ),
                     ),
-                  ),
+                  ),*/
                   ListTile(
                     // leading: Icon(Icons.message),
                     title: Padding(

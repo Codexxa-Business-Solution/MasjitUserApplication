@@ -251,21 +251,37 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                                 CommonColor.LEFT_COLOR,
                                 CommonColor.RIGHT_COLOR
                               ])),
-                      child: Padding(
-                        padding: EdgeInsets.only(bottom: 6),
-                        child: Text(
-                          "User Name  \n City",
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontFamily: 'Roboto_Medium',
-                              fontWeight: FontWeight.w700,
-                              color: CommonColor.WHITE_COLOR),
-                          textAlign: TextAlign.center,
-                        ),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 6),
+                            child: Text(
+                              "User Number",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: 'Roboto_Medium',
+                                  fontWeight: FontWeight.w700,
+                                  color: CommonColor.WHITE_COLOR),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 6),
+                            child: Text(
+                              "6547897645",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: 'Roboto_Medium',
+                                  fontWeight: FontWeight.w700,
+                                  color: CommonColor.WHITE_COLOR),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                  ListTile(
+         /*         ListTile(
                     // leading: Icon(Icons.message),
                     title: Padding(
                       padding: EdgeInsets.only(left: 8),
@@ -278,7 +294,7 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                             color: CommonColor.REGISTRARTION_COLOR),
                       ),
                     ),
-                  ),
+                  ),*/
                   ListTile(
                     onTap: () {
                       Navigator.push(
@@ -391,11 +407,7 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                       child: TabBarView(
                         controller: _tabController,
                         children: [
-                          Stack(
-                            children: [
-                              MasjitMainScreen(),
-                            ],
-                          ),
+                          MasjitMainScreen(),
 
                           AllMasjitList(),
 
