@@ -3,7 +3,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:masjiduserapp/size_config.dart';
+import 'package:masjiduserapp/util/constant.dart';
 
 
 import 'common.color.dart';
@@ -11,6 +13,10 @@ import 'common.color.dart';
 import 'masjit_vendor_frame.dart';
 
 Future<void> main() async{
+
+  await Hive.initFlutter();
+  var box = await Hive.openBox(kBoxName);
+
   WidgetsFlutterBinding.ensureInitialized();
   //await Firebase.initializeApp();
   runApp(MyApp());

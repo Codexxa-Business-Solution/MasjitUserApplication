@@ -1,12 +1,14 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:masjiduserapp/all_masjit_list.dart';
 import 'package:masjiduserapp/common.color.dart';
 import 'package:masjiduserapp/map_screen.dart';
 import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/notice_response_model.dart';
 import 'package:masjiduserapp/size_config.dart';
 import 'package:http/http.dart' as http;
+import 'package:masjiduserapp/util/constant.dart';
 
 import 'masjit_user_app_api/masjit_app_responce_model/join_masjit_api_responce_model.dart';
 class MasjitMainScreen extends StatefulWidget {
@@ -29,18 +31,12 @@ class _MasjitMainScreenState extends State<MasjitMainScreen> with SingleTickerPr
   bool noticeScreen = false;
   int currentIndex = 0;
   int currentPos = 0;
-  List<String> listPaths = [
-    "images/nature1.jpg",
-    "images/nature2.jpg",
-    "images/nature3.jpg",
-    "images/nature4.jpg",
-    "images/nature5.jpg",
-    "images/nature6.jpg",
-  ];
-  var getNotice;
 
+  var getNotice;
+  late Box box;
   @override
   void initState() {
+    box = Hive.box(kBoxName);
     super.initState();
     getNotice = getNoticeSection();
     print(getNotice);
@@ -135,7 +131,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen> with SingleTickerPr
 
                         Navigator.push(
                             context, MaterialPageRoute(builder: (context) => MasjitMappScreen(
-                          tabNum: "1",
+                          tabNum: "1", masjitTrusteeId: '', lat: '', long: '',
                         )));
 
                         if (mounted) {
@@ -179,7 +175,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen> with SingleTickerPr
                       onTap: () {
                         Navigator.push(
                             context, MaterialPageRoute(builder: (context) => MasjitMappScreen(
-                          tabNum: "2",
+                          tabNum: "2", masjitTrusteeId: '', lat: '', long: ''
                         )));
 
                         if (mounted)
@@ -223,7 +219,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen> with SingleTickerPr
 
                         Navigator.push(
                             context, MaterialPageRoute(builder: (context) => MasjitMappScreen(
-                          tabNum: "3",
+                          tabNum: "3", masjitTrusteeId: '', lat: '', long: '',
                         )));
                         if (mounted)
                           setState(() {
@@ -379,7 +375,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen> with SingleTickerPr
                                             child: CarouselSlider.builder(
                                               // carouselController: _controller,
                                                 itemCount:
-                                                snapshot.data?.data?[index].images?[index].length,
+                                                snapshot.data?.data?[index].images?[0].length,
                                                 //widget.getChatGroupInfoData.length,
                                                 options: CarouselOptions(
                                                   onPageChanged: (index, reason) {
@@ -403,7 +399,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen> with SingleTickerPr
                                                   return getFirstImageFrame(
                                                       SizeConfig.screenHeight,
                                                       SizeConfig.screenWidth,
-                                                      snapshot.data?.data?[0].images?[0],
+                                                      snapshot.data?.data?[0].images?[index],
                                                       snapshot
                                                           .data?.data?[0].images?.length);
                                                 }),
@@ -478,11 +474,11 @@ class _MasjitMainScreenState extends State<MasjitMainScreen> with SingleTickerPr
                                                   itemBuilder: (BuildContext context,
                                                       int itemIndex, int index) {
                                                     return
-
-                                                      SlideBanner(SizeConfig.screenHeight,
+                                                      snapshot.data?.data?[0].banners?.length !=null?
+                                                        SlideBanner(SizeConfig.screenHeight,
                                                           SizeConfig.screenWidth , snapshot.data?.data?[0].banners,
                                                           snapshot
-                                                              .data?.data?[0].banners?.length);
+                                                              .data?.data?[0].banners?.length):Container();
                                                     /*getFirstImageFrame(
                                                         SizeConfig.screenHeight,
                                                         SizeConfig.screenWidth,
@@ -2038,12 +2034,11 @@ class _MasjitMainScreenState extends State<MasjitMainScreen> with SingleTickerPr
 
 
   Future<AllMasjitJoinListResponceModel>getNoticeSection() async {
-    // print(" userId ${userId}");
+    print(" tokennn ${box.get(kToken)}");
+
 
     var headersList = {
-      'Accept': '*/*',
-      'User-Agent': 'Thunder Client (https://www.thunderclient.com)',
-      'Authorization': 'Bearer 11|CPdFOTzfo03qxkbi6XPmTY2uAnVfkSXrZRUbRRwo'
+      'Authorization': 'Bearer ${box.get(kToken)}'
     };
 
     // final msg = jsonEncode({

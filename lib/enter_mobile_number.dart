@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:masjiduserapp/enter_otp_number.dart';
+import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/user_register_response_model.dart';
 import 'package:masjiduserapp/size_config.dart';
 
+import 'package:http/http.dart' as http;
 
 import 'common.color.dart';
 class EnterMobileNumber extends StatefulWidget {
@@ -14,6 +16,10 @@ class EnterMobileNumber extends StatefulWidget {
 class _EnterMobileNumberState extends State<EnterMobileNumber> {
   bool _checkbox = false;
   bool _checkboxListTile = false;
+  final _phoneFocus = FocusNode();
+  TextEditingController phoneController = TextEditingController();
+
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -21,7 +27,8 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
 
         resizeToAvoidBottomInset: false,
         body: Container(
-          child: Column(
+          child: ListView(
+            shrinkWrap: true,
             children: [
               Container(
                 height: SizeConfig.screenHeight * 0.10,
@@ -204,6 +211,7 @@ getFirstImageFrame(
                                   left: parentWidth * 0.01,
                                   right: parentWidth * 0.01),
                               child: TextFormField(
+                                controller: phoneController,
                                 autocorrect: true,
                                 textInputAction: TextInputAction.next,
                                 keyboardType: TextInputType.emailAddress,
@@ -315,8 +323,9 @@ getFirstImageFrame(
   Widget ContinueButton(double parentHeight,double parentWidth){
     return GestureDetector(
       onTap: (){
+        //getPhoneRegisterUser();
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => EnterOtpNumber()));
+            MaterialPageRoute(builder: (context) => EnterOtpNumber(mobileNumber: phoneController.text.trim(),)));
       },
       child: Padding(
         padding:  EdgeInsets.only(top: parentHeight*0.07,left: parentWidth*0.1,right: parentWidth*0.1),
@@ -345,6 +354,35 @@ getFirstImageFrame(
       ),
     );
   }
+ /* Future<UserPhoneNumberRegistrationResponceModel> getPhoneRegisterUser() async {
 
+    print("HIIIIIIII    ${phoneController.text.trim()}");
+       *//* " ${cityController.text.trim()} "
+        "${stateController.text.trim()}"
+        " ${countryController.text.trim()}"*//*
+
+
+    try {
+      final result = await http.post(
+          Uri.parse("http://masjid.exportica.in/api/user/verify"),
+
+          body: {
+            "phone":phoneController.text.trim()
+            *//* "area": areaController.text.trim(),
+            "city": cityController.text.trim(),
+            "state": stateController.text.trim(),
+            "country": countryController.text.trim()*//*
+          });
+      print("new user:" + result.body);
+      if (result.statusCode == 200) {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => EnterOtpNumber()));
+      }
+
+      return userPhoneNumberRegistrationResponceModelFromJson(result.body);
+    } catch (e) {
+      throw e;
+    }
+  }*/
 
 }

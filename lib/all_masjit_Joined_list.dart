@@ -57,7 +57,7 @@ class _AllMasjitJoinedListState extends State<AllMasjitJoinedList> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          MasjitNameLocation(masjitId: '',)));
+                                          MasjitNameLocation(masjitId: '', lat: '', long: '',)));
                             },
                             child: Container(
                                 height: parentHeight * 0.23,

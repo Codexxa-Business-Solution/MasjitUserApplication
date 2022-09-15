@@ -1,17 +1,21 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:location/location.dart';
+import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/notice_response_model.dart';
 import 'package:masjiduserapp/search_location.dart';
 import 'package:masjiduserapp/size_config.dart';
 import 'dart:async';
 import 'dart:convert';
-import 'dart:typed_data';
+
 
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+
 import 'package:flutter/painting.dart';
+import 'package:masjiduserapp/user_registration.dart';
+import 'package:masjiduserapp/util/constant.dart';
 import 'package:place_picker/place_picker.dart';
 import 'package:place_picker/uuid.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -20,9 +24,12 @@ import 'database/masjit_user_app_preferances.dart';
 import 'localization_item.dart';
 import 'package:http/http.dart' as http;
 class UserMapLocation extends StatefulWidget {
-  const UserMapLocation({Key? key, required this.latitude, required this.longitude,}) : super(key: key);
-  final String latitude ;
-  final String longitude ;
+  const UserMapLocation({Key? key, required this.masjitUserMapId, required this.lat, required this.long,}) : super(key: key);
+ /* final String latitude ;
+  final String longitude ;*/
+  final String masjitUserMapId;
+  final String lat;
+  final String long;
 
   @override
   State<UserMapLocation> createState() => _UserMapLocationState();
@@ -30,6 +37,7 @@ class UserMapLocation extends StatefulWidget {
 
 class _UserMapLocationState extends State<UserMapLocation> with TickerProviderStateMixin {
   bool showDetails = true;
+  late Box box;
   bool mapToggle = false;
   final searchController = TextEditingController();
   String _searchText = "";
@@ -64,6 +72,7 @@ class _UserMapLocationState extends State<UserMapLocation> with TickerProviderSt
     _animationController.dispose();
   }
   void initState() {
+    box = Hive.box(kBoxName);
     super.initState();
     setCustomMapPin();
     showLocation = LatLng(20.42796133580664, 75.885749655962);
@@ -93,7 +102,7 @@ class _UserMapLocationState extends State<UserMapLocation> with TickerProviderSt
           customIcon = d;
           AppPreferences.getLatitude().then((lat) {
             AppPreferences.getLongitude().then((lng) {
-              print("widget.latitude    ${widget.latitude}    ${widget.longitude}");
+            //  print("widget.latitude    ${widget.latitude}    ${widget.longitude}");
              //showLocation = LatLng(double.parse(widget.latitude), double.parse(widget.longitude));
               showLocation = LatLng(20.42796133580664, 75.885749655962);
               print("onMapCreated   $lng   $lat");
@@ -111,40 +120,6 @@ class _UserMapLocationState extends State<UserMapLocation> with TickerProviderSt
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    /* return Material(
-     // resizeToAvoidBottomInset: false,
-      key: this.appBarKey,
-      child: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).requestFocus(FocusNode());
-        },
-        onDoubleTap: () {},
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            Container(
-              child: Column(
-                children: [
-                  // getFilterNameLayout(
-                  //     SizeConfig.screenHeight, SizeConfig.screenWidth),
-                  Padding(
-                    padding: EdgeInsets.only(top: SizeConfig.screenHeight * .02,
-                        left: SizeConfig.screenWidth * .06, right: SizeConfig.screenWidth * .05),
-                    child: SearchLocationInput(searchPlace),
-                  ),
-                  // getSearchBarLayout(
-                  //     SizeConfig.screenHeight, SizeConfig.screenWidth),
-                  getGoogleMapLayout(
-                      SizeConfig.screenHeight, SizeConfig.screenWidth)
-                ],
-              ),
-            ),
-            getAddDoneButtonLayout(
-                SizeConfig.screenHeight, SizeConfig.screenWidth),
-          ],
-        ),
-      ),
-    );*/
     return Builder(
       builder: (context) => Center(
         child: SlideTransition(
@@ -264,7 +239,7 @@ class _UserMapLocationState extends State<UserMapLocation> with TickerProviderSt
 
   void moveToCurrentUserLocation() {
     Location().getLocation().then((locationData) {
-      LatLng target = LatLng(locationData.latitude!, locationData.longitude!);
+      LatLng target = LatLng(double.parse(widget.lat), double.parse(widget.long));
       moveToLocation(target);
       print("target    $target");
     }).catchError((error) {
@@ -292,7 +267,7 @@ class _UserMapLocationState extends State<UserMapLocation> with TickerProviderSt
         ),
         child: TextButton(
             onPressed: () async{
-              String googleUrl ='https://www.google.com/maps/place/Rahul+Talkies+70+MM/@18.5315026,73.8464694,15z/data=!4m5!3m4!1s0x0:0xba33fc3bcc21df91!8m2!3d18.5315026!4d73.8464694';
+              String googleUrl ='https://www.google.com/maps/search/?api=1&query=${widget.lat},${widget.long}';
               if (await canLaunch(googleUrl)) {
                 await launch(googleUrl);
               } else {
@@ -353,26 +328,7 @@ class _UserMapLocationState extends State<UserMapLocation> with TickerProviderSt
 
     this.overlayEntry = OverlayEntry(
       builder: (context) => Positioned(child: Container(),
-        // top: appBarBox!.size.height,
-        // width: size.width,
-        /* child: Material(
-          elevation: 1,
-          child: Container(
-            padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-            child: Row(
-               children: <Widget>[
-                // SizedBox(
-                //     height: 24,
-                //     width: 24,
-                //     child: CircularProgressIndicator(strokeWidth: 3)),
-                // SizedBox(width: 24),
-                // Expanded(
-                //     child: Text("widget.localizationItem!.findingPlace",
-                //         style: TextStyle(fontSize: 16)))
-              ],
-            ),
-          ),
-        ),*/
+
       ),
     );
 
@@ -679,7 +635,43 @@ class _UserMapLocationState extends State<UserMapLocation> with TickerProviderSt
   }
 }
 
+Future<AllMasjitDetailsResponceModel>getNoticeSection(masjitId) async {
+  print(" tokennn ${box.get(kToken)}");
 
+  var headersList = {
+    'Authorization': 'Bearer ${box.get(kToken)}'
+  };
+  // final msg = jsonEncode({
+  //   "user_id": userId.toString(),
+  // });
+
+
+
+  var response = await http.get(
+    Uri.parse('http://masjid.exportica.in/api/masjids/${masjitId}'),
+    headers:headersList,
+    //  body: msg,
+  );
+
+
+
+  if (response.statusCode == 200) {
+    // If the server did return a 201 CREATED response,
+    // then parse the JSON.
+
+    // circularLoader = false;
+
+    print("Yess.. ${response.body}");
+
+    print("Hiii");
+
+    return allMasjitDetailsResponceModelFromJson(response.body);
+  } else {
+    // If the server did not return a 201 CREATED response,
+    // then throw an exception.
+    throw Exception('Failed to create album.');
+  }
+}
 
 abstract class FilterLocationMapInterface {
   addbackFilterFragment(String screenName,LatLng showLocation);

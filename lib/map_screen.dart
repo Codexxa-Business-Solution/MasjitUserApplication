@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:masjiduserapp/all_masjit_list.dart';
 import 'package:masjiduserapp/common.color.dart';
 import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/notice_response_model.dart';
@@ -8,13 +9,17 @@ import 'package:masjiduserapp/size_config.dart';
 import 'package:http/http.dart' as http;
 import 'package:masjiduserapp/trustee_user_tab.dart';
 import 'package:masjiduserapp/user_map_tab.dart';
+import 'package:masjiduserapp/util/constant.dart';
 class MasjitMappScreen extends StatefulWidget {
 
   final String tabNum;
+  final String masjitTrusteeId;
+  final String lat;
+  final String long;
 
   const MasjitMappScreen({
     Key? key,
-    required this.tabNum,
+    required this.tabNum, required this.masjitTrusteeId,required this.lat,required this.long,
 
   }) : super(key: key);
 
@@ -31,20 +36,13 @@ class _MasjitMappScreenState extends State<MasjitMappScreen> with SingleTickerPr
   bool FridayTime = false;
   bool shariIftar = false;
   bool eid = false;
-
+  late Box box;
   bool mapScreen = false;
   bool trusteeScreen = false;
   bool noticeScreen = false;
   int currentIndex = 0;
   int currentPos = 0;
-  List<String> listPaths = [
-    "images/nature1.jpg",
-    "images/nature2.jpg",
-    "images/nature3.jpg",
-    "images/nature4.jpg",
-    "images/nature5.jpg",
-    "images/nature6.jpg",
-  ];
+
   var getNotice;
 
   @override
@@ -58,6 +56,7 @@ class _MasjitMappScreenState extends State<MasjitMappScreen> with SingleTickerPr
         widget.tabNum == "1" ?
         mapScreen = true: widget.tabNum == "2" ?
         trusteeScreen = true:noticeScreen=true;
+        print("MapScreenId ${widget.masjitTrusteeId}");
         //   ViewImage = false;
       });
     //  _tabController = new TabController(vsync: this, length: tabs.length);
@@ -305,14 +304,45 @@ class _MasjitMappScreenState extends State<MasjitMappScreen> with SingleTickerPr
       children: [
         Visibility(
             visible: mapScreen,
-            child: UserMapLocation(
-              latitude: '20.42796133580664',
-              longitude: '75.885749655962',
+            child: UserMapLocation(masjitUserMapId: '', lat: widget.lat, long: widget.long,
+
             )),
-        Visibility(visible: trusteeScreen, child: TrusteeUserTab()),
+        Visibility(visible: trusteeScreen, child: TrusteeUserTab(masjitTrusteeId: widget.masjitTrusteeId,)),
         Visibility(visible: noticeScreen, child: NoticeUserTab()),
 
       ],
     );
+  }
+
+  Future<AllMasjitDetailsResponceModel> getNoticeSection(masjitTrusteeId) async {
+    // print(" userId ${userId}");
+
+    print(" tokennn ${box.get(kToken)}");
+
+    var headersList = {
+      'Authorization': 'Bearer ${box.get(kToken)}'
+    };
+
+    var response = await http.get(
+        Uri.parse('http://masjid.exportica.in/api/masjids/${widget.masjitTrusteeId}'),
+        headers:headersList
+    );
+
+    if (response.statusCode == 200) {
+      // If the server did return a 201 CREATED response,
+      // then parse the JSON.
+
+      // circularLoader = false;
+
+      print("Yess.. ${response.body}");
+
+      print("Hiii");
+
+      return allMasjitDetailsResponceModelFromJson(response.body);
+    } else {
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      throw Exception('Failed to create album.');
+    }
   }
 }

@@ -1,10 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/all_masjit_list_responce_model.dart';
 import 'package:masjiduserapp/parent_masjit_location_name.dart';
 import 'package:http/http.dart' as http;
 import 'package:masjiduserapp/size_config.dart';
+import 'package:masjiduserapp/util/constant.dart';
 
 import 'common.color.dart';
 
@@ -21,9 +23,11 @@ class _AllMasjitListState extends State<AllMasjitList> {
     getAllListFuture = fetchPost();
   }
   var getAllListFuture;
+  late Box box;
 
   @override
   void initState() {
+    box = Hive.box(kBoxName);
     getAllListFuture = fetchPost();
     //getIncompletedData = getInCompleteOrderSection(widget.userId);
     print("masjid $getAllListFuture");
@@ -43,7 +47,7 @@ class _AllMasjitListState extends State<AllMasjitList> {
   }
 
   Widget getAddTermsTextLayout(double parentHeight, double parentWidth, ) {
-    //print("hhhhh ${widget.masjitId}");
+  //  print("hhhhh ${widget.masjitId}");
     return Stack(
       children: [
         FutureBuilder<AllMasjitListResponceModel>(
@@ -117,10 +121,10 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                             image:
                                                             DecorationImage(
                                                               image:
-                                                              snapshot.data?.data?[index].images != null?
+                                                              /*snapshot.data?.data?[index].images != null?*/
                                                               NetworkImage(
                                                                 "${snapshot.data?.data?[index].images}",
-                                                              ): NetworkImage(""),
+                                                              ),/*: NetworkImage(""),*/
                                                               fit: BoxFit
                                                                   .cover,
                                                             ),
@@ -180,68 +184,7 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                             maxLines: 1,
                                                           ),
                                                         ),
-                                                        /*Container(
-                                                          width: parentWidth*.1,
-                                                          child: Padding(
-                                                            padding:
-                                                            EdgeInsets.only(
-                                                              top: parentHeight *
-                                                                  0.01,
-                                                              left: parentWidth *
-                                                                  0.10,
-                                                            ),
-                                                            child: Container(
-                                                                height:
-                                                                parentHeight *
-                                                                    0.04,
-                                                                width:
-                                                                parentHeight *
-                                                                    0.12,
-                                                                decoration:
-                                                                BoxDecoration(
-                                                                  gradient: LinearGradient(
-                                                                      begin: Alignment
-                                                                          .centerLeft,
-                                                                      end: Alignment.centerRight,
-                                                                      colors: [
-                                                                        CommonColor
-                                                                            .LEFT_COLOR,
-                                                                        CommonColor
-                                                                            .RIGHT_COLOR
-                                                                      ]),
-                                                                  borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                      10),
-                                                                ),
-                                                               *//* child: Container(
-                                                                  color: Colors.yellow,
-                                                                  width: parentWidth*0.3,
-                                                                  child: Column(
-                                                                    children: [
-                                                                      Center(
-                                                                        child: Text(
-                                                                          "JOIN",
-                                                                          style: TextStyle(
-                                                                              fontFamily:
-                                                                              "Roboto_Regular",
-                                                                              fontWeight:
-                                                                              FontWeight
-                                                                                  .w700,
-                                                                              fontSize:
-                                                                              SizeConfig.blockSizeHorizontal *
-                                                                                  4.3,
-                                                                              color: CommonColor
-                                                                                  .WHITE_COLOR),
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                )*//*
 
-                                                            ),
-                                                          ),
-                                                        ),*/
                                                       ],
                                                     ),
 
@@ -257,7 +200,7 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                               parentHeight *
                                                                   0.0),
                                                           child: Text(
-                                                              "${snapshot.data?.data?[0].place?[0].subLocality}",
+                                                              "${snapshot.data?.data?[index].place?[0].subLocality}",
                                                               style: TextStyle(
                                                                 fontSize: SizeConfig
                                                                     .blockSizeHorizontal *
@@ -295,7 +238,10 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                         context,
                                                         MaterialPageRoute(
                                                             builder: (context) =>
-                                                                MasjitNameLocation(masjitId: "${snapshot.data?.data?[index].id}")));
+                                                                MasjitNameLocation(masjitId: snapshot.data?.data?[index].id != null ?
+                                                                "${snapshot.data?.data?[index].id}" : "",
+                                                              lat: "${snapshot.data?.data?[index].place?[0].lat}",
+                                                                  long: "${snapshot.data?.data?[index].place?[0].long}",)));
                                                   },
 
 
@@ -434,31 +380,14 @@ class _AllMasjitListState extends State<AllMasjitList> {
 
                                                               Padding(
                                                                 padding: EdgeInsets.only(top: parentHeight*0.01,right: parentHeight*0.0),
-                                                                child: Text("${snapshot.data?.data?[index].weeklyNamaz?[0].day}",
+                                                                child: Text("${snapshot.data?.data?[0].weeklyNamaz?[index].day}",
                                                                   style: TextStyle(
                                                                     fontSize: SizeConfig.blockSizeHorizontal*3.0,fontFamily: 'Roboto_Bold',
                                                                   ),),
                                                               ),
 
 
-                                                              /*Padding(
-                                                                  padding: EdgeInsets.only(top: parentHeight*0.01),
-                                                                  child: Container(
-                                                                      width: parentWidth*0.145,
-                                                                      height: parentHeight*0.031,
-                                                                      decoration: const BoxDecoration(
-                                                                        // color: Colors.blue,
-                                                                          border: Border(bottom: BorderSide(width: 1,  color: CommonColor.SEARCH_COLOR))
-                                                                      ),
-                                                                      child: Padding(
-                                                                        padding: EdgeInsets.only(left: parentWidth*0.03),
-                                                                        child: Text("${snapshot.data?[index].weeklyNamaz?[index].azan}",
-                                                                          style: TextStyle(
-                                                                              fontSize: SizeConfig.blockSizeHorizontal*3.0
-                                                                          ),),
-                                                                      )
-                                                                  ),
-                                                                ),*/
+
 
                                                               Padding(
                                                                 padding: EdgeInsets.only(top: parentHeight*0.008,),
@@ -473,7 +402,7 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                                     padding: EdgeInsets.only(top: parentHeight*0.0,left: parentHeight*0.0),
                                                                     child: Row(
                                                                       children: [
-                                                                        Text("${snapshot.data?.data?[index].weeklyNamaz?[0].azan}",
+                                                                        Text("${snapshot.data?.data?[0].weeklyNamaz?[index].azan}",
                                                                           style: TextStyle(
                                                                               fontSize: SizeConfig.blockSizeHorizontal*3.0
                                                                           ),),
@@ -487,7 +416,7 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                                 padding: EdgeInsets.only(top: parentHeight*0.009,right: parentHeight*0.0),
                                                                 child: Row(
                                                                   children: [
-                                                                    Text("${snapshot.data?.data?[index].weeklyNamaz?[0].jammat}",
+                                                                    Text("${snapshot.data?.data?[0].weeklyNamaz?[index].jammat}",
                                                                       style: TextStyle(
                                                                         fontSize: SizeConfig.blockSizeHorizontal*3.0,
                                                                       ),),
@@ -518,12 +447,10 @@ class _AllMasjitListState extends State<AllMasjitList> {
   }
 
   Future<AllMasjitListResponceModel>fetchPost () async {
-   // print(" userId ${masjitId}");
+    print(" tokennn ${box.get(kToken)}");
 
     var headersList = {
-      'Accept': '*/*',
-      'User-Agent': 'Thunder Client (https://www.thunderclient.com)',
-      'Authorization': 'Bearer 11|CPdFOTzfo03qxkbi6XPmTY2uAnVfkSXrZRUbRRwo'
+      'Authorization': 'Bearer ${box.get(kToken)}'
     };
 
     // final msg = jsonEncode({
@@ -540,10 +467,7 @@ class _AllMasjitListState extends State<AllMasjitList> {
 
 
     if (response.statusCode == 200) {
-      // If the server did return a 201 CREATED response,
-      // then parse the JSON.
 
-      // circularLoader = false;
 
       print("Yess.. ${response.body}");
 

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:masjiduserapp/map_screen.dart';
 import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/all_masjit_joined_tab_button_response_model.dart';
 import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/notice_response_model.dart';
@@ -9,14 +10,17 @@ import 'package:masjiduserapp/size_config.dart';
 import 'package:masjiduserapp/trustee_user_tab.dart';
 import 'package:masjiduserapp/user_map_tab.dart';
 import 'package:masjiduserapp/user_parent_tab_bar.dart';
+import 'package:masjiduserapp/util/constant.dart';
 import 'common.color.dart';
 import 'notice_user_tab.dart';
 import 'package:http/http.dart' as http;
 
 
 class MasjitNameLocation extends StatefulWidget {
-  const MasjitNameLocation({Key? key, required this.masjitId}) : super(key: key);
+  const MasjitNameLocation({required this.masjitId,required this.lat,required this.long});
 final String masjitId;
+  final String lat;
+  final String long;
   @override
   _MasjitNameLocationState createState() => _MasjitNameLocationState();
 }
@@ -31,8 +35,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
 
   TabController? _tabController;
   bool showDetails = true;
-
-  get gradient => null;
+  late Box box;
 
   bool mapScreen = false;
   bool trusteeScreen = false;
@@ -53,6 +56,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
 
   @override
   void initState() {
+    box = Hive.box(kBoxName);
     super.initState();
     if (mounted) {
       setState(() {
@@ -60,7 +64,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
         getMasjidInfo = getNoticeSection(widget.masjitId);
       //  getMasjidJoinButton = getJoinButtonSection(widget.masjitId);
         print(getMasjidInfo);
-        print("Id ${widget.masjitId}");
+        print("parentScreenId ${widget.masjitId}");
       });
     }
     _tabController = TabController(vsync: this, length: tabs.length);
@@ -170,7 +174,8 @@ height: parentHeight*0.8,
 
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => MasjitMappScreen(
-                tabNum: "1",
+                tabNum: "1", masjitTrusteeId: widget.masjitId,
+                 lat: widget.lat, long: widget.long,
               )));
               if (mounted) {
                 setState(() {
@@ -208,7 +213,7 @@ height: parentHeight*0.8,
             onTap: () {
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => MasjitMappScreen(
-                tabNum: "2",
+                tabNum: "2", masjitTrusteeId: widget.masjitId, lat: widget.lat, long: widget.long,
               )));
               if (mounted) {
                 setState(() {
@@ -247,7 +252,7 @@ height: parentHeight*0.8,
             onTap: () {
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => MasjitMappScreen(
-                tabNum: "3",
+                tabNum: "3", masjitTrusteeId: widget.masjitId, lat: widget.lat, long: widget.long,
               )));
              /* if (mounted) {
                 setState(() {
@@ -293,10 +298,10 @@ height: parentHeight*0.8,
         children: [
           Visibility(
               visible: mapScreen,
-              child: const UserMapLocation(
-                  latitude: '20.42796133580664', longitude: '75.885749655962')),
-          Visibility(visible: trusteeScreen, child: const TrusteeUserTab()),
-          Visibility(visible: noticeScreen, child: const NoticeUserTab()),
+              child:  UserMapLocation(
+                  masjitUserMapId: widget.masjitId, lat: '', long: '',)),
+           Visibility(visible: trusteeScreen, child:  TrusteeUserTab(masjitTrusteeId:widget.masjitId)),
+          Visibility(visible: noticeScreen, child:  NoticeUserTab()),
 
 
 
@@ -312,36 +317,36 @@ height: parentHeight*0.8,
                   FutureBuilder<AllMasjitDetailsResponceModel>(
                       future: getMasjidInfo,
                       builder: (context, snapshot) {
-                        print("${snapshot.data?.place?.masjidName}");
+                        print(" name...  ${snapshot.data?.place?.masjidName.toString()}");
 
-                        return snapshot.data?.images?.length != null?
+                        return
                       Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
                               padding: EdgeInsets.only(left: parentHeight * 0.02),
-                              child: Text(
-                                "${snapshot.data?.place?.masjidName}",
+                              child: snapshot.data?.place?.masjidName?.length != null?Text(
+                                "${snapshot.data?.place?.masjidName.toString()}",
                                 style: TextStyle(
                                     fontSize: SizeConfig.blockSizeHorizontal * 4.0,
                                     color: CommonColor.BLACK,
                                     fontWeight: FontWeight.w400,
                                     fontFamily: 'Roboto_bold'),
-                              ),
+                              ):Container()
                             ),
                             Padding(
                               padding: EdgeInsets.only(
                                   top: parentHeight * 0.003,
                                   left: parentHeight * 0.02),
-                              child: Text(
-                                "${snapshot.data?.place?.locality}",
+                              child:snapshot.data?.place?.subLocality?.length != null? Text(
+                                "${snapshot.data?.place?.subLocality}",
                                 style: TextStyle(
                                     fontSize: SizeConfig.blockSizeHorizontal * 3.5,
                                     color: CommonColor.BLACK,
                                     fontWeight: FontWeight.w500,
                                     height: 1.6,
                                     fontFamily: 'Roboto_Regular'),
-                              ),
+                              ):Container()
                             ),
                             Container(
                               // height: SizeConfig.screenHeight*.74,
@@ -423,7 +428,7 @@ height: parentHeight*0.8,
                               ],
                             )
                           ],
-                        ):Container();
+                        );
                       }),
 
 
@@ -469,185 +474,7 @@ height: parentHeight*0.8,
 
   Widget getAddFazarLayout(double parentHeight, double parentWidth) {
     return
-      /* Padding(
-      padding: EdgeInsets.only(top: parentHeight * 0.03),
-      child: Container(
-        height: parentHeight * 0.23,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-              color: Colors.grey.shade300,
-              spreadRadius: 1,
-              blurRadius: 5,
-              offset: const Offset(0, 5),
-            ),
-            BoxShadow(
-              color: Colors.grey.shade50,
-              offset: const Offset(-5, 0),
-            ),
-            BoxShadow(
-              color: Colors.grey.shade50,
-              offset: const Offset(5, 0),
-            )
-          ],
-        ),
-        child:
 
-        Column(
-          children: [
-
-            ClipRRect(
-              borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(10), topLeft: Radius.circular(10)),
-              child: Container(
-                height: parentHeight * 0.04,
-                decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                        colors: [
-                          CommonColor.LEFT_COLOR,
-                          CommonColor.RIGHT_COLOR
-                        ])),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Jammat Time",
-                      style: TextStyle(
-                        fontSize: SizeConfig.blockSizeHorizontal * 4.3,
-                        fontFamily: 'Roboto_Bold',
-                        fontWeight: FontWeight.w600,
-                        color: CommonColor.WHITE_COLOR,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-            Container(
-              height: parentHeight*0.19,
-              // color: Colors.red,
-              child: Row(
-                children: [
-                  Column(
-                    children: [
-
-
-                      Padding(
-                        padding: EdgeInsets.only(top: parentHeight*0.03),
-                        child: const Text("AZAN",
-                          style: TextStyle(
-                              color: Colors.transparent
-                          ),),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: parentHeight*0.04),
-                        child: Container(
-                            width: parentWidth*0.2,
-                            height: parentHeight*0.027,
-                            decoration: const BoxDecoration(
-                              // color: Colors.blue,
-                                border: Border(bottom: BorderSide(width: 1, color: CommonColor.SEARCH_COLOR))
-                            ),
-                            child: Padding(
-                              padding:  EdgeInsets.only(left: parentWidth*0.05),
-                              child: const Text("AZAN"),
-                            )
-                        ),
-                      ),
-
-
-                      Padding(
-                        padding: EdgeInsets.only(top: parentHeight*0.01, left: parentWidth*0.03),
-                        child: Row(
-                          children: const [
-                            Text("JAMAA'T"),
-                          ],
-                        ),
-                      ),
-
-                    ],
-                  ),
-
-                  FutureBuilder<NoticeResponceModel>(
-                      future: getMasjidInfo,
-                      builder: (context, snapshot) {
-                        return
-                          snapshot.data?.weeklyNamaz?.length != null ?
-                          Expanded(
-                            child: ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: snapshot.data?.weeklyNamaz?.length,
-                                scrollDirection: Axis.horizontal,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemBuilder:
-                                    (context, index) {
-                                  return  Column(
-                                    children: [
-
-
-                                      Padding(
-                                        padding: EdgeInsets.only(top: parentHeight*0.03),
-                                        child: Text("${snapshot.data?.weeklyNamaz?[index].day}",
-                                          style: TextStyle(
-                                              fontSize: SizeConfig.blockSizeHorizontal*3.0
-                                          ),),
-                                      ),
-
-
-                                      Padding(
-                                        padding: EdgeInsets.only(top: parentHeight*0.04),
-                                        child: Container(
-                                            width: parentWidth*0.135,
-                                            height: parentHeight*0.031,
-                                            decoration: const BoxDecoration(
-                                              // color: Colors.blue,
-                                                border: Border(bottom: BorderSide(width: 1,  color: CommonColor.SEARCH_COLOR))
-                                            ),
-                                            child: Padding(
-                                              padding: EdgeInsets.only(left: parentWidth*0.03),
-                                              child: Text("${snapshot.data?.weeklyNamaz?[index].azan}",
-                                                style: TextStyle(
-                                                    fontSize: SizeConfig.blockSizeHorizontal*3.0
-                                                ),),
-                                            )
-                                        ),
-                                      ),
-
-                                      Padding(
-                                        padding: EdgeInsets.only(top: parentHeight*0.01),
-                                        child: Row(
-                                          children: [
-                                            Text("${snapshot.data?.weeklyNamaz?[index].jammat}",
-                                              style: TextStyle(
-                                                  fontSize: SizeConfig.blockSizeHorizontal*3.0
-                                              ),),
-                                          ],
-                                        ),
-                                      ),
-
-                                    ],
-                                  ) ;
-                                }),
-                          )
-                              : Container();
-                      })
-
-
-
-
-                ],
-              ),
-            )
-
-          ],
-        ),
-      ),
-    );*/
       Padding(
         padding: EdgeInsets.only(top: parentHeight * 0.03),
         child: Container(
@@ -938,8 +765,7 @@ height: parentHeight*0.8,
                     FutureBuilder<AllMasjitDetailsResponceModel>(
                         future: getMasjidInfo,
                         builder: (context, snapshot) {
-                          return snapshot.data?.weeklyNamaz?.length != null
-                              ? Expanded(
+                          return  Expanded(
                             child: ListView.builder(
                                 shrinkWrap: true,
                                 itemCount:
@@ -1013,8 +839,8 @@ height: parentHeight*0.8,
                                     ],
                                   );
                                 }),
-                          )
-                              : Container();
+                          );
+
                         })
                   ],
                 ),
@@ -1321,8 +1147,7 @@ height: parentHeight*0.8,
                                 width: parentWidth*0.7,
 
                                 child:
-                                snapshot.data?.jumma?.jammat?.length != null
-                                    ?
+
 
                                 ListView.builder(
                                   //physics: NeverScrollableScrollPhysics(),
@@ -1353,7 +1178,7 @@ height: parentHeight*0.8,
                                           ),
                                         );
 
-                                    }):Container()
+                                    })
                             ),
 
                           ],
@@ -1445,14 +1270,14 @@ height: parentHeight*0.8,
                             Padding(
                               padding: EdgeInsets.only(
                                   right: parentWidth * 0.1, top: parentHeight * 0.02),
-                              child: snapshot.data?.sahr != null ?
+                              child:
                               Text("${snapshot.data?.sahr}",
                                   style: TextStyle(
                                     fontSize: SizeConfig.blockSizeHorizontal * 4.3,
                                     fontFamily: 'Roboto_Bold',
                                     fontWeight: FontWeight.w600,
                                     color: CommonColor.BLACK_COLOR,
-                                  )) : Container(),
+                                  )) ,
                             ),
                           ],
                         ),
@@ -1473,7 +1298,7 @@ height: parentHeight*0.8,
                             Padding(
                               padding: EdgeInsets.only(
                                   right: parentWidth * 0.1, top: parentHeight * 0.02),
-                              child:snapshot.data?.iftar != null ?
+                              child:
                               Text("${snapshot.data?.iftar}",
                                   style: TextStyle(
                                     fontSize: SizeConfig.blockSizeHorizontal * 4.3,
@@ -1481,7 +1306,7 @@ height: parentHeight*0.8,
                                     fontWeight: FontWeight.w600,
                                     color: CommonColor.BLACK_COLOR,
                                   ))
-                                  : Text(""),
+
                             )
                           ],
                         )
@@ -1524,7 +1349,7 @@ height: parentHeight*0.8,
               future: getMasjidInfo,
               builder: (context, snapshot) {
                 return
-                  snapshot.data?.weeklyNamaz?.length != null ?
+
                   Column(
                     children: [
 
@@ -1599,8 +1424,8 @@ height: parentHeight*0.8,
                             }),
                       ),
                     ],
-                  )
-                      : Container();
+                  );
+
               })
 
 
@@ -1648,12 +1473,10 @@ height: parentHeight*0.8,
 
 
   Future<AllMasjitDetailsResponceModel>getNoticeSection(masjitId) async {
-    // print(" userId ${userId}");
+     print(" tokennn ${box.get(kToken)}");
 
     var headersList = {
-      'Accept': '*/*',
-      'User-Agent': 'Thunder Client (https://www.thunderclient.com)',
-      'Authorization': 'Bearer 11|CPdFOTzfo03qxkbi6XPmTY2uAnVfkSXrZRUbRRwo'
+      'Authorization': 'Bearer ${box.get(kToken)}'
     };
     // final msg = jsonEncode({
     //   "user_id": userId.toString(),
@@ -1690,9 +1513,7 @@ height: parentHeight*0.8,
     print(" userId ${masjitId}");
 
     var headersList = {
-      'Accept': '*/*',
-      'User-Agent': 'Thunder Client (https://www.thunderclient.com)',
-      'Authorization': 'Bearer 16|0p8uwTA93h5KF51bzDhqJW5eQLxs4BChvT9sr2yl'
+      'Authorization': 'Bearer ${box.get(kToken)}'
     };
     // final msg = jsonEncode({
     //   "user_id": userId.toString(),
@@ -1701,7 +1522,7 @@ height: parentHeight*0.8,
 
 
     var response = await http.get(
-      Uri.parse('http://masjid.exportica.in/api/user/join?masjid/${masjitId}'),
+      Uri.parse('http://masjid.exportica.in/api/user/join?masjid=${masjitId}'),
       headers:headersList,
       //  body: msg,
     );

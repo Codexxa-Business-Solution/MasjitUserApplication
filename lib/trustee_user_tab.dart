@@ -2,30 +2,38 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:masjiduserapp/size_config.dart';
 import 'package:http/http.dart' as http;
+import 'package:masjiduserapp/util/constant.dart';
 
 import 'common.color.dart';
 import 'masjit_user_app_api/JoinedMsjitAllApi.dart';
 import 'masjit_user_app_api/masjit_app_responce_model/notice_response_model.dart';
 class TrusteeUserTab extends StatefulWidget {
-  const TrusteeUserTab({Key? key}) : super(key: key);
+
+  final String masjitTrusteeId;
+
+  const TrusteeUserTab({required this.masjitTrusteeId});
+
 
   @override
   State<TrusteeUserTab> createState() => _TrusteeUserTabState();
 }
 
 class _TrusteeUserTabState extends State<TrusteeUserTab> {
-
+  late Box box;
 
 
   var getNotice;
 
   @override
   void initState() {
+    box = Hive.box(kBoxName);
     super.initState();
-    getNotice = getNoticeSection();
-    print(getNotice);
+   getNotice = getNoticeSection(widget.masjitTrusteeId);
+    print(" fffffff $getNotice");
+    print("trusteeScreenId ${widget.masjitTrusteeId}");
 
   }
   @override
@@ -97,7 +105,7 @@ class _TrusteeUserTabState extends State<TrusteeUserTab> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  "${snapshot.data?.trustee![index].designation}",
+                                  "${snapshot.data?.trustee?[index].designation}",
                                   style: TextStyle(
                                     fontSize: SizeConfig
                                         .blockSizeHorizontal * 4.9,
@@ -137,8 +145,7 @@ class _TrusteeUserTabState extends State<TrusteeUserTab> {
                                       right: parentWidth * 0.1,
                                       top: parentHeight * 0.02),
                                   child: Text(
-                                      "${snapshot.data?.trustee?[index]
-                                          .contact}",
+                                      "${snapshot.data?.trustee?[index].contact}",
                                       style: TextStyle(
                                         fontSize: SizeConfig
                                             .blockSizeHorizontal * 4.3,
@@ -163,23 +170,17 @@ class _TrusteeUserTabState extends State<TrusteeUserTab> {
   }
 
 
-  Future<AllMasjitDetailsResponceModel> getNoticeSection() async {
+  Future<AllMasjitDetailsResponceModel> getNoticeSection(masjitTrusteeId) async {
     // print(" userId ${userId}");
 
+    print(" tokennn ${box.get(kToken)}");
+
     var headersList = {
-      'Accept': '*/*',
-      'User-Agent': 'Thunder Client (https://www.thunderclient.com)',
-      'Authorization': 'Bearer 11|CPdFOTzfo03qxkbi6XPmTY2uAnVfkSXrZRUbRRwo'
+      'Authorization': 'Bearer ${box.get(kToken)}'
     };
 
-    // final msg = jsonEncode({
-    //   "user_id": userId.toString(),
-    // });
-
-
-
     var response = await http.get(
-        Uri.parse('http://masjid.exportica.in/api/masjids/1'),
+        Uri.parse('http://masjid.exportica.in/api/masjids/${widget.masjitTrusteeId}'),
         headers:headersList
     );
 
