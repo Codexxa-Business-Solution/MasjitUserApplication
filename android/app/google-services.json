@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1025734572514",
+    "project_id": "masjituserapp-791ee",
+    "storage_bucket": "masjituserapp-791ee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1025734572514:android:dd69239fbcd3193693a1bb",
+        "android_client_info": {
+          "package_name": "com.example.masjiduserapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1025734572514-mt4ifkcm05ecf8lfp3orulcrjdog6eeo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.masjiduserapp",
+            "certificate_hash": "8cde134ff75bc8e958abf440a6ebb49726c9c9cc"
+          }
+        },
+        {
+          "client_id": "1025734572514-snjpvpon4e7cvpmjrg3temp4289pcll3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOU30-KLGLVOad9HmVdc8wgCRomPGuh-s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1025734572514-snjpvpon4e7cvpmjrg3temp4289pcll3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

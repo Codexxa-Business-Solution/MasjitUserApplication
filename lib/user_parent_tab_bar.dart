@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:masjiduserapp/all_masjit_Joined_list.dart';
-import 'package:masjiduserapp/map_screen.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
 import 'package:masjiduserapp/masjit_main_new_screen.dart';
+import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/user_logout_responce_model.dart';
 import 'package:masjiduserapp/privacy_policy.dart';
 import 'package:masjiduserapp/size_config.dart';
 import 'package:masjiduserapp/terms_and_condition.dart';
+import 'package:masjiduserapp/util/constant.dart';
 
+import 'package:http/http.dart' as http;
 
 import 'all_masjit_list.dart';
 import 'common.color.dart';
-import 'masjit_name_masjit_jioned_user.dart';
 
 class ParentTabBarScreen extends StatefulWidget {
   const ParentTabBarScreen({
@@ -23,14 +25,17 @@ class ParentTabBarScreen extends StatefulWidget {
 class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTickerProviderStateMixin  {
 
   bool serchIcon = true;
-
+  late Box box;
   bool searchBar = false;
   final _searchFocus = FocusNode();
   final searchController = TextEditingController();
   String _searchText = "";
   late TabController _tabController;
+  late Future<UseLogoutResponceModel> result;
   @override
   void initState() {
+    box = Hive.box(kBoxName);
+    result = getLogoutUser();
     _tabController = TabController(length: 2, vsync: this);
     super.initState();
   }
@@ -144,28 +149,7 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                                     .SEARCH_TEXT_COLOR,
                                 fontWeight: FontWeight.w500,
                               ),
-                              /* suffixIcon:
-                              _searchText.isNotEmpty
-                                  ? IconButton(
-                                onPressed:
-                                searchController
-                                    .clear,////////////////////////////////////////////////////////////////////////////////////////
-                                icon: Icon(
-                                  Icons.cancel,
-                                  //color: CommonColor.SEARCH_CLEAR_COLOR,
-                                ),
-                              )
-                                  : null,
-                              focusedBorder: InputBorder.none,
-                              enabledBorder: InputBorder.none,
-                            ),
-                            style: TextStyle(
-                              fontFamily: "Roboto_Regular",
-                              fontSize: SizeConfig
-                                  .blockSizeHorizontal *
-                                  4.6,
-                              color: CommonColor.BLACK_COLOR,
-                            ),*/
+
                             ),
                           ),
                         ),)
@@ -268,7 +252,7 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                           Padding(
                             padding: EdgeInsets.only(bottom: 6),
                             child: Text(
-                              "6547897645",
+                              "${box.get("phone")}",
                               style: TextStyle(
                                   fontSize: 18,
                                   fontFamily: 'Roboto_Medium',
@@ -332,6 +316,119 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                     ),
                   ),
                   ListTile(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (ctx) => AlertDialog(
+
+                          title: Center(child:  Text("Logout", style: TextStyle(
+                            color: CommonColor.REGISTRARTION_COLOR,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 20,
+                            fontFamily: 'Roboto_Medium',
+                          ),)),
+                          content:  Padding(
+                            padding:  EdgeInsets.only(left: SizeConfig.screenWidth*0.04),
+                            child: Text("Are you sure you want to log out ? You can log in anytime you want again.",
+
+
+                              style: TextStyle(
+                                color: CommonColor.BLACK,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14,
+                                fontFamily: 'Roboto_Medium',
+                              ),
+
+                            ),
+                          ),
+                          actions: <Widget>[
+                            Padding(
+                              padding:  EdgeInsets.only(bottom: SizeConfig.screenHeight*0.03),
+                              child: Center(
+                                child: Column(
+                                  //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+
+                                    GestureDetector(
+                                      onTap: () {
+
+                                        setState(() {
+                                          getLogoutUser();
+                                          //cityController.text.isEmpty ? _validate = true : _validate = false;
+                                        });
+                                      },
+                                      child:  Padding(
+                                        padding: EdgeInsets.only(
+
+                                            left: SizeConfig.screenWidth * 0.1,
+                                            right: SizeConfig.screenWidth * 0.1),
+                                        child: Container(
+                                            height: SizeConfig.screenHeight * 0.05,
+                                            decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                  begin: Alignment.centerLeft,
+                                                  end: Alignment.centerRight,
+                                                  colors: [CommonColor.LEFT_COLOR, CommonColor.RIGHT_COLOR]),
+                                              borderRadius: BorderRadius.circular(30),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                "Yes",
+                                                style: TextStyle(
+                                                    fontFamily: "Roboto_Regular",
+                                                    fontWeight: FontWeight.w700,
+                                                    fontSize: SizeConfig.blockSizeHorizontal * 4.5,
+                                                    color: CommonColor.WHITE_COLOR),
+                                              ),
+                                            )),
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Padding(
+                                        padding:  EdgeInsets.only(top: SizeConfig.screenHeight*0.03),
+                                        child: GestureDetector(
+
+                                          child:  Padding(
+                                            padding: EdgeInsets.only(
+                                                top: SizeConfig.screenHeight * 0.0,
+                                                left: SizeConfig.screenWidth * 0.1,
+                                                right: SizeConfig.screenWidth * 0.1),
+                                            child: Container(
+                                                height: SizeConfig.screenHeight * 0.05,
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(
+                                                      begin: Alignment.centerLeft,
+                                                      end: Alignment.centerRight,
+                                                      colors: [CommonColor.LEFT_COLOR, CommonColor.RIGHT_COLOR]),
+                                                  borderRadius: BorderRadius.circular(30),
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    "Cancle",
+                                                    style: TextStyle(
+                                                        fontFamily: "Roboto_Regular",
+                                                        fontWeight: FontWeight.w700,
+                                                        fontSize: SizeConfig.blockSizeHorizontal * 4.5,
+                                                        color: CommonColor.WHITE_COLOR),
+                                                  ),
+                                                )),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        ));
+                    },
                     // leading: Icon(Icons.message),
                     title: Padding(
                       padding: EdgeInsets.only(left: 8),
@@ -495,4 +592,37 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
     );
 
   }
+
+  Future<UseLogoutResponceModel>getLogoutUser () async {
+    print(" tokennn ${box.get(kToken)}");
+
+    var headersList = {
+      'Authorization': 'Bearer ${box.get(kToken)}'
+    };
+
+
+
+
+    var response = await http.get(
+        Uri.parse('http://masjid.exportica.in/api/user/logout'),
+        headers:headersList
+    );
+
+
+
+    if (response.statusCode == 200) {
+
+
+      print("Yess.. ${response.body}");
+
+      print("Hiii");
+
+      return useLogoutResponceModelFromJson(response.body);
+    } else {
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      throw Exception('Failed to create album.');
+    }
+  }
+
 }

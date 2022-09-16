@@ -42,14 +42,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
   bool noticeScreen = false;
   int currentIndex = 0;
   int currentPos = 0;
-  List<String> listPaths = [
-    "images/nature1.jpg",
-    "images/nature2.jpg",
-    "images/nature3.jpg",
-    "images/nature4.jpg",
-    "images/nature5.jpg",
-    "images/nature6.jpg",
-  ];
+
 
   var getMasjidInfo;
   var getMasjidJoinButton;
@@ -517,7 +510,7 @@ height: parentHeight*0.8,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "JAMMAT TIME",
+                        "DAILY TIME",
                         style: TextStyle(
                           fontSize: SizeConfig.blockSizeHorizontal * 4.3,
                           fontFamily: 'Roboto_Bold',
@@ -529,175 +522,7 @@ height: parentHeight*0.8,
                   ),
                 ),
               ),
-              /*FutureBuilder<NoticeResponceModel>(
 
-                future: getNotice,
-
-                builder: (context, snapshot) {
-
-                  return ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: 1,
-                      padding: const EdgeInsets.only(bottom: 0, top: 5),
-                      itemBuilder: (context, int index) {
-                        return Container(
-                          height: parentHeight * 0.12,
-
-                          child: Row(
-                            children: [
-                              Column(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        left: parentWidth * 0.04,
-                                        top: parentHeight * 0.025),
-                                    child: Text(
-                                        "Hi",
-                                        style: TextStyle(
-                                          fontSize:
-                                          SizeConfig.blockSizeHorizontal *
-                                              3.5,
-                                          fontFamily: 'Roboto_Bold',
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.transparent,
-                                        )),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        left: parentWidth * 0.0,
-                                        top: parentHeight * 0.0),
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                          height: parentHeight * 0.028,
-                                          decoration: BoxDecoration(
-                                            // color: Colors.red,
-                                              border: Border(
-                                                  bottom: BorderSide(
-                                                      color: Colors.grey,
-                                                      width: parentHeight *
-                                                          0.001))),
-                                          width: parentWidth * 0.185,
-                                          child: Text("Azan",
-                                              style: TextStyle(
-                                                fontSize: SizeConfig
-                                                    .blockSizeHorizontal *
-                                                    3.5,
-                                                fontFamily: 'Roboto_Bold',
-                                                fontWeight: FontWeight.w500,
-                                                color:
-                                                CommonColor.BLACK_COLOR,
-                                              )),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        left: parentWidth * 0.0,
-                                        top: parentHeight * 0.0),
-                                    child: Text("JAMMA'T",
-                                        style: TextStyle(
-                                          fontSize:
-                                          SizeConfig.blockSizeHorizontal *
-                                              3.5,
-                                          fontFamily: 'Roboto_Bold',
-                                          fontWeight: FontWeight.w500,
-                                          color: CommonColor.BLACK_COLOR,
-                                        )),
-                                  ),
-                                ],
-                              ),
-                              Container(
-
-                                height: parentHeight * 0.5,
-                                width: parentWidth * 0.73,
-                                child: ListView.builder(
-                                  itemCount: 6,
-                                  scrollDirection: Axis.horizontal,
-                                  itemBuilder:
-                                      (BuildContext context, int index1) {
-                                    return Padding(
-                                      padding: EdgeInsets.only(
-                                          left: parentWidth * 0.019),
-                                      child: Column(
-                                        children: [
-                                          Padding(
-                                            padding: EdgeInsets.only(
-                                                left: parentWidth * 0.0,
-                                                top: parentHeight * 0.02),
-                                            child: Row(
-                                              children: [
-                                                Padding(
-                                                  padding: EdgeInsets.only(
-                                                    right: parentWidth * 0.02,
-                                                  ),
-                                                  child: Text(
-
-                                                     " ",
-                                                      style: TextStyle(
-                                                        fontSize: SizeConfig
-                                                            .blockSizeHorizontal *
-                                                            2.8,
-                                                        fontFamily:
-                                                        'Roboto_Bold',
-                                                        fontWeight:
-                                                        FontWeight.w500,
-                                                        color: CommonColor
-                                                            .BLACK_COLOR,
-                                                      )),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: EdgeInsets.only(
-                                                top: parentHeight * 0.01),
-                                            child: Container(
-                                              child: Text(
-                                                  "5.00",
-                                                  style: TextStyle(
-                                                    fontSize: SizeConfig
-                                                        .blockSizeHorizontal *
-                                                        3.3,
-                                                    fontFamily:
-                                                    'Roboto_Regular',
-                                                    fontWeight:
-                                                    FontWeight.w400,
-                                                    color: CommonColor
-                                                        .BLACK_COLOR,
-                                                  )),
-                                            ),
-                                          ),
-                                          Divider(),
-                                          Padding(
-                                            padding: EdgeInsets.only(
-                                                left: parentWidth * 0.0,
-                                                top: parentHeight * 0.0),
-                                            child: Text(
-                                                "5.30",
-                                                style: TextStyle(
-                                                  fontSize: SizeConfig
-                                                      .blockSizeHorizontal *
-                                                      3.3,
-                                                  fontFamily:
-                                                  'Roboto_Regular',
-                                                  fontWeight: FontWeight.w400,
-                                                  color:
-                                                  CommonColor.BLACK_COLOR,
-                                                )),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      });
-                }),*/
               Container(
                 height: parentHeight * 0.16,
 
@@ -1510,7 +1335,7 @@ height: parentHeight*0.8,
     }
   }
   Future<AllMasjitJoinedTabButtonResponceModel>getJoinButtonSection(masjitId) async {
-    print(" userId ${masjitId}");
+    print(" tokennn ${box.get(kToken)}");
 
     var headersList = {
       'Authorization': 'Bearer ${box.get(kToken)}'

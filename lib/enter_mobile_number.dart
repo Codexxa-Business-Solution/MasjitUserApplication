@@ -326,6 +326,8 @@ getFirstImageFrame(
         //getPhoneRegisterUser();
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => EnterOtpNumber(mobileNumber: phoneController.text.trim(),)));
+
+
       },
       child: Padding(
         padding:  EdgeInsets.only(top: parentHeight*0.07,left: parentWidth*0.1,right: parentWidth*0.1),
@@ -357,9 +359,11 @@ getFirstImageFrame(
  /* Future<UserPhoneNumberRegistrationResponceModel> getPhoneRegisterUser() async {
 
     print("HIIIIIIII    ${phoneController.text.trim()}");
-       *//* " ${cityController.text.trim()} "
+       */
+/* " ${cityController.text.trim()} "
         "${stateController.text.trim()}"
-        " ${countryController.text.trim()}"*//*
+        " ${countryController.text.trim()}"*/
+/*
 
 
     try {
@@ -368,10 +372,12 @@ getFirstImageFrame(
 
           body: {
             "phone":phoneController.text.trim()
-            *//* "area": areaController.text.trim(),
+            */
+/* "area": areaController.text.trim(),
             "city": cityController.text.trim(),
             "state": stateController.text.trim(),
-            "country": countryController.text.trim()*//*
+            "country": countryController.text.trim()*/
+/*
           });
       print("new user:" + result.body);
       if (result.statusCode == 200) {

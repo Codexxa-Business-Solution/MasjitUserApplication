@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +39,7 @@ class EnterOtpNumber extends StatefulWidget {
   }) : super(key: key);
   final String mobileNumber;
 
+
   @override
   _EnterOtpNumberState createState() => _EnterOtpNumberState();
 }
@@ -48,6 +49,12 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
   bool _checkboxListTile = false;
   final TextEditingController _pinPutController = TextEditingController();
   final FocusNode _pinPutFocusNode = FocusNode();
+  late Box box;
+  FirebaseAuth auth = FirebaseAuth.instance;
+
+  bool otpVisibility = false;
+
+  String verificationID = "";
 
   BoxDecoration get _pinPutDecoration {
     return BoxDecoration(
@@ -72,14 +79,30 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
 
   @override
   void initState() {
+    box = Hive.box(kBoxName);
     result = getOtpApi();
     super.initState();
     if (mounted) {
       setState(() {
         print(getPhoneNumber);
+        box.put(kUserPhoneNumber,widget.mobileNumber);
         // print("Id ${widget.phoneNumber}");
       });
     }
+
+    Future<void> VerifyPhone(String number) async{
+      await FirebaseAuth.instance.verifyPhoneNumber(phoneNumber: number,
+          verificationCompleted: (PhoneAuthCredential credential){
+
+          },
+          verificationFailed: (FirebaseAuthException.e){
+
+          }
+          codeSent: codeSent,
+          codeAutoRetrievalTimeout: codeAutoRetrievalTimeout);
+
+    }
+
   }
 
   @override
@@ -189,15 +212,7 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
                     color: CommonColor.GRAY_COLOR,
                     borderRadius: BorderRadius.circular(30)),
 
-                /* child: ClipRRect(
-                 borderRadius: BorderRadius.all(Radius.circular(20)),
 
-                // borderRadius: BorderRadius.circular(8),
-                child: const Image(
-                    image: AssetImage("assets/images/frame_one.png"),
-                    fit: BoxFit.cover,
-                  ),
-               ),*/
               ),
               Padding(
                 padding: EdgeInsets.only(
@@ -214,21 +229,7 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
                   //textAlign: TextAlign.center,
                 ),
               ),
-              /* Padding(
-                padding: EdgeInsets.only(
-                    top: parentHeight * 0.01,
-                    left: parentWidth * 0.10,
-                    right: parentWidth * 0.1),
-                child: Text(
-                  "Send to +918397055611",
-                  style: TextStyle(
-                      fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                      color: CommonColor.BLACK,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: 'Roboto_bold'),
-                  //textAlign: TextAlign.center,
-                ),
-              ),*/
+
               Padding(
                 padding: EdgeInsets.only(top: parentHeight * 0.01),
                 child: Row(
