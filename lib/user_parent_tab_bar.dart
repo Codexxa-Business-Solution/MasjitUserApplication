@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:masjiduserapp/enter_mobile_number.dart';
 
 import 'package:masjiduserapp/masjit_main_new_screen.dart';
 import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/user_logout_responce_model.dart';
@@ -18,6 +19,7 @@ class ParentTabBarScreen extends StatefulWidget {
     Key? key
   }) : super(key: key);
 
+
   @override
   _ParentTabBarScreenState createState() => _ParentTabBarScreenState();
 }
@@ -35,7 +37,6 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
   @override
   void initState() {
     box = Hive.box(kBoxName);
-    result = getLogoutUser();
     _tabController = TabController(length: 2, vsync: this);
     super.initState();
   }
@@ -352,10 +353,27 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                                     GestureDetector(
                                       onTap: () {
 
-                                        setState(() {
-                                          getLogoutUser();
+
+                                          getLogoutUser().then((value){
+                                            box.delete(kToken);
+                                            box.delete(kBoxName);
+                                            box.delete(kUserPhoneNumber);
+
+
+                                              Navigator.of(context).pushAndRemoveUntil(new MaterialPageRoute(builder: (context)=>EnterMobileNumber()),
+                                                      (Route route) => false);
+
+
+
+                                          //  Navigator.popUntil(context, ModalRoute.withName (EnterMobileNumber()));
+                                            Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        EnterMobileNumber()));
+                                          });
                                           //cityController.text.isEmpty ? _validate = true : _validate = false;
-                                        });
+
                                       },
                                       child:  Padding(
                                         padding: EdgeInsets.only(
@@ -486,6 +504,7 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                     tabs: [
                       // first tab [you can add an icon using the icon property]
                       Tab(
+
                         text: 'Joined Masjid',
                       ),
 
@@ -504,79 +523,21 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                       child: TabBarView(
                         controller: _tabController,
                         children: [
-                          MasjitMainScreen(),
+
+                          Stack(
+                            children: [
+
+                              Center(child: Text("Aaysha",style: TextStyle(
+                                color: Colors.red
+                              ),)),
+                              MasjitMainScreen(tabbr: ''),
+                            ],
+                          ),
 
                           AllMasjitList(),
 
-                          /* GestureDetector(
-                                onTap: (){
-                               _tabController.animateTo(1);
-                                /*Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) => AllMasjitList()));*/
-                                },
-                                child: Center(
-                                  child: Padding(
-                                    padding:  EdgeInsets.only(top: parentHeight*0.0,left: parentWidth*0.25,right: parentWidth*0.25),
-                                    child: Container(
-                                        height: parentHeight*0.07,
 
 
-                                        decoration:  BoxDecoration(
-                                          gradient: LinearGradient(
-                                              begin: Alignment.centerLeft,
-                                              end: Alignment.centerRight,
-                                              colors: [CommonColor.LEFT_COLOR, CommonColor.RIGHT_COLOR]),
-                                          borderRadius: BorderRadius.circular(10),
-
-
-                                        ),
-                                        child:Center(
-                                          child: Text(" Join Masjid",style: TextStyle(
-                                              fontFamily: "Roboto_Regular",
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: SizeConfig.blockSizeHorizontal * 4.5,
-                                              color: CommonColor.WHITE_COLOR
-                                          ),),
-                                        )
-                                    ),
-                                  ),
-                                )
-                            ),
-                          /*  GestureDetector(
-                                onTap: (){_tabController.animateTo(1);
-                                },
-                                child: Center(
-                                  child: Padding(
-                                    padding:  EdgeInsets.only(top: parentHeight*0.0,left: parentWidth*0.25,right: parentWidth*0.25),
-                                    child: Container(
-                                        height: parentHeight*0.07,
-
-
-                                        decoration:  BoxDecoration(
-                                          gradient: LinearGradient(
-                                              begin: Alignment.centerLeft,
-                                              end: Alignment.centerRight,
-                                              colors: [CommonColor.LEFT_COLOR, CommonColor.RIGHT_COLOR]),
-                                          borderRadius: BorderRadius.circular(10),
-
-
-                                        ),
-                                        child:Center(
-                                          child: Text(" Join Masjid",style: TextStyle(
-                                              fontFamily: "Roboto_Regular",
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: SizeConfig.blockSizeHorizontal * 4.5,
-                                              color: CommonColor.WHITE_COLOR
-                                          ),),
-                                        )
-                                    ),
-                                  ),
-                                )
-                            ),*/
-
-                            */
-
-                          //JoinedMasjitThreeTabs()
 
 
                         ],

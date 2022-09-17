@@ -12,7 +12,8 @@ import 'package:masjiduserapp/util/constant.dart';
 import 'masjit_user_app_api/masjit_app_responce_model/join_masjit_api_responce_model.dart';
 
 class MasjitMainScreen extends StatefulWidget {
-  const MasjitMainScreen({Key? key}) : super(key: key);
+  const MasjitMainScreen({Key? key, required this.tabbr}) : super(key: key);
+  final String tabbr;
 
   @override
   State<MasjitMainScreen> createState() => _MasjitMainScreenState();
@@ -32,13 +33,15 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
   bool noticeScreen = false;
   int currentIndex = 0;
   int currentPos = 0;
-
+  TabController? _tabController;
   var getNotice;
   late Box box;
   @override
   void initState() {
     box = Hive.box(kBoxName);
+    _tabController = TabController(length: 1, vsync: this);
     super.initState();
+
     getNotice = getNoticeSection();
     print(getNotice);
     if (mounted)
@@ -51,7 +54,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
 
   @override
   void dispose() {
-    //  _tabController!.dispose();
+      _tabController!.dispose();
     super.dispose();
   }
 
@@ -91,473 +94,532 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
   }
 
   Widget ThreeTabWithDesign(double parentHeight, double parentWidth) {
+
     return FutureBuilder<AllMasjitJoinListResponceModel>(
         future: getNotice,
         builder: (context, snapshot) {
-          return  snapshot.data?.data?.length != null?Container(
-              child: ListView.builder(
-                  itemCount: snapshot.data?.data?.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.only(top: parentHeight * 0.04),
-                      child: Column(
-                        children: [
-                          Container(
-                              child: Padding(
-                            padding: EdgeInsets.only(top: parentHeight * 0.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                GestureDetector(
-                                  onDoubleTap: () {},
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                MasjitMappScreen(
-                                                  tabNum: "1",
-                                                  masjitTrusteeId: '',
-                                                  lat: '',
-                                                  long: '',
-                                                )));
-
-                                    if (mounted) {
-                                      setState(() {
-
-                                      });
-                                    }
-                                  },
-                                  child: Container(
-                                    width: parentWidth * 0.28,
-                                    height: parentHeight * 0.05,
-                                    decoration: BoxDecoration(
-                                        /*mapScreen == true*/
-                                        // CommonColor.REGISTRARTION_TRUSTEE,
-
-                                        // Colors.white,
-                                        borderRadius: BorderRadius.circular(50),
-                                        border: Border.all(
-                                            color: CommonColor.RIGHT_COLOR,
-                                            width: 1)),
-                                    child: Center(
-                                      child: Text(
-                                        "Map",
-                                        style: TextStyle(
-                                          /*color: mapScreen == true
-                                              ? Colors.white
-                                              : Colors.black,*/
-                                          fontWeight: FontWeight.w400,
-                                          fontSize:
-                                              SizeConfig.blockSizeHorizontal *
-                                                  3.5,
-                                          fontFamily: 'Roboto_Medium',
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onDoubleTap: () {},
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                MasjitMappScreen(
-                                                    tabNum: "2",
-                                                    masjitTrusteeId: '',
-                                                    lat: '',
-                                                    long: '')));
-
-                                    if (mounted)
-                                      setState(() {
-                                        /*mapScreen = false;
-                                        trusteeScreen = true;
-                                        showDetails = false;
-                                        noticeScreen = false;*/
-                                      });
-                                  },
-                                  child: Container(
-                                    width: parentWidth * 0.28,
-                                    height: parentHeight * 0.05,
-                                    decoration: BoxDecoration(
-                                        /*color: trusteeScreen
-                                            ? CommonColor.REGISTRARTION_TRUSTEE
-                                            .withOpacity(0.9)
-                                            : Colors.white,*/
-                                        borderRadius: BorderRadius.circular(50),
-                                        border: Border.all(
-                                            color: CommonColor.RIGHT_COLOR,
-                                            width: 1)),
-                                    child: Center(
-                                      child: Text(
-                                        "Trustee",
-                                        style: TextStyle(
-                                          /*color: trusteeScreen
-                                              ? Colors.white
-                                              : Colors.black,*/
-                                          fontWeight: FontWeight.w400,
-                                          fontSize:
-                                              SizeConfig.blockSizeHorizontal *
-                                                  3.5,
-                                          fontFamily: 'Roboto_Medium',
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onDoubleTap: () {},
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                MasjitMappScreen(
-                                                  tabNum: "3",
-                                                  masjitTrusteeId: '',
-                                                  lat: '',
-                                                  long: '',
-                                                )));
-                                    if (mounted)
-                                      setState(() {
-                                        /* mapScreen = false;
-                                        showDetails = false;
-                                        trusteeScreen = false;
-                                        noticeScreen = true;*/
-                                      });
-                                  },
-                                  child: Container(
-                                    width: parentWidth * 0.28,
-                                    height: parentHeight * 0.05,
-                                    decoration: BoxDecoration(
-                                        /*color: noticeScreen
-                                            ? CommonColor.REGISTRARTION_TRUSTEE
-                                            .withOpacity(0.9)
-                                            : Colors.white,*/
-                                        borderRadius: BorderRadius.circular(50),
-                                        border: Border.all(
-                                            color: CommonColor.RIGHT_COLOR,
-                                            width: 1)),
-                                    child: Center(
-                                      child: Text(
-                                        "Notice",
-                                        style: TextStyle(
-                                          /* color: noticeScreen == true
-                                              ? Colors.white
-                                              : Colors.black,*/
-                                          fontWeight: FontWeight.w400,
-                                          fontSize:
-                                              SizeConfig.blockSizeHorizontal *
-                                                  3.5,
-                                          fontFamily: 'Roboto_Medium',
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
-                              /* });
-                  }),*/
-                              ),
-                          Padding(
-                            padding: EdgeInsets.only(top: parentHeight * 0.03),
-                            child: Visibility(
-                                visible: showDetails,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+          print("nnnn  ${ snapshot.data?.data?.length}");
+          return  Stack(
+            children: [
+              snapshot.data?.data?.length != 0?Container(
+                  child: ListView.builder(
+                      itemCount: snapshot.data?.data?.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: EdgeInsets.only(top: parentHeight * 0.04),
+                          child: Column(
+                            children: [
+                              Container(
+                                  child: Padding(
+                                padding: EdgeInsets.only(top: parentHeight * 0.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          left: parentHeight * 0.02),
-                                      child: Text(
-                                          "${snapshot.data?.data?[index].place?[0].masjidName}",
-                                        style: TextStyle(
-                                            fontSize:
-                                                SizeConfig.blockSizeHorizontal *
-                                                    4.0,
-                                            color: CommonColor.BLACK_COLOR,
-                                            fontWeight: FontWeight.w400,
-                                            fontFamily: 'Roboto_Bold'),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          top: parentHeight * 0.003,
-                                          left: parentHeight * 0.02),
-                                      child: Text(
-                                        " ${snapshot.data?.data?[index].place?[0].subLocality}",
-                                        style: TextStyle(
-                                            fontSize:
-                                                SizeConfig.blockSizeHorizontal *
-                                                    4.0,
-                                            color: CommonColor.BLACK_COLOR,
-                                            fontWeight: FontWeight.w400,
-                                            height: 1.6,
-                                            fontFamily: 'Roboto_Bold'),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          left: parentHeight * 0.02),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            "Masjid Image",
+                                    GestureDetector(
+                                      onDoubleTap: () {},
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    MasjitMappScreen(
+                                                      tabNum: "1",
+                                                      masjitTrusteeId: '',
+                                                      lat: '',
+                                                      long: '',
+                                                    )));
+
+                                        if (mounted) {
+                                          setState(() {
+
+                                          });
+                                        }
+                                      },
+                                      child: Container(
+                                        width: parentWidth * 0.28,
+                                        height: parentHeight * 0.05,
+                                        decoration: BoxDecoration(
+                                            /*mapScreen == true*/
+                                            // CommonColor.REGISTRARTION_TRUSTEE,
+
+                                            // Colors.white,
+                                            borderRadius: BorderRadius.circular(50),
+                                            border: Border.all(
+                                                color: CommonColor.RIGHT_COLOR,
+                                                width: 1)),
+                                        child: Center(
+                                          child: Text(
+                                            "Map",
                                             style: TextStyle(
-                                                fontSize: SizeConfig
-                                                        .blockSizeHorizontal *
-                                                    4.0,
+                                              /*color: mapScreen == true
+                                                  ? Colors.white
+                                                  : Colors.black,*/
+                                              fontWeight: FontWeight.w400,
+                                              fontSize:
+                                                  SizeConfig.blockSizeHorizontal *
+                                                      3.5,
+                                              fontFamily: 'Roboto_Medium',
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onDoubleTap: () {},
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    MasjitMappScreen(
+                                                        tabNum: "2",
+                                                        masjitTrusteeId: '',
+                                                        lat: '',
+                                                        long: '')));
+
+                                        if (mounted)
+                                          setState(() {
+                                            /*mapScreen = false;
+                                            trusteeScreen = true;
+                                            showDetails = false;
+                                            noticeScreen = false;*/
+                                          });
+                                      },
+                                      child: Container(
+                                        width: parentWidth * 0.28,
+                                        height: parentHeight * 0.05,
+                                        decoration: BoxDecoration(
+                                            /*color: trusteeScreen
+                                                ? CommonColor.REGISTRARTION_TRUSTEE
+                                                .withOpacity(0.9)
+                                                : Colors.white,*/
+                                            borderRadius: BorderRadius.circular(50),
+                                            border: Border.all(
+                                                color: CommonColor.RIGHT_COLOR,
+                                                width: 1)),
+                                        child: Center(
+                                          child: Text(
+                                            "Trustee",
+                                            style: TextStyle(
+                                              /*color: trusteeScreen
+                                                  ? Colors.white
+                                                  : Colors.black,*/
+                                              fontWeight: FontWeight.w400,
+                                              fontSize:
+                                                  SizeConfig.blockSizeHorizontal *
+                                                      3.5,
+                                              fontFamily: 'Roboto_Medium',
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onDoubleTap: () {},
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    MasjitMappScreen(
+                                                      tabNum: "3",
+                                                      masjitTrusteeId: '',
+                                                      lat: '',
+                                                      long: '',
+                                                    )));
+                                        if (mounted)
+                                          setState(() {
+                                            /* mapScreen = false;
+                                            showDetails = false;
+                                            trusteeScreen = false;
+                                            noticeScreen = true;*/
+                                          });
+                                      },
+                                      child: Container(
+                                        width: parentWidth * 0.28,
+                                        height: parentHeight * 0.05,
+                                        decoration: BoxDecoration(
+                                            /*color: noticeScreen
+                                                ? CommonColor.REGISTRARTION_TRUSTEE
+                                                .withOpacity(0.9)
+                                                : Colors.white,*/
+                                            borderRadius: BorderRadius.circular(50),
+                                            border: Border.all(
+                                                color: CommonColor.RIGHT_COLOR,
+                                                width: 1)),
+                                        child: Center(
+                                          child: Text(
+                                            "Notice",
+                                            style: TextStyle(
+                                              /* color: noticeScreen == true
+                                                  ? Colors.white
+                                                  : Colors.black,*/
+                                              fontWeight: FontWeight.w400,
+                                              fontSize:
+                                                  SizeConfig.blockSizeHorizontal *
+                                                      3.5,
+                                              fontFamily: 'Roboto_Medium',
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                                  /* });
+                      }),*/
+                                  ),
+                              Padding(
+                                padding: EdgeInsets.only(top: parentHeight * 0.03),
+                                child: Visibility(
+                                    visible: showDetails,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              left: parentHeight * 0.02),
+                                          child: Text(
+                                              "${snapshot.data?.data?[index].place?[0].masjidName}",
+                                            style: TextStyle(
+                                                fontSize:
+                                                    SizeConfig.blockSizeHorizontal *
+                                                        4.0,
+                                                color: CommonColor.BLACK_COLOR,
+                                                fontWeight: FontWeight.w400,
+                                                fontFamily: 'Roboto_Bold'),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              top: parentHeight * 0.003,
+                                              left: parentHeight * 0.02),
+                                          child: Text(
+                                            " ${snapshot.data?.data?[index].place?[0].subLocality}",
+                                            style: TextStyle(
+                                                fontSize:
+                                                    SizeConfig.blockSizeHorizontal *
+                                                        4.0,
                                                 color: CommonColor.BLACK_COLOR,
                                                 fontWeight: FontWeight.w400,
                                                 height: 1.6,
                                                 fontFamily: 'Roboto_Bold'),
                                           ),
-                                          GestureDetector(
-                                            onTapDown: (tab) {
-                                              setState(() {
-                                                ViewImage = !ViewImage;
-                                              });
-                                            },
-                                            child: Container(
-                                              height: parentHeight * 0.02,
-                                              color: Colors.transparent,
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              left: parentHeight * 0.02),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                "Masjid Image",
+                                                style: TextStyle(
+                                                    fontSize: SizeConfig
+                                                            .blockSizeHorizontal *
+                                                        4.0,
+                                                    color: CommonColor.BLACK_COLOR,
+                                                    fontWeight: FontWeight.w400,
+                                                    height: 1.6,
+                                                    fontFamily: 'Roboto_Bold'),
+                                              ),
+                                              GestureDetector(
+                                                onTapDown: (tab) {
+                                                  setState(() {
+                                                    ViewImage = !ViewImage;
+                                                  });
+                                                },
+                                                child: Container(
+                                                  height: parentHeight * 0.02,
+                                                  color: Colors.transparent,
+                                                  child: Padding(
+                                                    padding: EdgeInsets.only(
+                                                        right: parentWidth * 0.05),
+                                                    child: Text(
+                                                      "View",
+                                                      style: TextStyle(
+                                                          fontSize: SizeConfig
+                                                                  .blockSizeHorizontal *
+                                                              4.0,
+                                                          color: CommonColor
+                                                              .BLACK_COLOR,
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          fontFamily:
+                                                              'Roboto_Regular'),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Visibility(
+                                          visible: ViewImage,
+                                          child: Container(
+                                              //height: SizeConfig.screenHeight*.74,
+                                              width: SizeConfig.screenWidth,
                                               child: Padding(
                                                 padding: EdgeInsets.only(
-                                                    right: parentWidth * 0.05),
-                                                child: Text(
-                                                  "View",
-                                                  style: TextStyle(
-                                                      fontSize: SizeConfig
-                                                              .blockSizeHorizontal *
-                                                          4.0,
-                                                      color: CommonColor
-                                                          .BLACK_COLOR,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      fontFamily:
-                                                          'Roboto_Regular'),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Visibility(
-                                      visible: ViewImage,
-                                      child: Container(
-                                          //height: SizeConfig.screenHeight*.74,
-                                          width: SizeConfig.screenWidth,
-                                          child: Padding(
-                                            padding: EdgeInsets.only(
-                                                right: SizeConfig.screenHeight *
-                                                    .0,
-                                                top: SizeConfig.screenHeight *
-                                                    .0),
-                                            child: snapshot.data?.data?.length !=null ?
-                                            CarouselSlider.builder(
-                                                // carouselController: _controller,
-                                                itemCount: snapshot.data?.data?.length,
-                                                 /* snapshot.data?.data?[index].images?[0].length,*/
-                                                //widget.getChatGroupInfoData.length,
-                                                options: CarouselOptions(
-                                                  onPageChanged:
-                                                      (index, reason) {
-                                                    setState(() {
-                                                      currentIndex = index;
-                                                    });
-                                                  },
-                                                  initialPage: 1,
-                                                  height:
-                                                      SizeConfig.screenHeight *
-                                                          .27,
-                                                  // aspectRatio: 1.1,
-                                                  viewportFraction: 1.0,
-                                                  enableInfiniteScroll: false,
-                                                  autoPlay: false,
-                                                  enlargeStrategy:
-                                                      CenterPageEnlargeStrategy
-                                                          .height,
-                                                ),
-                                                itemBuilder:
-                                                    (BuildContext context,
-                                                        int itemIndex,
-                                                        int index) {
-                                                  return Padding(
-                                                    padding:
-                                                    EdgeInsets.only(left: parentWidth * 0.03, right: parentWidth * 0.03),
-                                                    child: Container(
-                                                      width: parentWidth,
-                                                      child: Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          Padding(
-                                                            padding: EdgeInsets.only(top: parentHeight * 0.02),
-                                                            child: Container(
-                                                              height: parentHeight * .23,
-                                                              width: parentWidth * .94,
-                                                              decoration: BoxDecoration(
-                                                                  image: DecorationImage(
-                                                                      image: snapshot.data?.data?[index].images != null
-                                                                          ?
-                                                                      NetworkImage(
-                                                                        "${snapshot.data?.data?[index].images}",
-                                                                      )
-                                                                          : NetworkImage(""),
-                                                                      fit: BoxFit.cover,)),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
+                                                    right: SizeConfig.screenHeight *
+                                                        .0,
+                                                    top: SizeConfig.screenHeight *
+                                                        .0),
+                                                child: snapshot.data?.data?.length !=null ?
+                                                CarouselSlider.builder(
+                                                    // carouselController: _controller,
+                                                    itemCount: snapshot.data?.data?.length,
+                                                     /* snapshot.data?.data?[index].images?[0].length,*/
+                                                    //widget.getChatGroupInfoData.length,
+                                                    options: CarouselOptions(
+                                                      onPageChanged:
+                                                          (index, reason) {
+                                                        setState(() {
+                                                          currentIndex = index;
+                                                        });
+                                                      },
+                                                      initialPage: 1,
+                                                      height:
+                                                          SizeConfig.screenHeight *
+                                                              .27,
+                                                      // aspectRatio: 1.1,
+                                                      viewportFraction: 1.0,
+                                                      enableInfiniteScroll: false,
+                                                      autoPlay: false,
+                                                      enlargeStrategy:
+                                                          CenterPageEnlargeStrategy
+                                                              .height,
                                                     ),
-                                                  );
-                                                }):Container()
-                                          )),
-                                    ),
-                                    Visibility(
-                                      visible: ViewImage,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          for (int i = 0; i < 2; i++)
-                                            Container(
-                                              width: 7,
-                                              height: 7,
-                                              margin: EdgeInsets.all(2),
-                                              decoration: BoxDecoration(
-                                                color: currentIndex == i
-                                                    ? Colors.green
-                                                    : Colors.grey.shade400,
-                                                shape: BoxShape.circle,
-                                              ),
-                                            )
-                                        ],
-                                      ),
-                                    ),
-                                    Column(
-                                      children: [
-                                        getAddJammatTimeLayout(
-                                            SizeConfig.screenHeight,
-                                            SizeConfig.screenWidth),
-                                        getAddFridayTimeLayout(
-                                            SizeConfig.screenHeight,
-                                            SizeConfig.screenWidth),
-                                        getAddshariIftarLayout(
-                                            SizeConfig.screenHeight,
-                                            SizeConfig.screenWidth,
-                                            "${snapshot.data?.data?[index].sahr}",
-                                            "${snapshot.data?.data?[index].iftar}"),
-                                        getAddEidLayout(SizeConfig.screenHeight,
-                                            SizeConfig.screenWidth),
-                                        Container(
-                                            //height: SizeConfig.screenHeight*.74,
-                                            width: SizeConfig.screenWidth,
-                                            child: Padding(
-                                              padding: EdgeInsets.only(
-                                                  right:
-                                                      SizeConfig.screenHeight *
-                                                          .0,
-                                                  top: SizeConfig.screenHeight *
-                                                      .0),
-                                              child:snapshot.data?.data?.length !=null?
-                                              CarouselSlider.builder(
-                                                  // carouselController: _controller,
-                                                  itemCount: snapshot.data?.data?.length,
-                                                  //widget.getChatGroupInfoData.length,
-                                                  options: CarouselOptions(
-                                                    onPageChanged:
-                                                        (index, reason) {
-                                                      setState(() {
-                                                        currentIndex = index;
-                                                      });
-                                                    },
-                                                    initialPage: 1,
-                                                    height: SizeConfig
-                                                            .screenHeight *
-                                                        .27,
-                                                    // aspectRatio: 1.1,
-                                                    viewportFraction: 1.0,
-                                                    enableInfiniteScroll: false,
-                                                    autoPlay: false,
-                                                    enlargeStrategy:
-                                                        CenterPageEnlargeStrategy
-                                                            .height,
-                                                  ),
-                                                  itemBuilder:
-                                                      (BuildContext context,
-                                                          int itemIndex,
-                                                          int index) {return   Padding(
-                                                        padding: EdgeInsets.only(
-                                                            top: parentHeight * 0.03, bottom: parentHeight * 0.06),
+                                                    itemBuilder:
+                                                        (BuildContext context,
+                                                            int itemIndex,
+                                                            int index) {
+                                                      return Padding(
+                                                        padding:
+                                                        EdgeInsets.only(left: parentWidth * 0.03, right: parentWidth * 0.03),
                                                         child: Container(
-                                                            height: parentHeight * 0.17,
-                                                            decoration: BoxDecoration(
-                                                              color: Colors.grey.shade200,
-                                                              borderRadius: BorderRadius.circular(20),
-                                                              boxShadow: <BoxShadow>[
-                                                                BoxShadow(
-                                                                  color: Colors.grey.shade300,
-                                                                  spreadRadius: 1,
-                                                                  blurRadius: 2,
-                                                                  offset: Offset(0, 1),
+                                                          width: parentWidth,
+                                                          child: Column(
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                            children: [
+                                                              Padding(
+                                                                padding: EdgeInsets.only(top: parentHeight * 0.02),
+                                                                child: Container(
+                                                                  height: parentHeight * .23,
+                                                                  width: parentWidth * .94,
+                                                                  decoration: BoxDecoration(
+                                                                      image: DecorationImage(
+                                                                          image: snapshot.data?.data?[index].images != null
+                                                                              ?
+                                                                          NetworkImage(
+                                                                            "${snapshot.data?.data?[index].images}",
+                                                                          )
+                                                                              : NetworkImage(""),
+                                                                          fit: BoxFit.cover,)),
                                                                 ),
-                                                                BoxShadow(
-                                                                  color: Colors.grey.shade50,
-                                                                  offset: Offset(-3, 0),
-                                                                ),
-                                                                BoxShadow(
-                                                                  color: Colors.grey.shade50,
-                                                                  offset: Offset(1, 0),
-                                                                )
-                                                              ],
-                                                            ),
-                                                            child: Center(
-                                                              child: Container(
-                                                                decoration: BoxDecoration(
-                                                                    image: DecorationImage(
-                                                                        image: snapshot.data?.data?[index].banners != null
-                                                                            ?
-                                                                        NetworkImage(
-                                                                          "${snapshot.data?.data?[index].banners}",
-                                                                        )
-                                                                            : NetworkImage(""),
-                                                                        fit: BoxFit.cover)),
                                                               ),
-                                                            )),
+                                                            ],
+                                                          ),
+                                                        ),
                                                       );
+                                                    }):Container()
+                                              )),
+                                        ),
+                                        Visibility(
+                                          visible: ViewImage,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              for (int i = 0; i < 2; i++)
+                                                Container(
+                                                  width: 7,
+                                                  height: 7,
+                                                  margin: EdgeInsets.all(2),
+                                                  decoration: BoxDecoration(
+                                                    color: currentIndex == i
+                                                        ? Colors.green
+                                                        : Colors.grey.shade400,
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                )
+                                            ],
+                                          ),
+                                        ),
+                                        Column(
+                                          children: [
+                                            getAddJammatTimeLayout(
+                                                SizeConfig.screenHeight,
+                                                SizeConfig.screenWidth),
+                                            getAddFridayTimeLayout(
+                                                SizeConfig.screenHeight,
+                                                SizeConfig.screenWidth),
+                                            getAddshariIftarLayout(
+                                                SizeConfig.screenHeight,
+                                                SizeConfig.screenWidth,
+                                                "${snapshot.data?.data?[index].sahr}",
+                                                "${snapshot.data?.data?[index].iftar}"),
+                                            getAddEidLayout(SizeConfig.screenHeight,
+                                                SizeConfig.screenWidth),
+                                            Container(
+                                                //height: SizeConfig.screenHeight*.74,
+                                                width: SizeConfig.screenWidth,
+                                                child: Padding(
+                                                  padding: EdgeInsets.only(
+                                                      right:
+                                                          SizeConfig.screenHeight *
+                                                              .0,
+                                                      top: SizeConfig.screenHeight *
+                                                          .0),
+                                                  child:snapshot.data?.data?.length !=null?
+                                                  CarouselSlider.builder(
+                                                      // carouselController: _controller,
+                                                      itemCount: snapshot.data?.data?.length,
+                                                      //widget.getChatGroupInfoData.length,
+                                                      options: CarouselOptions(
+                                                        onPageChanged:
+                                                            (index, reason) {
+                                                          setState(() {
+                                                            currentIndex = index;
+                                                          });
+                                                        },
+                                                        initialPage: 1,
+                                                        height: SizeConfig
+                                                                .screenHeight *
+                                                            .27,
+                                                        // aspectRatio: 1.1,
+                                                        viewportFraction: 1.0,
+                                                        enableInfiniteScroll: false,
+                                                        autoPlay: false,
+                                                        enlargeStrategy:
+                                                            CenterPageEnlargeStrategy
+                                                                .height,
+                                                      ),
+                                                      itemBuilder:
+                                                          (BuildContext context,
+                                                              int itemIndex,
+                                                              int index) {return   Padding(
+                                                            padding: EdgeInsets.only(
+                                                                top: parentHeight * 0.03, bottom: parentHeight * 0.06),
+                                                            child: Container(
+                                                                height: parentHeight * 0.17,
+                                                                decoration: BoxDecoration(
+                                                                  color: Colors.grey.shade200,
+                                                                  borderRadius: BorderRadius.circular(20),
+                                                                  boxShadow: <BoxShadow>[
+                                                                    BoxShadow(
+                                                                      color: Colors.grey.shade300,
+                                                                      spreadRadius: 1,
+                                                                      blurRadius: 2,
+                                                                      offset: Offset(0, 1),
+                                                                    ),
+                                                                    BoxShadow(
+                                                                      color: Colors.grey.shade50,
+                                                                      offset: Offset(-3, 0),
+                                                                    ),
+                                                                    BoxShadow(
+                                                                      color: Colors.grey.shade50,
+                                                                      offset: Offset(1, 0),
+                                                                    )
+                                                                  ],
+                                                                ),
+                                                                child: Center(
+                                                                  child: Container(
+                                                                    decoration: BoxDecoration(
+                                                                        image: DecorationImage(
+                                                                            image: snapshot.data?.data?[index].banners != null
+                                                                                ?
+                                                                            NetworkImage(
+                                                                              "${snapshot.data?.data?[index].banners}",
+                                                                            )
+                                                                                : NetworkImage(""),
+                                                                            fit: BoxFit.cover)),
+                                                                  ),
+                                                                )),
+                                                          );
 
-                                                    /*getFirstImageFrame(
-                                                          SizeConfig.screenHeight,
-                                                          SizeConfig.screenWidth,
-                                                          snapshot.data?.data?[0].images?[0],
-                                                          snapshot
-                                                              .data?.data?[0].images?.length);*/
-                                                  }):Container()
-                                            ))
+                                                        /*getFirstImageFrame(
+                                                              SizeConfig.screenHeight,
+                                                              SizeConfig.screenWidth,
+                                                              snapshot.data?.data?[0].images?[0],
+                                                              snapshot
+                                                                  .data?.data?[0].images?.length);*/
+                                                      }):Container()
+                                                ))
 
-                                        /* MasjitNameLocation(
-                                  SizeConfig.screenHeight, SizeConfig.screenWidth),*/
+                                            /* MasjitNameLocation(
+                                      SizeConfig.screenHeight, SizeConfig.screenWidth),*/
+                                          ],
+                                        )
+
+                                        /* Text("Masjid Name"),
+                          Text ("Location :")*/
                                       ],
-                                    )
-
-                                    /* Text("Masjid Name"),
-                      Text ("Location :")*/
-                                  ],
-                                )),
+                                    )),
+                              ),
+                            ],
                           ),
-                        ],
+                        );
+                      }))
+                  :GestureDetector(
+                onTap: (){
+                     _tabController?.animateTo(1);
+                },
+                    child: Center(
+                      child: Container(
+                      height:
+                      parentHeight *
+                          0.06,
+                      width:
+                      parentWidth *
+                          0.4,
+                      decoration:
+                      BoxDecoration(
+                        gradient: LinearGradient(
+                            begin: Alignment
+                                .centerLeft,
+                            end: Alignment.centerRight,
+                            colors: [
+                              CommonColor
+                                  .LEFT_COLOR,
+                              CommonColor
+                                  .RIGHT_COLOR
+                            ]),
+                        borderRadius:
+                        BorderRadius
+                            .circular(
+                            7),
                       ),
-                    );
-                  })):Container();
+                      child: Center(
+                        child: Text(
+                          "Join Masjid",
+                          style: TextStyle(
+                              fontFamily:
+                              "Roboto_Regular",
+                              fontWeight:
+                              FontWeight
+                                  .w700,
+                              fontSize:
+                              SizeConfig.blockSizeHorizontal *
+                                  4.3,
+                              color: CommonColor
+                                  .WHITE_COLOR),
+                        ),
+                      )
+
+              ),
+                    ),
+                  ),
+
+
+              // Text("Hii")
+
+            ],
+          );
         });
   }
 

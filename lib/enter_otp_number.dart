@@ -3,8 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:masjiduserapp/all_masjit_list.dart';
 import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/user_register_response_model.dart';
 import 'package:masjiduserapp/size_config.dart';
+import 'package:masjiduserapp/user_parent_tab_bar.dart';
 import 'package:masjiduserapp/user_registration.dart';
 import 'package:masjiduserapp/util/constant.dart';
 import 'package:pinput/pinput.dart';
@@ -36,9 +38,12 @@ class EnterOtpNumber extends StatefulWidget {
   const EnterOtpNumber({
     Key? key,
     required this.mobileNumber,
+    required this.auth,
+    required this.verificationId,
   }) : super(key: key);
   final String mobileNumber;
-
+  final String auth;
+  final String verificationId;
 
   @override
   _EnterOtpNumberState createState() => _EnterOtpNumberState();
@@ -50,25 +55,39 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
   final TextEditingController _pinPutController = TextEditingController();
   final FocusNode _pinPutFocusNode = FocusNode();
   late Box box;
-  FirebaseAuth auth = FirebaseAuth.instance;
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  var code = "";
 
-  bool otpVisibility = false;
+  /*void signInWithPhoneAuthCred(AuthCredential phoneAuthCredential) async {
+    try {
+      final authCred =
+          await auth.signInWithCredential(phoneAuthCredential).then((value) {
+        print("You are logged in successfully");
+      });
 
-  String verificationID = "";
-
-  BoxDecoration get _pinPutDecoration {
+      if (authCred.user != null) {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => UserRegistration()));
+      }
+    } on FirebaseAuthException catch (e) {
+      print(e.message);
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Some Error Occured. Try Again Later')));
+    }
+  }
+*/
+/*  BoxDecoration get _pinPutDecoration {
     return BoxDecoration(
       border: Border.all(color: Colors.deepPurpleAccent),
       borderRadius: BorderRadius.circular(0.0),
     );
-  }
+  }*/
 
   final pinController = TextEditingController();
   final focusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
   var getPhoneNumber;
-  late Future<UserPhoneNumberRegistrationResponceModel> result;
-
+   Future<UserPhoneNumberRegistrationResponceModel>? result;
 
   @override
   void dispose() {
@@ -80,29 +99,15 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
   @override
   void initState() {
     box = Hive.box(kBoxName);
-    result = getOtpApi();
+
     super.initState();
     if (mounted) {
       setState(() {
-        print(getPhoneNumber);
-        box.put(kUserPhoneNumber,widget.mobileNumber);
+        print('phone ${widget.mobileNumber}');
+        box.put(kUserPhoneNumber, widget.mobileNumber);
         // print("Id ${widget.phoneNumber}");
       });
     }
-
-    Future<void> VerifyPhone(String number) async{
-      await FirebaseAuth.instance.verifyPhoneNumber(phoneNumber: number,
-          verificationCompleted: (PhoneAuthCredential credential){
-
-          },
-          verificationFailed: (FirebaseAuthException.e){
-
-          }
-          codeSent: codeSent,
-          codeAutoRetrievalTimeout: codeAutoRetrievalTimeout);
-
-    }
-
   }
 
   @override
@@ -196,6 +201,20 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
     );
   }
 
+  Future<UserPhoneNumberRegistrationResponceModel> getOtpApi() async {
+    try {
+      final result = await http
+          .post(Uri.parse("http://masjid.exportica.in/api/user/verify"), body: {
+        "phone": widget.mobileNumber.toString(),
+      });
+      print("new order:" + result.body);
+
+      return userPhoneNumberRegistrationResponceModelFromJson(result.body);
+    } catch (e) {
+      throw e;
+    }
+  }
+
   Widget getFirstImageFrame(double parentHeight, double parentWidth) {
     return Padding(
       padding: EdgeInsets.only(top: parentHeight * 0.05),
@@ -211,8 +230,6 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
                 decoration: BoxDecoration(
                     color: CommonColor.GRAY_COLOR,
                     borderRadius: BorderRadius.circular(30)),
-
-
               ),
               Padding(
                 padding: EdgeInsets.only(
@@ -229,7 +246,6 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
                   //textAlign: TextAlign.center,
                 ),
               ),
-
               Padding(
                 padding: EdgeInsets.only(top: parentHeight * 0.01),
                 child: Row(
@@ -263,7 +279,7 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: parentHeight * 0.02),
+                padding: const EdgeInsets.all(40.0),
                 child: Form(
                   key: formKey,
                   child: Column(
@@ -271,14 +287,11 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
                       Directionality(
                         // Specify direction if desired
                         textDirection: TextDirection.ltr,
+
                         child: Pinput(
+                          length: 6,
                           controller: pinController,
                           focusNode: focusNode,
-
-                          // defaultPinTheme: defaultPinTheme,
-                          validator: (value) {
-                            return value == '1234' ? null : 'Pin is incorrect';
-                          },
                           onClipboardFound: (value) {
                             debugPrint('onClipboardFound: $value');
                             pinController.setText(value);
@@ -289,6 +302,7 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
                           },
                           onChanged: (value) {
                             debugPrint('onChanged: $value');
+                            code = value;
                           },
                           cursor: Column(
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -296,7 +310,7 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
                               Container(
                                 margin: EdgeInsets.only(bottom: 9),
                                 width: 20,
-                                height: 1,
+                                height: parentHeight * 0.05,
                                 color: CommonColor.REGISTRARTION_TRUSTEE,
                               ),
                             ],
@@ -352,8 +366,6 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
                   ),
                 ),
               ),
-
-
             ],
           ),
         ),
@@ -363,21 +375,34 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
 
   Widget ContinueButton(double parentHeight, double parentWidth) {
     return GestureDetector(
-      onTap: () {
-       result.then((value) => setState((){
-    value.data?.token;
+      onTap: () async {
+        print('verid 1 ${widget.verificationId}');
+        PhoneAuthCredential credential = PhoneAuthProvider.credential(
+          verificationId: widget.verificationId,
+          smsCode: code,
+        );
 
-          var box = Hive.box(kBoxName);
+        try{
+          await auth.signInWithCredential(credential);
+          result = getOtpApi();
+          result?.then((value) {
+            value.data?.token;
+            var box = Hive.box(kBoxName);
+            box.put(kToken, value.data?.token);
+            print("token ${box.get("token")}");
 
-          box.put(kToken,value.data?.token);
-         print("token ${box.get("token")}");
-         Navigator.push(
-             context, MaterialPageRoute(builder: (context) => UserRegistration()));
+            Widget destination = ParentTabBarScreen();
 
+            if (value.data?.area == null) {
+              destination = UserRegistration();
+            }
 
-
-
-       }));
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => destination));
+          });
+        }catch(excepti){
+          ScaffoldMessenger.of(context).showSnackBar( SnackBar(content: Text('Some Error Occured. Try Again Later')));
+        }
       },
       child: Padding(
         padding: EdgeInsets.only(
@@ -464,45 +489,4 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
       ..hideCurrentSnackBar()
       ..showSnackBar(snackBar);
   }
-
-/*  Future<UserPhoneNumberRegistrationResponceModel> getOtpApi() async {
-
-
-    final msg = jsonEncode({"phone": widget.mobileNumber.toString()});
-
-    var response = await http.post(
-      Uri.parse('http://masjid.exportica.in/api/user/verify'),
-      body: {msg},
-    );
-
-    if (response.statusCode == 200) {
-      print("Yess.. ${response.body}");
-
-      print("yyyyyy");
-
-      return userPhoneNumberRegistrationResponceModelFromJson(response.body);
-    } else {
-      // If the server did not return a 201 CREATED response,
-      // then throw an exception.
-      throw Exception('Failed to create album.');
-    }
-  }*/
-
-
-  Future<UserPhoneNumberRegistrationResponceModel> getOtpApi() async {
-    try {
-      final result = await http.post(
-          Uri.parse("http://masjid.exportica.in/api/user/verify"),
-          body: {
-            "phone": widget.mobileNumber.toString(),
-          });
-      print("new order:" + result.body);
-
-      return userPhoneNumberRegistrationResponceModelFromJson(result.body);
-    } catch (e) {
-      throw e;
-    }
-  }
-
-
 }
