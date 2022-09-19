@@ -118,8 +118,8 @@ final PageController _pageController = PageController();
                       ),*/
                       itemBuilder:
                           (context, index,) {
-                        return  Container(
-                          height: SizeConfig.screenHeight,
+                        return  Padding(
+                          padding:  EdgeInsets.only(top: SizeConfig.screenHeight*0.2),
                           child: Column(
                             children: [
                             //  for (var i = 0; i < listPaths.length; i++)
@@ -226,11 +226,11 @@ final PageController _pageController = PageController();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 1),
       child: Container(
-        height: isSelected ? 12 : 10,
-        width: isSelected ? 12 : 10,
+        height: isSelected ? 10 : 10,
+        width: isSelected ? 10 : 10,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: isSelected ? Colors.black : Colors.grey,
+          color: isSelected ? CommonColor.REGISTRARTION_COLOR : Colors.grey,
         ),
       ),
     );
