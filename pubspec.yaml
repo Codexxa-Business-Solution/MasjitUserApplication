@@ -55,6 +55,7 @@ dependencies:
   build_runner: ^2.2.0
   flutter_polyline_points:
   fluttertoast: ^8.0.8
+  flutter_dnd: ^0.1.4+1
   url_launcher: ^6.1.5
   firebase_core: ^1.8.0
   firebase_auth: ^3.1.1

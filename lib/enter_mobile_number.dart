@@ -20,19 +20,24 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
   final _phoneFocus = FocusNode();
   FirebaseAuth auth = FirebaseAuth.instance;
   String verificationID = "";
+
   TextEditingController phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Container(
+        resizeToAvoidBottomInset: true,
+        body: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).requestFocus(FocusNode());
+          },
+          onDoubleTap: () {},
           child: ListView(
             shrinkWrap: true,
             children: [
               Container(
-                height: SizeConfig.screenHeight * 0.10,
+              //  height: SizeConfig.screenHeight * 0.05,
                 decoration: BoxDecoration(
                   color: Colors.transparent,
                 ),
@@ -40,15 +45,19 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
                     SizeConfig.screenHeight, SizeConfig.screenWidth),
               ),
               Container(
-                  height: SizeConfig.screenHeight * 0.88,
+                  height: SizeConfig.screenHeight,
                   child: Column(
                     children: [
                       getFirstImageFrame(
                           SizeConfig.screenHeight, SizeConfig.screenWidth),
                       ContinueButton(
                           SizeConfig.screenHeight, SizeConfig.screenWidth),
+
                     ],
-                  ))
+                  )
+
+
+              )
             ],
           ),
         ));
@@ -124,15 +133,6 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
                     color: CommonColor.GRAY_COLOR,
                     borderRadius: BorderRadius.circular(30)),
 
-                /* child: ClipRRect(
-                 borderRadius: BorderRadius.all(Radius.circular(20)),
-
-                // borderRadius: BorderRadius.circular(8),
-                child: const Image(
-                    image: AssetImage("assets/images/frame_one.png"),
-                    fit: BoxFit.cover,
-                  ),
-               ),*/
               ),
               Padding(
                 padding: EdgeInsets.only(
@@ -214,10 +214,11 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
                                       left: parentWidth * 0.01,
                                       right: parentWidth * 0.01),
                                   child: TextFormField(
+                                    focusNode: _phoneFocus,
                                     controller: phoneController,
+                                    keyboardType: TextInputType.number,
                                     autocorrect: true,
                                     textInputAction: TextInputAction.next,
-                                    keyboardType: TextInputType.emailAddress,
 
                                     decoration: InputDecoration(
                                       hintText: "Enter your Mobile No.",
@@ -310,54 +311,71 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
 
   Widget ContinueButton(double parentHeight, double parentWidth) {
     return GestureDetector(
-      onTap: () async {
-        await auth.verifyPhoneNumber(
-            phoneNumber: "+91${phoneController.text}",
-            verificationCompleted: (phoneAuthCredential) async {},
-            verificationFailed: (verificationFailed) {
-              print(verificationFailed);
-            },
-            codeSent: (String verificationId, int? resendToken) async {
-              setState(() {
-                verificationID = verificationId;
-                print('verid $verificationID');
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => EnterOtpNumber(
-                              mobileNumber: phoneController.text,
-                              auth: '',
-                              verificationId: verificationID,
-                            )));
-              });
-            },
-            codeAutoRetrievalTimeout: (verificationID) async {});
-      },
-      child: Padding(
-        padding: EdgeInsets.only(
-            top: parentHeight * 0.07,
-            left: parentWidth * 0.1,
-            right: parentWidth * 0.1),
-        child: Container(
-            height: parentHeight * 0.06,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                  colors: [CommonColor.LEFT_COLOR, CommonColor.RIGHT_COLOR]),
-              borderRadius: BorderRadius.circular(30),
-            ),
-            child: Center(
-              child: Text(
-                "Continue",
-                style: TextStyle(
-                    fontFamily: "Roboto_Regular",
-                    fontWeight: FontWeight.w700,
-                    fontSize: SizeConfig.blockSizeHorizontal * 4.5,
-                    color: CommonColor.WHITE_COLOR),
+        onTap: () async {
+          showDialog(context: context, builder: (context){
+            return Center(child: CircularProgressIndicator());
+
+          }
+
+          );
+          await Future<int>.delayed(Duration(seconds: 5));
+
+          Navigator.of(context, rootNavigator: true).pop();
+          await auth.verifyPhoneNumber(
+              phoneNumber: "+91${phoneController.text}",
+              verificationCompleted: (phoneAuthCredential) async {},
+              verificationFailed: (verificationFailed) {
+                print(verificationFailed);
+
+              },
+              codeSent: (String verificationId, int? resendToken) async {
+                setState(() {
+                  verificationID = verificationId;
+                  print('verid $verificationID');
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => EnterOtpNumber(
+                                mobileNumber: phoneController.text,
+                                auth: '',
+                                verificationId: verificationID,
+                              )));
+
+                });
+                //Navigator.of(context).pop();
+              },
+              codeAutoRetrievalTimeout: (verificationID) async {});
+
+        },
+
+        child: Padding(
+          padding: EdgeInsets.only(
+              top: parentHeight * 0.07,
+              left: parentWidth * 0.1,
+              right: parentWidth * 0.1),
+          child: Container(
+              height: parentHeight * 0.06,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: [CommonColor.LEFT_COLOR, CommonColor.RIGHT_COLOR]),
+                borderRadius: BorderRadius.circular(30),
               ),
-            )),
-      ),
+              child: Center(
+                child: Text(
+                  "Continue",
+                  style: TextStyle(
+                      fontFamily: "Roboto_Regular",
+                      fontWeight: FontWeight.w700,
+                      fontSize: SizeConfig.blockSizeHorizontal * 4.5,
+                      color: CommonColor.WHITE_COLOR),
+                ),
+              )),
+        ),
+
+
     );
+
   }
 }

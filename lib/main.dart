@@ -5,7 +5,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:masjiduserapp/masjit_main_new_screen.dart';
 import 'package:masjiduserapp/size_config.dart';
+import 'package:masjiduserapp/user_registration.dart';
 import 'package:masjiduserapp/util/constant.dart';
 
 
@@ -34,8 +36,19 @@ class MyApp extends StatelessWidget with WidgetsBindingObserver{
     WidgetsBinding.instance!.removeObserver(this);
     //super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
+    var  box = Hive.box(kBoxName);
+    Widget destination = UserRegistration();
+
+    if(box.get(kToken, defaultValue: null) != null){
+   //   print("registrationToken ${box.get("token")} ${box.get(kMasjid)}");
+      destination = MasjitMainScreen(tabbr: '');
+    } else if(!box.get(kOnBorading, defaultValue: false)){
+    //  print("registrationToken ${box.get("token")} ${box.get(kMasjid)}");
+      destination =MasjitVendorFrame();
+    }
     return MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(

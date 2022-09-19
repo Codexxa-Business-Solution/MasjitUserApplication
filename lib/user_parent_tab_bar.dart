@@ -356,21 +356,21 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
 
                                           getLogoutUser().then((value){
                                             box.delete(kToken);
-                                            box.delete(kBoxName);
+                                            //box.delete(kBoxName);
                                             box.delete(kUserPhoneNumber);
 
 
-                                              Navigator.of(context).pushAndRemoveUntil(new MaterialPageRoute(builder: (context)=>EnterMobileNumber()),
+                                              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>EnterMobileNumber()),
                                                       (Route route) => false);
 
 
 
                                           //  Navigator.popUntil(context, ModalRoute.withName (EnterMobileNumber()));
-                                            Navigator.pushReplacement(
+                                         /*   Navigator.pushReplacement(
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        EnterMobileNumber()));
+                                                        EnterMobileNumber()));*/
                                           });
                                           //cityController.text.isEmpty ? _validate = true : _validate = false;
 

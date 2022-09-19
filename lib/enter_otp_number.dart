@@ -21,6 +21,7 @@ const focusedBorderColor = Color.fromRGBO(23, 171, 144, 1);
 const fillColor = Color.fromRGBO(243, 246, 249, 0);
 const borderColor = Color.fromRGBO(23, 171, 144, 0.4);
 
+bool isLoading = false;
 final defaultPinTheme = PinTheme(
   width: 56,
   height: 56,
@@ -58,30 +59,6 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   var code = "";
 
-  /*void signInWithPhoneAuthCred(AuthCredential phoneAuthCredential) async {
-    try {
-      final authCred =
-          await auth.signInWithCredential(phoneAuthCredential).then((value) {
-        print("You are logged in successfully");
-      });
-
-      if (authCred.user != null) {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => UserRegistration()));
-      }
-    } on FirebaseAuthException catch (e) {
-      print(e.message);
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Some Error Occured. Try Again Later')));
-    }
-  }
-*/
-/*  BoxDecoration get _pinPutDecoration {
-    return BoxDecoration(
-      border: Border.all(color: Colors.deepPurpleAccent),
-      borderRadius: BorderRadius.circular(0.0),
-    );
-  }*/
 
   final pinController = TextEditingController();
   final focusNode = FocusNode();
@@ -205,9 +182,12 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
     try {
       final result = await http
           .post(Uri.parse("http://masjid.exportica.in/api/user/verify"), body: {
+
         "phone": widget.mobileNumber.toString(),
+
       });
       print("new order:" + result.body);
+      isLoading = false;
 
       return userPhoneNumberRegistrationResponceModelFromJson(result.body);
     } catch (e) {
@@ -374,100 +354,108 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
   }
 
   Widget ContinueButton(double parentHeight, double parentWidth) {
-    return GestureDetector(
-      onTap: () async {
-        print('verid 1 ${widget.verificationId}');
-        PhoneAuthCredential credential = PhoneAuthProvider.credential(
-          verificationId: widget.verificationId,
-          smsCode: code,
-        );
+    return  GestureDetector(
 
-        try{
-          await auth.signInWithCredential(credential);
-          result = getOtpApi();
-          result?.then((value) {
-            value.data?.token;
-            var box = Hive.box(kBoxName);
-            box.put(kToken, value.data?.token);
-            print("token ${box.get("token")}");
+        onTap: () async {
+          showDialog(context: context, builder: (context)
+          {
+            return Center(child: CircularProgressIndicator());
+          }
+          );
+         // isLoading = true;
+          print('verid 1 ${widget.verificationId}');
+          PhoneAuthCredential credential = PhoneAuthProvider.credential(
+            verificationId: widget.verificationId,
+            smsCode: code,
+          );
 
-            Widget destination = ParentTabBarScreen();
+          try{
+            await auth.signInWithCredential(credential);
+            result = getOtpApi();
+            result?.then((value) {
+              value.data?.token;
+              var box = Hive.box(kBoxName);
+              box.put(kToken, value.data?.token);
+              print("token ${box.get("token")}");
 
-            if (value.data?.area == null) {
-              destination = UserRegistration();
-            }
+              Widget destination = ParentTabBarScreen();
 
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => destination));
-          });
-        }catch(excepti){
-          ScaffoldMessenger.of(context).showSnackBar( SnackBar(content: Text('Some Error Occured. Try Again Later')));
-        }
-      },
-      child: Padding(
-        padding: EdgeInsets.only(
-            top: parentHeight * 0.01,
-            left: parentWidth * 0.1,
-            right: parentWidth * 0.1),
-        child: Column(
-          children: [
-            Container(
-                height: parentHeight * 0.06,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                      colors: [
-                        CommonColor.LEFT_COLOR,
-                        CommonColor.RIGHT_COLOR
-                      ]),
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: Center(
-                  child: Text(
-                    "Verify",
-                    style: TextStyle(
-                        fontFamily: "Roboto_Regular",
-                        fontWeight: FontWeight.w700,
-                        fontSize: SizeConfig.blockSizeHorizontal * 4.5,
-                        color: CommonColor.WHITE_COLOR),
+              if (value.data?.area == null) {
+                destination = UserRegistration();
+              }
+
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => destination));
+            });
+          }catch(excepti){
+            ScaffoldMessenger.of(context).showSnackBar( SnackBar(content: Text('Some Error Occured. Try Again Later')));
+          }
+        },
+        child: Padding(
+          padding: EdgeInsets.only(
+              top: parentHeight * 0.01,
+              left: parentWidth * 0.1,
+              right: parentWidth * 0.1),
+          child: Column(
+            children: [
+              Container(
+                  height: parentHeight * 0.06,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: [
+                          CommonColor.LEFT_COLOR,
+                          CommonColor.RIGHT_COLOR
+                        ]),
+                    borderRadius: BorderRadius.circular(30),
                   ),
-                )),
-            Padding(
-              padding: EdgeInsets.only(top: parentHeight * 0.03),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    child: Padding(
+                  child: Center(
+                    child: Text(
+                      "Verify",
+                      style: TextStyle(
+                          fontFamily: "Roboto_Regular",
+                          fontWeight: FontWeight.w700,
+                          fontSize: SizeConfig.blockSizeHorizontal * 4.5,
+                          color: CommonColor.WHITE_COLOR),
+                    ),
+                  )),
+              Padding(
+                padding: EdgeInsets.only(top: parentHeight * 0.03),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      child: Padding(
+                        padding: EdgeInsets.only(right: parentWidth * 0.0),
+                        child: Text(
+                          " Didn’t receive SMS? ",
+                          style: TextStyle(
+                              fontFamily: "Roboto_Regular",
+                              fontWeight: FontWeight.w400,
+                              fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+                              color: CommonColor.BLACK_COLOR),
+                        ),
+                      ),
+                    ),
+                    Padding(
                       padding: EdgeInsets.only(right: parentWidth * 0.0),
                       child: Text(
-                        " Didn’t receive SMS? ",
+                        "Resend",
                         style: TextStyle(
                             fontFamily: "Roboto_Regular",
                             fontWeight: FontWeight.w400,
                             fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                            color: CommonColor.BLACK_COLOR),
+                            color: CommonColor.CANCLE_BUTTON),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(right: parentWidth * 0.0),
-                    child: Text(
-                      "Resend",
-                      style: TextStyle(
-                          fontFamily: "Roboto_Regular",
-                          fontWeight: FontWeight.w400,
-                          fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                          color: CommonColor.CANCLE_BUTTON),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
+
     );
   }
 
