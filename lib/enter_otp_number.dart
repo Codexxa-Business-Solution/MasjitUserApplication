@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:masjiduserapp/all_masjit_list.dart';
 import 'package:masjiduserapp/login_with_phone.dart';
+import 'package:masjiduserapp/masjit_main_new_screen.dart';
 import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/user_register_response_model.dart';
 import 'package:masjiduserapp/size_config.dart';
 import 'package:masjiduserapp/user_parent_tab_bar.dart';
@@ -379,7 +380,7 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
               box.put(kToken, value.data?.token);
               print("token ${box.get("token")}");
 
-              Widget destination = UserRegistration();
+              Widget destination = ParentTabBarScreen();
 
               if (value.data?.area == null) {
                 destination = UserRegistration();

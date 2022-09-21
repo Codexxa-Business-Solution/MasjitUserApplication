@@ -240,7 +240,7 @@ class _MasjitMappScreenState extends State<MasjitMappScreen> with SingleTickerPr
                                     color: CommonColor.RIGHT_COLOR, width: 1)),
                             child: Center(
                               child: Text(
-                                "Trusteeeeee",
+                                "Trustee",
                                 style: TextStyle(
                                   color: trusteeScreen
                                       ? Colors.white

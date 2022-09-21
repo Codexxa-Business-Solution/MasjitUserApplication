@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -36,10 +38,13 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
   TabController? _tabController;
   var getNotice;
   late Box box;
+  List<dynamic> _allCommentsArr = [];
+
   @override
   void initState() {
     box = Hive.box(kBoxName);
     _tabController = TabController(length: 1, vsync: this);
+
     super.initState();
 
     getNotice = getNoticeSection();
@@ -54,7 +59,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
 
   @override
   void dispose() {
-      _tabController!.dispose();
+    _tabController!.dispose();
     super.dispose();
   }
 
@@ -63,9 +68,8 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
     return Scaffold(
         resizeToAvoidBottomInset: false,
         // backgroundColor: Colors.white,
-        body:Padding(
-          padding:
-          EdgeInsets.only(top: SizeConfig.screenHeight * 0.015),
+        body: Padding(
+          padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.015),
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
@@ -89,219 +93,305 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
             child: ThreeTabWithDesign(
                 SizeConfig.screenHeight, SizeConfig.screenWidth),
           ),
-        )
-        );
+        ));
   }
 
   Widget ThreeTabWithDesign(double parentHeight, double parentWidth) {
-
     return FutureBuilder<AllMasjitJoinListResponceModel>(
         future: getNotice,
         builder: (context, snapshot) {
-          print("nnnn  ${ snapshot.data?.data?.length}");
-          return  Stack(
+          print("nnnn  ${snapshot.data?.data?.length}");
+          return Stack(
             children: [
-              snapshot.data?.data?.length != 0?Container(
+              snapshot.data?.data?.length != 0
+                  ? Container(
                   child: ListView.builder(
                       itemCount: snapshot.data?.data?.length,
                       itemBuilder: (context, index) {
                         return Padding(
-                          padding: EdgeInsets.only(top: parentHeight * 0.04),
+                          padding:
+                          EdgeInsets.only(top: parentHeight * 0.04),
                           child: Column(
                             children: [
                               Container(
                                   child: Padding(
-                                padding: EdgeInsets.only(top: parentHeight * 0.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: [
-                                    GestureDetector(
-                                      onDoubleTap: () {},
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    MasjitMappScreen(
-                                                      tabNum: "1",
-                                                      masjitTrusteeId: '',
-                                                      lat: '',
-                                                      long: '',
-                                                    )));
+                                    padding: EdgeInsets.only(
+                                        top: parentHeight * 0.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                      children: [
+                                        GestureDetector(
+                                          onDoubleTap: () {},
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        MasjitMappScreen(
+                                                          tabNum: "1",
+                                                          masjitTrusteeId: '',
+                                                          lat: '',
+                                                          long: '',
+                                                        )));
 
-                                        if (mounted) {
-                                          setState(() {
+                                            if (mounted) {
+                                              setState(() {});
+                                            }
+                                          },
+                                          child: Container(
+                                            width: parentWidth * 0.28,
+                                            height: parentHeight * 0.05,
+                                            decoration: BoxDecoration(
+                                              /*mapScreen == true*/
+                                              // CommonColor.REGISTRARTION_TRUSTEE,
 
-                                          });
-                                        }
-                                      },
-                                      child: Container(
-                                        width: parentWidth * 0.28,
-                                        height: parentHeight * 0.05,
-                                        decoration: BoxDecoration(
-                                            /*mapScreen == true*/
-                                            // CommonColor.REGISTRARTION_TRUSTEE,
-
-                                            // Colors.white,
-                                            borderRadius: BorderRadius.circular(50),
-                                            border: Border.all(
-                                                color: CommonColor.RIGHT_COLOR,
-                                                width: 1)),
-                                        child: Center(
-                                          child: Text(
-                                            "Map",
-                                            style: TextStyle(
-                                              /*color: mapScreen == true
+                                              // Colors.white,
+                                                borderRadius:
+                                                BorderRadius.circular(50),
+                                                border: Border.all(
+                                                    color:
+                                                    CommonColor.RIGHT_COLOR,
+                                                    width: 1)),
+                                            child: Center(
+                                              child: Text(
+                                                "Map",
+                                                style: TextStyle(
+                                                  /*color: mapScreen == true
                                                   ? Colors.white
                                                   : Colors.black,*/
-                                              fontWeight: FontWeight.w400,
-                                              fontSize:
-                                                  SizeConfig.blockSizeHorizontal *
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: SizeConfig
+                                                      .blockSizeHorizontal *
                                                       3.5,
-                                              fontFamily: 'Roboto_Medium',
+                                                  fontFamily: 'Roboto_Medium',
+                                                ),
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                    GestureDetector(
-                                      onDoubleTap: () {},
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    MasjitMappScreen(
-                                                        tabNum: "2",
-                                                        masjitTrusteeId: '',
-                                                        lat: '',
-                                                        long: '')));
+                                        GestureDetector(
+                                          onDoubleTap: () {},
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        MasjitMappScreen(
+                                                            tabNum: "2",
+                                                            masjitTrusteeId: '',
+                                                            lat: '',
+                                                            long: '')));
 
-                                        if (mounted)
-                                          setState(() {
-                                            /*mapScreen = false;
+                                            if (mounted)
+                                              setState(() {
+                                                /*mapScreen = false;
                                             trusteeScreen = true;
                                             showDetails = false;
                                             noticeScreen = false;*/
-                                          });
-                                      },
-                                      child: Container(
-                                        width: parentWidth * 0.28,
-                                        height: parentHeight * 0.05,
-                                        decoration: BoxDecoration(
-                                            /*color: trusteeScreen
+                                              });
+                                          },
+                                          child: Container(
+                                            width: parentWidth * 0.28,
+                                            height: parentHeight * 0.05,
+                                            decoration: BoxDecoration(
+                                              /*color: trusteeScreen
                                                 ? CommonColor.REGISTRARTION_TRUSTEE
                                                 .withOpacity(0.9)
                                                 : Colors.white,*/
-                                            borderRadius: BorderRadius.circular(50),
-                                            border: Border.all(
-                                                color: CommonColor.RIGHT_COLOR,
-                                                width: 1)),
-                                        child: Center(
-                                          child: Text(
-                                            "Trustee",
-                                            style: TextStyle(
-                                              /*color: trusteeScreen
+                                                borderRadius:
+                                                BorderRadius.circular(50),
+                                                border: Border.all(
+                                                    color:
+                                                    CommonColor.RIGHT_COLOR,
+                                                    width: 1)),
+                                            child: Center(
+                                              child: Text(
+                                                "Trustee",
+                                                style: TextStyle(
+                                                  /*color: trusteeScreen
                                                   ? Colors.white
                                                   : Colors.black,*/
-                                              fontWeight: FontWeight.w400,
-                                              fontSize:
-                                                  SizeConfig.blockSizeHorizontal *
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: SizeConfig
+                                                      .blockSizeHorizontal *
                                                       3.5,
-                                              fontFamily: 'Roboto_Medium',
+                                                  fontFamily: 'Roboto_Medium',
+                                                ),
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                    GestureDetector(
-                                      onDoubleTap: () {},
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    MasjitMappScreen(
-                                                      tabNum: "3",
-                                                      masjitTrusteeId: '',
-                                                      lat: '',
-                                                      long: '',
-                                                    )));
-                                        if (mounted)
-                                          setState(() {
-                                            /* mapScreen = false;
+                                        GestureDetector(
+                                          onDoubleTap: () {},
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        MasjitMappScreen(
+                                                          tabNum: "3",
+                                                          masjitTrusteeId: '',
+                                                          lat: '',
+                                                          long: '',
+                                                        )));
+                                            if (mounted)
+                                              setState(() {
+                                                /* mapScreen = false;
                                             showDetails = false;
                                             trusteeScreen = false;
                                             noticeScreen = true;*/
-                                          });
-                                      },
-                                      child: Container(
-                                        width: parentWidth * 0.28,
-                                        height: parentHeight * 0.05,
-                                        decoration: BoxDecoration(
-                                            /*color: noticeScreen
+                                              });
+                                          },
+                                          child: Container(
+                                            width: parentWidth * 0.28,
+                                            height: parentHeight * 0.05,
+                                            decoration: BoxDecoration(
+                                              /*color: noticeScreen
                                                 ? CommonColor.REGISTRARTION_TRUSTEE
                                                 .withOpacity(0.9)
                                                 : Colors.white,*/
-                                            borderRadius: BorderRadius.circular(50),
-                                            border: Border.all(
-                                                color: CommonColor.RIGHT_COLOR,
-                                                width: 1)),
-                                        child: Center(
-                                          child: Text(
-                                            "Notice",
-                                            style: TextStyle(
-                                              /* color: noticeScreen == true
+                                                borderRadius:
+                                                BorderRadius.circular(50),
+                                                border: Border.all(
+                                                    color:
+                                                    CommonColor.RIGHT_COLOR,
+                                                    width: 1)),
+                                            child: Center(
+                                              child: Text(
+                                                "Notice",
+                                                style: TextStyle(
+                                                  /* color: noticeScreen == true
                                                   ? Colors.white
                                                   : Colors.black,*/
-                                              fontWeight: FontWeight.w400,
-                                              fontSize:
-                                                  SizeConfig.blockSizeHorizontal *
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: SizeConfig
+                                                      .blockSizeHorizontal *
                                                       3.5,
-                                              fontFamily: 'Roboto_Medium',
+                                                  fontFamily: 'Roboto_Medium',
+                                                ),
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                              )
-                                  /* });
+                                  )
+                                /* });
                       }),*/
-                                  ),
+                              ),
                               Padding(
-                                padding: EdgeInsets.only(top: parentHeight * 0.03),
+                                padding: EdgeInsets.only(
+                                    top: parentHeight * 0.03),
                                 child: Visibility(
                                     visible: showDetails,
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
                                       children: [
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                              left: parentHeight * 0.02),
-                                          child: Text(
-                                              "${snapshot.data?.data?[index].place?[0].masjidName}",
-                                            style: TextStyle(
-                                                fontSize:
-                                                    SizeConfig.blockSizeHorizontal *
+                                        Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment
+                                              .spaceBetween,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                  left:
+                                                  parentHeight * 0.02),
+                                              child: Text(
+                                                "${snapshot.data?.data?[index]
+                                                    .place?[0].masjidName}",
+                                                style: TextStyle(
+                                                    fontSize: SizeConfig
+                                                        .blockSizeHorizontal *
                                                         4.0,
-                                                color: CommonColor.BLACK_COLOR,
-                                                fontWeight: FontWeight.w400,
-                                                fontFamily: 'Roboto_Bold'),
-                                          ),
+                                                    color: CommonColor
+                                                        .BLACK_COLOR,
+                                                    fontWeight:
+                                                    FontWeight.w400,
+                                                    fontFamily:
+                                                    'Roboto_Bold'),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                  left: parentWidth * 0.05,
+                                                  top:
+                                                  parentHeight * 0.005),
+                                              child: Container(
+                                                width: parentWidth * .20,
+                                                height: parentWidth * .07,
+                                                // color: Colors.yellow,
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    print(
+                                                        "id ${snapshot.data
+                                                            ?.data?[index]
+                                                            .id}");
+                                                    setState(() {
+                                                      _allCommentsArr.removeAt(
+                                                          index);
+                                                    });
+
+                                                  },
+                                                  child: Container(
+                                                      height: parentHeight *
+                                                          0.03,
+                                                      width:
+                                                      parentWidth * 0.3,
+                                                      decoration:
+                                                      BoxDecoration(
+                                                        gradient: LinearGradient(
+                                                            begin: Alignment
+                                                                .centerLeft,
+                                                            end: Alignment
+                                                                .centerRight,
+                                                            colors: [
+                                                              CommonColor
+                                                                  .LEFT_COLOR,
+                                                              CommonColor
+                                                                  .RIGHT_COLOR
+                                                            ]),
+                                                        borderRadius:
+                                                        BorderRadius
+                                                            .circular(
+                                                            7),
+                                                      ),
+                                                      child: Center(
+                                                        child: Text(
+                                                          "Removed",
+                                                          style: TextStyle(
+                                                              fontFamily:
+                                                              "Roboto_Regular",
+                                                              fontWeight:
+                                                              FontWeight
+                                                                  .w700,
+                                                              fontSize:
+                                                              SizeConfig
+                                                                  .blockSizeHorizontal *
+                                                                  3.0,
+                                                              color: CommonColor
+                                                                  .WHITE_COLOR),
+                                                        ),
+                                                      )),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                         Padding(
                                           padding: EdgeInsets.only(
                                               top: parentHeight * 0.003,
                                               left: parentHeight * 0.02),
                                           child: Text(
-                                            " ${snapshot.data?.data?[index].place?[0].subLocality}",
+                                            " ${snapshot.data?.data?[index]
+                                                .place?[0].subLocality}",
                                             style: TextStyle(
-                                                fontSize:
-                                                    SizeConfig.blockSizeHorizontal *
-                                                        4.0,
-                                                color: CommonColor.BLACK_COLOR,
+                                                fontSize: SizeConfig
+                                                    .blockSizeHorizontal *
+                                                    4.0,
+                                                color:
+                                                CommonColor.BLACK_COLOR,
                                                 fontWeight: FontWeight.w400,
                                                 height: 1.6,
                                                 fontFamily: 'Roboto_Bold'),
@@ -312,18 +402,22 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                               left: parentHeight * 0.02),
                                           child: Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                            MainAxisAlignment
+                                                .spaceBetween,
                                             children: [
                                               Text(
                                                 "Masjid Image",
                                                 style: TextStyle(
                                                     fontSize: SizeConfig
-                                                            .blockSizeHorizontal *
+                                                        .blockSizeHorizontal *
                                                         4.0,
-                                                    color: CommonColor.BLACK_COLOR,
-                                                    fontWeight: FontWeight.w400,
+                                                    color: CommonColor
+                                                        .BLACK_COLOR,
+                                                    fontWeight:
+                                                    FontWeight.w400,
                                                     height: 1.6,
-                                                    fontFamily: 'Roboto_Bold'),
+                                                    fontFamily:
+                                                    'Roboto_Bold'),
                                               ),
                                               GestureDetector(
                                                 onTapDown: (tab) {
@@ -332,23 +426,26 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                   });
                                                 },
                                                 child: Container(
-                                                  height: parentHeight * 0.02,
+                                                  height:
+                                                  parentHeight * 0.02,
                                                   color: Colors.transparent,
                                                   child: Padding(
                                                     padding: EdgeInsets.only(
-                                                        right: parentWidth * 0.05),
+                                                        right: parentWidth *
+                                                            0.05),
                                                     child: Text(
                                                       "View",
                                                       style: TextStyle(
                                                           fontSize: SizeConfig
-                                                                  .blockSizeHorizontal *
+                                                              .blockSizeHorizontal *
                                                               4.0,
                                                           color: CommonColor
                                                               .BLACK_COLOR,
                                                           fontWeight:
-                                                              FontWeight.w400,
+                                                          FontWeight
+                                                              .w400,
                                                           fontFamily:
-                                                              'Roboto_Regular'),
+                                                          'Roboto_Regular'),
                                                     ),
                                                   ),
                                                 ),
@@ -359,81 +456,122 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                         Visibility(
                                           visible: ViewImage,
                                           child: Container(
-                                              //height: SizeConfig.screenHeight*.74,
+                                            //height: SizeConfig.screenHeight*.74,
                                               width: SizeConfig.screenWidth,
                                               child: Padding(
-                                                padding: EdgeInsets.only(
-                                                    right: SizeConfig.screenHeight *
-                                                        .0,
-                                                    top: SizeConfig.screenHeight *
-                                                        .0),
-                                                child: snapshot.data?.data?.length !=null ?
-                                                CarouselSlider.builder(
+                                                  padding: EdgeInsets.only(
+                                                      right:
+                                                      SizeConfig.screenHeight *
+                                                          .0,
+                                                      top: SizeConfig
+                                                          .screenHeight *
+                                                          .0),
+                                                  child: snapshot.data?.data
+                                                      ?.length !=
+                                                      null
+                                                      ? CarouselSlider
+                                                      .builder(
                                                     // carouselController: _controller,
-                                                    itemCount: snapshot.data?.data?.length,
-                                                     /* snapshot.data?.data?[index].images?[0].length,*/
-                                                    //widget.getChatGroupInfoData.length,
-                                                    options: CarouselOptions(
-                                                      onPageChanged:
-                                                          (index, reason) {
-                                                        setState(() {
-                                                          currentIndex = index;
-                                                        });
-                                                      },
-                                                      initialPage: 1,
-                                                      height:
-                                                          SizeConfig.screenHeight *
-                                                              .27,
-                                                      // aspectRatio: 1.1,
-                                                      viewportFraction: 1.0,
-                                                      enableInfiniteScroll: false,
-                                                      autoPlay: false,
-                                                      enlargeStrategy:
-                                                          CenterPageEnlargeStrategy
-                                                              .height,
-                                                    ),
-                                                    itemBuilder:
-                                                        (BuildContext context,
-                                                            int itemIndex,
-                                                            int index) {
-                                                      return Padding(
-                                                        padding:
-                                                        EdgeInsets.only(left: parentWidth * 0.03, right: parentWidth * 0.03),
-                                                        child: Container(
-                                                          width: parentWidth,
-                                                          child: Column(
-                                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                                            children: [
-                                                              Padding(
-                                                                padding: EdgeInsets.only(top: parentHeight * 0.02),
-                                                                child: Container(
-                                                                  height: parentHeight * .23,
-                                                                  width: parentWidth * .94,
-                                                                  decoration: BoxDecoration(
-                                                                      image: DecorationImage(
-                                                                          image: snapshot.data?.data?[index].images != null
-                                                                              ?
-                                                                          NetworkImage(
-                                                                            "${snapshot.data?.data?[index].images}",
+                                                      itemCount: snapshot
+                                                          .data
+                                                          ?.data
+                                                          ?.length,
+                                                      /* snapshot.data?.data?[index].images?[0].length,*/
+                                                      //widget.getChatGroupInfoData.length,
+                                                      options:
+                                                      CarouselOptions(
+                                                        onPageChanged:
+                                                            (index,
+                                                            reason) {
+                                                          setState(
+                                                                  () {
+                                                                currentIndex =
+                                                                    index;
+                                                              });
+                                                        },
+                                                        initialPage:
+                                                        1,
+                                                        height:
+                                                        SizeConfig
+                                                            .screenHeight *
+                                                            .27,
+                                                        // aspectRatio: 1.1,
+                                                        viewportFraction:
+                                                        1.0,
+                                                        enableInfiniteScroll:
+                                                        false,
+                                                        autoPlay:
+                                                        false,
+                                                        enlargeStrategy:
+                                                        CenterPageEnlargeStrategy
+                                                            .height,
+                                                      ),
+                                                      itemBuilder: (
+                                                          BuildContext context,
+                                                          int itemIndex,
+                                                          int index) {
+                                                        return Padding(
+                                                          padding: EdgeInsets
+                                                              .only(
+                                                              left: parentWidth *
+                                                                  0.03,
+                                                              right:
+                                                              parentWidth *
+                                                                  0.03),
+                                                          child:
+                                                          Container(
+                                                            width:
+                                                            parentWidth,
+                                                            child:
+                                                            Column(
+                                                              crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                              children: [
+                                                                Padding(
+                                                                  padding: EdgeInsets
+                                                                      .only(
+                                                                      top: parentHeight *
+                                                                          0.02),
+                                                                  child: Container(
+                                                                    height: parentHeight *
+                                                                        .23,
+                                                                    width: parentWidth *
+                                                                        .94,
+                                                                    decoration: BoxDecoration(
+                                                                        image: DecorationImage(
+                                                                          image: snapshot
+                                                                              .data
+                                                                              ?.data?[index]
+                                                                              .images !=
+                                                                              null
+                                                                              ? NetworkImage(
+                                                                            "${snapshot
+                                                                                .data
+                                                                                ?.data?[index]
+                                                                                .images}",
                                                                           )
-                                                                              : NetworkImage(""),
-                                                                          fit: BoxFit.cover,)),
+                                                                              : NetworkImage(
+                                                                              ""),
+                                                                          fit: BoxFit
+                                                                              .cover,
+                                                                        )),
+                                                                  ),
                                                                 ),
-                                                              ),
-                                                            ],
+                                                              ],
+                                                            ),
                                                           ),
-                                                        ),
-                                                      );
-                                                    }):Container()
-                                              )),
+                                                        );
+                                                      })
+                                                      : Container())),
                                         ),
                                         Visibility(
                                           visible: ViewImage,
                                           child: Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                            MainAxisAlignment.center,
                                             crossAxisAlignment:
-                                                CrossAxisAlignment.center,
+                                            CrossAxisAlignment.center,
                                             children: [
                                               for (int i = 0; i < 2; i++)
                                                 Container(
@@ -443,7 +581,8 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                   decoration: BoxDecoration(
                                                     color: currentIndex == i
                                                         ? Colors.green
-                                                        : Colors.grey.shade400,
+                                                        : Colors
+                                                        .grey.shade400,
                                                     shape: BoxShape.circle,
                                                   ),
                                                 )
@@ -461,69 +600,112 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                             getAddshariIftarLayout(
                                                 SizeConfig.screenHeight,
                                                 SizeConfig.screenWidth,
-                                                "${snapshot.data?.data?[index].sahr}",
-                                                "${snapshot.data?.data?[index].iftar}"),
-                                            getAddEidLayout(SizeConfig.screenHeight,
+                                                "${snapshot.data?.data?[index]
+                                                    .sahr}",
+                                                "${snapshot.data?.data?[index]
+                                                    .iftar}"),
+                                            getAddEidLayout(
+                                                SizeConfig.screenHeight,
                                                 SizeConfig.screenWidth),
                                             Container(
-                                                //height: SizeConfig.screenHeight*.74,
-                                                width: SizeConfig.screenWidth,
+                                              //height: SizeConfig.screenHeight*.74,
+                                                width:
+                                                SizeConfig.screenWidth,
                                                 child: Padding(
-                                                  padding: EdgeInsets.only(
-                                                      right:
-                                                          SizeConfig.screenHeight *
-                                                              .0,
-                                                      top: SizeConfig.screenHeight *
-                                                          .0),
-                                                  child:snapshot.data?.data?.length !=null?
-                                                  CarouselSlider.builder(
+                                                    padding: EdgeInsets.only(
+                                                        right: SizeConfig
+                                                            .screenHeight *
+                                                            .0,
+                                                        top: SizeConfig
+                                                            .screenHeight *
+                                                            .0),
+                                                    child: snapshot.data?.data
+                                                        ?.length !=
+                                                        null
+                                                        ? CarouselSlider
+                                                        .builder(
                                                       // carouselController: _controller,
-                                                      itemCount: snapshot.data?.data?.length,
-                                                      //widget.getChatGroupInfoData.length,
-                                                      options: CarouselOptions(
-                                                        onPageChanged:
-                                                            (index, reason) {
-                                                          setState(() {
-                                                            currentIndex = index;
-                                                          });
-                                                        },
-                                                        initialPage: 1,
-                                                        height: SizeConfig
-                                                                .screenHeight *
-                                                            .27,
-                                                        // aspectRatio: 1.1,
-                                                        viewportFraction: 1.0,
-                                                        enableInfiniteScroll: false,
-                                                        autoPlay: false,
-                                                        enlargeStrategy:
-                                                            CenterPageEnlargeStrategy
-                                                                .height,
-                                                      ),
-                                                      itemBuilder:
-                                                          (BuildContext context,
-                                                              int itemIndex,
-                                                              int index) {return   Padding(
-                                                            padding: EdgeInsets.only(
-                                                                top: parentHeight * 0.03, bottom: parentHeight * 0.06),
+                                                        itemCount: snapshot
+                                                            .data
+                                                            ?.data
+                                                            ?.length,
+                                                        //widget.getChatGroupInfoData.length,
+                                                        options:
+                                                        CarouselOptions(
+                                                          onPageChanged:
+                                                              (index,
+                                                              reason) {
+                                                            setState(
+                                                                    () {
+                                                                  currentIndex =
+                                                                      index;
+                                                                });
+                                                          },
+                                                          initialPage:
+                                                          1,
+                                                          height:
+                                                          SizeConfig
+                                                              .screenHeight *
+                                                              .27,
+                                                          // aspectRatio: 1.1,
+                                                          viewportFraction:
+                                                          1.0,
+                                                          enableInfiniteScroll:
+                                                          false,
+                                                          autoPlay:
+                                                          false,
+                                                          enlargeStrategy:
+                                                          CenterPageEnlargeStrategy
+                                                              .height,
+                                                        ),
+                                                        itemBuilder:
+                                                            (
+                                                            BuildContext context,
+                                                            int itemIndex,
+                                                            int index) {
+                                                          return Padding(
+                                                            padding: EdgeInsets
+                                                                .only(
+                                                                top: parentHeight *
+                                                                    0.03,
+                                                                bottom:
+                                                                parentHeight *
+                                                                    0.06),
                                                             child: Container(
-                                                                height: parentHeight * 0.17,
+                                                                height: parentHeight *
+                                                                    0.17,
                                                                 decoration: BoxDecoration(
-                                                                  color: Colors.grey.shade200,
-                                                                  borderRadius: BorderRadius.circular(20),
-                                                                  boxShadow: <BoxShadow>[
+                                                                  color: Colors
+                                                                      .grey
+                                                                      .shade200,
+                                                                  borderRadius: BorderRadius
+                                                                      .circular(
+                                                                      20),
+                                                                  boxShadow: <
+                                                                      BoxShadow>[
                                                                     BoxShadow(
-                                                                      color: Colors.grey.shade300,
+                                                                      color: Colors
+                                                                          .grey
+                                                                          .shade300,
                                                                       spreadRadius: 1,
                                                                       blurRadius: 2,
-                                                                      offset: Offset(0, 1),
+                                                                      offset: Offset(
+                                                                          0, 1),
                                                                     ),
                                                                     BoxShadow(
-                                                                      color: Colors.grey.shade50,
-                                                                      offset: Offset(-3, 0),
+                                                                      color: Colors
+                                                                          .grey
+                                                                          .shade50,
+                                                                      offset: Offset(
+                                                                          -3,
+                                                                          0),
                                                                     ),
                                                                     BoxShadow(
-                                                                      color: Colors.grey.shade50,
-                                                                      offset: Offset(1, 0),
+                                                                      color: Colors
+                                                                          .grey
+                                                                          .shade50,
+                                                                      offset: Offset(
+                                                                          1, 0),
                                                                     )
                                                                   ],
                                                                 ),
@@ -531,25 +713,33 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                                   child: Container(
                                                                     decoration: BoxDecoration(
                                                                         image: DecorationImage(
-                                                                            image: snapshot.data?.data?[index].banners != null
-                                                                                ?
-                                                                            NetworkImage(
-                                                                              "${snapshot.data?.data?[index].banners}",
+                                                                            image: snapshot
+                                                                                .data
+                                                                                ?.data?[index]
+                                                                                .banners !=
+                                                                                null
+                                                                                ? NetworkImage(
+                                                                              "${snapshot
+                                                                                  .data
+                                                                                  ?.data?[index]
+                                                                                  .banners}",
                                                                             )
-                                                                                : NetworkImage(""),
-                                                                            fit: BoxFit.cover)),
+                                                                                : NetworkImage(
+                                                                                ""),
+                                                                            fit: BoxFit
+                                                                                .cover)),
                                                                   ),
                                                                 )),
                                                           );
 
-                                                        /*getFirstImageFrame(
+                                                          /*getFirstImageFrame(
                                                               SizeConfig.screenHeight,
                                                               SizeConfig.screenWidth,
                                                               snapshot.data?.data?[0].images?[0],
                                                               snapshot
                                                                   .data?.data?[0].images?.length);*/
-                                                      }):Container()
-                                                ))
+                                                        })
+                                                        : Container()))
 
                                             /* MasjitNameLocation(
                                       SizeConfig.screenHeight, SizeConfig.screenWidth),*/
@@ -565,72 +755,49 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                           ),
                         );
                       }))
-                  :GestureDetector(
-                onTap: (){
-                     _tabController?.animateTo(1);
+                  : GestureDetector(
+                onTap: () {
+                  _tabController?.animateTo(1);
                 },
-                    child: Center(
-                      child: Container(
-                      height:
-                      parentHeight *
-                          0.06,
-                      width:
-                      parentWidth *
-                          0.4,
-                      decoration:
-                      BoxDecoration(
+                child: Center(
+                  child: Container(
+                      height: parentHeight * 0.06,
+                      width: parentWidth * 0.4,
+                      decoration: BoxDecoration(
                         gradient: LinearGradient(
-                            begin: Alignment
-                                .centerLeft,
+                            begin: Alignment.centerLeft,
                             end: Alignment.centerRight,
                             colors: [
-                              CommonColor
-                                  .LEFT_COLOR,
-                              CommonColor
-                                  .RIGHT_COLOR
+                              CommonColor.LEFT_COLOR,
+                              CommonColor.RIGHT_COLOR
                             ]),
-                        borderRadius:
-                        BorderRadius
-                            .circular(
-                            7),
+                        borderRadius: BorderRadius.circular(7),
                       ),
                       child: Center(
                         child: Text(
                           "Join Masjid",
                           style: TextStyle(
-                              fontFamily:
-                              "Roboto_Regular",
-                              fontWeight:
-                              FontWeight
-                                  .w700,
+                              fontFamily: "Roboto_Regular",
+                              fontWeight: FontWeight.w700,
                               fontSize:
-                              SizeConfig.blockSizeHorizontal *
-                                  4.3,
-                              color: CommonColor
-                                  .WHITE_COLOR),
+                              SizeConfig.blockSizeHorizontal * 4.3,
+                              color: CommonColor.WHITE_COLOR),
                         ),
-                      )
-
+                      )),
+                ),
               ),
-                    ),
-                  ),
-
 
               // Text("Hii")
-
             ],
           );
         });
   }
 
-  Widget getFirstImageFrame(
-    double parentHeight,
-    double parentWidth,
-    images, imageLen
-  ) {
+  Widget getFirstImageFrame(double parentHeight, double parentWidth, images,
+      imageLen) {
     return Padding(
       padding:
-          EdgeInsets.only(left: parentWidth * 0.03, right: parentWidth * 0.03),
+      EdgeInsets.only(left: parentWidth * 0.03, right: parentWidth * 0.03),
       child: Container(
         width: parentWidth,
         child: Column(
@@ -644,11 +811,10 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: images != null
-                            ?
-                            NetworkImage(
-                                images,
-                                )
-                        : NetworkImage(""),
+                            ? NetworkImage(
+                          images,
+                        )
+                            : NetworkImage(""),
                         fit: BoxFit.cover)),
               ),
             ),
@@ -695,9 +861,9 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                         begin: Alignment.centerLeft,
                         end: Alignment.centerRight,
                         colors: [
-                      CommonColor.LEFT_COLOR,
-                      CommonColor.RIGHT_COLOR
-                    ])),
+                          CommonColor.LEFT_COLOR,
+                          CommonColor.RIGHT_COLOR
+                        ])),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -905,14 +1071,14 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                             width: parentWidth * 0.14,
                             height: parentHeight * 0.024,
                             decoration: const BoxDecoration(
-                                // color: Colors.blue,
+                              // color: Colors.blue,
                                 border: Border(
                                     bottom: BorderSide(
                                         width: 1,
                                         color: CommonColor.SEARCH_COLOR))),
                             child: Padding(
                               padding:
-                                  EdgeInsets.only(left: parentWidth * 0.02),
+                              EdgeInsets.only(left: parentWidth * 0.02),
                               child: const Text(
                                 "AZAN",
                                 style: TextStyle(
@@ -945,84 +1111,87 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                       future: getNotice,
                       builder: (context, snapshot) {
                         return snapshot.data?.data?[0].weeklyNamaz?.length !=
-                                null
+                            null
                             ? Expanded(
-                                child: ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: snapshot
-                                        .data?.data?[0].weeklyNamaz?.length,
-                                    scrollDirection: Axis.horizontal,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    itemBuilder: (context, index) {
-                                      return Column(
-                                        // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Padding(
-                                            padding: EdgeInsets.only(
-                                                top: parentHeight * 0.01,
-                                                right: parentHeight * 0.006),
-                                            child: Text(
-                                              "${snapshot.data?.data?[0].weeklyNamaz?[index].day}",
-                                              style: TextStyle(
-                                                  fontFamily: 'Roboto_Bold',
-                                                  fontWeight: FontWeight.w500,
-                                                  color:
-                                                      CommonColor.BLACK_COLOR,
-                                                  fontSize: 10),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: EdgeInsets.only(
-                                                top: parentHeight * 0.01),
-                                            child: Container(
-                                              width: parentWidth * 0.145,
-                                              height: parentHeight * 0.031,
-                                              decoration: const BoxDecoration(
-                                                  // color: Colors.blue,
-                                                  border: Border(
-                                                      bottom: BorderSide(
-                                                          width: 1,
-                                                          color: CommonColor
-                                                              .SEARCH_COLOR))),
-                                              child: Padding(
-                                                padding: EdgeInsets.only(
-                                                    //left: parentHeight * 0.0,
-                                                    left: parentHeight * 0.006),
-                                                child: Row(
-                                                  children: [
-                                                    Text(
-                                                      "${snapshot.data?.data?[0].weeklyNamaz?[index].azan}",
-                                                      style: TextStyle(
-                                                          fontSize: SizeConfig
-                                                                  .blockSizeHorizontal *
-                                                              3.0),
-                                                    ),
-                                                  ],
-                                                ),
+                          child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: snapshot
+                                  .data?.data?[0].weeklyNamaz?.length,
+                              scrollDirection: Axis.horizontal,
+                              physics:
+                              const NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          top: parentHeight * 0.01,
+                                          right: parentHeight * 0.006),
+                                      child: Text(
+                                        "${snapshot.data?.data?[0]
+                                            .weeklyNamaz?[index].day}",
+                                        style: TextStyle(
+                                            fontFamily: 'Roboto_Bold',
+                                            fontWeight: FontWeight.w500,
+                                            color:
+                                            CommonColor.BLACK_COLOR,
+                                            fontSize: 10),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          top: parentHeight * 0.01),
+                                      child: Container(
+                                        width: parentWidth * 0.145,
+                                        height: parentHeight * 0.031,
+                                        decoration: const BoxDecoration(
+                                          // color: Colors.blue,
+                                            border: Border(
+                                                bottom: BorderSide(
+                                                    width: 1,
+                                                    color: CommonColor
+                                                        .SEARCH_COLOR))),
+                                        child: Padding(
+                                          padding: EdgeInsets.only(
+                                            //left: parentHeight * 0.0,
+                                              left: parentHeight * 0.006),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                "${snapshot.data?.data?[0]
+                                                    .weeklyNamaz?[index].azan}",
+                                                style: TextStyle(
+                                                    fontSize: SizeConfig
+                                                        .blockSizeHorizontal *
+                                                        3.0),
                                               ),
-                                            ),
+                                            ],
                                           ),
-                                          Padding(
-                                            padding: EdgeInsets.only(
-                                                top: parentHeight * 0.01,
-                                                right: parentHeight * 0.00),
-                                            child: Row(
-                                              children: [
-                                                Text(
-                                                  "${snapshot.data?.data?[0].weeklyNamaz?[index].jammat}",
-                                                  style: TextStyle(
-                                                      fontSize: SizeConfig
-                                                              .blockSizeHorizontal *
-                                                          3.0),
-                                                ),
-                                              ],
-                                            ),
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          top: parentHeight * 0.01,
+                                          right: parentHeight * 0.00),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            "${snapshot.data?.data?[0]
+                                                .weeklyNamaz?[index].jammat}",
+                                            style: TextStyle(
+                                                fontSize: SizeConfig
+                                                    .blockSizeHorizontal *
+                                                    3.0),
                                           ),
                                         ],
-                                      );
-                                    }),
-                              )
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              }),
+                        )
                             : Container();
                       })
                 ],
@@ -1164,11 +1333,12 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Text(
-                                        "${snapshot.data?.data?[0].jumma?.azan}",
+                                        "${snapshot.data?.data?[0].jumma
+                                            ?.azan}",
                                         style: TextStyle(
                                             fontSize:
-                                                SizeConfig.blockSizeHorizontal *
-                                                    3.3),
+                                            SizeConfig.blockSizeHorizontal *
+                                                3.3),
                                       ),
                                     ],
                                   ),
@@ -1178,35 +1348,36 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                     width: parentWidth * 0.7,
                                     child: snapshot.data?.data?.length != null
                                         ? ListView.builder(
-                                            //physics: NeverScrollableScrollPhysics(),
-                                            shrinkWrap: true,
-                                            scrollDirection: Axis.horizontal,
-                                            itemCount:
-                                                snapshot.data?.data?.length,
-                                            itemBuilder: (context, index) {
-                                              return
+                                      //physics: NeverScrollableScrollPhysics(),
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount:
+                                        snapshot.data?.data?.length,
+                                        itemBuilder: (context, index) {
+                                          return
 
-                                                  /* snapshot.data?.jumma?.jammat?.length != null
+                                            /* snapshot.data?.jumma?.jammat?.length != null
                                        ?*/
-                                                  Padding(
-                                                padding: EdgeInsets.only(
-                                                    top: parentHeight * 0.01,
-                                                    left: parentHeight * 0.02),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      "${snapshot.data?.data?[0].jumma?.jammat?[0]}",
-                                                      style: TextStyle(
-                                                          fontSize: SizeConfig
-                                                                  .blockSizeHorizontal *
-                                                              3.3),
-                                                    ),
-                                                  ],
-                                                ),
-                                              );
-                                            })
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                  top: parentHeight * 0.01,
+                                                  left: parentHeight * 0.02),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "${snapshot.data?.data?[0]
+                                                        .jumma?.jammat?[0]}",
+                                                    style: TextStyle(
+                                                        fontSize: SizeConfig
+                                                            .blockSizeHorizontal *
+                                                            3.3),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                        })
                                         : Container()),
                               ],
                             );
@@ -1220,8 +1391,8 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
     );
   }
 
-  Widget getAddshariIftarLayout(
-      double parentHeight, double parentWidth, sahr, iftar) {
+  Widget getAddshariIftarLayout(double parentHeight, double parentWidth, sahr,
+      iftar) {
     return GestureDetector(
       onTapDown: (tab) {
         setState(() {
@@ -1305,10 +1476,10 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                             children: [
                               Padding(
                                 padding:
-                                    EdgeInsets.only(top: parentHeight * 0.02),
+                                EdgeInsets.only(top: parentHeight * 0.02),
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                                   children: [
                                     Padding(
                                       padding: EdgeInsets.only(
@@ -1317,8 +1488,8 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                       child: Text("SAHR",
                                           style: TextStyle(
                                             fontSize:
-                                                SizeConfig.blockSizeHorizontal *
-                                                    4.3,
+                                            SizeConfig.blockSizeHorizontal *
+                                                4.3,
                                             fontFamily: 'Roboto_Bold',
                                             fontWeight: FontWeight.w600,
                                             color: CommonColor.BLACK_COLOR,
@@ -1330,14 +1501,14 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                           top: parentHeight * 0.0),
                                       child: sahr != null
                                           ? Text(sahr,
-                                              style: TextStyle(
-                                                fontSize: SizeConfig
-                                                        .blockSizeHorizontal *
-                                                    4.3,
-                                                fontFamily: 'Roboto_Bold',
-                                                fontWeight: FontWeight.w600,
-                                                color: CommonColor.BLACK_COLOR,
-                                              ))
+                                          style: TextStyle(
+                                            fontSize: SizeConfig
+                                                .blockSizeHorizontal *
+                                                4.3,
+                                            fontFamily: 'Roboto_Bold',
+                                            fontWeight: FontWeight.w600,
+                                            color: CommonColor.BLACK_COLOR,
+                                          ))
                                           : Container(),
                                     ),
                                   ],
@@ -1345,7 +1516,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                               ),
                               Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                MainAxisAlignment.spaceBetween,
                                 children: [
                                   Padding(
                                     padding: EdgeInsets.only(
@@ -1354,8 +1525,8 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                     child: Text("IFTAR",
                                         style: TextStyle(
                                           fontSize:
-                                              SizeConfig.blockSizeHorizontal *
-                                                  4.3,
+                                          SizeConfig.blockSizeHorizontal *
+                                              4.3,
                                           fontFamily: 'Roboto_Bold',
                                           fontWeight: FontWeight.w600,
                                           color: CommonColor.BLACK_COLOR,
@@ -1367,14 +1538,14 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                         top: parentHeight * 0.03),
                                     child: iftar != null
                                         ? Text(iftar,
-                                            style: TextStyle(
-                                              fontSize: SizeConfig
-                                                      .blockSizeHorizontal *
-                                                  4.3,
-                                              fontFamily: 'Roboto_Bold',
-                                              fontWeight: FontWeight.w600,
-                                              color: CommonColor.BLACK_COLOR,
-                                            ))
+                                        style: TextStyle(
+                                          fontSize: SizeConfig
+                                              .blockSizeHorizontal *
+                                              4.3,
+                                          fontFamily: 'Roboto_Bold',
+                                          fontWeight: FontWeight.w600,
+                                          color: CommonColor.BLACK_COLOR,
+                                        ))
                                         : Text(""),
                                   )
                                 ],
@@ -1472,74 +1643,78 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                       builder: (context, snapshot) {
                         return snapshot.data?.data?[0].eid?.length != null
                             ? Column(
-                                children: [
-                                  Expanded(
-                                    child: ListView.builder(
-                                        physics: NeverScrollableScrollPhysics(),
-                                        shrinkWrap: true,
-                                        itemCount:
-                                            snapshot.data?.data?[0].eid?.length,
-                                        // physics: const NeverScrollableScrollPhysics(),
-                                        itemBuilder: (context, index) {
-                                          return Column(
+                          children: [
+                            Expanded(
+                              child: ListView.builder(
+                                  physics: NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount:
+                                  snapshot.data?.data?[0].eid?.length,
+                                  // physics: const NeverScrollableScrollPhysics(),
+                                  itemBuilder: (context, index) {
+                                    return Column(
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              top: parentHeight * 0.02),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment
+                                                .spaceBetween,
                                             children: [
                                               Padding(
                                                 padding: EdgeInsets.only(
-                                                    top: parentHeight * 0.02),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Padding(
-                                                      padding: EdgeInsets.only(
-                                                          left:
-                                                              parentWidth * 0.1,
-                                                          top: parentHeight *
-                                                              0.01),
-                                                      child: Text(
-                                                          "${snapshot.data?.data?[index].eid?[index].name}",
-                                                          style: TextStyle(
-                                                            fontSize: SizeConfig
-                                                                    .blockSizeHorizontal *
-                                                                4.3,
-                                                            fontFamily:
-                                                                'Roboto_Bold',
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            color: CommonColor
-                                                                .BLACK_COLOR,
-                                                          )),
-                                                    ),
-                                                    Padding(
-                                                      padding: EdgeInsets.only(
-                                                          right: parentWidth *
-                                                              0.05,
-                                                          top: parentHeight *
-                                                              0.01),
-                                                      child: Text(
-                                                          "Jammat  ${snapshot.data?.data?[0].eid?[0].jammat?[0]}",
-                                                          style: TextStyle(
-                                                            fontSize: SizeConfig
-                                                                    .blockSizeHorizontal *
-                                                                4.3,
-                                                            fontFamily:
-                                                                'Roboto_Bold',
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            color: CommonColor
-                                                                .BLACK_COLOR,
-                                                          )),
-                                                    ),
-                                                  ],
-                                                ),
+                                                    left:
+                                                    parentWidth * 0.1,
+                                                    top: parentHeight *
+                                                        0.01),
+                                                child: Text(
+                                                    "${snapshot.data
+                                                        ?.data?[index]
+                                                        .eid?[index].name}",
+                                                    style: TextStyle(
+                                                      fontSize: SizeConfig
+                                                          .blockSizeHorizontal *
+                                                          4.3,
+                                                      fontFamily:
+                                                      'Roboto_Bold',
+                                                      fontWeight:
+                                                      FontWeight.w600,
+                                                      color: CommonColor
+                                                          .BLACK_COLOR,
+                                                    )),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.only(
+                                                    right: parentWidth *
+                                                        0.05,
+                                                    top: parentHeight *
+                                                        0.01),
+                                                child: Text(
+                                                    "Jammat  ${snapshot.data
+                                                        ?.data?[0].eid?[0]
+                                                        .jammat?[0]}",
+                                                    style: TextStyle(
+                                                      fontSize: SizeConfig
+                                                          .blockSizeHorizontal *
+                                                          4.3,
+                                                      fontFamily:
+                                                      'Roboto_Bold',
+                                                      fontWeight:
+                                                      FontWeight.w600,
+                                                      color: CommonColor
+                                                          .BLACK_COLOR,
+                                                    )),
                                               ),
                                             ],
-                                          );
-                                        }),
-                                  ),
-                                ],
-                              )
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  }),
+                            ),
+                          ],
+                        )
                             : Container();
                       }),
                 ),
@@ -1585,8 +1760,8 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
     );
   }
 
-  Widget SlideBanner(
-      double parentHeight, double parentWidth, images, imageLen) {
+  Widget SlideBanner(double parentHeight, double parentWidth, images,
+      imageLen) {
     return Padding(
       padding: EdgeInsets.only(
           top: parentHeight * 0.03, bottom: parentHeight * 0.06),
@@ -1618,8 +1793,8 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                   image: DecorationImage(
                       image: images != null
                           ? NetworkImage(
-                              images.toString(),
-                            )
+                        images.toString(),
+                      )
                           : NetworkImage(""),
                       fit: BoxFit.cover)),
             ),
@@ -1674,7 +1849,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                               children: [
                                 Padding(
                                   padding:
-                                      EdgeInsets.only(left: parentWidth * 0.01),
+                                  EdgeInsets.only(left: parentWidth * 0.01),
                                   child: Container(
                                       height: parentHeight * 0.08,
                                       width: parentWidth * 0.17,
@@ -1685,7 +1860,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                             fit: BoxFit.cover,
                                           ),
                                           borderRadius:
-                                              BorderRadius.circular(10))),
+                                          BorderRadius.circular(10))),
                                 ),
                               ],
                             ),
@@ -1705,8 +1880,8 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                       child: Text("Masjit Name",
                                           style: TextStyle(
                                             fontSize:
-                                                SizeConfig.blockSizeHorizontal *
-                                                    4.3,
+                                            SizeConfig.blockSizeHorizontal *
+                                                4.3,
                                             fontFamily: 'Roboto_Bold',
                                             fontWeight: FontWeight.w500,
                                             color: CommonColor.MASJIT_NAME,
@@ -1729,7 +1904,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                   CommonColor.RIGHT_COLOR
                                                 ]),
                                             borderRadius:
-                                                BorderRadius.circular(10),
+                                            BorderRadius.circular(10),
                                           ),
                                           child: Center(
                                             child: Text(
@@ -1738,10 +1913,10 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                   fontFamily: "Roboto_Regular",
                                                   fontWeight: FontWeight.w700,
                                                   fontSize: SizeConfig
-                                                          .blockSizeHorizontal *
+                                                      .blockSizeHorizontal *
                                                       4.3,
                                                   color:
-                                                      CommonColor.WHITE_COLOR),
+                                                  CommonColor.WHITE_COLOR),
                                             ),
                                           )),
                                     ),
@@ -1758,8 +1933,8 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                       child: Text("Location :",
                                           style: TextStyle(
                                             fontSize:
-                                                SizeConfig.blockSizeHorizontal *
-                                                    4.0,
+                                            SizeConfig.blockSizeHorizontal *
+                                                4.0,
                                             fontFamily: 'Roboto_Bold',
                                             fontWeight: FontWeight.w400,
                                             color: CommonColor.BLACK_COLOR,
@@ -1835,12 +2010,12 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                               children: [
                                 Padding(
                                   padding:
-                                      EdgeInsets.only(left: parentWidth * 0.22),
+                                  EdgeInsets.only(left: parentWidth * 0.22),
                                   child: Text("FAJR",
                                       style: TextStyle(
                                         fontSize:
-                                            SizeConfig.blockSizeHorizontal *
-                                                2.8,
+                                        SizeConfig.blockSizeHorizontal *
+                                            2.8,
                                         fontFamily: 'Roboto_Bold',
                                         fontWeight: FontWeight.w500,
                                         color: CommonColor.BLACK_COLOR,
@@ -1848,12 +2023,12 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                 ),
                                 Padding(
                                   padding:
-                                      EdgeInsets.only(left: parentWidth * 0.01),
+                                  EdgeInsets.only(left: parentWidth * 0.01),
                                   child: Text("ZUHAR",
                                       style: TextStyle(
                                         fontSize:
-                                            SizeConfig.blockSizeHorizontal *
-                                                2.8,
+                                        SizeConfig.blockSizeHorizontal *
+                                            2.8,
                                         fontFamily: 'Roboto_Bold',
                                         fontWeight: FontWeight.w500,
                                         color: CommonColor.BLACK_COLOR,
@@ -1861,12 +2036,12 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                 ),
                                 Padding(
                                   padding:
-                                      EdgeInsets.only(left: parentWidth * 0.01),
+                                  EdgeInsets.only(left: parentWidth * 0.01),
                                   child: Text("ASR",
                                       style: TextStyle(
                                         fontSize:
-                                            SizeConfig.blockSizeHorizontal *
-                                                2.8,
+                                        SizeConfig.blockSizeHorizontal *
+                                            2.8,
                                         fontFamily: 'Roboto_Bold',
                                         fontWeight: FontWeight.w500,
                                         color: CommonColor.BLACK_COLOR,
@@ -1874,12 +2049,12 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                 ),
                                 Padding(
                                   padding:
-                                      EdgeInsets.only(left: parentWidth * 0.01),
+                                  EdgeInsets.only(left: parentWidth * 0.01),
                                   child: Text("MAGHRIB",
                                       style: TextStyle(
                                         fontSize:
-                                            SizeConfig.blockSizeHorizontal *
-                                                2.8,
+                                        SizeConfig.blockSizeHorizontal *
+                                            2.8,
                                         fontFamily: 'Roboto_Bold',
                                         fontWeight: FontWeight.w500,
                                         color: CommonColor.BLACK_COLOR,
@@ -1887,12 +2062,12 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                 ),
                                 Padding(
                                   padding:
-                                      EdgeInsets.only(left: parentWidth * 0.01),
+                                  EdgeInsets.only(left: parentWidth * 0.01),
                                   child: Text("ISHA",
                                       style: TextStyle(
                                         fontSize:
-                                            SizeConfig.blockSizeHorizontal *
-                                                2.8,
+                                        SizeConfig.blockSizeHorizontal *
+                                            2.8,
                                         fontFamily: 'Roboto_Bold',
                                         fontWeight: FontWeight.w500,
                                         color: CommonColor.BLACK_COLOR,
@@ -1905,8 +2080,8 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                   child: Text("JUMA",
                                       style: TextStyle(
                                         fontSize:
-                                            SizeConfig.blockSizeHorizontal *
-                                                2.8,
+                                        SizeConfig.blockSizeHorizontal *
+                                            2.8,
                                         fontFamily: 'Roboto_Bold',
                                         fontWeight: FontWeight.w500,
                                         color: CommonColor.BLACK_COLOR,
@@ -1925,7 +2100,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                 child: Text("AZAN",
                                     style: TextStyle(
                                       fontSize:
-                                          SizeConfig.blockSizeHorizontal * 3.5,
+                                      SizeConfig.blockSizeHorizontal * 3.5,
                                       fontFamily: 'Roboto_Bold',
                                       fontWeight: FontWeight.w500,
                                       color: CommonColor.BLACK_COLOR,
@@ -1938,7 +2113,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                 child: Text("05:00",
                                     style: TextStyle(
                                       fontSize:
-                                          SizeConfig.blockSizeHorizontal * 3.3,
+                                      SizeConfig.blockSizeHorizontal * 3.3,
                                       fontFamily: 'Roboto_Regular',
                                       fontWeight: FontWeight.w400,
                                       color: CommonColor.BLACK_COLOR,
@@ -1951,7 +2126,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                 child: Text("01:00",
                                     style: TextStyle(
                                       fontSize:
-                                          SizeConfig.blockSizeHorizontal * 3.3,
+                                      SizeConfig.blockSizeHorizontal * 3.3,
                                       fontFamily: 'Roboto_Regular',
                                       fontWeight: FontWeight.w400,
                                       color: CommonColor.BLACK_COLOR,
@@ -1964,7 +2139,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                 child: Text("05:00",
                                     style: TextStyle(
                                       fontSize:
-                                          SizeConfig.blockSizeHorizontal * 3.3,
+                                      SizeConfig.blockSizeHorizontal * 3.3,
                                       fontFamily: 'Roboto_Regular',
                                       fontWeight: FontWeight.w400,
                                       color: CommonColor.BLACK_COLOR,
@@ -1977,7 +2152,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                 child: Text("06:30",
                                     style: TextStyle(
                                       fontSize:
-                                          SizeConfig.blockSizeHorizontal * 3.3,
+                                      SizeConfig.blockSizeHorizontal * 3.3,
                                       fontFamily: 'Roboto_Regular',
                                       fontWeight: FontWeight.w400,
                                       color: CommonColor.BLACK_COLOR,
@@ -1990,7 +2165,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                 child: Text("08:30",
                                     style: TextStyle(
                                       fontSize:
-                                          SizeConfig.blockSizeHorizontal * 3.3,
+                                      SizeConfig.blockSizeHorizontal * 3.3,
                                       fontFamily: 'Roboto_Regular',
                                       fontWeight: FontWeight.w400,
                                       color: CommonColor.BLACK_COLOR,
@@ -2003,7 +2178,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                 child: Text("01:30",
                                     style: TextStyle(
                                       fontSize:
-                                          SizeConfig.blockSizeHorizontal * 3.3,
+                                      SizeConfig.blockSizeHorizontal * 3.3,
                                       fontFamily: 'Roboto_Regular',
                                       fontWeight: FontWeight.w400,
                                       color: CommonColor.BLACK_COLOR,
@@ -2036,7 +2211,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                 child: Text("JAMAA’T",
                                     style: TextStyle(
                                       fontSize:
-                                          SizeConfig.blockSizeHorizontal * 3.5,
+                                      SizeConfig.blockSizeHorizontal * 3.5,
                                       fontFamily: 'Roboto_Bold',
                                       fontWeight: FontWeight.w600,
                                       color: CommonColor.BLACK_COLOR,
@@ -2049,7 +2224,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                 child: Text("05:30",
                                     style: TextStyle(
                                       fontSize:
-                                          SizeConfig.blockSizeHorizontal * 3.3,
+                                      SizeConfig.blockSizeHorizontal * 3.3,
                                       fontFamily: 'Roboto_Regular',
                                       fontWeight: FontWeight.w400,
                                       color: CommonColor.BLACK_COLOR,
@@ -2062,7 +2237,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                 child: Text("01:30",
                                     style: TextStyle(
                                       fontSize:
-                                          SizeConfig.blockSizeHorizontal * 3.3,
+                                      SizeConfig.blockSizeHorizontal * 3.3,
                                       fontFamily: 'Roboto_Regular',
                                       fontWeight: FontWeight.w400,
                                       color: CommonColor.BLACK_COLOR,
@@ -2075,7 +2250,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                 child: Text("05:30",
                                     style: TextStyle(
                                       fontSize:
-                                          SizeConfig.blockSizeHorizontal * 3.3,
+                                      SizeConfig.blockSizeHorizontal * 3.3,
                                       fontFamily: 'Roboto_Regular',
                                       fontWeight: FontWeight.w400,
                                       color: CommonColor.BLACK_COLOR,
@@ -2088,7 +2263,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                 child: Text("06:35",
                                     style: TextStyle(
                                       fontSize:
-                                          SizeConfig.blockSizeHorizontal * 3.3,
+                                      SizeConfig.blockSizeHorizontal * 3.3,
                                       fontFamily: 'Roboto_Regular',
                                       fontWeight: FontWeight.w400,
                                       color: CommonColor.BLACK_COLOR,
@@ -2101,7 +2276,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                 child: Text("08:85",
                                     style: TextStyle(
                                       fontSize:
-                                          SizeConfig.blockSizeHorizontal * 3.3,
+                                      SizeConfig.blockSizeHorizontal * 3.3,
                                       fontFamily: 'Roboto_Regular',
                                       fontWeight: FontWeight.w400,
                                       color: CommonColor.BLACK_COLOR,
@@ -2114,7 +2289,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                 child: Text("01:45",
                                     style: TextStyle(
                                       fontSize:
-                                          SizeConfig.blockSizeHorizontal * 3.3,
+                                      SizeConfig.blockSizeHorizontal * 3.3,
                                       fontFamily: 'Roboto_Regular',
                                       fontWeight: FontWeight.w400,
                                       color: CommonColor.BLACK_COLOR,
@@ -2133,8 +2308,6 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
   }
 
   Future<AllMasjitJoinListResponceModel> getNoticeSection() async {
-    print(" tokennn ${box.get(kToken)}");
-
     var headersList = {'Authorization': 'Bearer ${box.get(kToken)}'};
 
     // final msg = jsonEncode({
@@ -2145,12 +2318,15 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
         Uri.parse('http://masjid.exportica.in/api/user/joined'),
         headers: headersList);
 
+    var jsonData = json.decode(response.body);
+
+    print("Hiiiiiii $jsonData");
+
+    var masjid = jsonData["data"]["id"];
+
     if (response.statusCode == 200) {
-      // If the server did return a 201 CREATED response,
-      // then parse the JSON.
-
-      // circularLoader = false;
-
+      _allCommentsArr.add(response.body);
+      print(" list ${_allCommentsArr}");
       print("Yess.. ${response.body}");
 
       print("Hiii");

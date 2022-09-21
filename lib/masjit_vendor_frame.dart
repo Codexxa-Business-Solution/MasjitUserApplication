@@ -24,7 +24,7 @@ class _MasjitVendorFrameState extends State<MasjitVendorFrame> with WidgetsBindi
 
 final PageController _pageController = PageController();
   List<String> listPaths = [
-    "images/nature1.jpg",
+    "https://muslimmatters.org/2014/12/20/reviving-the-role-of-the-masjid-part-1/",
     "images/nature2.jpg",
     "images/nature3.jpg",
   ];

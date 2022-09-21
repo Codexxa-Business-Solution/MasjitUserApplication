@@ -318,9 +318,9 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
           }
 
           );
-          await Future<int>.delayed(Duration(seconds: 5));
+          //await Future<int>.delayed(Duration(seconds: 5));
 
-          Navigator.of(context, rootNavigator: true).pop();
+         // Navigator.of(context, rootNavigator: true).pop();
           await auth.verifyPhoneNumber(
               phoneNumber: "+91${phoneController.text}",
               verificationCompleted: (phoneAuthCredential) async {},
