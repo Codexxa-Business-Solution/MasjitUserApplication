@@ -7,6 +7,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:masjiduserapp/all_masjit_list.dart';
 import 'package:masjiduserapp/common.color.dart';
 import 'package:masjiduserapp/map_screen.dart';
+import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/all_masjit_remove_list_response_model.dart';
 import 'package:masjiduserapp/size_config.dart';
 import 'package:http/http.dart' as http;
 import 'package:masjiduserapp/util/constant.dart';
@@ -14,8 +15,9 @@ import 'package:masjiduserapp/util/constant.dart';
 import 'masjit_user_app_api/masjit_app_responce_model/join_masjit_api_responce_model.dart';
 
 class MasjitMainScreen extends StatefulWidget {
-  const MasjitMainScreen({Key? key, required this.tabbr}) : super(key: key);
+  const MasjitMainScreen({Key? key, required this.tabbr, required this.masjitIdRemoved}) : super(key: key);
   final String tabbr;
+  final String masjitIdRemoved;
 
   @override
   State<MasjitMainScreen> createState() => _MasjitMainScreenState();
@@ -47,10 +49,12 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
 
     super.initState();
 
-    getNotice = getNoticeSection();
+
+
     print(getNotice);
     if (mounted)
       setState(() {
+        getNotice = getNoticeSection();
         showDetails = true;
         //   ViewImage = false;
       });
@@ -324,13 +328,18 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                 // color: Colors.yellow,
                                                 child: GestureDetector(
                                                   onTap: () {
+                                                    print("MasjitIdRemovessss   ${widget.masjitIdRemoved}");
                                                     print(
                                                         "id ${snapshot.data
                                                             ?.data?[index]
                                                             .id}");
+
+
                                                     setState(() {
-                                                      _allCommentsArr.removeAt(
-                                                          index);
+
+                                                      getRemoveMasjit("${snapshot.data
+                                                          ?.data?[index]
+                                                          .id}", index);
                                                     });
 
                                                   },
@@ -1669,9 +1678,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                     top: parentHeight *
                                                         0.01),
                                                 child: Text(
-                                                    "${snapshot.data
-                                                        ?.data?[index]
-                                                        .eid?[index].name}",
+                                                    "${snapshot.data?.data?[index].eid?[0].name}",
                                                     style: TextStyle(
                                                       fontSize: SizeConfig
                                                           .blockSizeHorizontal *
@@ -1691,9 +1698,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                     top: parentHeight *
                                                         0.01),
                                                 child: Text(
-                                                    "Jammat  ${snapshot.data
-                                                        ?.data?[0].eid?[0]
-                                                        .jammat?[0]}",
+                                                    "Jammat  ${snapshot.data?.data?[index].eid?[index].jammat?[0]}",
                                                     style: TextStyle(
                                                       fontSize: SizeConfig
                                                           .blockSizeHorizontal *
@@ -1802,510 +1807,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
     );
   }
 
-  Widget MasjitNameLocation(double parentHeight, double parentWidth) {
-    return Column(children: [
-      for (int i = 0; i < 7; i++)
-        Padding(
-          padding: EdgeInsets.only(top: parentHeight * 0.03),
-          child: GestureDetector(
-              onTap: () {
-                /*Navigator.push(context,/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                              MaterialPageRoute(builder: (context) => MasjitNameLocation()));*/
-              },
-              child: Padding(
-                padding: EdgeInsets.only(top: parentHeight * 0.03),
-                child: Container(
-                  height: parentHeight * 0.23,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: <BoxShadow>[
-                      BoxShadow(
-                        color: Colors.grey.shade300,
-                        spreadRadius: 1,
-                        blurRadius: 5,
-                        offset: const Offset(0, 5),
-                      ),
-                      BoxShadow(
-                        color: Colors.grey.shade50,
-                        offset: const Offset(-5, 0),
-                      ),
-                      BoxShadow(
-                        color: Colors.grey.shade50,
-                        offset: const Offset(5, 0),
-                      )
-                    ],
-                  ),
-                  child: Column(
-                    children: [
-                      Row(
-                        // mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(
-                                top: parentHeight * 0.02,
-                                left: parentHeight * 0.004),
-                            child: Row(
-                              children: [
-                                Padding(
-                                  padding:
-                                  EdgeInsets.only(left: parentWidth * 0.01),
-                                  child: Container(
-                                      height: parentHeight * 0.08,
-                                      width: parentWidth * 0.17,
-                                      decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                            image: AssetImage(
-                                                "assets/images/logo.png"),
-                                            fit: BoxFit.cover,
-                                          ),
-                                          borderRadius:
-                                          BorderRadius.circular(10))),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: parentHeight * 0.02),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          right: parentWidth * 0.05,
-                                          top: parentHeight * 0.01),
-                                      child: Text("Masjit Name",
-                                          style: TextStyle(
-                                            fontSize:
-                                            SizeConfig.blockSizeHorizontal *
-                                                4.3,
-                                            fontFamily: 'Roboto_Bold',
-                                            fontWeight: FontWeight.w500,
-                                            color: CommonColor.MASJIT_NAME,
-                                          )),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                        top: parentHeight * 0.01,
-                                        left: parentWidth * 0.13,
-                                      ),
-                                      child: Container(
-                                          height: parentHeight * 0.04,
-                                          width: parentHeight * 0.12,
-                                          decoration: BoxDecoration(
-                                            gradient: LinearGradient(
-                                                begin: Alignment.centerLeft,
-                                                end: Alignment.centerRight,
-                                                colors: [
-                                                  CommonColor.LEFT_COLOR,
-                                                  CommonColor.RIGHT_COLOR
-                                                ]),
-                                            borderRadius:
-                                            BorderRadius.circular(10),
-                                          ),
-                                          child: Center(
-                                            child: Text(
-                                              "JOIN",
-                                              style: TextStyle(
-                                                  fontFamily: "Roboto_Regular",
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: SizeConfig
-                                                      .blockSizeHorizontal *
-                                                      4.3,
-                                                  color:
-                                                  CommonColor.WHITE_COLOR),
-                                            ),
-                                          )),
-                                    ),
-                                  ],
-                                ),
 
-                                Row(
-                                  //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          right: parentHeight * 0.02,
-                                          top: parentHeight * 0.0),
-                                      child: Text("Location :",
-                                          style: TextStyle(
-                                            fontSize:
-                                            SizeConfig.blockSizeHorizontal *
-                                                4.0,
-                                            fontFamily: 'Roboto_Bold',
-                                            fontWeight: FontWeight.w400,
-                                            color: CommonColor.BLACK_COLOR,
-                                          )),
-                                    ),
-                                  ],
-                                ),
-                                // Row(
-                                //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                //   children: [
-                                //     Padding(
-                                //         padding:  EdgeInsets.only(right: parentHeight*0.02,top: parentHeight*0.01),
-                                //       child: Text("FAZAR",style: TextStyle(
-                                //         fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                                //         fontFamily: 'Roboto_Bold',
-                                //        fontWeight: FontWeight.w500,
-                                //         color: CommonColor.BLACK_COLOR,)),
-
-                                //         ),
-
-                                //           ],
-                                //        ),
-
-                                /*             Row(
-                                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                    padding:  EdgeInsets.only(right: parentHeight*0.0,top: parentHeight*0.01),
-                                    child: Text("AZAN :",style: TextStyle(
-                                      fontSize: SizeConfig.blockSizeHorizontal *4.0,
-                                      fontFamily: 'Roboto_Bold',
-                                      fontWeight: FontWeight.w500,
-                                      color: CommonColor.BLACK_COLOR,)),
-                                  ),
-                                  Padding(
-                                    padding:EdgeInsets.only(right: parentWidth*0.02,top: parentHeight*0.01),
-                                    child: Text("05:30",style: TextStyle(
-                                      fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                                      fontFamily: 'Roboto_Bold',
-                                      fontWeight: FontWeight.w600,
-                                      color: CommonColor.BLACK_COLOR,)),
-                                  ),
-                                  Padding(
-                                    padding:  EdgeInsets.only(right: parentHeight*0.01,top: parentHeight*0.01),
-                                    child: Text("JAMA’AT :",style: TextStyle(
-                                      fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                                      fontFamily: 'Roboto_Bold',
-                                      fontWeight: FontWeight.w500,
-                                      color: CommonColor.BLACK_COLOR,)),
-                                  ),
-                                  Padding(
-                                    padding:EdgeInsets.only(right: parentWidth*0.0,top: parentHeight*0.01),
-                                    child: Text("05:30",style: TextStyle(
-                                      fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                                      fontFamily: 'Roboto_Bold',
-                                      fontWeight: FontWeight.w600,
-                                      color: CommonColor.BLACK_COLOR,)),
-                                  )
-                                ],
-                              )*/
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                      Column(
-                        //  crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(top: parentHeight * 0.01),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Padding(
-                                  padding:
-                                  EdgeInsets.only(left: parentWidth * 0.22),
-                                  child: Text("FAJR",
-                                      style: TextStyle(
-                                        fontSize:
-                                        SizeConfig.blockSizeHorizontal *
-                                            2.8,
-                                        fontFamily: 'Roboto_Bold',
-                                        fontWeight: FontWeight.w500,
-                                        color: CommonColor.BLACK_COLOR,
-                                      )),
-                                ),
-                                Padding(
-                                  padding:
-                                  EdgeInsets.only(left: parentWidth * 0.01),
-                                  child: Text("ZUHAR",
-                                      style: TextStyle(
-                                        fontSize:
-                                        SizeConfig.blockSizeHorizontal *
-                                            2.8,
-                                        fontFamily: 'Roboto_Bold',
-                                        fontWeight: FontWeight.w500,
-                                        color: CommonColor.BLACK_COLOR,
-                                      )),
-                                ),
-                                Padding(
-                                  padding:
-                                  EdgeInsets.only(left: parentWidth * 0.01),
-                                  child: Text("ASR",
-                                      style: TextStyle(
-                                        fontSize:
-                                        SizeConfig.blockSizeHorizontal *
-                                            2.8,
-                                        fontFamily: 'Roboto_Bold',
-                                        fontWeight: FontWeight.w500,
-                                        color: CommonColor.BLACK_COLOR,
-                                      )),
-                                ),
-                                Padding(
-                                  padding:
-                                  EdgeInsets.only(left: parentWidth * 0.01),
-                                  child: Text("MAGHRIB",
-                                      style: TextStyle(
-                                        fontSize:
-                                        SizeConfig.blockSizeHorizontal *
-                                            2.8,
-                                        fontFamily: 'Roboto_Bold',
-                                        fontWeight: FontWeight.w500,
-                                        color: CommonColor.BLACK_COLOR,
-                                      )),
-                                ),
-                                Padding(
-                                  padding:
-                                  EdgeInsets.only(left: parentWidth * 0.01),
-                                  child: Text("ISHA",
-                                      style: TextStyle(
-                                        fontSize:
-                                        SizeConfig.blockSizeHorizontal *
-                                            2.8,
-                                        fontFamily: 'Roboto_Bold',
-                                        fontWeight: FontWeight.w500,
-                                        color: CommonColor.BLACK_COLOR,
-                                      )),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                    right: parentWidth * 0.02,
-                                  ),
-                                  child: Text("JUMA",
-                                      style: TextStyle(
-                                        fontSize:
-                                        SizeConfig.blockSizeHorizontal *
-                                            2.8,
-                                        fontFamily: 'Roboto_Bold',
-                                        fontWeight: FontWeight.w500,
-                                        color: CommonColor.BLACK_COLOR,
-                                      )),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: parentWidth * 0.04,
-                                    top: parentHeight * 0.03),
-                                child: Text("AZAN",
-                                    style: TextStyle(
-                                      fontSize:
-                                      SizeConfig.blockSizeHorizontal * 3.5,
-                                      fontFamily: 'Roboto_Bold',
-                                      fontWeight: FontWeight.w500,
-                                      color: CommonColor.BLACK_COLOR,
-                                    )),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: parentWidth * 0.05,
-                                    top: parentHeight * 0.02),
-                                child: Text("05:00",
-                                    style: TextStyle(
-                                      fontSize:
-                                      SizeConfig.blockSizeHorizontal * 3.3,
-                                      fontFamily: 'Roboto_Regular',
-                                      fontWeight: FontWeight.w400,
-                                      color: CommonColor.BLACK_COLOR,
-                                    )),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: parentWidth * 0.0,
-                                    top: parentHeight * 0.02),
-                                child: Text("01:00",
-                                    style: TextStyle(
-                                      fontSize:
-                                      SizeConfig.blockSizeHorizontal * 3.3,
-                                      fontFamily: 'Roboto_Regular',
-                                      fontWeight: FontWeight.w400,
-                                      color: CommonColor.BLACK_COLOR,
-                                    )),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: parentWidth * 0.0,
-                                    top: parentHeight * 0.02),
-                                child: Text("05:00",
-                                    style: TextStyle(
-                                      fontSize:
-                                      SizeConfig.blockSizeHorizontal * 3.3,
-                                      fontFamily: 'Roboto_Regular',
-                                      fontWeight: FontWeight.w400,
-                                      color: CommonColor.BLACK_COLOR,
-                                    )),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: parentWidth * 0.0,
-                                    top: parentHeight * 0.02),
-                                child: Text("06:30",
-                                    style: TextStyle(
-                                      fontSize:
-                                      SizeConfig.blockSizeHorizontal * 3.3,
-                                      fontFamily: 'Roboto_Regular',
-                                      fontWeight: FontWeight.w400,
-                                      color: CommonColor.BLACK_COLOR,
-                                    )),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: parentWidth * 0.0,
-                                    top: parentHeight * 0.02),
-                                child: Text("08:30",
-                                    style: TextStyle(
-                                      fontSize:
-                                      SizeConfig.blockSizeHorizontal * 3.3,
-                                      fontFamily: 'Roboto_Regular',
-                                      fontWeight: FontWeight.w400,
-                                      color: CommonColor.BLACK_COLOR,
-                                    )),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    right: parentWidth * 0.02,
-                                    top: parentHeight * 0.02),
-                                child: Text("01:30",
-                                    style: TextStyle(
-                                      fontSize:
-                                      SizeConfig.blockSizeHorizontal * 3.3,
-                                      fontFamily: 'Roboto_Regular',
-                                      fontWeight: FontWeight.w400,
-                                      color: CommonColor.BLACK_COLOR,
-                                    )),
-                              ),
-                            ],
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                                top: parentHeight * 0.01,
-                                left: parentWidth * .02,
-                                right: parentWidth * 0.02),
-                            child: Container(
-                              color: CommonColor.SEARCH_COLOR,
-                              height: parentHeight * 0.001,
-                              width: parentWidth,
-                              child: Text(
-                                "hi",
-                                style: TextStyle(color: Colors.transparent),
-                              ),
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: parentWidth * 0.05,
-                                    top: parentHeight * 0.01),
-                                child: Text("JAMAA’T",
-                                    style: TextStyle(
-                                      fontSize:
-                                      SizeConfig.blockSizeHorizontal * 3.5,
-                                      fontFamily: 'Roboto_Bold',
-                                      fontWeight: FontWeight.w600,
-                                      color: CommonColor.BLACK_COLOR,
-                                    )),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: parentWidth * 0.0,
-                                    top: parentHeight * 0.01),
-                                child: Text("05:30",
-                                    style: TextStyle(
-                                      fontSize:
-                                      SizeConfig.blockSizeHorizontal * 3.3,
-                                      fontFamily: 'Roboto_Regular',
-                                      fontWeight: FontWeight.w400,
-                                      color: CommonColor.BLACK_COLOR,
-                                    )),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: parentWidth * 0.0,
-                                    top: parentHeight * 0.01),
-                                child: Text("01:30",
-                                    style: TextStyle(
-                                      fontSize:
-                                      SizeConfig.blockSizeHorizontal * 3.3,
-                                      fontFamily: 'Roboto_Regular',
-                                      fontWeight: FontWeight.w400,
-                                      color: CommonColor.BLACK_COLOR,
-                                    )),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: parentWidth * 0.0,
-                                    top: parentHeight * 0.01),
-                                child: Text("05:30",
-                                    style: TextStyle(
-                                      fontSize:
-                                      SizeConfig.blockSizeHorizontal * 3.3,
-                                      fontFamily: 'Roboto_Regular',
-                                      fontWeight: FontWeight.w400,
-                                      color: CommonColor.BLACK_COLOR,
-                                    )),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: parentWidth * 0.0,
-                                    top: parentHeight * 0.01),
-                                child: Text("06:35",
-                                    style: TextStyle(
-                                      fontSize:
-                                      SizeConfig.blockSizeHorizontal * 3.3,
-                                      fontFamily: 'Roboto_Regular',
-                                      fontWeight: FontWeight.w400,
-                                      color: CommonColor.BLACK_COLOR,
-                                    )),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: parentWidth * 0.0,
-                                    top: parentHeight * 0.01),
-                                child: Text("08:85",
-                                    style: TextStyle(
-                                      fontSize:
-                                      SizeConfig.blockSizeHorizontal * 3.3,
-                                      fontFamily: 'Roboto_Regular',
-                                      fontWeight: FontWeight.w400,
-                                      color: CommonColor.BLACK_COLOR,
-                                    )),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    right: parentWidth * 0.02,
-                                    top: parentHeight * 0.01),
-                                child: Text("01:45",
-                                    style: TextStyle(
-                                      fontSize:
-                                      SizeConfig.blockSizeHorizontal * 3.3,
-                                      fontFamily: 'Roboto_Regular',
-                                      fontWeight: FontWeight.w400,
-                                      color: CommonColor.BLACK_COLOR,
-                                    )),
-                              ),
-                            ],
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              )),
-        ) //////
-    ]);
-  }
 
   Future<AllMasjitJoinListResponceModel> getNoticeSection() async {
     var headersList = {'Authorization': 'Bearer ${box.get(kToken)}'};
@@ -2318,16 +1820,22 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
         Uri.parse('http://masjid.exportica.in/api/user/joined'),
         headers: headersList);
 
-    var jsonData = json.decode(response.body);
+  //  var jsonData = json.decode(response.body);
 
-    print("Hiiiiiii $jsonData");
+  //  print("Hiiiiiii $jsonData");
 
-    var masjid = jsonData["data"]["id"];
+   // var masjid = jsonData["data"]["id"];
 
     if (response.statusCode == 200) {
-      _allCommentsArr.add(response.body);
+
+      var jsonData = json.decode(response.body);
+
+      var masjid = jsonData["data"];
+
+      _allCommentsArr.addAll(masjid);
+
       print(" list ${_allCommentsArr}");
-      print("Yess.. ${response.body}");
+    //  print("Yess.. ${response.body}");
 
       print("Hiii");
 
@@ -2335,6 +1843,49 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
     } else {
       // If the server did not return a 201 CREATED response,
       // then throw an exception.
+      throw Exception('Failed to create album.');
+    }
+  }
+  
+  
+  
+  
+  Future<UseRemoveResponceModel> getRemoveMasjit(masjitIdRemoved, int index) async {
+
+
+
+    var headersList = {'Authorization': 'Bearer ${box.get(kToken)}'};
+
+
+
+    var response = await http.get(
+        Uri.parse('http://masjid.exportica.in/api/user/remove?masjid=${masjitIdRemoved}'),
+        headers: headersList);
+
+   
+    if (response.statusCode == 200) {
+     /* var jsonData = json.decode(response.body);
+
+      var masjid = jsonData["data"];*/
+
+
+
+
+
+
+          _allCommentsArr.removeAt(index);
+
+
+
+
+
+      print("Yess.. ${response.body}");
+
+      print("Hiii");
+
+      return useRemoveResponceModelFromJson(response.body);
+    } else {
+    
       throw Exception('Failed to create album.');
     }
   }

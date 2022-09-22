@@ -28,6 +28,7 @@ apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 32
+    buildToolsVersion "23.0.1"
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -47,7 +48,6 @@ android {
         applicationId "com.example.masjiduserapp"
         minSdkVersion 21
         targetSdkVersion 32
-        multiDexEnabled = true
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }

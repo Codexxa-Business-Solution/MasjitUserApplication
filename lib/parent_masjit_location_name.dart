@@ -48,13 +48,13 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
 
   var getMasjidInfo;
   var getMasjidJoinButton;
-  late final LocalNotificationService service;
+//  late final LocalNotificationService service;
   @override
   void initState() {
     box = Hive.box(kBoxName);
-    service = LocalNotificationService();
-    service.intialize();
-    listenToNotification();
+    //service = LocalNotificationService();
+  //  service.intialize();
+    //listenToNotification();
     super.initState();
     if (mounted) {
       setState(() {
@@ -1270,12 +1270,12 @@ height: parentHeight*0.8,
     print("lllll   ${widget.masjitId}");
     return GestureDetector(
       onTap: () async {
-        await service.showScheduledNotification(
+      /*  await service.showScheduledNotification(
           id: 0,
           title: 'Notification Title',
           body: 'Some body',
           seconds: 2,
-        );
+        );*/
         getJoinButtonSection(widget.masjitId);
 
       },
@@ -1306,45 +1306,37 @@ height: parentHeight*0.8,
       ),
     );
   }
-  void listenToNotification() =>
-      service.onNotificationClick.stream.listen(onNoticationListener);
+ // void listenToNotification() =>
+      //service.onNotificationClick.stream.listen(onNoticationListener);
 
-  void onNoticationListener(String? payload) {
+ /* void onNoticationListener(String? payload) {
     if (payload != null && payload.isNotEmpty) {
       print('payload $payload');
 
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: ((context) => ParentTabBarScreen(/*payload: payload*/))));
+              builder: ((context) => ParentTabBarScreen(*//*payload: payload*//*))));
     }
-  }
+  }*/
 
   Future<AllMasjitDetailsResponceModel>getNoticeSection(masjitId) async {
-     print(" tokennn ${box.get(kToken)}");
+    print(" tokennn ${box.get(kToken)}");
 
     var headersList = {
       'Authorization': 'Bearer ${box.get(kToken)}'
     };
-    // final msg = jsonEncode({
-    //   "user_id": userId.toString(),
-    // });
-
 
 
     var response = await http.get(
-        Uri.parse('http://masjid.exportica.in/api/masjids/${masjitId}'),
-        headers:headersList,
-    //  body: msg,
+      Uri.parse('http://masjid.exportica.in/api/masjids/${masjitId}'),
+      headers: headersList,
+      //  body: msg,
     );
 
 
-
     if (response.statusCode == 200) {
-      // If the server did return a 201 CREATED response,
-      // then parse the JSON.
 
-      // circularLoader = false;
 
       print("Yess.. ${response.body}");
 
@@ -1357,6 +1349,7 @@ height: parentHeight*0.8,
       throw Exception('Failed to create album.');
     }
   }
+
   Future<AllMasjitJoinedTabButtonResponceModel>getJoinButtonSection(masjitId) async {
     print(" tokennn ${box.get(kToken)}");
 

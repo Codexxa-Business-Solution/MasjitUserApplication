@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget with WidgetsBindingObserver{
 
     if(box.get(kToken, defaultValue: null) != null){
    //   print("registrationToken ${box.get("token")} ${box.get(kMasjid)}");
-      destination = MasjitMainScreen(tabbr: '');
+      destination = MasjitMainScreen(tabbr: '', masjitIdRemoved: '',);
     } else if(!box.get(kOnBorading, defaultValue: false)){
     //  print("registrationToken ${box.get("token")} ${box.get(kMasjid)}");
       destination =MasjitVendorFrame();
