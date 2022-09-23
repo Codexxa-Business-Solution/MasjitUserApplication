@@ -11,7 +11,8 @@ import 'package:masjiduserapp/util/constant.dart';
 import 'common.color.dart';
 
 class AllMasjitList extends StatefulWidget {
-  const AllMasjitList({Key? key}) : super(key: key);
+  const AllMasjitList({Key? key, required this.onNext}) : super(key: key);
+  final VoidCallback onNext;
 
   @override
   State<AllMasjitList> createState() => _AllMasjitListState();
@@ -21,6 +22,7 @@ class _AllMasjitListState extends State<AllMasjitList> {
   Future<void> onRefresh() async {
     await Future.delayed(Duration(seconds: 3));
     getAllListFuture = fetchPost();
+
   }
   var getAllListFuture;
   late Box box;

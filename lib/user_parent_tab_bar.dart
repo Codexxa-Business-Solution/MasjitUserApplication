@@ -530,11 +530,16 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                               Center(child: Text("Aaysha",style: TextStyle(
                                 color: Colors.red
                               ),)),
-                              MasjitMainScreen(tabbr: '', masjitIdRemoved: '',),
+                              MasjitMainScreen(tabbr: '', masjitIdRemoved: '', onNext: () {
+                                _tabController.index = 1;
+                              },),
                             ],
                           ),
 
-                          AllMasjitList(),
+                          AllMasjitList(onNext: () {
+
+                            _tabController.index = 2;
+                          },),
 
 
 
