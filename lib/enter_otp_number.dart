@@ -16,8 +16,7 @@ import 'package:http/http.dart' as http;
 
 import 'common.color.dart';
 
-import 'map_location_register.dart';
-import 'parent_masjit_location_name.dart';
+
 
 const focusedBorderColor = Color.fromRGBO(23, 171, 144, 1);
 const fillColor = Color.fromRGBO(243, 246, 249, 0);
@@ -100,7 +99,7 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
       },
       onDoubleTap: () {},
       child: ListView(
-        // padding: EdgeInsets.only(bottom: SizeConfig.screenHeight*0.2),
+         padding: EdgeInsets.only(bottom: SizeConfig.screenHeight*0.2),
         shrinkWrap: true,
         children: [
           Container(
@@ -112,7 +111,7 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
                 SizeConfig.screenHeight, SizeConfig.screenWidth),
           ),
           Container(
-              height: SizeConfig.screenHeight * 0.88,
+             // height: SizeConfig.screenHeight ,
               child: Column(
                 children: [
                   getFirstImageFrame(
@@ -128,7 +127,7 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
 
   Widget getAddMainHeadingLayout(double parentHeight, double parentWidth) {
     return Padding(
-      padding: EdgeInsets.only(top: parentHeight * .0),
+      padding: EdgeInsets.only(top: parentHeight * .05),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -199,10 +198,12 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
 
   Widget getFirstImageFrame(double parentHeight, double parentWidth) {
     return Padding(
-      padding: EdgeInsets.only(top: parentHeight * 0.05),
+      padding: EdgeInsets.only(top: parentHeight * 0.03),
       child: Center(
         child: Container(
+
           width: parentWidth,
+          height: parentHeight*0.6,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -292,7 +293,7 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
                               Container(
                                 margin: EdgeInsets.only(bottom: 9),
                                 width: 20,
-                                height: parentHeight * 0.05,
+                                height: parentHeight * 0.002,
                                 color: CommonColor.REGISTRARTION_TRUSTEE,
                               ),
                             ],
@@ -395,7 +396,7 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
         },
         child: Padding(
           padding: EdgeInsets.only(
-              top: parentHeight * 0.01,
+              top: parentHeight * 0.0,
               left: parentWidth * 0.1,
               right: parentWidth * 0.1),
           child: Column(

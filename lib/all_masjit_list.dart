@@ -26,7 +26,7 @@ class _AllMasjitListState extends State<AllMasjitList> {
   }
   var getAllListFuture;
   late Box box;
-
+  List<dynamic> _getUserJoinedList = [];
   @override
   void initState() {
     box = Hive.box(kBoxName);
@@ -230,8 +230,11 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                               child: Container(
                                                 width: parentWidth*.23,
                                                 height: parentWidth*.08,
-                                               // color: Colors.yellow,
-                                                child: GestureDetector(
+
+                                                child:
+
+
+                                                GestureDetector(
                                                   onTap: () {
 
                                                     print("id ${snapshot.data?.data?[index].id}");

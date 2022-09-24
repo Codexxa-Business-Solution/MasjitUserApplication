@@ -11,12 +11,16 @@ import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/all_
 import 'package:masjiduserapp/size_config.dart';
 import 'package:http/http.dart' as http;
 import 'package:masjiduserapp/util/constant.dart';
+import 'package:masjiduserapp/util/removed_masjit_dilog_box.dart';
 
 import 'masjit_user_app_api/masjit_app_responce_model/join_masjit_api_responce_model.dart';
 
 class MasjitMainScreen extends StatefulWidget {
   const MasjitMainScreen(
-      {Key? key, required this.tabbr, required this.masjitIdRemoved, required this.onNext})
+      {Key? key,
+      required this.tabbr,
+      required this.masjitIdRemoved,
+      required this.onNext})
       : super(key: key);
   final VoidCallback onNext;
   final String tabbr;
@@ -27,7 +31,7 @@ class MasjitMainScreen extends StatefulWidget {
 }
 
 class _MasjitMainScreenState extends State<MasjitMainScreen>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, EndFriendDialogInterface {
   bool showDetails = true;
   bool ViewImage = false;
   bool JammatTime = false;
@@ -55,7 +59,6 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
     print(getNotice);
     if (mounted)
       setState(() {
-
         showDetails = true;
         //   ViewImage = false;
       });
@@ -115,173 +118,170 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                           itemBuilder: (context, index) {
                             return Padding(
                               padding:
-                                  EdgeInsets.only(top: parentHeight * 0.04),
+                                  EdgeInsets.only(top: parentHeight * 0.03),
                               child: Column(
                                 children: [
                                   Container(
-                                      child: Padding(
-                                    padding: EdgeInsets.only(
-                                        top: parentHeight * 0.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        GestureDetector(
-                                          onDoubleTap: () {},
-                                          onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        MasjitMappScreen(
-                                                          tabNum: "1",
-                                                          masjitTrusteeId: '',
-                                                          lat: '',
-                                                          long: '',
-                                                        )));
-
-                                            if (mounted) {
-                                              setState(() {});
-                                            }
-                                          },
-                                          child: Container(
-                                            width: parentWidth * 0.28,
-                                            height: parentHeight * 0.05,
-                                            decoration: BoxDecoration(
-                                                /*mapScreen == true*/
-                                                // CommonColor.REGISTRARTION_TRUSTEE,
-
-                                                // Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(50),
-                                                border: Border.all(
-                                                    color:
-                                                        CommonColor.RIGHT_COLOR,
-                                                    width: 1)),
-                                            child: Center(
-                                              child: Text(
-                                                "Map",
-                                                style: TextStyle(
-                                                  /*color: mapScreen == true
-                                                  ? Colors.white
-                                                  : Colors.black,*/
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: SizeConfig
-                                                          .blockSizeHorizontal *
-                                                      3.5,
-                                                  fontFamily: 'Roboto_Medium',
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        GestureDetector(
-                                          onDoubleTap: () {},
-                                          onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        MasjitMappScreen(
-                                                            tabNum: "2",
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          GestureDetector(
+                                            onDoubleTap: () {},
+                                            onTap: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          MasjitMappScreen(
+                                                            tabNum: "1",
                                                             masjitTrusteeId: '',
                                                             lat: '',
-                                                            long: '')));
+                                                            long: '',
+                                                          )));
 
-                                            if (mounted)
-                                              setState(() {
-                                                /*mapScreen = false;
-                                            trusteeScreen = true;
-                                            showDetails = false;
-                                            noticeScreen = false;*/
-                                              });
-                                          },
-                                          child: Container(
-                                            width: parentWidth * 0.28,
-                                            height: parentHeight * 0.05,
-                                            decoration: BoxDecoration(
-                                                /*color: trusteeScreen
-                                                ? CommonColor.REGISTRARTION_TRUSTEE
-                                                .withOpacity(0.9)
-                                                : Colors.white,*/
-                                                borderRadius:
-                                                    BorderRadius.circular(50),
-                                                border: Border.all(
-                                                    color:
-                                                        CommonColor.RIGHT_COLOR,
-                                                    width: 1)),
-                                            child: Center(
-                                              child: Text(
-                                                "Trustee",
-                                                style: TextStyle(
+                                              if (mounted) {
+                                                setState(() {});
+                                              }
+                                            },
+                                            child: Container(
+                                              width: parentWidth * 0.28,
+                                              height: parentHeight * 0.047,
+                                              decoration: BoxDecoration(
+                                                  /*mapScreen == true*/
+                                                  // CommonColor.REGISTRARTION_TRUSTEE,
+
+                                                  // Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(50),
+                                                  border: Border.all(
+                                                      color:
+                                                          CommonColor.RIGHT_COLOR,
+                                                      width: 1)),
+                                              child: Center(
+                                                child: Text(
+
+                                                  "Map",
+                                                  style: TextStyle(
+                                                    /*color: mapScreen == true
+                                                    ? Colors.white
+                                                    : Colors.black,*/
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: SizeConfig
+                                                            .blockSizeHorizontal *
+                                                        3.5,
+                                                    fontFamily: 'Roboto_Medium',
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          GestureDetector(
+                                            onDoubleTap: () {},
+                                            onTap: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          MasjitMappScreen(
+                                                              tabNum: "2",
+                                                              masjitTrusteeId: '',
+                                                              lat: '',
+                                                              long: '')));
+
+                                              if (mounted)
+                                                setState(() {
+                                                  /*mapScreen = false;
+                                              trusteeScreen = true;
+                                              showDetails = false;
+                                              noticeScreen = false;*/
+                                                });
+                                            },
+                                            child: Container(
+                                              width: parentWidth * 0.28,
+                                              height: parentHeight * 0.047,
+                                              decoration: BoxDecoration(
                                                   /*color: trusteeScreen
-                                                  ? Colors.white
-                                                  : Colors.black,*/
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: SizeConfig
-                                                          .blockSizeHorizontal *
-                                                      3.5,
-                                                  fontFamily: 'Roboto_Medium',
+                                                  ? CommonColor.REGISTRARTION_TRUSTEE
+                                                  .withOpacity(0.9)
+                                                  : Colors.white,*/
+                                                  borderRadius:
+                                                      BorderRadius.circular(50),
+                                                  border: Border.all(
+                                                      color:
+                                                          CommonColor.RIGHT_COLOR,
+                                                      width: 1)),
+                                              child: Center(
+                                                child: Text(
+                                                  "Trustee",
+                                                  style: TextStyle(
+                                                    /*color: trusteeScreen
+                                                    ? Colors.white
+                                                    : Colors.black,*/
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: SizeConfig
+                                                            .blockSizeHorizontal *
+                                                        3.5,
+                                                    fontFamily: 'Roboto_Medium',
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                        GestureDetector(
-                                          onDoubleTap: () {},
-                                          onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        MasjitMappScreen(
-                                                          tabNum: "3",
-                                                          masjitTrusteeId: '',
-                                                          lat: '',
-                                                          long: '',
-                                                        )));
-                                            if (mounted)
-                                              setState(() {
-                                                /* mapScreen = false;
-                                            showDetails = false;
-                                            trusteeScreen = false;
-                                            noticeScreen = true;*/
-                                              });
-                                          },
-                                          child: Container(
-                                            width: parentWidth * 0.28,
-                                            height: parentHeight * 0.05,
-                                            decoration: BoxDecoration(
-                                                /*color: noticeScreen
-                                                ? CommonColor.REGISTRARTION_TRUSTEE
-                                                .withOpacity(0.9)
-                                                : Colors.white,*/
-                                                borderRadius:
-                                                    BorderRadius.circular(50),
-                                                border: Border.all(
-                                                    color:
-                                                        CommonColor.RIGHT_COLOR,
-                                                    width: 1)),
-                                            child: Center(
-                                              child: Text(
-                                                "Notice",
-                                                style: TextStyle(
-                                                  /* color: noticeScreen == true
-                                                  ? Colors.white
-                                                  : Colors.black,*/
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: SizeConfig
-                                                          .blockSizeHorizontal *
-                                                      3.5,
-                                                  fontFamily: 'Roboto_Medium',
+                                          GestureDetector(
+                                            onDoubleTap: () {},
+                                            onTap: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          MasjitMappScreen(
+                                                            tabNum: "3",
+                                                            masjitTrusteeId: '',
+                                                            lat: '',
+                                                            long: '',
+                                                          )));
+                                              if (mounted)
+                                                setState(() {
+                                                  /* mapScreen = false;
+                                              showDetails = false;
+                                              trusteeScreen = false;
+                                              noticeScreen = true;*/
+                                                });
+                                            },
+                                            child: Container(
+                                              width: parentWidth * 0.28,
+                                              height: parentHeight * 0.047,
+                                              decoration: BoxDecoration(
+                                                  /*color: noticeScreen
+                                                  ? CommonColor.REGISTRARTION_TRUSTEE
+                                                  .withOpacity(0.9)
+                                                  : Colors.white,*/
+                                                  borderRadius:
+                                                      BorderRadius.circular(50),
+                                                  border: Border.all(
+                                                      color:
+                                                          CommonColor.RIGHT_COLOR,
+                                                      width: 1)),
+                                              child: Center(
+                                                child: Text(
+                                                  "Notice",
+                                                  style: TextStyle(
+                                                    /* color: noticeScreen == true
+                                                    ? Colors.white
+                                                    : Colors.black,*/
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: SizeConfig
+                                                            .blockSizeHorizontal *
+                                                        3.5,
+                                                    fontFamily: 'Roboto_Medium',
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  )
+                                        ],
+                                      )
                                       /* });
                       }),*/
                                       ),
@@ -295,14 +295,29 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                               CrossAxisAlignment.start,
                                           children: [
                                             Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                            /*  mainAxisAlignment:
+                                              MainAxisAlignment.start,*/
                                               children: [
                                                 Padding(
                                                   padding: EdgeInsets.only(
-                                                      left:
-                                                          parentHeight * 0.02),
+                                                      right: SizeConfig.screenWidth * 0.0,
+                                                     ),
+                                                  child: Padding(
+                                                    padding:  EdgeInsets.only(left: parentWidth*0.02),
+                                                    child: Container(
+
+
+                                                      child: Image.asset(
+                                                        'assets/images/image.png',
+                                                        height: SizeConfig.screenHeight * .04,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsets.only(
+                                                      top:
+                                                          parentHeight * 0.01,left: parentWidth*0.02),
                                                   child: Text(
                                                     "${snapshot.data?.data?[index].place?[0].masjidName}",
                                                     style: TextStyle(
@@ -319,7 +334,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                 ),
                                                 Padding(
                                                   padding: EdgeInsets.only(
-                                                      left: parentWidth * 0.05,
+                                                      left: parentWidth * 0.38,
                                                       top:
                                                           parentHeight * 0.005),
                                                   child: Container(
@@ -328,17 +343,64 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                     // color: Colors.yellow,
                                                     child: GestureDetector(
                                                       onTap: () {
+                                                        showGeneralDialog(
+                                                            barrierColor: Colors
+                                                                .black
+                                                                .withOpacity(
+                                                                    0.8),
+                                                            transitionBuilder:
+                                                                (context,
+                                                                    a1,
+                                                                    a2,
+                                                                    widget) {
+                                                              final curvedValue = Curves
+                                                                      .easeInOutBack
+                                                                      .transform(
+                                                                          a1.value) -
+                                                                  1.0;
+                                                              // return Transform(
+                                                              //   transform: Matrix4.translationValues(
+                                                              //       0.0, curvedValue * 200, 0.0),
+                                                              return Transform
+                                                                  .scale(
+                                                                scale: a1.value,
+                                                                child: Opacity(
+                                                                  opacity:
+                                                                      a1.value,
+                                                                  child:
+                                                                      EndFriendDialog(
+                                                                    index:
+                                                                        index,
+                                                                    mListener:
+                                                                        this,
+                                                                    masjitRemoveIdd:
+                                                                        "${snapshot.data?.data?[index].id}",
+                                                                    joinedMasjid: _allCommentsArr,
+
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            },
+                                                            transitionDuration:
+                                                                Duration(
+                                                                    milliseconds:
+                                                                        200),
+                                                            barrierDismissible:
+                                                                true,
+                                                            barrierLabel: '',
+                                                            context: context,
+                                                            // ignore: missing_return
+                                                            pageBuilder:
+                                                                (context,
+                                                                    animation2,
+                                                                    animation1) {
+                                                              return Container();
+                                                            });
                                                         print(
                                                             "MasjitIdRemovessss   ${widget.masjitIdRemoved}");
                                                         print(
                                                             "id ${snapshot.data?.data?[index].id}");
-                                                       if(mounted)
-                                                        setState(() {
-                                                          getRemoveMasjit(
-                                                              "${snapshot.data?.data?[index].id}",
-                                                              index);
 
-                                                        });
                                                       },
                                                       child: Container(
                                                           height: parentHeight *
@@ -376,6 +438,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                                       SizeConfig
                                                                               .blockSizeHorizontal *
                                                                           3.0,
+                                                                  letterSpacing: parentWidth * 0.001,
                                                                   color: CommonColor
                                                                       .WHITE_COLOR),
                                                             ),
@@ -388,7 +451,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                             Padding(
                                               padding: EdgeInsets.only(
                                                   top: parentHeight * 0.003,
-                                                  left: parentHeight * 0.02),
+                                                  left: parentHeight * 0.01),
                                               child: Text(
                                                 " ${snapshot.data?.data?[index].place?[0].subLocality}",
                                                 style: TextStyle(
@@ -404,7 +467,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                             ),
                                             Padding(
                                               padding: EdgeInsets.only(
-                                                  left: parentHeight * 0.02),
+                                                  left: parentHeight * 0.014),
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
@@ -819,7 +882,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                     Text(
                       "DAILY TIME",
                       style: TextStyle(
-                        fontSize: SizeConfig.blockSizeHorizontal * 4.3,
+                        fontSize: SizeConfig.blockSizeHorizontal * 4.0,
                         fontFamily: 'Roboto_Bold',
                         fontWeight: FontWeight.w600,
                         color: CommonColor.WHITE_COLOR,
@@ -1164,7 +1227,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
         child: Column(
           children: [
             Container(
-                height: parentHeight * 0.05,
+                height: parentHeight * 0.04,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                       begin: Alignment.centerLeft,
@@ -1185,7 +1248,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                         style: TextStyle(
                             fontFamily: "Roboto_Regular",
                             fontWeight: FontWeight.w700,
-                            fontSize: SizeConfig.blockSizeHorizontal * 4.5,
+                            fontSize: SizeConfig.blockSizeHorizontal * 4.0,
                             color: CommonColor.WHITE_COLOR),
                       ),
                     ),
@@ -1351,7 +1414,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
         child: Column(
           children: [
             Container(
-                height: parentHeight * 0.05,
+                height: parentHeight * 0.04,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                       begin: Alignment.centerLeft,
@@ -1372,7 +1435,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                         style: TextStyle(
                             fontFamily: "Roboto_Regular",
                             fontWeight: FontWeight.w700,
-                            fontSize: SizeConfig.blockSizeHorizontal * 4.5,
+                            fontSize: SizeConfig.blockSizeHorizontal * 4.0,
                             color: CommonColor.WHITE_COLOR),
                       ),
                     ),
@@ -1518,7 +1581,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
         child: Column(
           children: [
             Container(
-                height: parentHeight * 0.05,
+                height: parentHeight * 0.04,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                       begin: Alignment.centerLeft,
@@ -1535,11 +1598,11 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                     Padding(
                       padding: EdgeInsets.only(left: parentWidth * 0.43),
                       child: Text(
-                        "Eid",
+                        "EID",
                         style: TextStyle(
                             fontFamily: "Roboto_Regular",
                             fontWeight: FontWeight.w700,
-                            fontSize: SizeConfig.blockSizeHorizontal * 4.5,
+                            fontSize: SizeConfig.blockSizeHorizontal * 4.0,
                             color: CommonColor.WHITE_COLOR),
                       ),
                     ),
@@ -1613,7 +1676,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                           top: parentHeight *
                                                               0.01),
                                                       child: Text(
-                                                          "${snapshot.data?.data?[index].eid?[0].name}",
+                                                          "${snapshot.data?.data?[0].eid?[index].name}",
                                                           style: TextStyle(
                                                             fontSize: SizeConfig
                                                                     .blockSizeHorizontal *
@@ -1633,7 +1696,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                           top: parentHeight *
                                                               0.01),
                                                       child: Text(
-                                                          "Jammat  ${snapshot.data?.data?[index].eid?[index].jammat?[0]}",
+                                                          "Jammat  ${snapshot.data?.data?[0].eid?[index].jammat?[0]}",
                                                           style: TextStyle(
                                                             fontSize: SizeConfig
                                                                     .blockSizeHorizontal *
@@ -1670,7 +1733,11 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => AllMasjitList(onNext: () {  },)));
+            context,
+            MaterialPageRoute(
+                builder: (context) => AllMasjitList(
+                      onNext: () {},
+                    )));
       },
       child: Padding(
         padding: EdgeInsets.only(
@@ -1763,13 +1830,10 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
       var jsonData = json.decode(response.body);
 
       var masjid = jsonData["data"];
-      if(mounted)
+      if (mounted)
         setState(() {
           _allCommentsArr.addAll(masjid);
-
         });
-
-
 
       print(" list ${_allCommentsArr}");
       //  print("Yess.. ${response.body}");
@@ -1794,8 +1858,6 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
         headers: headersList);
 
     if (response.statusCode == 200) {
-
-
       if (mounted)
         setState(() {
           _allCommentsArr.removeAt(index);
@@ -1810,5 +1872,11 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
     } else {
       throw Exception('Failed to create album.');
     }
+  }
+
+  @override
+  callUnFriendApi(String userId, String isConverted, int index, String msgId) {
+    // TODO: implement callUnFriendApi
+    throw UnimplementedError();
   }
 }

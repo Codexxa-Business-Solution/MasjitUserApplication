@@ -6,7 +6,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:masjiduserapp/map_screen.dart';
 import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/all_masjit_joined_tab_button_response_model.dart';
 import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/notice_response_model.dart';
-import 'package:masjiduserapp/services/local_notification_service.dart';
 import 'package:masjiduserapp/size_config.dart';
 import 'package:masjiduserapp/trustee_user_tab.dart';
 import 'package:masjiduserapp/user_map_tab.dart';
@@ -52,9 +51,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
   @override
   void initState() {
     box = Hive.box(kBoxName);
-    //service = LocalNotificationService();
-  //  service.intialize();
-    //listenToNotification();
+
     super.initState();
     if (mounted) {
       setState(() {
@@ -596,7 +593,7 @@ height: parentHeight*0.8,
                         future: getMasjidInfo,
                         builder: (context, snapshot) {
                           return  Expanded(
-                            child: ListView.builder(
+                            child: snapshot.data?.weeklyNamaz?.length !=Null ? ListView.builder(
                                 shrinkWrap: true,
                                 itemCount:
                                 snapshot.data?.weeklyNamaz?.length,
@@ -668,7 +665,7 @@ height: parentHeight*0.8,
                                       ),
                                     ],
                                   );
-                                }),
+                                }):Container()
                           );
 
                         })
@@ -1306,19 +1303,7 @@ height: parentHeight*0.8,
       ),
     );
   }
- // void listenToNotification() =>
-      //service.onNotificationClick.stream.listen(onNoticationListener);
 
- /* void onNoticationListener(String? payload) {
-    if (payload != null && payload.isNotEmpty) {
-      print('payload $payload');
-
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: ((context) => ParentTabBarScreen(*//*payload: payload*//*))));
-    }
-  }*/
 
   Future<AllMasjitDetailsResponceModel>getNoticeSection(masjitId) async {
     print(" tokennn ${box.get(kToken)}");
@@ -1351,7 +1336,7 @@ height: parentHeight*0.8,
   }
 
   Future<AllMasjitJoinedTabButtonResponceModel>getJoinButtonSection(masjitId) async {
-    print(" tokennn ${box.get(kToken)}");
+
 
     var headersList = {
       'Authorization': 'Bearer ${box.get(kToken)}'
@@ -1371,6 +1356,8 @@ height: parentHeight*0.8,
 
 
     if (response.statusCode == 200) {
+      box.put(kJoinedCommonId,masjitId );
+      print(" kjoined ${box.get(kJoinedCommonId)}");
        Navigator.push(
             context,
             MaterialPageRoute(

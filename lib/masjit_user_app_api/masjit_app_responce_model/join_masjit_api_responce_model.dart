@@ -41,10 +41,10 @@ class Datum {
   List<String>? images;
   List<WeeklyNamaz>? weeklyNamaz;
   Jumma? jumma;
-  String? sahr;
-  String? iftar;
+  dynamic? sahr;
+  dynamic? iftar;
   List<Eid>? eid;
-  List<String>? banners;
+  List<dynamic>? banners;
   List<Place>? place;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -55,7 +55,7 @@ class Datum {
     sahr: json["sahr"],
     iftar: json["iftar"],
     eid: List<Eid>.from(json["eid"].map((x) => Eid.fromJson(x))),
-    banners: List<String>.from(json["banners"].map((x) => x)),
+    banners: List<dynamic>.from(json["banners"].map((x) => x)),
     place: List<Place>.from(json["place"].map((x) => Place.fromJson(x))),
   );
 
@@ -74,19 +74,23 @@ class Datum {
 
 class Eid {
   Eid({
+    this.azan,
     this.name,
     this.jammat,
   });
 
+  String? azan;
   String? name;
   List<String>? jammat;
 
   factory Eid.fromJson(Map<String, dynamic> json) => Eid(
+    azan: json["azan"],
     name: json["name"],
     jammat: List<String>.from(json["jammat"].map((x) => x)),
   );
 
   Map<String, dynamic> toJson() => {
+    "azan": azan,
     "name": name,
     "jammat": List<dynamic>.from(jammat!.map((x) => x)),
   };
@@ -128,12 +132,12 @@ class Place {
   String? lat;
   String? long;
   String? masjidName;
-  dynamic? street;
+  String? street;
   String? subLocality;
   String? locality;
-  dynamic? postalCode;
+  String? postalCode;
   String? administrativeArea;
-  String?country;
+  String? country;
 
   factory Place.fromJson(Map<String, dynamic> json) => Place(
     lat: json["lat"],

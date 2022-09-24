@@ -35,9 +35,10 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
           onDoubleTap: () {},
           child: ListView(
             shrinkWrap: true,
+            padding: EdgeInsets.only(bottom: SizeConfig.screenHeight*0.2),
             children: [
               Container(
-              //  height: SizeConfig.screenHeight * 0.05,
+               height: SizeConfig.screenHeight * 0.10,
                 decoration: BoxDecoration(
                   color: Colors.transparent,
                 ),
@@ -45,7 +46,7 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
                     SizeConfig.screenHeight, SizeConfig.screenWidth),
               ),
               Container(
-                  height: SizeConfig.screenHeight,
+                  //height: SizeConfig.screenHeight,
                   child: Column(
                     children: [
                       getFirstImageFrame(
@@ -119,10 +120,11 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
 
   Widget getFirstImageFrame(double parentHeight, double parentWidth) {
     return Padding(
-      padding: EdgeInsets.only(top: parentHeight * 0.07),
+      padding: EdgeInsets.only(top: parentHeight * 0.04),
       child: Center(
         child: Container(
           width: parentWidth,
+          height: parentHeight*.6,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -224,7 +226,7 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
                                       hintText: "Enter your Mobile No.",
                                       contentPadding: EdgeInsets.only(
                                           left: parentWidth * 0.03,
-                                          bottom: parentHeight * 0.01),
+                                          bottom: parentHeight * 0.009),
                                       hintStyle: TextStyle(
                                         fontFamily: "Roboto_Regular",
                                         fontSize:

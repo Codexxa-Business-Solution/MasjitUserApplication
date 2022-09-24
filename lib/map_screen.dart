@@ -191,7 +191,7 @@ class _MasjitMappScreenState extends State<MasjitMappScreen> with SingleTickerPr
                           },
                           child: Container(
                             width: parentWidth * 0.28,
-                            height: parentHeight * 0.05,
+                            height: parentHeight * 0.047,
                             decoration: BoxDecoration(
                                 color: mapScreen == true
                                     ? CommonColor.REGISTRARTION_TRUSTEE
@@ -229,7 +229,7 @@ class _MasjitMappScreenState extends State<MasjitMappScreen> with SingleTickerPr
                           },
                           child: Container(
                             width: parentWidth * 0.28,
-                            height: parentHeight * 0.05,
+                            height: parentHeight * 0.047,
                             decoration: BoxDecoration(
                                 color: trusteeScreen
                                     ? CommonColor.REGISTRARTION_TRUSTEE
@@ -267,7 +267,7 @@ class _MasjitMappScreenState extends State<MasjitMappScreen> with SingleTickerPr
                           },
                           child: Container(
                             width: parentWidth * 0.28,
-                            height: parentHeight * 0.05,
+                            height: parentHeight * 0.047,
                             decoration: BoxDecoration(
                                 color: noticeScreen
                                     ? CommonColor.REGISTRARTION_TRUSTEE

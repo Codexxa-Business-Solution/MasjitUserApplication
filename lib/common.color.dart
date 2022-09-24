@@ -12,7 +12,10 @@ class CommonColor{
   static const SEARCH_TEXT_COLOR = const Color(0xFF9F9F9F);
   static const ALL_MASJIT_LIST_COLOR = const Color(0xFFFAFAFA);
   static const IMAGE_BOX = const Color(0xFFC4C4C4);
+  static const DELETE_GAME_COLOR= const Color(0xFFba008CD1);
   static const MASJIT_NAME = const Color(0xFF414141);
+  static const RED_COLOR= const Color(0xFFE90000);
+  static const DIVIDER_COLOR = const Color(0xFFCBCBCB);
 
 
   static const LOGO_COLOR = const Color(0xFF3a81d8);
