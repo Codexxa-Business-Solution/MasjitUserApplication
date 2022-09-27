@@ -64,6 +64,7 @@ class _AllMasjitListState extends State<AllMasjitList> {
                         padding: EdgeInsets.only(top: parentHeight * 0.03),
                         child: GestureDetector(
                             onTap: () {
+
                               // Navigator.push(
                               //     context,
                               //     MaterialPageRoute(
@@ -125,7 +126,7 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                               image:
                                                               /*snapshot.data?.data?[index].images != null?*/
                                                               NetworkImage(
-                                                                "${snapshot.data?.data?[index].images}",
+                                                                "http://masjid.exportica.in/${snapshot.data?.data?[index].images?[0]}",
                                                               ),/*: NetworkImage(""),*/
                                                               fit: BoxFit
                                                                   .cover,
@@ -225,6 +226,8 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                 ),
                                               ),
                                             ),
+                                        /*  _getUserJoinedList.
+                                elementAt(0).?*/
                                             Padding(
                                               padding:  EdgeInsets.only(left: parentWidth*0.05),
                                               child: Container(
@@ -295,6 +298,50 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                 ),
                                               ),
                                             ),
+                                           /* Container(
+                                              height:
+                                              parentHeight *
+                                                  0.04,
+                                              width:
+                                              parentWidth *
+                                                  0.3,
+                                  */
+                                            /*            decoration:
+                                              BoxDecoration(
+                                                gradient: LinearGradient(
+                                                    begin: Alignment
+                                                        .centerLeft,
+                                                    end: Alignment.centerRight,
+                                                    colors: [
+                                                      CommonColor
+                                                          .LEFT_COLOR,
+                                                      CommonColor
+                                                          .RIGHT_COLOR
+                                                    ]),
+                                                borderRadius:
+                                                BorderRadius
+                                                    .circular(
+                                                    7),
+                                              ),*/
+                                            /*
+                                              child: Center(
+                                                child: Text(
+                                                  "Joined",
+                                                  style: TextStyle(
+                                                      fontFamily:
+                                                      "Roboto_Regular",
+                                                      fontWeight:
+                                                      FontWeight
+                                                          .w700,
+                                                      fontSize:
+                                                      SizeConfig.blockSizeHorizontal *
+                                                          4.3,
+                                                      color: CommonColor
+                                                          .WHITE_COLOR),
+                                                ),
+                                              )
+
+                                          ),*/
                                           ],
                                         ),
 
@@ -390,6 +437,7 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                                     fontSize: SizeConfig.blockSizeHorizontal*3.0,fontFamily: 'Roboto_Bold',
                                                                   ),),
                                                               ),
+
 
 
 

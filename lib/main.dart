@@ -5,8 +5,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:masjiduserapp/enter_mobile_number.dart';
 import 'package:masjiduserapp/masjit_main_new_screen.dart';
 import 'package:masjiduserapp/size_config.dart';
+import 'package:masjiduserapp/user_parent_tab_bar.dart';
 import 'package:masjiduserapp/user_registration.dart';
 import 'package:masjiduserapp/util/constant.dart';
 
@@ -16,8 +18,9 @@ import 'common.color.dart';
 import 'masjit_vendor_frame.dart';
 
 Future<void> main() async{
-
+print("kkkkkk   ${kBoxName}");
   await Hive.initFlutter();
+  Hive.openBox(kBoxName);
   var box = await Hive.openBox(kBoxName);
 
   WidgetsFlutterBinding.ensureInitialized();
@@ -58,7 +61,11 @@ class MyApp extends StatelessWidget with WidgetsBindingObserver{
         debugShowCheckedModeBanner: false,
         routes: <String, WidgetBuilder>{
           '/frame': (BuildContext context) => MasjitVendorFrame(),
-        });
+          '/userRegistartionScreen': (BuildContext context) => EnterMobileNumber(),
+          '/homeScreen': (BuildContext context) => ParentTabBarScreen(),
+        }
+
+        );
   }
 }
 
@@ -77,9 +84,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
-  void initState() {
+  void initState(){
     super.initState();
     startTimer();
+    Hive.openBox(kBoxName);
+    var box =  Hive.openBox(kBoxName);
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   }
@@ -118,6 +127,8 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+
+
   Widget text(double parentHeight, double parentWidth) {
     return Container(
       child: Column(
@@ -154,9 +165,33 @@ class _MyHomePageState extends State<MyHomePage> {
   void navigateParentPage() {
     Navigator.of(context).pushReplacementNamed('/frame');
   }
+  void navigateRegistrationPage() {
+    Navigator.of(context).pushReplacementNamed('/userRegistartionScreen');
+  }
+  void navigateHomePage() {
+    Navigator.of(context).pushReplacementNamed('/homeScreen');
+  }
 
-  startTimer() {
+  startTimer() async {
     var durtaion = new Duration(seconds: 2);
+
+    try{
+
+      var box = await Hive.openBox(kBoxName);
+
+      var accessToken = await box.get('token');
+      print("session token   ${accessToken}");
+      //String? masjitId = await box.get(kJoinedCommonId);
+      if(accessToken == null){
+        return Timer(durtaion,navigateRegistrationPage);
+
+      }
+      else if(accessToken != null){
+        return Timer(durtaion,navigateHomePage);
+      }
+    } catch(e){
+      print("eeeeeeee  $e");
+    }
     return Timer(durtaion, navigateParentPage);
   }
 }

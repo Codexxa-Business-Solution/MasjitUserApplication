@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/notice_response_model.dart';
 import 'package:masjiduserapp/size_config.dart';
 import 'package:http/http.dart' as http;
+import 'package:masjiduserapp/util/constant.dart';
 
 class NoticeUserTab extends StatefulWidget {
-  const NoticeUserTab({Key? key}) : super(key: key);
+  const NoticeUserTab({Key? key,/* required this.masjitNoticeId*/}) : super(key: key);
+  //final String masjitNoticeId;
 
   @override
   State<NoticeUserTab> createState() => _NoticeUserTabState();
@@ -12,13 +15,17 @@ class NoticeUserTab extends StatefulWidget {
 
 class _NoticeUserTabState extends State<NoticeUserTab> {
 
-
+  late Box box;
   var getNotice;
 
   @override
   void initState() {
     super.initState();
+    box = Hive.box(kBoxName);
+   // getNotice = getNoticeSection(widget.masjitNoticeId);
    // getNotice = getNoticeSection();
+    print(" fffffff $getNotice");
+    //print("trusteeScreenId ${widget.masjitNoticeId}");
     print(getNotice);
   }
 
@@ -29,13 +36,14 @@ class _NoticeUserTabState extends State<NoticeUserTab> {
       backgroundColor: Colors.white,
       body: Container(
         height: SizeConfig.screenHeight * 0.9,
+       color: Colors.red,
        /* child: getAddTermsTextLayout(
             SizeConfig.screenHeight, SizeConfig.screenWidth),*/
       ),
     );
   }
 
-  /*Widget getAddTermsTextLayout(double parentHeight, double parentWidth) {
+ /* Widget getAddTermsTextLayout(double parentHeight, double parentWidth) {
     return Padding(
       padding:
       EdgeInsets.only(top: parentHeight * 0.01, left: parentWidth * 0.02),
@@ -77,7 +85,7 @@ class _NoticeUserTabState extends State<NoticeUserTab> {
 
     );
   }
-
+*/
   Future<AllMasjitDetailsResponceModel> getNoticeSection() async {
     // print(" userId ${userId}");
 
@@ -93,6 +101,37 @@ class _NoticeUserTabState extends State<NoticeUserTab> {
     var response = await http.post(
       Uri.parse("http://sangh.bizz-manager.com/?id=1"),
       headers: headers,
+    );
+
+    if (response.statusCode == 200) {
+      // If the server did return a 201 CREATED response,
+      // then parse the JSON.
+
+      // circularLoader = false;
+
+      print("Yess.. ${response.body}");
+
+      print("Hiii");
+
+      return allMasjitDetailsResponceModelFromJson(response.body);
+    } else {
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      throw Exception('Failed to create album.');
+    }
+  }
+ /* Future<AllMasjitDetailsResponceModel> getNoticeSection(masjitTrusteeId) async {
+    // print(" userId ${userId}");
+
+    print(" tokennn ${box.get(kToken)}");
+
+    var headersList = {
+      'Authorization': 'Bearer ${box.get(kToken)}'
+    };
+
+    var response = await http.get(
+        Uri.parse('http://masjid.exportica.in/api/masjids/${widget.masjitTrusteeId}'),
+        headers:headersList
     );
 
     if (response.statusCode == 200) {

@@ -22,6 +22,7 @@ final String masjitId;
   final String lat;
   final String long;
 
+
   @override
   _MasjitNameLocationState createState() => _MasjitNameLocationState();
 }
@@ -43,7 +44,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
   bool noticeScreen = false;
   int currentIndex = 0;
   int currentPos = 0;
-
+  List JoinedMasjit = [];
 
   var getMasjidInfo;
   var getMasjidJoinButton;
@@ -1356,8 +1357,10 @@ height: parentHeight*0.8,
 
 
     if (response.statusCode == 200) {
-      box.put(kJoinedCommonId,masjitId );
-      print(" kjoined ${box.get(kJoinedCommonId)}");
+
+      JoinedMasjit.add(masjitId);
+      box.put(kJoinedCommonId,JoinedMasjit );
+      print(" kjoinedId ${box.get(kJoinedCommonId)}");
        Navigator.push(
             context,
             MaterialPageRoute(

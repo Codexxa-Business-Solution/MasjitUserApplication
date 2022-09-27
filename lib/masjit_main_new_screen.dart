@@ -295,68 +295,84 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                               CrossAxisAlignment.start,
                                           children: [
                                             Row(
-                                            /*  mainAxisAlignment:
-                                              MainAxisAlignment.start,*/
                                               children: [
                                                 Padding(
-                                                  padding: EdgeInsets.only(
-                                                      right: SizeConfig.screenWidth * 0.0,
-                                                     ),
-                                                  child: Padding(
-                                                    padding:  EdgeInsets.only(left: parentWidth*0.02),
-                                                    child: Container(
+                                                  padding:  EdgeInsets.only(right: parentWidth*0.07),
+                                                  child: Row(
+                                                  /*  mainAxisAlignment:
+                                                    MainAxisAlignment.start,*/
+                                                    children: [
+                                                      Padding(
+                                                        padding: EdgeInsets.only(
+                                                            right: SizeConfig.screenWidth * 0.0,
+                                                           ),
+                                                        child: Padding(
+                                                          padding:  EdgeInsets.only(left: parentWidth*0.02),
+                                                          child: Container(
 
 
-                                                      child: Image.asset(
-                                                        'assets/images/image.png',
-                                                        height: SizeConfig.screenHeight * .04,
+                                                            child: Image.asset(
+                                                              'assets/images/image.png',
+                                                              height: SizeConfig.screenHeight * .04,
+                                                            ),
+                                                          ),
+                                                        ),
                                                       ),
-                                                    ),
+                                                      Container(
+                                                        width:parentWidth*0.5,
+                                                       // color:Colors.red,
+
+                                                        child: Padding(
+                                                          padding: EdgeInsets.only(
+                                                              top:
+                                                                  parentHeight * 0.01,left: parentWidth*0.02),
+                                                          child: Expanded(
+                                                            child: Text(
+                                                              "${snapshot.data?.data?[index].place?[0].masjidName}",
+                                                              style: TextStyle(
+                                                                  fontSize: SizeConfig
+                                                                          .blockSizeHorizontal *
+                                                                      4.0,
+                                                                  color: CommonColor
+                                                                      .BLACK_COLOR,
+                                                                  fontWeight:
+                                                                      FontWeight.w400,
+
+                                                                  fontFamily:
+                                                                      'Roboto_Bold'),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+
+                                                    ],
                                                   ),
                                                 ),
                                                 Padding(
                                                   padding: EdgeInsets.only(
+left: parentWidth*0.04,
                                                       top:
-                                                          parentHeight * 0.01,left: parentWidth*0.02),
-                                                  child: Text(
-                                                    "${snapshot.data?.data?[index].place?[0].masjidName}",
-                                                    style: TextStyle(
-                                                        fontSize: SizeConfig
-                                                                .blockSizeHorizontal *
-                                                            4.0,
-                                                        color: CommonColor
-                                                            .BLACK_COLOR,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        fontFamily:
-                                                            'Roboto_Bold'),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsets.only(
-                                                      left: parentWidth * 0.38,
-                                                      top:
-                                                          parentHeight * 0.005),
+                                                      parentHeight * 0.005),
                                                   child: Container(
                                                     width: parentWidth * .20,
                                                     height: parentWidth * .07,
-                                                    // color: Colors.yellow,
+                                                   // color: Colors.yellow,
                                                     child: GestureDetector(
                                                       onTap: () {
                                                         showGeneralDialog(
                                                             barrierColor: Colors
                                                                 .black
                                                                 .withOpacity(
-                                                                    0.8),
+                                                                0.8),
                                                             transitionBuilder:
                                                                 (context,
-                                                                    a1,
-                                                                    a2,
-                                                                    widget) {
+                                                                a1,
+                                                                a2,
+                                                                widget) {
                                                               final curvedValue = Curves
-                                                                      .easeInOutBack
-                                                                      .transform(
-                                                                          a1.value) -
+                                                                  .easeInOutBack
+                                                                  .transform(
+                                                                  a1.value) -
                                                                   1.0;
                                                               // return Transform(
                                                               //   transform: Matrix4.translationValues(
@@ -366,15 +382,15 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                                 scale: a1.value,
                                                                 child: Opacity(
                                                                   opacity:
-                                                                      a1.value,
+                                                                  a1.value,
                                                                   child:
-                                                                      EndFriendDialog(
+                                                                  EndFriendDialog(
                                                                     index:
-                                                                        index,
+                                                                    index,
                                                                     mListener:
-                                                                        this,
+                                                                    this,
                                                                     masjitRemoveIdd:
-                                                                        "${snapshot.data?.data?[index].id}",
+                                                                    "${snapshot.data?.data?[index].id}",
                                                                     joinedMasjid: _allCommentsArr,
 
                                                                   ),
@@ -382,18 +398,18 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                               );
                                                             },
                                                             transitionDuration:
-                                                                Duration(
-                                                                    milliseconds:
-                                                                        200),
+                                                            Duration(
+                                                                milliseconds:
+                                                                200),
                                                             barrierDismissible:
-                                                                true,
+                                                            true,
                                                             barrierLabel: '',
                                                             context: context,
                                                             // ignore: missing_return
                                                             pageBuilder:
                                                                 (context,
-                                                                    animation2,
-                                                                    animation1) {
+                                                                animation2,
+                                                                animation1) {
                                                               return Container();
                                                             });
                                                         print(
@@ -406,9 +422,9 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                           height: parentHeight *
                                                               0.03,
                                                           width:
-                                                              parentWidth * 0.3,
+                                                          parentWidth * 0.3,
                                                           decoration:
-                                                              BoxDecoration(
+                                                          BoxDecoration(
                                                             gradient: LinearGradient(
                                                                 begin: Alignment
                                                                     .centerLeft,
@@ -421,23 +437,23 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                                       .RIGHT_COLOR
                                                                 ]),
                                                             borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        7),
+                                                            BorderRadius
+                                                                .circular(
+                                                                7),
                                                           ),
                                                           child: Center(
                                                             child: Text(
                                                               "Removed",
                                                               style: TextStyle(
                                                                   fontFamily:
-                                                                      "Roboto_Regular",
+                                                                  "Roboto_Regular",
                                                                   fontWeight:
-                                                                      FontWeight
-                                                                          .w700,
+                                                                  FontWeight
+                                                                      .w700,
                                                                   fontSize:
-                                                                      SizeConfig
-                                                                              .blockSizeHorizontal *
-                                                                          3.0,
+                                                                  SizeConfig
+                                                                      .blockSizeHorizontal *
+                                                                      3.0,
                                                                   letterSpacing: parentWidth * 0.001,
                                                                   color: CommonColor
                                                                       .WHITE_COLOR),
@@ -575,6 +591,12 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                                   itemBuilder: (BuildContext context,
                                                                       int itemIndex,
                                                                       int index) {
+
+
+
+
+
+
                                                                     return Padding(
                                                                       padding: EdgeInsets.only(
                                                                           left: parentWidth *
@@ -599,7 +621,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                                                     image: DecorationImage(
                                                                                   image: snapshot.data?.data?[index].images != null
                                                                                       ? NetworkImage(
-                                                                                          "${snapshot.data?.data?[index].images}",
+                                                                                          "http://masjid.exportica.in/${snapshot.data?.data?[index].images?[0]}",
                                                                                         )
                                                                                       : NetworkImage(""),
                                                                                   fit: BoxFit.cover,
@@ -1737,7 +1759,10 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
             MaterialPageRoute(
                 builder: (context) => AllMasjitList(
                       onNext: () {},
-                    )));
+                    )
+
+
+            ));
       },
       child: Padding(
         padding: EdgeInsets.only(
@@ -1848,7 +1873,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
     }
   }
 
-  Future<UseRemoveResponceModel> getRemoveMasjit(
+ /* Future<UseRemoveResponceModel> getRemoveMasjit(
       masjitIdRemoved, int index) async {
     var headersList = {'Authorization': 'Bearer ${box.get(kToken)}'};
 
@@ -1861,7 +1886,9 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
       if (mounted)
         setState(() {
           _allCommentsArr.removeAt(index);
+
           getNoticeSection();
+
         });
 
       print("Yess.. ${response.body}");
@@ -1872,7 +1899,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
     } else {
       throw Exception('Failed to create album.');
     }
-  }
+  }*/
 
   @override
   callUnFriendApi(String userId, String isConverted, int index, String msgId) {

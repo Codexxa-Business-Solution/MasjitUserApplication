@@ -6,9 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_dnd/flutter_dnd.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:masjiduserapp/enter_mobile_number.dart';
-import 'package:masjiduserapp/login_with_phone.dart';
 import 'package:masjiduserapp/size_config.dart';
-import 'package:masjiduserapp/user_parent_tab_bar.dart';
 import 'package:masjiduserapp/util/constant.dart';
 
 import 'common.color.dart';
@@ -26,10 +24,9 @@ class _MasjitVendorFrameState extends State<MasjitVendorFrame> with WidgetsBindi
 
 final PageController _pageController = PageController();
   List<String> listPaths = [
-    "https://muslimmatters.org/2014/12/20/reviving-the-role-of-the-masjid-part-1/",
-    "images/nature2.jpg",
-    "images/nature3.jpg",
-  ];
+    "https://cdn.pixabay.com/photo/2015/10/25/21/02/abu-1006336__340.jpg",
+    "https://cdn.pixabay.com/photo/2015/10/25/21/02/abu-1006336__340.jpg",
+"https://cdn.pixabay.com/photo/2015/01/28/23/10/mosque-615415_960_720.jpg"];
   final List<String> Frame = [
     "Frame 1",
     "Frame 2",
@@ -132,10 +129,20 @@ final PageController _pageController = PageController();
                                 decoration: BoxDecoration(
                                     color: CommonColor.GRAY_COLOR,
                                     borderRadius: BorderRadius.circular(30)),
-                                child: Image.network(
-                                  listPaths[index % listPaths.length],
-                                  fit: BoxFit.cover,
-                                ),
+                                child:ClipRRect(
+                                  borderRadius: BorderRadius.circular(30),
+                                  child:Image.network(
+                                    listPaths[index % listPaths.length],
+                                    fit: BoxFit.cover,
+
+                                  ),
+                                ) /*ClipRect(
+                                  borderRadius: BorderRadius.circular(30),
+                                  child: Image.network(
+                                    listPaths[index % listPaths.length],
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),*/
                               ),
                               Padding(
                                 padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.06),

@@ -207,7 +207,10 @@ class _EndFriendDialogState extends State<EndFriendDialog> {
 
     if (response.statusCode == 200) {
 
+
       widget.joinedMasjid.removeAt(index);
+      var removeId = box.get(kJoinedCommonId);
+      print("removedId  ${box.get(kJoinedCommonId)}");
 
     Navigator.push(context, MaterialPageRoute(builder: (context)=>ParentTabBarScreen()));
       print("Yess.. ${response.body}");
