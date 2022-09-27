@@ -226,123 +226,105 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                 ),
                                               ),
                                             ),
-                                        /*  _getUserJoinedList.
-                                elementAt(0).?*/
-                                            Padding(
-                                              padding:  EdgeInsets.only(left: parentWidth*0.05),
-                                              child: Container(
-                                                width: parentWidth*.23,
-                                                height: parentWidth*.08,
+Stack(
+  children: [
+    snapshot.data?.data?[index].joined==false?
+    Padding(
+      padding:  EdgeInsets.only(left: parentWidth*0.05),
+      child: Container(
+        width: parentWidth*.23,
+        height: parentWidth*.08,
 
-                                                child:
-
-
-                                                GestureDetector(
-                                                  onTap: () {
-
-                                                    print("id ${snapshot.data?.data?[index].id}");
-
-                                                    Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                MasjitNameLocation(masjitId: snapshot.data?.data?[index].id != null ?
-                                                                "${snapshot.data?.data?[index].id}" : "",
-                                                              lat: "${snapshot.data?.data?[index].place?[0].lat}",
-                                                                  long: "${snapshot.data?.data?[index].place?[0].long}",)));
-                                                  },
+        child:
 
 
-                                                  child: Container(
-                                                    height:
-                                                    parentHeight *
-                                                        0.04,
-                                                    width:
-                                                    parentWidth *
-                                                        0.3,
-                                                    decoration:
-                                                    BoxDecoration(
-                                                      gradient: LinearGradient(
-                                                          begin: Alignment
-                                                              .centerLeft,
-                                                          end: Alignment.centerRight,
-                                                          colors: [
-                                                            CommonColor
-                                                                .LEFT_COLOR,
-                                                            CommonColor
-                                                                .RIGHT_COLOR
-                                                          ]),
-                                                      borderRadius:
-                                                      BorderRadius
-                                                          .circular(
-                                                          7),
-                                                    ),
-                                                     child: Center(
-                                                       child: Text(
-                                                         "JOIN",
-                                                         style: TextStyle(
-                                                             fontFamily:
-                                                             "Roboto_Regular",
-                                                             fontWeight:
-                                                             FontWeight
-                                                                 .w700,
-                                                             fontSize:
-                                                             SizeConfig.blockSizeHorizontal *
-                                                                 4.3,
-                                                             color: CommonColor
-                                                                 .WHITE_COLOR),
-                                                       ),
-                                                     )
+        GestureDetector(
+          onTap: () {
 
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                           /* Container(
-                                              height:
-                                              parentHeight *
-                                                  0.04,
-                                              width:
-                                              parentWidth *
-                                                  0.3,
-                                  */
-                                            /*            decoration:
-                                              BoxDecoration(
-                                                gradient: LinearGradient(
-                                                    begin: Alignment
-                                                        .centerLeft,
-                                                    end: Alignment.centerRight,
-                                                    colors: [
-                                                      CommonColor
-                                                          .LEFT_COLOR,
-                                                      CommonColor
-                                                          .RIGHT_COLOR
-                                                    ]),
-                                                borderRadius:
-                                                BorderRadius
-                                                    .circular(
-                                                    7),
-                                              ),*/
-                                            /*
-                                              child: Center(
-                                                child: Text(
-                                                  "Joined",
-                                                  style: TextStyle(
-                                                      fontFamily:
-                                                      "Roboto_Regular",
-                                                      fontWeight:
-                                                      FontWeight
-                                                          .w700,
-                                                      fontSize:
-                                                      SizeConfig.blockSizeHorizontal *
-                                                          4.3,
-                                                      color: CommonColor
-                                                          .WHITE_COLOR),
-                                                ),
-                                              )
+            print("id ${snapshot.data?.data?[index].id}");
 
-                                          ),*/
-                                          ],
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        MasjitNameLocation(masjitId: snapshot.data?.data?[index].id != null ?
+                        "${snapshot.data?.data?[index].id}" : "",
+                          lat: "${snapshot.data?.data?[index].place?[0].lat}",
+                          long: "${snapshot.data?.data?[index].place?[0].long}",)));
+          },
+
+
+          child: Container(
+              height:
+              parentHeight *
+                  0.04,
+              width:
+              parentWidth *
+                  0.3,
+              decoration:
+              BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment
+                        .centerLeft,
+                    end: Alignment.centerRight,
+                    colors: [
+                      CommonColor
+                          .LEFT_COLOR,
+                      CommonColor
+                          .RIGHT_COLOR
+                    ]),
+                borderRadius:
+                BorderRadius
+                    .circular(
+                    7),
+              ),
+              child: Center(
+                child: Text(
+                  "JOIN",
+                  style: TextStyle(
+                      fontFamily:
+                      "Roboto_Regular",
+                      fontWeight:
+                      FontWeight
+                          .w700,
+                      fontSize:
+                      SizeConfig.blockSizeHorizontal *
+                          4.3,
+                      color: CommonColor
+                          .WHITE_COLOR),
+                ),
+              )
+
+          ),
+        ),
+      ),
+    ):
+    Padding(
+      padding:  EdgeInsets.only(left: parentWidth*0.05),
+      child: Container(
+
+        width:parentWidth*0.2,
+        child: Center(
+          child: Text(
+            "Joined",
+            style: TextStyle(
+                fontFamily:
+                "Roboto_Regular",
+                fontWeight:
+                FontWeight
+                    .w700,
+                fontSize:
+                SizeConfig.blockSizeHorizontal *
+                    4.3,
+                color: CommonColor
+                    .REGISTRARTION_COLOR),
+          ),
+        ),
+      ),
+    ),
+
+  ],
+)                                          ],
                                         ),
 
                                       ]),

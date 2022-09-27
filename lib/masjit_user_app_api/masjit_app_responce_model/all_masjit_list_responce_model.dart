@@ -1,6 +1,6 @@
 // To parse this JSON data, do
 //
-//     final allMasjitJoinListResponceModel = allMasjitJoinListResponceModelFromJson(jsonString);
+//     final allMasjitListResponceModel = allMasjitListResponceModelFromJson(jsonString);
 
 import 'dart:convert';
 
@@ -29,25 +29,29 @@ class Datum {
     this.id,
     this.images,
     this.weeklyNamaz,
+    this.joined,
     this.place,
   });
 
   int? id;
   List<String>? images;
   List<WeeklyNamaz>? weeklyNamaz;
+  bool? joined;
   List<Place>? place;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
     id: json["id"],
-    images: json["images"] == null ? null : List<String>.from(json["images"].map((x) => x)),
-    weeklyNamaz: json["weekly_namaz"] == null ? null : List<WeeklyNamaz>.from(json["weekly_namaz"].map((x) => WeeklyNamaz.fromJson(x))),
+    images: List<String>.from(json["images"].map((x) => x)),
+    weeklyNamaz: List<WeeklyNamaz>.from(json["weekly_namaz"].map((x) => WeeklyNamaz.fromJson(x))),
+    joined: json["joined"],
     place: List<Place>.from(json["place"].map((x) => Place.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
-    "images": images == null ? null : List<dynamic>.from(images!.map((x) => x)),
-    "weekly_namaz": weeklyNamaz == null ? null : List<dynamic>.from(weeklyNamaz!.map((x) => x.toJson())),
+    "images": List<dynamic>.from(images!.map((x) => x)),
+    "weekly_namaz": List<dynamic>.from(weeklyNamaz!.map((x) => x.toJson())),
+    "joined": joined,
     "place": List<dynamic>.from(place!.map((x) => x.toJson())),
   };
 }
@@ -79,10 +83,10 @@ class Place {
     lat: json["lat"],
     long: json["long"],
     masjidName: json["masjid_name"],
-    street: json["street"] == null ? null : json["street"],
-    subLocality: json["sub_locality"] == null ? null : json["sub_locality"],
+    street: json["street"],
+    subLocality: json["sub_locality"],
     locality: json["locality"],
-    postalCode: json["postal_code"] == null ? null : json["postal_code"],
+    postalCode: json["postal_code"],
     administrativeArea: json["administrative_area"],
     country: json["country"],
   );
@@ -91,10 +95,10 @@ class Place {
     "lat": lat,
     "long": long,
     "masjid_name": masjidName,
-    "street": street == null ? null : street,
-    "sub_locality": subLocality == null ? null : subLocality,
+    "street": street,
+    "sub_locality": subLocality,
     "locality": locality,
-    "postal_code": postalCode == null ? null : postalCode,
+    "postal_code": postalCode,
     "administrative_area": administrativeArea,
     "country": country,
   };
