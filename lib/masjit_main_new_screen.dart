@@ -47,6 +47,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
   TabController? _tabController;
   var getNotice;
   late Box box;
+  int _selectedIndex = 0;
   List<dynamic> _allCommentsArr = [];
 
   @override
@@ -328,7 +329,8 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                                   parentHeight * 0.01,left: parentWidth*0.02),
                                                           child: Expanded(
                                                             child: Text(
-                                                              "${snapshot.data?.data?[index].place?[0].masjidName}",
+                                                              snapshot.data?.data?[index].place?[0].masjidName !=null?
+                                                              "${snapshot.data?.data?[index].place?[0].masjidName}":"",
                                                               style: TextStyle(
                                                                   fontSize: SizeConfig
                                                                           .blockSizeHorizontal *
@@ -350,7 +352,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                 ),
                                                 Padding(
                                                   padding: EdgeInsets.only(
-left: parentWidth*0.04,
+                                                    left: parentWidth*0.04,
                                                       top:
                                                       parentHeight * 0.005),
                                                   child: Container(
@@ -469,7 +471,8 @@ left: parentWidth*0.04,
                                                   top: parentHeight * 0.003,
                                                   left: parentHeight * 0.01),
                                               child: Text(
-                                                " ${snapshot.data?.data?[index].place?[0].subLocality}",
+                                              snapshot.data?.data?[index].place?[0].subLocality != null?
+                                              "${snapshot.data?.data?[index].place?[0].subLocality}":"",
                                                 style: TextStyle(
                                                     fontSize: SizeConfig
                                                             .blockSizeHorizontal *
@@ -666,7 +669,7 @@ left: parentWidth*0.04,
                                                     SizeConfig.screenWidth),
                                                 getAddFridayTimeLayout(
                                                     SizeConfig.screenHeight,
-                                                    SizeConfig.screenWidth),
+                                                    SizeConfig.screenWidth,index),
                                                 getAddshariIftarLayout(
                                                     SizeConfig.screenHeight,
                                                     SizeConfig.screenWidth,
@@ -1234,11 +1237,12 @@ left: parentWidth*0.04,
     );
   }
 
-  Widget getAddFridayTimeLayout(double parentHeight, double parentWidth) {
+  Widget getAddFridayTimeLayout(double parentHeight, double parentWidth,int index) {
     return GestureDetector(
       onTapDown: (tab) {
         setState(() {
-          FridayTime = !FridayTime;
+         // FridayTime = !FridayTime ? false : true;
+          _selectedIndex = index;
         });
       },
       child: Padding(
@@ -1413,11 +1417,13 @@ left: parentWidth*0.04,
                           })
                     ],
                   ),
-                ))
+                )),
+
           ],
         ),
       ),
     );
+
   }
 
   Widget getAddshariIftarLayout(

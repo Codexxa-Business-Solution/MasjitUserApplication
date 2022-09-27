@@ -310,7 +310,9 @@ height: parentHeight*0.8,
 
 
 
-                  FutureBuilder<AllMasjitDetailsResponceModel>(
+                  FutureBuilder<AllMasjitDetailsResponceModel>
+
+                    (
                       future: getMasjidInfo,
                       builder: (context, snapshot) {
                         print(" name...  ${snapshot.data?.place?.masjidName.toString()}");
