@@ -317,6 +317,7 @@ class _LoginScreenState extends State<LoginScreen> {
               fontWeight: FontWeight.w400,
              // fontSize: SizeConfig.blockSizeHorizontal * 4.5,
               color: CommonColor.BLACK_COLOR
+
           ),),
 
           GestureDetector(
