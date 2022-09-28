@@ -162,7 +162,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 decoration: InputDecoration(
                     labelText: 'Password',
-
+                    labelStyle: TextStyle(
+                        color: CommonColor.REGISTRARTION_COLOR
+                    ),
                     contentPadding: const EdgeInsets.all(15),
                     isDense: true,
                     focusedBorder: OutlineInputBorder(
