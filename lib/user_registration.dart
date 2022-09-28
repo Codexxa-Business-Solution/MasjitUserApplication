@@ -662,7 +662,7 @@ Future<UserRegisterRespnseModel>? result;
   }
 
 
-  Future<UserUpdateRegistrationResponceModel> getRegisterVendors() async {
+ /* Future<UserUpdateRegistrationResponceModel> getRegisterVendors() async {
     print("HIIIIIIII ${areaController.text.trim()}"
         " ${cityController.text.trim()} "
         "${stateController.text.trim()}"
@@ -689,5 +689,5 @@ Future<UserRegisterRespnseModel>? result;
     } catch (e) {
       throw e;
     }
-  }
+  }*/
 }

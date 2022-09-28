@@ -7,6 +7,7 @@ import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/user
 import 'package:masjiduserapp/privacy_policy.dart';
 import 'package:masjiduserapp/size_config.dart';
 import 'package:masjiduserapp/terms_and_condition.dart';
+import 'package:masjiduserapp/user_login_screen.dart';
 import 'package:masjiduserapp/util/constant.dart';
 
 import 'package:http/http.dart' as http;
@@ -86,13 +87,8 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                 child: Padding(
                   padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.0),
                   child: Center(
-                    child: Text("Logo",
-                        style: TextStyle(
-                            fontSize: SizeConfig.blockSizeHorizontal * 5.0,
-                            fontFamily: 'Roboto_Bold',
-                            letterSpacing: SizeConfig.screenWidth * 0.00,
-                            fontWeight: FontWeight.w400,
-                            color: CommonColor.WHITE_COLOR)),
+                    child: Image(image: AssetImage("assets/images/appLogo.png"),
+                    height: SizeConfig.screenHeight*0.04,),
                   ),
                 ),
               ),
@@ -105,7 +101,7 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                   child: Container(
                     height: SizeConfig.screenHeight * .050,
 
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: CommonColor.SEARCH_COLOR,
                       borderRadius:
                       BorderRadius.all(Radius.circular(10)),
@@ -361,7 +357,7 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                                               box.delete(kUserPhoneNumber);
 
 
-                                                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>EnterMobileNumber()),
+                                                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>LoginScreen()),
                                                         (Route route) => false);
 
 
