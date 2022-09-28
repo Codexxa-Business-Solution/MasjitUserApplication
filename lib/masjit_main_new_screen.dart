@@ -4,12 +4,11 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:http/http.dart' as http;
 import 'package:masjiduserapp/all_masjit_list.dart';
 import 'package:masjiduserapp/common.color.dart';
 import 'package:masjiduserapp/map_screen.dart';
-import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/all_masjit_remove_list_response_model.dart';
 import 'package:masjiduserapp/size_config.dart';
-import 'package:http/http.dart' as http;
 import 'package:masjiduserapp/util/constant.dart';
 import 'package:masjiduserapp/util/removed_masjit_dilog_box.dart';
 
@@ -124,165 +123,164 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                 children: [
                                   Container(
                                       child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          GestureDetector(
-                                            onDoubleTap: () {},
-                                            onTap: () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          MasjitMappScreen(
-                                                            tabNum: "1",
-                                                            masjitTrusteeId: '',
-                                                            lat: '',
-                                                            long: '',
-                                                          )));
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      GestureDetector(
+                                        onDoubleTap: () {},
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      MasjitMappScreen(
+                                                        tabNum: "1",
+                                                        masjitTrusteeId: '',
+                                                        lat: '',
+                                                        long: '', masjitNoticeId: '',
+                                                      )));
 
-                                              if (mounted) {
-                                                setState(() {});
-                                              }
-                                            },
-                                            child: Container(
-                                              width: parentWidth * 0.28,
-                                              height: parentHeight * 0.047,
-                                              decoration: BoxDecoration(
-                                                  /*mapScreen == true*/
-                                                  // CommonColor.REGISTRARTION_TRUSTEE,
+                                          if (mounted) {
+                                            setState(() {});
+                                          }
+                                        },
+                                        child: Container(
+                                          width: parentWidth * 0.28,
+                                          height: parentHeight * 0.047,
+                                          decoration: BoxDecoration(
+                                              /*mapScreen == true*/
+                                              // CommonColor.REGISTRARTION_TRUSTEE,
 
-                                                  // Colors.white,
-                                                  borderRadius:
-                                                      BorderRadius.circular(50),
-                                                  border: Border.all(
-                                                      color:
-                                                          CommonColor.RIGHT_COLOR,
-                                                      width: 1)),
-                                              child: Center(
-                                                child: Text(
-
-                                                  "Map",
-                                                  style: TextStyle(
-                                                    /*color: mapScreen == true
+                                              // Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(50),
+                                              border: Border.all(
+                                                  color:
+                                                      CommonColor.RIGHT_COLOR,
+                                                  width: 1)),
+                                          child: Center(
+                                            child: Text(
+                                              "Map",
+                                              style: TextStyle(
+                                                /*color: mapScreen == true
                                                     ? Colors.white
                                                     : Colors.black,*/
-                                                    fontWeight: FontWeight.w400,
-                                                    fontSize: SizeConfig
-                                                            .blockSizeHorizontal *
-                                                        3.5,
-                                                    fontFamily: 'Roboto_Medium',
-                                                  ),
-                                                ),
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: SizeConfig
+                                                        .blockSizeHorizontal *
+                                                    3.5,
+                                                fontFamily: 'Roboto_Medium',
                                               ),
                                             ),
                                           ),
-                                          GestureDetector(
-                                            onDoubleTap: () {},
-                                            onTap: () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          MasjitMappScreen(
-                                                              tabNum: "2",
-                                                              masjitTrusteeId: '',
-                                                              lat: '',
-                                                              long: '')));
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onDoubleTap: () {},
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      MasjitMappScreen(
+                                                          tabNum: "2",
+                                                          masjitTrusteeId: '',
+                                                          lat: '',
+                                                          long: '', masjitNoticeId: '',)));
 
-                                              if (mounted)
-                                                setState(() {
-                                                  /*mapScreen = false;
+                                          if (mounted)
+                                            setState(() {
+                                              /*mapScreen = false;
                                               trusteeScreen = true;
                                               showDetails = false;
                                               noticeScreen = false;*/
-                                                });
-                                            },
-                                            child: Container(
-                                              width: parentWidth * 0.28,
-                                              height: parentHeight * 0.047,
-                                              decoration: BoxDecoration(
-                                                  /*color: trusteeScreen
+                                            });
+                                        },
+                                        child: Container(
+                                          width: parentWidth * 0.28,
+                                          height: parentHeight * 0.047,
+                                          decoration: BoxDecoration(
+                                              /*color: trusteeScreen
                                                   ? CommonColor.REGISTRARTION_TRUSTEE
                                                   .withOpacity(0.9)
                                                   : Colors.white,*/
-                                                  borderRadius:
-                                                      BorderRadius.circular(50),
-                                                  border: Border.all(
-                                                      color:
-                                                          CommonColor.RIGHT_COLOR,
-                                                      width: 1)),
-                                              child: Center(
-                                                child: Text(
-                                                  "Trustee",
-                                                  style: TextStyle(
-                                                    /*color: trusteeScreen
+                                              borderRadius:
+                                                  BorderRadius.circular(50),
+                                              border: Border.all(
+                                                  color:
+                                                      CommonColor.RIGHT_COLOR,
+                                                  width: 1)),
+                                          child: Center(
+                                            child: Text(
+                                              "Trustee",
+                                              style: TextStyle(
+                                                /*color: trusteeScreen
                                                     ? Colors.white
                                                     : Colors.black,*/
-                                                    fontWeight: FontWeight.w400,
-                                                    fontSize: SizeConfig
-                                                            .blockSizeHorizontal *
-                                                        3.5,
-                                                    fontFamily: 'Roboto_Medium',
-                                                  ),
-                                                ),
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: SizeConfig
+                                                        .blockSizeHorizontal *
+                                                    3.5,
+                                                fontFamily: 'Roboto_Medium',
                                               ),
                                             ),
                                           ),
-                                          GestureDetector(
-                                            onDoubleTap: () {},
-                                            onTap: () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          MasjitMappScreen(
-                                                            tabNum: "3",
-                                                            masjitTrusteeId: '',
-                                                            lat: '',
-                                                            long: '',
-                                                          )));
-                                              if (mounted)
-                                                setState(() {
-                                                  /* mapScreen = false;
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onDoubleTap: () {},
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      MasjitMappScreen(
+                                                        tabNum: "3",
+                                                        masjitTrusteeId: '',
+                                                        lat: '',
+                                                        long: '', masjitNoticeId: '',
+                                                      )));
+                                          if (mounted)
+                                            setState(() {
+                                              /* mapScreen = false;
                                               showDetails = false;
                                               trusteeScreen = false;
                                               noticeScreen = true;*/
-                                                });
-                                            },
-                                            child: Container(
-                                              width: parentWidth * 0.28,
-                                              height: parentHeight * 0.047,
-                                              decoration: BoxDecoration(
-                                                  /*color: noticeScreen
+                                            });
+                                        },
+                                        child: Container(
+                                          width: parentWidth * 0.28,
+                                          height: parentHeight * 0.047,
+                                          decoration: BoxDecoration(
+                                              /*color: noticeScreen
                                                   ? CommonColor.REGISTRARTION_TRUSTEE
                                                   .withOpacity(0.9)
                                                   : Colors.white,*/
-                                                  borderRadius:
-                                                      BorderRadius.circular(50),
-                                                  border: Border.all(
-                                                      color:
-                                                          CommonColor.RIGHT_COLOR,
-                                                      width: 1)),
-                                              child: Center(
-                                                child: Text(
-                                                  "Notice",
-                                                  style: TextStyle(
-                                                    /* color: noticeScreen == true
+                                              borderRadius:
+                                                  BorderRadius.circular(50),
+                                              border: Border.all(
+                                                  color:
+                                                      CommonColor.RIGHT_COLOR,
+                                                  width: 1)),
+                                          child: Center(
+                                            child: Text(
+                                              "Notice",
+                                              style: TextStyle(
+                                                /* color: noticeScreen == true
                                                     ? Colors.white
                                                     : Colors.black,*/
-                                                    fontWeight: FontWeight.w400,
-                                                    fontSize: SizeConfig
-                                                            .blockSizeHorizontal *
-                                                        3.5,
-                                                    fontFamily: 'Roboto_Medium',
-                                                  ),
-                                                ),
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: SizeConfig
+                                                        .blockSizeHorizontal *
+                                                    3.5,
+                                                fontFamily: 'Roboto_Medium',
                                               ),
                                             ),
                                           ),
-                                        ],
-                                      )
+                                        ),
+                                      ),
+                                    ],
+                                  )
                                       /* });
                       }),*/
                                       ),
@@ -298,83 +296,102 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                             Row(
                                               children: [
                                                 Padding(
-                                                  padding:  EdgeInsets.only(right: parentWidth*0.07),
+                                                  padding: EdgeInsets.only(
+                                                      right:
+                                                          parentWidth * 0.07),
                                                   child: Row(
-                                                  /*  mainAxisAlignment:
+                                                    /*  mainAxisAlignment:
                                                     MainAxisAlignment.start,*/
                                                     children: [
                                                       Padding(
-                                                        padding: EdgeInsets.only(
-                                                            right: SizeConfig.screenWidth * 0.0,
-                                                           ),
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                          right: SizeConfig
+                                                                  .screenWidth *
+                                                              0.0,
+                                                        ),
                                                         child: Padding(
-                                                          padding:  EdgeInsets.only(left: parentWidth*0.02),
+                                                          padding: EdgeInsets.only(
+                                                              left:
+                                                                  parentWidth *
+                                                                      0.02),
                                                           child: Container(
-
-
                                                             child: Image.asset(
                                                               'assets/images/image.png',
-                                                              height: SizeConfig.screenHeight * .04,
+                                                              height: SizeConfig
+                                                                      .screenHeight *
+                                                                  .04,
                                                             ),
                                                           ),
                                                         ),
                                                       ),
                                                       Container(
-                                                        width:parentWidth*0.5,
-                                                       // color:Colors.red,
+                                                        width:
+                                                            parentWidth * 0.5,
+                                                        // color:Colors.red,
 
                                                         child: Padding(
                                                           padding: EdgeInsets.only(
                                                               top:
-                                                                  parentHeight * 0.01,left: parentWidth*0.02),
-                                                          child: Expanded(
-                                                            child: Text(
-                                                              snapshot.data?.data?[index].place?[0].masjidName !=null?
-                                                              "${snapshot.data?.data?[index].place?[0].masjidName}":"",
-                                                              style: TextStyle(
-                                                                  fontSize: SizeConfig
-                                                                          .blockSizeHorizontal *
-                                                                      4.0,
-                                                                  color: CommonColor
-                                                                      .BLACK_COLOR,
-                                                                  fontWeight:
-                                                                      FontWeight.w400,
-
-                                                                  fontFamily:
-                                                                      'Roboto_Bold'),
-                                                            ),
+                                                                  parentHeight *
+                                                                      0.01,
+                                                              left:
+                                                                  parentWidth *
+                                                                      0.02),
+                                                          child: Text(
+                                                            snapshot
+                                                                        .data
+                                                                        ?.data?[
+                                                                            index]
+                                                                        .place?[
+                                                                            0]
+                                                                        .masjidName !=
+                                                                    null
+                                                                ? "${snapshot.data?.data?[index].place?[0].masjidName}"
+                                                                : "",
+                                                            style: TextStyle(
+                                                                fontSize:
+                                                                    SizeConfig
+                                                                            .blockSizeHorizontal *
+                                                                        4.0,
+                                                                color: CommonColor
+                                                                    .BLACK_COLOR,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400,
+                                                                fontFamily:
+                                                                    'Roboto_Bold'),
                                                           ),
                                                         ),
                                                       ),
-
                                                     ],
                                                   ),
                                                 ),
                                                 Padding(
                                                   padding: EdgeInsets.only(
-                                                    left: parentWidth*0.04,
+                                                      left: parentWidth * 0.04,
                                                       top:
-                                                      parentHeight * 0.005),
+                                                          parentHeight * 0.005),
                                                   child: Container(
                                                     width: parentWidth * .20,
                                                     height: parentWidth * .07,
-                                                   // color: Colors.yellow,
+                                                    // color: Colors.yellow,
                                                     child: GestureDetector(
                                                       onTap: () {
                                                         showGeneralDialog(
                                                             barrierColor: Colors
                                                                 .black
                                                                 .withOpacity(
-                                                                0.8),
+                                                                    0.8),
                                                             transitionBuilder:
                                                                 (context,
-                                                                a1,
-                                                                a2,
-                                                                widget) {
+                                                                    a1,
+                                                                    a2,
+                                                                    widget) {
                                                               final curvedValue = Curves
-                                                                  .easeInOutBack
-                                                                  .transform(
-                                                                  a1.value) -
+                                                                      .easeInOutBack
+                                                                      .transform(
+                                                                          a1.value) -
                                                                   1.0;
                                                               // return Transform(
                                                               //   transform: Matrix4.translationValues(
@@ -384,49 +401,48 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                                 scale: a1.value,
                                                                 child: Opacity(
                                                                   opacity:
-                                                                  a1.value,
+                                                                      a1.value,
                                                                   child:
-                                                                  EndFriendDialog(
+                                                                      EndFriendDialog(
                                                                     index:
-                                                                    index,
+                                                                        index,
                                                                     mListener:
-                                                                    this,
+                                                                        this,
                                                                     masjitRemoveIdd:
-                                                                    "${snapshot.data?.data?[index].id}",
-                                                                    joinedMasjid: _allCommentsArr,
-
+                                                                        "${snapshot.data?.data?[index].id}",
+                                                                    joinedMasjid:
+                                                                        _allCommentsArr,
                                                                   ),
                                                                 ),
                                                               );
                                                             },
                                                             transitionDuration:
-                                                            Duration(
-                                                                milliseconds:
-                                                                200),
+                                                                Duration(
+                                                                    milliseconds:
+                                                                        200),
                                                             barrierDismissible:
-                                                            true,
+                                                                true,
                                                             barrierLabel: '',
                                                             context: context,
                                                             // ignore: missing_return
                                                             pageBuilder:
                                                                 (context,
-                                                                animation2,
-                                                                animation1) {
+                                                                    animation2,
+                                                                    animation1) {
                                                               return Container();
                                                             });
                                                         print(
                                                             "MasjitIdRemovessss   ${widget.masjitIdRemoved}");
                                                         print(
                                                             "id ${snapshot.data?.data?[index].id}");
-
                                                       },
                                                       child: Container(
                                                           height: parentHeight *
                                                               0.03,
                                                           width:
-                                                          parentWidth * 0.3,
+                                                              parentWidth * 0.3,
                                                           decoration:
-                                                          BoxDecoration(
+                                                              BoxDecoration(
                                                             gradient: LinearGradient(
                                                                 begin: Alignment
                                                                     .centerLeft,
@@ -439,24 +455,26 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                                       .RIGHT_COLOR
                                                                 ]),
                                                             borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                                7),
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        7),
                                                           ),
                                                           child: Center(
                                                             child: Text(
                                                               "Removed",
                                                               style: TextStyle(
                                                                   fontFamily:
-                                                                  "Roboto_Regular",
+                                                                      "Roboto_Regular",
                                                                   fontWeight:
-                                                                  FontWeight
-                                                                      .w700,
+                                                                      FontWeight
+                                                                          .w700,
                                                                   fontSize:
-                                                                  SizeConfig
-                                                                      .blockSizeHorizontal *
-                                                                      3.0,
-                                                                  letterSpacing: parentWidth * 0.001,
+                                                                      SizeConfig
+                                                                              .blockSizeHorizontal *
+                                                                          3.0,
+                                                                  letterSpacing:
+                                                                      parentWidth *
+                                                                          0.001,
                                                                   color: CommonColor
                                                                       .WHITE_COLOR),
                                                             ),
@@ -471,8 +489,14 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                   top: parentHeight * 0.003,
                                                   left: parentHeight * 0.01),
                                               child: Text(
-                                              snapshot.data?.data?[index].place?[0].subLocality != null?
-                                              "${snapshot.data?.data?[index].place?[0].subLocality}":"",
+                                                snapshot
+                                                            .data
+                                                            ?.data?[index]
+                                                            .place?[0]
+                                                            .subLocality !=
+                                                        null
+                                                    ? "${snapshot.data?.data?[index].place?[0].subLocality}"
+                                                    : "",
                                                 style: TextStyle(
                                                     fontSize: SizeConfig
                                                             .blockSizeHorizontal *
@@ -594,12 +618,6 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                                   itemBuilder: (BuildContext context,
                                                                       int itemIndex,
                                                                       int index) {
-
-
-
-
-
-
                                                                     return Padding(
                                                                       padding: EdgeInsets.only(
                                                                           left: parentWidth *
@@ -669,7 +687,8 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                     SizeConfig.screenWidth),
                                                 getAddFridayTimeLayout(
                                                     SizeConfig.screenHeight,
-                                                    SizeConfig.screenWidth,index),
+                                                    SizeConfig.screenWidth,
+                                                    index),
                                                 getAddshariIftarLayout(
                                                     SizeConfig.screenHeight,
                                                     SizeConfig.screenWidth,
@@ -1237,12 +1256,12 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
     );
   }
 
-  Widget getAddFridayTimeLayout(double parentHeight, double parentWidth,int index) {
+  Widget getAddFridayTimeLayout(
+      double parentHeight, double parentWidth, int index) {
     return GestureDetector(
       onTapDown: (tab) {
         setState(() {
-         // FridayTime = !FridayTime ? false : true;
-          _selectedIndex = index;
+          FridayTime = !FridayTime;
         });
       },
       child: Padding(
@@ -1380,19 +1399,15 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                 Container(
                                     height: parentHeight * 0.04,
                                     width: parentWidth * 0.7,
-                                    child: snapshot.data?.data?.length != null
-                                        ? ListView.builder(
+                                    child:
+                                         ListView.builder(
                                             //physics: NeverScrollableScrollPhysics(),
                                             shrinkWrap: true,
                                             scrollDirection: Axis.horizontal,
                                             itemCount:
-                                                snapshot.data?.data?.length,
+                                                snapshot.data?.data?[index].jumma?.jammat?.length,
                                             itemBuilder: (context, index) {
-                                              return
-
-                                                  /* snapshot.data?.jumma?.jammat?.length != null
-                                       ?*/
-                                                  Padding(
+                                              return  Padding(
                                                 padding: EdgeInsets.only(
                                                     top: parentHeight * 0.01,
                                                     left: parentHeight * 0.02),
@@ -1401,7 +1416,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                       MainAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      "${snapshot.data?.data?[0].jumma?.jammat?[0]}",
+                                                      "${snapshot.data?.data?[0].jumma?.jammat?[index]}",
                                                       style: TextStyle(
                                                           fontSize: SizeConfig
                                                                   .blockSizeHorizontal *
@@ -1411,19 +1426,17 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                 ),
                                               );
                                             })
-                                        : Container()),
+                                       ),
                               ],
                             );
                           })
                     ],
                   ),
                 )),
-
           ],
         ),
       ),
     );
-
   }
 
   Widget getAddshariIftarLayout(
@@ -1611,7 +1624,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
             Container(
                 height: parentHeight * 0.04,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
+                  gradient: const LinearGradient(
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
                       colors: [
@@ -1653,7 +1666,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                   height: parentHeight * 0.15,
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                         bottomRight: Radius.circular(20),
                         bottomLeft: Radius.circular(20)),
                     boxShadow: <BoxShadow>[
@@ -1661,15 +1674,15 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                         color: Colors.grey.shade300,
                         spreadRadius: 1,
                         blurRadius: 5,
-                        offset: Offset(0, 5),
+                        offset: const Offset(0, 5),
                       ),
                       BoxShadow(
                         color: Colors.grey.shade50,
-                        offset: Offset(-5, 0),
+                        offset: const Offset(-5, 0),
                       ),
                       BoxShadow(
                         color: Colors.grey.shade50,
-                        offset: Offset(5, 0),
+                        offset: const Offset(5, 0),
                       )
                     ],
                   ),
@@ -1723,19 +1736,36 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                               0.05,
                                                           top: parentHeight *
                                                               0.01),
-                                                      child: Text(
-                                                          "Jammat  ${snapshot.data?.data?[0].eid?[index].jammat?[0]}",
-                                                          style: TextStyle(
-                                                            fontSize: SizeConfig
-                                                                    .blockSizeHorizontal *
-                                                                4.3,
-                                                            fontFamily:
-                                                                'Roboto_Bold',
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            color: CommonColor
-                                                                .BLACK_COLOR,
-                                                          )),
+                                                      child: Row(
+                                                        children: [
+                                                          Text(
+                                                              "Jammat",
+                                                              style: TextStyle(
+                                                                fontSize: SizeConfig
+                                                                        .blockSizeHorizontal *
+                                                                    4.3,
+                                                                fontFamily:
+                                                                    'Roboto_Bold',
+                                                                fontWeight:
+                                                                    FontWeight.w600,
+                                                                color: CommonColor
+                                                                    .BLACK_COLOR,
+                                                              )),
+                                                          Text(
+                                                              "${snapshot.data?.data?[0].eid?[index].jammat?[0]}",
+                                                              style: TextStyle(
+                                                                fontSize: SizeConfig
+                                                                        .blockSizeHorizontal *
+                                                                    4.3,
+                                                                fontFamily:
+                                                                    'Roboto_Bold',
+                                                                fontWeight:
+                                                                    FontWeight.w600,
+                                                                color: CommonColor
+                                                                    .BLACK_COLOR,
+                                                              )),
+                                                        ],
+                                                      ),
                                                     ),
                                                   ],
                                                 ),
@@ -1765,10 +1795,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
             MaterialPageRoute(
                 builder: (context) => AllMasjitList(
                       onNext: () {},
-                    )
-
-
-            ));
+                    )));
       },
       child: Padding(
         padding: EdgeInsets.only(
@@ -1879,7 +1906,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
     }
   }
 
- /* Future<UseRemoveResponceModel> getRemoveMasjit(
+  /* Future<UseRemoveResponceModel> getRemoveMasjit(
       masjitIdRemoved, int index) async {
     var headersList = {'Authorization': 'Bearer ${box.get(kToken)}'};
 
