@@ -136,8 +136,8 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                       MasjitMappScreen(
                                                         tabNum: "1",
                                                         masjitTrusteeId:"${snapshot.data?.data?[index].id}",
-                                                        lat: "${snapshot.data?.data?[index].place?[index].lat}",
-                                                        long: "${snapshot.data?.data?[index].place?[index].long}",
+                                                        lat: "${snapshot.data?.data?[index].place?[0].lat}",
+                                                        long:  "${snapshot.data?.data?[index].place?[0].long}",
                                                         masjitNoticeId:  "${snapshot.data?.data?[index].id}",
                                                       )));
 
@@ -186,8 +186,8 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                       MasjitMappScreen(
                                                         tabNum: "2",
                                                         masjitTrusteeId: "${snapshot.data?.data?[index].id}",
-                                                        lat: "${snapshot.data?.data?[index].place?[index].lat}",
-                                                        long:  "${snapshot.data?.data?[index].place?[index].long}",
+                                                        lat: "${snapshot.data?.data?[index].place?[0].lat}",
+                                                        long:  "${snapshot.data?.data?[index].place?[0].long}",
                                                         masjitNoticeId: "${snapshot.data?.data?[index].id}",
                                                       )));
 
@@ -240,8 +240,8 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                       MasjitMappScreen(
                                                         tabNum: "3",
                                                         masjitTrusteeId: "${snapshot.data?.data?[index].id}",
-                                                        lat:  "${snapshot.data?.data?[index].place?[index].lat}",
-                                                        long:  "${snapshot.data?.data?[index].place?[index].long}",
+                                                        lat: "${snapshot.data?.data?[index].place?[0].lat}",
+                                                        long:  "${snapshot.data?.data?[index].place?[0].long}",
                                                         masjitNoticeId: "${snapshot.data?.data?[index].id}",
                                                       )));
                                           if (mounted)
