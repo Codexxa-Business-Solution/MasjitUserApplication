@@ -245,29 +245,23 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                                 ])),
                         child: Column(
                           children: [
-                            Padding(
-                              padding: EdgeInsets.only(bottom: 6),
-                              child: Text(
-                                "User Number",
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontFamily: 'Roboto_Medium',
-                                    fontWeight: FontWeight.w700,
-                                    color: CommonColor.WHITE_COLOR),
-                                textAlign: TextAlign.center,
-                              ),
+                            Text(
+                              "User Number",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: 'Roboto_Medium',
+                                  fontWeight: FontWeight.w500,
+                                  color: CommonColor.WHITE_COLOR),
+                              textAlign: TextAlign.center,
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(bottom: 6),
-                              child: Text(
-                                "${box.get("phone")}",
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontFamily: 'Roboto_Medium',
-                                    fontWeight: FontWeight.w700,
-                                    color: CommonColor.WHITE_COLOR),
-                                textAlign: TextAlign.center,
-                              ),
+                            Text(
+                              "${box.get("phone")}",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: 'Roboto_Medium',
+                                  fontWeight: FontWeight.w500,
+                                  color: CommonColor.WHITE_COLOR),
+                              textAlign: TextAlign.center,
                             ),
                           ],
                         ),
@@ -294,7 +288,7 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                       },
                       // leading: Icon(Icons.message),
                       title: Padding(
-                        padding: EdgeInsets.only(left: 8),
+                        padding: EdgeInsets.only(left: SizeConfig.screenWidth*0.02),
                         child: Text(
                           "Privacy Policy",
                           style: TextStyle(
@@ -312,7 +306,7 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                       },
                       // leading: Icon(Icons.message),
                       title: Padding(
-                        padding: EdgeInsets.only(left: 8),
+                        padding: EdgeInsets.only(left: SizeConfig.screenWidth*0.02),
                         child: Text(
                           "Terms & Condition",
                           style: TextStyle(
@@ -456,7 +450,7 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                       },
                       // leading: Icon(Icons.message),
                       title: Padding(
-                        padding: EdgeInsets.only(left: 8),
+                        padding: EdgeInsets.only(left: SizeConfig.screenWidth*0.02),
                         child: Text(
                           "Logout",
                           style: TextStyle(
