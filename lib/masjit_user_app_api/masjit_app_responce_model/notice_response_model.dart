@@ -14,6 +14,7 @@ class AllMasjitDetailsResponceModel {
     this.weeklyNamaz,
     this.jumma,
     this.trustee,
+    this.notice,
     this.eid,
     this.images,
     this.sahr,
@@ -25,8 +26,9 @@ class AllMasjitDetailsResponceModel {
   List<WeeklyNamaz>? weeklyNamaz;
   Jumma? jumma;
   List<Trustee>? trustee;
+  List<Notice>? notice;
   List<Eid>? eid;
-  List<dynamic>? images;
+  List<String>? images;
   String? sahr;
   String? iftar;
   Place? place;
@@ -36,8 +38,9 @@ class AllMasjitDetailsResponceModel {
     weeklyNamaz: List<WeeklyNamaz>.from(json["weekly_namaz"].map((x) => WeeklyNamaz.fromJson(x))),
     jumma: Jumma.fromJson(json["jumma"]),
     trustee: List<Trustee>.from(json["trustee"].map((x) => Trustee.fromJson(x))),
+    notice: List<Notice>.from(json["notice"].map((x) => Notice.fromJson(x))),
     eid: List<Eid>.from(json["eid"].map((x) => Eid.fromJson(x))),
-    images: List<dynamic>.from(json["images"].map((x) => x)),
+    images: List<String>.from(json["images"].map((x) => x)),
     sahr: json["sahr"],
     iftar: json["iftar"],
     place: Place.fromJson(json["place"]),
@@ -48,11 +51,12 @@ class AllMasjitDetailsResponceModel {
     "weekly_namaz": List<dynamic>.from(weeklyNamaz!.map((x) => x.toJson())),
     "jumma": jumma?.toJson(),
     "trustee": List<dynamic>.from(trustee!.map((x) => x.toJson())),
+    "notice": List<dynamic>.from(notice!.map((x) => x.toJson())),
     "eid": List<dynamic>.from(eid!.map((x) => x.toJson())),
     "images": List<dynamic>.from(images!.map((x) => x)),
     "sahr": sahr,
     "iftar": iftar,
-    "place": place!.toJson(),
+    "place": place?.toJson(),
   };
 }
 
@@ -93,6 +97,38 @@ class Jumma {
   Map<String, dynamic> toJson() => {
     "azan": azan,
     "jammat": List<dynamic>.from(jammat!.map((x) => x)),
+  };
+}
+
+class Notice {
+  Notice({
+    this.id,
+    this.masjidId,
+    this.notice,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  int? id;
+  int? masjidId;
+  String? notice;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+
+  factory Notice.fromJson(Map<String, dynamic> json) => Notice(
+    id: json["id"],
+    masjidId: json["masjid_id"],
+    notice: json["notice"],
+    createdAt: DateTime.parse(json["created_at"]),
+    updatedAt: DateTime.parse(json["updated_at"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "masjid_id": masjidId,
+    "notice": notice,
+    "created_at": createdAt?.toIso8601String(),
+    "updated_at": updatedAt?.toIso8601String(),
   };
 }
 

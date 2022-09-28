@@ -6,8 +6,8 @@ import 'package:http/http.dart' as http;
 import 'package:masjiduserapp/util/constant.dart';
 
 class NoticeUserTab extends StatefulWidget {
-  const NoticeUserTab({Key? key,/* required this.masjitNoticeId*/}) : super(key: key);
-  //final String masjitNoticeId;
+  const NoticeUserTab({Key? key,required this.masjitNoticeId}) : super(key: key);
+  final String masjitNoticeId;
 
   @override
   State<NoticeUserTab> createState() => _NoticeUserTabState();
@@ -22,10 +22,9 @@ class _NoticeUserTabState extends State<NoticeUserTab> {
   void initState() {
     super.initState();
     box = Hive.box(kBoxName);
-   // getNotice = getNoticeSection(widget.masjitNoticeId);
-   // getNotice = getNoticeSection();
+    getNotice = getNoticeSection(widget.masjitNoticeId);
     print(" fffffff $getNotice");
-    //print("trusteeScreenId ${widget.masjitNoticeId}");
+    print("trusteeScreenId ${widget.masjitNoticeId}");
     print(getNotice);
   }
 
@@ -36,45 +35,48 @@ class _NoticeUserTabState extends State<NoticeUserTab> {
       backgroundColor: Colors.white,
       body: Container(
         height: SizeConfig.screenHeight * 0.9,
-       color: Colors.red,
-       /* child: getAddTermsTextLayout(
-            SizeConfig.screenHeight, SizeConfig.screenWidth),*/
+
+        child: getAddTermsTextLayout(
+            SizeConfig.screenHeight, SizeConfig.screenWidth),
       ),
     );
   }
 
- /* Widget getAddTermsTextLayout(double parentHeight, double parentWidth) {
+  Widget getAddTermsTextLayout(double parentHeight, double parentWidth) {
     return Padding(
       padding:
       EdgeInsets.only(top: parentHeight * 0.01, left: parentWidth * 0.02),
       child: FutureBuilder<AllMasjitDetailsResponceModel>(
           future: getNotice,
           builder: (context, snapshot) {
-            return snapshot.data?.notices != null ?
+            return snapshot.data?.notice != null ?
 
             ListView.builder(
                 shrinkWrap: true,
                 itemCount: snapshot
-                    .data?.notices?.length,
+                    .data?.notice?.length,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder:
                     (context, index) {
-                  return  Text("${snapshot.data?.notices?[index]}",
-                    style: TextStyle(
-                      // height: parentHeight*0.002,
+                  return  Padding(
+                    padding:  EdgeInsets.only(left: parentWidth*0.02),
+                    child: Text("${snapshot.data?.notice?[index].notice}",
+                      style: TextStyle(
+                        // height: parentHeight*0.002,
 
-                      fontFamily: "Roboto_Regular",
+                        fontFamily: "Roboto_Regular",
 
-                      fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.w400,
 
-                      fontSize: SizeConfig.blockSizeHorizontal * 4.5,
+                        fontSize: SizeConfig.blockSizeHorizontal * 4.3,
 
-                      color: Colors.black,
+                        color: Colors.black,
 
-                      // letterSpacing: SizeConfig.screenWidth * 0.001,
+                        // letterSpacing: SizeConfig.screenWidth * 0.001,
+                      ),
+
+                      // textAlign: TextAlign.justify,
                     ),
-
-                    // textAlign: TextAlign.justify,
                   ) ;
                 })
                 : const Center(child: CircularProgressIndicator());
@@ -85,8 +87,7 @@ class _NoticeUserTabState extends State<NoticeUserTab> {
 
     );
   }
-*/
-  Future<AllMasjitDetailsResponceModel> getNoticeSection() async {
+ /* Future<AllMasjitDetailsResponceModel> getNoticeSection() async {
     // print(" userId ${userId}");
 
     Map<String, String> headers = {
@@ -119,8 +120,9 @@ class _NoticeUserTabState extends State<NoticeUserTab> {
       // then throw an exception.
       throw Exception('Failed to create album.');
     }
-  }
- /* Future<AllMasjitDetailsResponceModel> getNoticeSection(masjitTrusteeId) async {
+  }*/
+
+  Future<AllMasjitDetailsResponceModel> getNoticeSection(masjitNoticeId) async {
     // print(" userId ${userId}");
 
     print(" tokennn ${box.get(kToken)}");
@@ -130,7 +132,7 @@ class _NoticeUserTabState extends State<NoticeUserTab> {
     };
 
     var response = await http.get(
-        Uri.parse('http://masjid.exportica.in/api/masjids/${widget.masjitTrusteeId}'),
+        Uri.parse('http://masjid.exportica.in/api/masjids/${widget.masjitNoticeId}'),
         headers:headersList
     );
 
@@ -150,5 +152,5 @@ class _NoticeUserTabState extends State<NoticeUserTab> {
       // then throw an exception.
       throw Exception('Failed to create album.');
     }
-  }*/
+  }
 }

@@ -14,12 +14,13 @@ class MasjitMappScreen extends StatefulWidget {
 
   final String tabNum;
   final String masjitTrusteeId;
+  final String masjitNoticeId;
   final String lat;
   final String long;
 
   const MasjitMappScreen({
     Key? key,
-    required this.tabNum, required this.masjitTrusteeId,required this.lat,required this.long,
+    required this.tabNum, required this.masjitTrusteeId,required this.lat,required this.long, required this.masjitNoticeId,
 
   }) : super(key: key);
 
@@ -308,7 +309,7 @@ class _MasjitMappScreenState extends State<MasjitMappScreen> with SingleTickerPr
 
             )),
         Visibility(visible: trusteeScreen, child: TrusteeUserTab(masjitTrusteeId: widget.masjitTrusteeId,)),
-        Visibility(visible: noticeScreen, child: NoticeUserTab()),
+        Visibility(visible: noticeScreen, child: NoticeUserTab(masjitNoticeId:widget.masjitNoticeId,)),
 
       ],
     );

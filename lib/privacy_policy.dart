@@ -21,7 +21,7 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
           child: Column(
             children: [
               Container(
-                height: SizeConfig.screenHeight * 0.12,
+                height: SizeConfig.screenHeight * 0.11,
                 decoration:  BoxDecoration(
                     gradient: LinearGradient(
                         begin: Alignment.centerLeft,
@@ -42,14 +42,7 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
                   children: [
                     getAddTermsTextLayout(
                         SizeConfig.screenHeight, SizeConfig.screenWidth),
-                   /* RegistartionContant(
-                        SizeConfig.screenHeight, SizeConfig.screenWidth),
-                    PhoneNumberContant(
-                        SizeConfig.screenHeight, SizeConfig.screenWidth),
-                    Desgnation(
-                        SizeConfig.screenHeight, SizeConfig.screenWidth),
-                    SaveButton(
-                        SizeConfig.screenHeight, SizeConfig.screenWidth),*/
+
                   ],
                 ),
               )
@@ -70,10 +63,10 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
             },
             onDoubleTap: () {},
             child: Padding(
-              padding: EdgeInsets.only(left: parentWidth * .04),
+              padding: EdgeInsets.only(left: parentWidth * .06),
               child: Container(
                 child: Padding(
-                  padding: EdgeInsets.only(top: parentHeight * 0.07),
+                  padding: EdgeInsets.only(top: parentHeight * 0.05),
                   child: Icon(
                     Icons.arrow_back_ios,
                     size: parentHeight * .025,
@@ -84,7 +77,7 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: parentHeight * 0.07),
+            padding: EdgeInsets.only(top: parentHeight * 0.05),
             child: Text(
               "Privacy Policy",
               style: TextStyle(

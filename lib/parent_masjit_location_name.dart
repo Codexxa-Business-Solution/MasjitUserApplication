@@ -171,7 +171,7 @@ height: parentHeight*0.8,
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => MasjitMappScreen(
                 tabNum: "1", masjitTrusteeId: widget.masjitId,
-                 lat: widget.lat, long: widget.long,
+                 lat: widget.lat, long: widget.long, masjitNoticeId: widget.masjitId,
               )));
               if (mounted) {
                 setState(() {
@@ -209,7 +209,7 @@ height: parentHeight*0.8,
             onTap: () {
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => MasjitMappScreen(
-                tabNum: "2", masjitTrusteeId: widget.masjitId, lat: widget.lat, long: widget.long,
+                tabNum: "2", masjitTrusteeId: widget.masjitId, lat: widget.lat, long: widget.long, masjitNoticeId: widget.masjitId,
               )));
               if (mounted) {
                 setState(() {
@@ -248,7 +248,7 @@ height: parentHeight*0.8,
             onTap: () {
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => MasjitMappScreen(
-                tabNum: "3", masjitTrusteeId: widget.masjitId, lat: widget.lat, long: widget.long,
+                tabNum: "3", masjitTrusteeId: widget.masjitId, lat: widget.lat, long: widget.long, masjitNoticeId:widget.masjitId,
               )));
              /* if (mounted) {
                 setState(() {
@@ -297,7 +297,7 @@ height: parentHeight*0.8,
               child:  UserMapLocation(
                   masjitUserMapId: widget.masjitId, lat: '', long: '',)),
            Visibility(visible: trusteeScreen, child:  TrusteeUserTab(masjitTrusteeId:widget.masjitId)),
-          Visibility(visible: noticeScreen, child:  NoticeUserTab()),
+          Visibility(visible: noticeScreen, child:  NoticeUserTab(masjitNoticeId: widget.masjitId,)),
 
 
 
