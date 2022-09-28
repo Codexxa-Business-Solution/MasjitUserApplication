@@ -34,7 +34,10 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
     const Tab(text: "Popular"),
     const Tab(text: "Latest")
   ];
-
+  List<String> listPaths = [
+    "https://cdn.pixabay.com/photo/2015/10/25/21/02/abu-1006336__340.jpg",
+    "https://cdn.pixabay.com/photo/2015/10/25/21/02/abu-1006336__340.jpg",
+    "https://cdn.pixabay.com/photo/2015/01/28/23/10/mosque-615415_960_720.jpg"];
   TabController? _tabController;
   bool showDetails = true;
   late Box box;
@@ -351,7 +354,7 @@ height: parentHeight*0.8,
                                 width: SizeConfig.screenWidth,
                                 child: Column(
                                   children: [
-                                    Padding(
+                                    snapshot.data?.images?.length!=null?Padding(
                                       padding: EdgeInsets.only(
                                           bottom: SizeConfig.screenHeight * .0,
                                           top: SizeConfig.screenHeight * .0),
@@ -382,7 +385,11 @@ height: parentHeight*0.8,
                                                 return getFirstImageFrame(
                                                     SizeConfig.screenHeight,
                                                     SizeConfig.screenWidth,
-                                                    snapshot.data?.images?[index],
+                                                   /* ${
+                                                      snapshot
+                                                          .data?.images?[index]
+                                                    },*/
+                                                    "http://masjid.exportica.in/${snapshot.data?.images?[0]}",
                                                     snapshot.data?.images?.length);
                                               }),
                                           Padding(
@@ -391,7 +398,7 @@ height: parentHeight*0.8,
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               crossAxisAlignment: CrossAxisAlignment.center,
                                               children: [
-                                                for (int i = 0; i <2; i++)
+                                                for (int i = 0; i < (snapshot.data?.images?.length ?? 0); i++)
                                                   Container(
                                                     width: 7,
                                                     height: 7,
@@ -408,7 +415,7 @@ height: parentHeight*0.8,
                                           ),
                                         ],
                                       ),
-                                    ),
+                                    ):Container()
                                   ],
                                 )),
                             Column(
