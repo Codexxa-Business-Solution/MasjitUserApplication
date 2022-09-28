@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:masjiduserapp/enter_otp_number.dart';
 import 'package:masjiduserapp/size_config.dart';
 import 'package:masjiduserapp/user_login_screen.dart';
@@ -41,8 +42,8 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
                 decoration: BoxDecoration(
                   color: Colors.transparent,
                 ),
-                child: getAddMainHeadingLayout(
-                    SizeConfig.screenHeight, SizeConfig.screenWidth),
+                /*child: getAddMainHeadingLayout(
+                    SizeConfig.screenHeight, SizeConfig.screenWidth),*/
               ),
               Container(
                   //height: SizeConfig.screenHeight,
@@ -60,59 +61,7 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
         ));
   }
 
-  Widget getAddMainHeadingLayout(double parentHeight, double parentWidth) {
-    return Padding(
-      padding: EdgeInsets.only(top: parentHeight * .0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            onDoubleTap: () {},
-            child: Padding(
-              padding: EdgeInsets.only(left: parentWidth * .04),
-              child: Container(
-                child: Padding(
-                  padding: EdgeInsets.only(top: parentHeight * 0.07),
-                  child: Icon(
-                    Icons.arrow_back_ios,
-                    size: parentHeight * .025,
-                    color: CommonColor.BLACK,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: parentHeight * 0.07),
-            child: Text(
-              "SAHR / IFTAR",
-              style: TextStyle(
-                  fontSize: SizeConfig.blockSizeHorizontal * 5.0,
-                  fontFamily: 'Roboto_Medium',
-                  fontWeight: FontWeight.w400,
-                  color: Colors.transparent),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(right: parentWidth * .04),
-            child: Container(
-              child: Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: Icon(
-                  Icons.arrow_back_ios,
-                  size: parentHeight * .03,
-                  color: Colors.transparent,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+
 
   Widget getFirstImageFrame(double parentHeight, double parentWidth) {
     return Padding(
@@ -318,36 +267,42 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
   Widget ContinueButton(double parentHeight, double parentWidth) {
     return GestureDetector(
       onTap: () async {
-        showDialog(
-            context: context,
-            builder: (context) {
-              return Center(child: CircularProgressIndicator());
-            });
-        //await Future<int>.delayed(Duration(seconds: 5));
 
-        // Navigator.of(context, rootNavigator: true).pop();
-        await auth.verifyPhoneNumber(
-            phoneNumber: "+91${phoneController.text}",
-            verificationCompleted: (phoneAuthCredential) async {},
-            verificationFailed: (verificationFailed) {
-              print(verificationFailed);
-            },
-            codeSent: (String verificationId, int? resendToken) async {
-              setState(() {
-                verificationID = verificationId;
-                print('verid $verificationID');
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => EnterOtpNumber(
-                              mobileNumber: phoneController.text,
-                              auth: '',
-                              verificationId: verificationID,
-                            )));
+        if(phoneController.text.trim().isNotEmpty) {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return Center(child: CircularProgressIndicator());
               });
-              //Navigator.of(context).pop();
-            },
-            codeAutoRetrievalTimeout: (verificationID) async {});
+          //await Future<int>.delayed(Duration(seconds: 5));
+
+          // Navigator.of(context, rootNavigator: true).pop();
+          await auth.verifyPhoneNumber(
+              phoneNumber: "+91${phoneController.text}",
+              verificationCompleted: (phoneAuthCredential) async {},
+              verificationFailed: (verificationFailed) {
+                print(verificationFailed);
+              },
+              codeSent: (String verificationId, int? resendToken) async {
+                setState(() {
+                  verificationID = verificationId;
+                  print('verid $verificationID');
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              EnterOtpNumber(
+                                mobileNumber: phoneController.text,
+                                auth: '',
+                                verificationId: verificationID,
+                              )));
+                });
+                //Navigator.of(context).pop();
+              },
+              codeAutoRetrievalTimeout: (verificationID) async {});
+        }else{
+          _showToast(context);
+        }
       },
       child: Padding(
         padding: EdgeInsets.only(
@@ -376,7 +331,15 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
       ),
     );
   }
-
+  void _showToast(BuildContext context) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content: const Text('Enter valid mobile Number'),
+        action: SnackBarAction(label: 'UNDO', onPressed: scaffold.hideCurrentSnackBar),
+      ),
+    );
+  }
   Widget getBottomText() {
     return Padding(
       padding: const EdgeInsets.only(top: 12),
