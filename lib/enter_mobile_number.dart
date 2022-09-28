@@ -130,6 +130,15 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
                 decoration: BoxDecoration(
                     color: CommonColor.GRAY_COLOR,
                     borderRadius: BorderRadius.circular(30)),
+                 child: ClipRRect(
+                    borderRadius: BorderRadius.circular(30),
+                    child:Image.network(
+                      "https://cdn.pixabay.com/photo/2015/10/25/21/02/abu-1006336__340.jpg",
+                      //listPaths[index % listPaths.length],
+                      fit: BoxFit.cover,
+
+                    ),
+                  )
               ),
               Padding(
                 padding: EdgeInsets.only(
@@ -342,7 +351,7 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
       },
       child: Padding(
         padding: EdgeInsets.only(
-            top: parentHeight * 0.07,
+            top: parentHeight * 0.05,
             left: parentWidth * 0.1,
             right: parentWidth * 0.1),
         child: Container(
@@ -374,8 +383,12 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text("Already Have an Account?", style: TextStyle(
-            fontSize: 15,
+          const Text("Already Have an Account?",  style: TextStyle(
+              fontSize: 15,
+              fontFamily: "Roboto_Regular",
+              fontWeight: FontWeight.w400,
+              // fontSize: SizeConfig.blockSizeHorizontal * 4.5,
+              color: CommonColor.BLACK_COLOR
           ),),
 
           GestureDetector(
@@ -389,7 +402,7 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
               child: const Text(" Login", style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
-                  color: Colors.green
+                  color: CommonColor.RIGHT_COLOR
               ),),
             ),
           ),

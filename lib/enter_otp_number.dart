@@ -214,7 +214,15 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
                 decoration: BoxDecoration(
                     color: CommonColor.GRAY_COLOR,
                     borderRadius: BorderRadius.circular(30)),
-              ),
+   child: ClipRRect(
+    borderRadius: BorderRadius.circular(30),
+    child:Image.network(
+    "https://cdn.pixabay.com/photo/2015/10/25/21/02/abu-1006336__340.jpg",
+    //listPaths[index % listPaths.length],
+    fit: BoxFit.cover,
+
+    )
+   ),),
               Padding(
                 padding: EdgeInsets.only(
                     top: parentHeight * 0.03,
