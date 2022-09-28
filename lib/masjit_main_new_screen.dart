@@ -1351,7 +1351,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                     children: [
                       Column(
                         children: [
-                          Padding(
+                        /*  Padding(
                             padding: EdgeInsets.only(top: parentHeight * 0.03),
                             child: Padding(
                               padding: EdgeInsets.only(left: parentWidth * 0.0),
@@ -1364,10 +1364,10 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                     fontSize: 14),
                               ),
                             ),
-                          ),
+                          ),*/
                           Padding(
                             padding: EdgeInsets.only(
-                                top: parentHeight * 0.01,
+                                top: parentHeight * 0.03,
                                 left: parentWidth * 0.03),
                             child: Row(
                               children: const [
@@ -1390,7 +1390,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                             return Column(
                               // mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                Padding(
+                                /*Padding(
                                   padding: EdgeInsets.only(
                                       top: parentHeight * 0.03,
                                       right: parentHeight * 0.25),
@@ -1406,36 +1406,42 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                       ),
                                     ],
                                   ),
+                                ),*/
+                                Padding(
+                                  padding: EdgeInsets.only(top: 12),
+                                  child: Container(
+                                    // color: Colors.red,
+                                      height: parentHeight * 0.11,
+                                      width: parentWidth * 0.7,
+                                      child: ListView.builder(
+                                          //physics: NeverScrollableScrollPhysics(),
+                                          shrinkWrap: true,
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: snapshot.data?.data?[index]
+                                              .jumma?.jammat?.length,
+                                          itemBuilder: (context, index) {
+                                            return Padding(
+                                              padding: EdgeInsets.only(
+                                                  top: parentHeight * 0.015,
+                                                  left: parentHeight * 0.02),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "${snapshot.data?.data?[0].jumma?.jammat?[index]}",
+                                                    style: TextStyle(
+                                                        fontSize: SizeConfig
+                                                                .blockSizeHorizontal *
+                                                            3.3),
+                                                    maxLines: 3,
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          })),
                                 ),
-                                Container(
-                                    height: parentHeight * 0.04,
-                                    width: parentWidth * 0.7,
-                                    child: ListView.builder(
-                                        //physics: NeverScrollableScrollPhysics(),
-                                        shrinkWrap: true,
-                                        scrollDirection: Axis.horizontal,
-                                        itemCount: snapshot.data?.data?[index]
-                                            .jumma?.jammat?.length,
-                                        itemBuilder: (context, index) {
-                                          return Padding(
-                                            padding: EdgeInsets.only(
-                                                top: parentHeight * 0.01,
-                                                left: parentHeight * 0.02),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "${snapshot.data?.data?[0].jumma?.jammat?[index]}",
-                                                  style: TextStyle(
-                                                      fontSize: SizeConfig
-                                                              .blockSizeHorizontal *
-                                                          3.3),
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        })),
                               ],
                             );
                           })

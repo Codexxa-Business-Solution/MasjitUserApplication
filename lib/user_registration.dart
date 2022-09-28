@@ -120,7 +120,7 @@ Future<UserRegisterRespnseModel>? result;
                 },
                 onDoubleTap: () {},
                 child: ListView(
-                  padding: EdgeInsets.zero,
+                  padding: EdgeInsets.only(bottom: 30),
                   shrinkWrap: true,
 
                   children: [
@@ -236,8 +236,16 @@ Future<UserRegisterRespnseModel>? result;
                           },
                           decoration: InputDecoration(
                               labelText: 'Email',
+                              labelStyle: TextStyle(
+                                color:  CommonColor.REGISTRARTION_COLOR
+                              ),
                               contentPadding: const EdgeInsets.all(12),
                               isDense: true,
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      width: 1,
+                                      color: CommonColor.REGISTRARTION_COLOR),
+                                  borderRadius: BorderRadius.circular(10.0)),
                               enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                       width: 1,
@@ -252,6 +260,7 @@ Future<UserRegisterRespnseModel>? result;
                               hintStyle: TextStyle(
                                 fontFamily: "Roboto_Regular",
                                 fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+                                color: CommonColor.SEARCH_TEXT_COLOR
                               ))))
                 ])),
             Padding(
@@ -281,6 +290,7 @@ Future<UserRegisterRespnseModel>? result;
                       child: TextFormField(
                           focusNode: _passwordFocus,
                           controller: passwordController,
+                          obscureText: true,
                           keyboardType: TextInputType.text,
                           validator: (String? value) {
                             if (value!.isEmpty) {
@@ -292,8 +302,16 @@ Future<UserRegisterRespnseModel>? result;
                           },
                           decoration: InputDecoration(
                               labelText: 'Password',
+                              labelStyle: TextStyle(
+                                  color:  CommonColor.REGISTRARTION_COLOR
+                              ),
                               contentPadding: const EdgeInsets.all(12),
                               isDense: true,
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      width: 1,
+                                      color: CommonColor.REGISTRARTION_COLOR),
+                                  borderRadius: BorderRadius.circular(10.0)),
                               enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                       width: 1,
@@ -307,6 +325,7 @@ Future<UserRegisterRespnseModel>? result;
                               hintStyle: TextStyle(
                                 fontFamily: "Roboto_Regular",
                                 fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+                                  color: CommonColor.SEARCH_TEXT_COLOR
                               ))))
                 ])),
             Padding(
@@ -347,8 +366,16 @@ Future<UserRegisterRespnseModel>? result;
                           },
                           decoration: InputDecoration(
                               labelText: 'Area',
+                              labelStyle: TextStyle(
+                                  color:  CommonColor.REGISTRARTION_COLOR
+                              ),
                               contentPadding: const EdgeInsets.all(12),
                               isDense: true,
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      width: 1,
+                                      color: CommonColor.REGISTRARTION_COLOR),
+                                  borderRadius: BorderRadius.circular(10.0)),
                               enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                       width: 1,
@@ -363,6 +390,7 @@ Future<UserRegisterRespnseModel>? result;
                               hintStyle: TextStyle(
                                 fontFamily: "Roboto_Regular",
                                 fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+                                  color: CommonColor.SEARCH_TEXT_COLOR
                               ))))
                 ])),
             Padding(
@@ -403,8 +431,16 @@ Future<UserRegisterRespnseModel>? result;
                           },
                           decoration: InputDecoration(
                               labelText: 'Mobile Number',
+                              labelStyle: TextStyle(
+                                  color:  CommonColor.REGISTRARTION_COLOR
+                              ),
                               contentPadding: const EdgeInsets.all(12),
                               isDense: true,
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      width: 1,
+                                      color: CommonColor.REGISTRARTION_COLOR),
+                                  borderRadius: BorderRadius.circular(10.0)),
                               enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                       width: 1,
@@ -419,6 +455,7 @@ Future<UserRegisterRespnseModel>? result;
                               hintStyle: TextStyle(
                                 fontFamily: "Roboto_Regular",
                                 fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+                                  color: CommonColor.SEARCH_TEXT_COLOR
                               ))))
                 ])),
             Padding(
@@ -458,8 +495,16 @@ Future<UserRegisterRespnseModel>? result;
                         },
                         decoration: InputDecoration(
                             labelText: 'City',
+                            labelStyle: TextStyle(
+                                color:  CommonColor.REGISTRARTION_COLOR
+                            ),
                             contentPadding: const EdgeInsets.all(12),
                             isDense: true,
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 1,
+                                    color: CommonColor.REGISTRARTION_COLOR),
+                                borderRadius: BorderRadius.circular(10.0)),
                             enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                     width: 1,
@@ -474,6 +519,7 @@ Future<UserRegisterRespnseModel>? result;
                             hintStyle: TextStyle(
                               fontFamily: "Roboto_Regular",
                               fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+                                color: CommonColor.SEARCH_TEXT_COLOR
                             ))))
               ]),
             ),
@@ -514,8 +560,16 @@ Future<UserRegisterRespnseModel>? result;
                         },
                         decoration: InputDecoration(
                             labelText: 'State',
+                            labelStyle: TextStyle(
+                                color:  CommonColor.REGISTRARTION_COLOR
+                            ),
                             contentPadding: const EdgeInsets.all(12),
                             isDense: true,
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 1,
+                                    color: CommonColor.REGISTRARTION_COLOR),
+                                borderRadius: BorderRadius.circular(10.0)),
                             enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                     width: 1,
@@ -530,6 +584,7 @@ Future<UserRegisterRespnseModel>? result;
                             hintStyle: TextStyle(
                               fontFamily: "Roboto_Regular",
                               fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+                                color: CommonColor.SEARCH_TEXT_COLOR
                             ))))
               ]),
             ),
@@ -570,8 +625,16 @@ Future<UserRegisterRespnseModel>? result;
                           },
                           decoration: InputDecoration(
                               labelText: 'Country',
+                              labelStyle: TextStyle(
+                                  color:  CommonColor.REGISTRARTION_COLOR
+                              ),
                               contentPadding: const EdgeInsets.all(12),
                               isDense: true,
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      width: 1,
+                                      color: CommonColor.REGISTRARTION_COLOR),
+                                  borderRadius: BorderRadius.circular(10.0)),
                               enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                       width: 1,
@@ -586,6 +649,7 @@ Future<UserRegisterRespnseModel>? result;
                               hintStyle: TextStyle(
                                 fontFamily: "Roboto_Regular",
                                 fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+                                  color: CommonColor.SEARCH_TEXT_COLOR
                               ))))
                 ])),
           ],
