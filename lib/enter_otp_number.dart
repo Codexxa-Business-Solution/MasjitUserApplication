@@ -8,6 +8,7 @@ import 'package:masjiduserapp/login_with_phone.dart';
 import 'package:masjiduserapp/masjit_main_new_screen.dart';
 import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/user_register_response_model.dart';
 import 'package:masjiduserapp/size_config.dart';
+import 'package:masjiduserapp/user_login_screen.dart';
 import 'package:masjiduserapp/user_parent_tab_bar.dart';
 import 'package:masjiduserapp/user_registration.dart';
 import 'package:masjiduserapp/util/constant.dart';
@@ -374,22 +375,8 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
 
           try{
             await auth.signInWithCredential(credential);
-            result = getOtpApi();
-            result?.then((value) {
-              value.data?.token;
-              var box = Hive.box(kBoxName);
-              box.put(kToken, value.data?.token);
-              print("token ${box.get("token")}");
-
-              Widget destination = ParentTabBarScreen();
-
-              if (value.data?.area == null) {
-                destination = UserRegistration();
-              }
-
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => destination));
-            });
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => UserRegistration(phoneNum: widget.mobileNumber,)));
           }catch(excepti){
             ScaffoldMessenger.of(context).showSnackBar( SnackBar(content: Text('Some Error Occured. Try Again Later')));
           }

@@ -8,6 +8,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:masjiduserapp/enter_mobile_number.dart';
 import 'package:masjiduserapp/masjit_main_new_screen.dart';
 import 'package:masjiduserapp/size_config.dart';
+import 'package:masjiduserapp/user_login_screen.dart';
 import 'package:masjiduserapp/user_parent_tab_bar.dart';
 import 'package:masjiduserapp/user_registration.dart';
 import 'package:masjiduserapp/util/constant.dart';
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     var box = Hive.box(kBoxName);
-    Widget destination = UserRegistration();
+    Widget destination = UserRegistration(phoneNum: "",);
 
     if (box.get(kToken, defaultValue: null) != null) {
       //   print("registrationToken ${box.get("token")} ${box.get(kMasjid)}");
@@ -65,7 +66,7 @@ class MyApp extends StatelessWidget with WidgetsBindingObserver {
         routes: <String, WidgetBuilder>{
           '/frame': (BuildContext context) => MasjitVendorFrame(),
           '/userRegistartionScreen': (BuildContext context) =>
-              EnterMobileNumber(),
+              LoginScreen(),
           '/homeScreen': (BuildContext context) => ParentTabBarScreen(),
         });
   }
@@ -108,39 +109,6 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Image(image: AssetImage("assets/images/masjit_logo.jpeg")));
   }
 
-  /*Widget text(double parentHeight, double parentWidth) {
-    return Container(
-      child: Column(
-        children: [
-          Center(
-            child: Padding(
-              padding: EdgeInsets.only(top: parentHeight * 0.045),
-              child: Text(
-                "Logo",
-                style: TextStyle(
-                    fontSize: parentHeight * 0.06,
-                    color: CommonColor.LOGO_COLOR,
-                    fontFamily: "Regular",
-                    fontWeight: FontWeight.w600),
-              ),
-            ),
-          ),
-       //   Padding(
-         //   padding: EdgeInsets.only(top: p////////////////////////////////////////////////////////////////////////////////arentHeight * 0.025),
-           // child: Text(
-             // "Connect with Alumni. Expand your network.",
-              //style: TextStyle(fontFamily: "Regular",
-                //fontWeight: FontWeight.w300,
-                //color: CommonColor.TEXT_COLOR,
-                //fontSize///////: SizeConfig.safeBlockHorizontal * 3.5,),
-              //textScaleFactor: 1.0,
-            //),
-          //),
-        ],
-      ),
-    );
-  }*/
-
   void navigateParentPage() {
     Navigator.of(context).pushReplacementNamed('/frame');
   }
@@ -161,7 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
       var accessToken = await box.get('token');
       print("session token   ${accessToken}");
-      //String? masjitId = await box.get(kJoinedCommonId);
+
       if (accessToken == null) {
         return Timer(durtaion, navigateRegistrationPage);
       } else if (accessToken != null) {

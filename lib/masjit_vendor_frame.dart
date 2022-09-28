@@ -7,6 +7,7 @@ import 'package:flutter_dnd/flutter_dnd.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:masjiduserapp/enter_mobile_number.dart';
 import 'package:masjiduserapp/size_config.dart';
+import 'package:masjiduserapp/user_login_screen.dart';
 import 'package:masjiduserapp/util/constant.dart';
 
 import 'common.color.dart';
@@ -57,7 +58,7 @@ final PageController _pageController = PageController();
     FlutterDnd.gotoPolicySettings();
     setState(() {
 
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>EnterMobileNumber()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>LoginScreen()));
     });
 
 

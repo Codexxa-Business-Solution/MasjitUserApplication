@@ -2,8 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:masjiduserapp/enter_otp_number.dart';
 import 'package:masjiduserapp/size_config.dart';
-
-import 'package:http/http.dart' as http;
+import 'package:masjiduserapp/user_login_screen.dart';
 
 import 'common.color.dart';
 
@@ -35,10 +34,10 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
           onDoubleTap: () {},
           child: ListView(
             shrinkWrap: true,
-            padding: EdgeInsets.only(bottom: SizeConfig.screenHeight*0.2),
+            padding: EdgeInsets.only(bottom: SizeConfig.screenHeight * 0.2),
             children: [
               Container(
-               height: SizeConfig.screenHeight * 0.10,
+                height: SizeConfig.screenHeight * 0.10,
                 decoration: BoxDecoration(
                   color: Colors.transparent,
                 ),
@@ -48,17 +47,14 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
               Container(
                   //height: SizeConfig.screenHeight,
                   child: Column(
-                    children: [
-                      getFirstImageFrame(
-                          SizeConfig.screenHeight, SizeConfig.screenWidth),
-                      ContinueButton(
-                          SizeConfig.screenHeight, SizeConfig.screenWidth),
-
-                    ],
-                  )
-
-
-              )
+                children: [
+                  getFirstImageFrame(
+                      SizeConfig.screenHeight, SizeConfig.screenWidth),
+                  ContinueButton(
+                      SizeConfig.screenHeight, SizeConfig.screenWidth),
+                  getBottomText()
+                ],
+              ))
             ],
           ),
         ));
@@ -124,7 +120,7 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
       child: Center(
         child: Container(
           width: parentWidth,
-          height: parentHeight*.6,
+          height: parentHeight * .6,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -134,7 +130,6 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
                 decoration: BoxDecoration(
                     color: CommonColor.GRAY_COLOR,
                     borderRadius: BorderRadius.circular(30)),
-
               ),
               Padding(
                 padding: EdgeInsets.only(
@@ -313,71 +308,93 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
 
   Widget ContinueButton(double parentHeight, double parentWidth) {
     return GestureDetector(
-        onTap: () async {
-          showDialog(context: context, builder: (context){
-            return Center(child: CircularProgressIndicator());
+      onTap: () async {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return Center(child: CircularProgressIndicator());
+            });
+        //await Future<int>.delayed(Duration(seconds: 5));
 
-          }
-
-          );
-          //await Future<int>.delayed(Duration(seconds: 5));
-
-         // Navigator.of(context, rootNavigator: true).pop();
-          await auth.verifyPhoneNumber(
-              phoneNumber: "+91${phoneController.text}",
-              verificationCompleted: (phoneAuthCredential) async {},
-              verificationFailed: (verificationFailed) {
-                print(verificationFailed);
-
-              },
-              codeSent: (String verificationId, int? resendToken) async {
-                setState(() {
-                  verificationID = verificationId;
-                  print('verid $verificationID');
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => EnterOtpNumber(
-                                mobileNumber: phoneController.text,
-                                auth: '',
-                                verificationId: verificationID,
-                              )));
-
-                });
-                //Navigator.of(context).pop();
-              },
-              codeAutoRetrievalTimeout: (verificationID) async {});
-
-        },
-
-        child: Padding(
-          padding: EdgeInsets.only(
-              top: parentHeight * 0.07,
-              left: parentWidth * 0.1,
-              right: parentWidth * 0.1),
-          child: Container(
-              height: parentHeight * 0.06,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                    colors: [CommonColor.LEFT_COLOR, CommonColor.RIGHT_COLOR]),
-                borderRadius: BorderRadius.circular(30),
+        // Navigator.of(context, rootNavigator: true).pop();
+        await auth.verifyPhoneNumber(
+            phoneNumber: "+91${phoneController.text}",
+            verificationCompleted: (phoneAuthCredential) async {},
+            verificationFailed: (verificationFailed) {
+              print(verificationFailed);
+            },
+            codeSent: (String verificationId, int? resendToken) async {
+              setState(() {
+                verificationID = verificationId;
+                print('verid $verificationID');
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => EnterOtpNumber(
+                              mobileNumber: phoneController.text,
+                              auth: '',
+                              verificationId: verificationID,
+                            )));
+              });
+              //Navigator.of(context).pop();
+            },
+            codeAutoRetrievalTimeout: (verificationID) async {});
+      },
+      child: Padding(
+        padding: EdgeInsets.only(
+            top: parentHeight * 0.07,
+            left: parentWidth * 0.1,
+            right: parentWidth * 0.1),
+        child: Container(
+            height: parentHeight * 0.06,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  colors: [CommonColor.LEFT_COLOR, CommonColor.RIGHT_COLOR]),
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: Center(
+              child: Text(
+                "Continue",
+                style: TextStyle(
+                    fontFamily: "Roboto_Regular",
+                    fontWeight: FontWeight.w700,
+                    fontSize: SizeConfig.blockSizeHorizontal * 4.5,
+                    color: CommonColor.WHITE_COLOR),
               ),
-              child: Center(
-                child: Text(
-                  "Continue",
-                  style: TextStyle(
-                      fontFamily: "Roboto_Regular",
-                      fontWeight: FontWeight.w700,
-                      fontSize: SizeConfig.blockSizeHorizontal * 4.5,
-                      color: CommonColor.WHITE_COLOR),
-                ),
-              )),
-        ),
-
-
+            )),
+      ),
     );
+  }
 
+  Widget getBottomText() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 12),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text("Already Have an Account?", style: TextStyle(
+            fontSize: 15,
+          ),),
+
+          GestureDetector(
+            onDoubleTap: () {},
+            onTap: () {
+              Navigator.pushReplacement(context, MaterialPageRoute(
+                  builder: (context) => const LoginScreen()));
+            },
+            child: Container(
+              color: Colors.transparent,
+              child: const Text(" Login", style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.green
+              ),),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
