@@ -1,41 +1,49 @@
 {
   "project_info": {
-    "project_number": "1025734572514",
-    "project_id": "masjituserapp-791ee",
-    "storage_bucket": "masjituserapp-791ee.appspot.com"
+    "project_number": "228583448876",
+    "project_id": "masjit-users",
+    "storage_bucket": "masjit-users.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1025734572514:android:dd69239fbcd3193693a1bb",
+        "mobilesdk_app_id": "1:228583448876:android:8b5f226c0151b6ae3e0c89",
         "android_client_info": {
-          "package_name": "com.example.masjiduserapp"
+          "package_name": "com.azanforsalah.user"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1025734572514-mt4ifkcm05ecf8lfp3orulcrjdog6eeo.apps.googleusercontent.com",
+          "client_id": "228583448876-akr9usr9563uop4uolrt25q52auvahc8.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.masjiduserapp",
+            "package_name": "com.azanforsalah.user",
             "certificate_hash": "8cde134ff75bc8e958abf440a6ebb49726c9c9cc"
           }
         },
         {
-          "client_id": "1025734572514-snjpvpon4e7cvpmjrg3temp4289pcll3.apps.googleusercontent.com",
+          "client_id": "228583448876-s3ivf5imvqjs9nauihg1jen9v4bft97q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.azanforsalah.user",
+            "certificate_hash": "62bc7fefe6c60ac1ee214699f00e280c56c751bf"
+          }
+        },
+        {
+          "client_id": "228583448876-rfpmdslf6c2ej9n40mjcuesg1cjfq3u8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDOU30-KLGLVOad9HmVdc8wgCRomPGuh-s"
+          "current_key": "AIzaSyC7zWBQFJiXSfbV-eBELP-jsChKNiRxrls"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1025734572514-snjpvpon4e7cvpmjrg3temp4289pcll3.apps.googleusercontent.com",
+              "client_id": "228583448876-rfpmdslf6c2ej9n40mjcuesg1cjfq3u8.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
