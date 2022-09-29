@@ -48,7 +48,7 @@ dependencies:
   get: ^4.3.8
   shared_preferences:
   place_picker:
-  geolocator: ^8.2.0
+  geolocator: ^9.0.2
   geocoding: ^2.0.2
   hive: ^2.2.3
   hive_flutter: ^1.1.0
@@ -60,9 +60,17 @@ dependencies:
   url_launcher: ^6.1.5
   firebase_core: ^1.8.0
   firebase_auth: ^3.1.1
+  flutter_local_notifications: ^9.6.0
+  flutter_native_timezone: ^2.0.0
+  timezone: ^0.8.0
+  rxdart: ^0.27.4
+  flutter_launcher_icons: ^0.10.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  change_app_package_name: ^1.1.0
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -133,3 +141,8 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 
+flutter_icons:
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/images/masjit_logo.jpeg"
