@@ -11,6 +11,7 @@ import 'package:masjiduserapp/user_login_screen.dart';
 import 'package:masjiduserapp/util/constant.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 import 'all_masjit_list.dart';
 import 'common.color.dart';
@@ -218,7 +219,7 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
           padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.04),
           child: Container(
             height: SizeConfig.screenHeight * .99,
-            width: SizeConfig.screenHeight * .4,
+            width: SizeConfig.screenHeight * .35,
             child: ClipRRect(
               borderRadius: BorderRadius.only(
                 topRight: Radius.circular(30),
@@ -229,7 +230,7 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                   padding: EdgeInsets.zero,
                   children:  <Widget>[
                     SizedBox(
-                      height: 110,
+                      height: 180,
                       child: DrawerHeader(
                         decoration: BoxDecoration(
                             gradient: LinearGradient(
@@ -239,28 +240,15 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                                   CommonColor.LEFT_COLOR,
                                   CommonColor.RIGHT_COLOR
                                 ])),
-                        child: Column(
-                          children: [
-                            Text(
-                              "User Number",
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontFamily: 'Roboto_Medium',
-                                  fontWeight: FontWeight.w500,
-                                  color: CommonColor.WHITE_COLOR),
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(
-                              "${box.get("phone")}",
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontFamily: 'Roboto_Medium',
-                                  fontWeight: FontWeight.w500,
-                                  color: CommonColor.WHITE_COLOR),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
-                        ),
+                          child:   Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(left: 40),
+                                child: Image(image: AssetImage("assets/images/appLogo.png"),
+                                  height: 120,),
+                              ),
+                            ],
+                          )
                       ),
                     ),
            /*         ListTile(
@@ -279,8 +267,9 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                     ),*/
                     ListTile(
                       onTap: () {
-                        Navigator.push(
-                            context, MaterialPageRoute(builder: (context) => PrivacyPolicy()));
+                        // Navigator.push(
+                        //     context, MaterialPageRoute(builder: (context) => PrivacyPolicy()));
+                        launch("http://azan4salah.com/policy.html");
                       },
                       // leading: Icon(Icons.message),
                       title: Padding(
@@ -297,8 +286,9 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                     ),
                     ListTile(
                       onTap: () {
-                        Navigator.push(
-                            context, MaterialPageRoute(builder: (context) => TermsAndCondition()));
+                        // Navigator.push(
+                        //     context, MaterialPageRoute(builder: (context) => TermsAndCondition()));
+                        launch("http://azan4salah.com/terms.html");
                       },
                       // leading: Icon(Icons.message),
                       title: Padding(
