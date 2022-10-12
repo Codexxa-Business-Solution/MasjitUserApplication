@@ -113,8 +113,9 @@ class _LoginScreenState extends State<LoginScreen> {
               validator: (String? value) {
                 if (value!.isEmpty) {
                   return 'email Field Is Required';
-                } /*else if (emailController.text.length < 6) {
-                  return 'Password Must Be 6 Character';*/
+                }  else if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
+                  return 'Please enter a valid email address';
+                }
 
                 return null;
               },
@@ -244,7 +245,8 @@ class _LoginScreenState extends State<LoginScreen> {
           validate();
           },
         onDoubleTap: () {},
-        child: /*Container(
+        child:
+        /*Container(
           height: 50,
           decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -326,7 +328,7 @@ class _LoginScreenState extends State<LoginScreen> {
             onDoubleTap: () {},
             onTap: () {
               Navigator.pushReplacement(context, MaterialPageRoute(
-                  builder: (context) => const EnterMobileNumber()));
+                  builder: (context) =>  EnterMobileNumber()));
             },
             child: Container(
               color: Colors.transparent,

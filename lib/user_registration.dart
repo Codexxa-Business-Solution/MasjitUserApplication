@@ -6,6 +6,7 @@ import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/getE
 import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/user_register_response_model.dart';
 import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/user_update_response_model.dart';
 import 'package:masjiduserapp/size_config.dart';
+import 'package:masjiduserapp/user_login_screen.dart';
 import 'package:masjiduserapp/user_parent_tab_bar.dart';
 import 'package:http/http.dart' as http;
 import 'package:masjiduserapp/util/constant.dart';
@@ -65,21 +66,21 @@ class _UserRegistrationState extends State<UserRegistration> {
     box = Hive.box(kBoxName);
   }
 
-Future<UserRegisterRespnseModel>? result;
+  Future<UserRegisterRespnseModel>? result;
 
   validate() {
     if (_formKey.currentState!.validate()) {
       print("validated");
-     result = getRegisterUsers();
-     result?.then((value) {
-       var box = Hive.box(kBoxName);
-       box.put(kToken, value.data?.token);
-       print("token ${box.get("token")}");
+      result = getRegisterUsers();
+      result?.then((value) {
+        var box = Hive.box(kBoxName);
+        box.put(kToken, value.data?.token);
+        print("token ${box.get("token")}");
 
-       Navigator.push(context,
-           MaterialPageRoute(builder: (context) => ParentTabBarScreen()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => ParentTabBarScreen()));
 
-     });
+      });
     } else {
       print("not validated");
     }
@@ -93,7 +94,7 @@ Future<UserRegisterRespnseModel>? result;
         resizeToAvoidBottomInset: false,
 
         body: Column(
-         // shrinkWrap: true,
+          // shrinkWrap: true,
           children: [
             Container(
               height: SizeConfig.screenHeight * 0.1,
@@ -109,7 +110,7 @@ Future<UserRegisterRespnseModel>? result;
                       bottom: BorderSide(
                           width: 1, color: CommonColor.RIGHT_COLOR))),
               child:
-                  MainHeading(SizeConfig.screenHeight, SizeConfig.screenWidth),
+              MainHeading(SizeConfig.screenHeight, SizeConfig.screenWidth),
             ),
             Container(
               height: SizeConfig.screenHeight*0.9,
@@ -141,7 +142,8 @@ Future<UserRegisterRespnseModel>? result;
         children: [
           GestureDetector(
             onTap: () {
-              Navigator.pop(context);
+              Navigator.pushReplacement(context, MaterialPageRoute(
+                  builder: (context) => LoginScreen()));
             },
             onDoubleTap: () {},
             child: Padding(
@@ -193,275 +195,16 @@ Future<UserRegisterRespnseModel>? result;
       key: _formKey,
       child:
 
-        ListView(
-          shrinkWrap: true,
-          padding: EdgeInsets.zero,
-          physics: NeverScrollableScrollPhysics(),
-          children: <Widget>[
-            Padding(
-                padding: EdgeInsets.only(
-                    left: parentWidth * 0.02, right: parentWidth * 0.02),
-                child:
-                Column(children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                            left: parentWidth * 0.03, top: parentHeight * 0.009),
-                        child: Text(
-                          "Email",
-                          style:
-                              TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Padding(
-                      padding: EdgeInsets.only(
-                          top: parentHeight * 0.01,
-                          left: parentWidth * 0.03,
-                          right: parentWidth * 0.03),
-                      child: TextFormField(
-                          focusNode: _emailFocus,
-                          controller: emailController,
-                          keyboardType: TextInputType.text,
-                          validator: (String? value) {
-                            if (value!.isEmpty) {
-                              return 'Email Field Is Required';
-                            } /*else if (emailController.va) {
-                              return 'Area must be at least 3 characters long.';
-                            }*/
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                              labelText: 'Email',
-                              labelStyle: TextStyle(
-                                color:  CommonColor.REGISTRARTION_COLOR
-                              ),
-                              contentPadding: const EdgeInsets.all(12),
-                              isDense: true,
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      width: 1,
-                                      color: CommonColor.REGISTRARTION_COLOR),
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      width: 1,
-                                      color: CommonColor.REGISTRARTION_COLOR),
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              //borderRadius: BorderRadius.circular(10)
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      width: 1,
-                                      color: CommonColor.REGISTRARTION_COLOR),
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              hintStyle: TextStyle(
-                                fontFamily: "Roboto_Regular",
-                                fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                                color: CommonColor.SEARCH_TEXT_COLOR
-                              ))))
-                ])),
-            Padding(
-                padding: EdgeInsets.only(
-                    left: parentWidth * 0.02, right: parentWidth * 0.02),
-                child:
-                Column(children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                            left: parentWidth * 0.03, top: parentHeight * 0.009),
-                        child: Text(
-                          "Password",
-                          style:
-                              TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Padding(
-                      padding: EdgeInsets.only(
-                          top: parentHeight * 0.01,
-                          left: parentWidth * 0.03,
-                          right: parentWidth * 0.03),
-                      child: TextFormField(
-                          focusNode: _passwordFocus,
-                          controller: passwordController,
-                          obscureText: true,
-                          keyboardType: TextInputType.text,
-                          validator: (String? value) {
-                            if (value!.isEmpty) {
-                              return 'Password Field Is Required';
-                            } else if (passwordController.text.length < 6) {
-                              return 'Password Must Be 6 Character';
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                              labelText: 'Password',
-                              labelStyle: TextStyle(
-                                  color:  CommonColor.REGISTRARTION_COLOR
-                              ),
-                              contentPadding: const EdgeInsets.all(12),
-                              isDense: true,
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      width: 1,
-                                      color: CommonColor.REGISTRARTION_COLOR),
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      width: 1,
-                                      color: CommonColor.REGISTRARTION_COLOR),
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      width: 1,
-                                      color: CommonColor.REGISTRARTION_COLOR),
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              hintStyle: TextStyle(
-                                fontFamily: "Roboto_Regular",
-                                fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                                  color: CommonColor.SEARCH_TEXT_COLOR
-                              ))))
-                ])),
-            Padding(
-                padding: EdgeInsets.only(
-                    left: parentWidth * 0.02, right: parentWidth * 0.02),
-                child:
-                Column(children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                            left: parentWidth * 0.03, top: parentHeight * 0.009),
-                        child: Text(
-                          "Area",
-                          style:
-                              TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Padding(
-                      padding: EdgeInsets.only(
-                          top: parentHeight * 0.01,
-                          left: parentWidth * 0.03,
-                          right: parentWidth * 0.03),
-                      child: TextFormField(
-                          focusNode: _areaFocus,
-                          controller: areaController,
-                          keyboardType: TextInputType.text,
-                          validator: (String? value) {
-                            if (value!.isEmpty) {
-                              return 'Area cannot be empty';
-                            } else if (value.length < 3) {
-                              return 'Area must be at least 3 characters long.';
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                              labelText: 'Area',
-                              labelStyle: TextStyle(
-                                  color:  CommonColor.REGISTRARTION_COLOR
-                              ),
-                              contentPadding: const EdgeInsets.all(12),
-                              isDense: true,
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      width: 1,
-                                      color: CommonColor.REGISTRARTION_COLOR),
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      width: 1,
-                                      color: CommonColor.REGISTRARTION_COLOR),
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              //borderRadius: BorderRadius.circular(10)
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      width: 1,
-                                      color: CommonColor.REGISTRARTION_COLOR),
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              hintStyle: TextStyle(
-                                fontFamily: "Roboto_Regular",
-                                fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                                  color: CommonColor.SEARCH_TEXT_COLOR
-                              ))))
-                ])),
-            Padding(
-                padding: EdgeInsets.only(
-                    left: parentWidth * 0.02, right: parentWidth * 0.02),
-                child:
-                Column(children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                            left: parentWidth * 0.03, top: parentHeight * 0.009),
-                        child: Text(
-                          "Mobile Number",
-                          style:
-                              TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Padding(
-                      padding: EdgeInsets.only(
-                          top: parentHeight * 0.01,
-                          left: parentWidth * 0.03,
-                          right: parentWidth * 0.03),
-                      child: TextFormField(
-                          focusNode: _numberFocus,
-                          controller: numberController,
-                          keyboardType: TextInputType.text,
-                          validator: (String? value) {
-                            if (value!.isEmpty) {
-                              return 'Area cannot be empty';
-                            } else if (value.length < 3) {
-                              return 'Area must be at least 3 characters long.';
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                              labelText: 'Mobile Number',
-                              labelStyle: TextStyle(
-                                  color:  CommonColor.REGISTRARTION_COLOR
-                              ),
-                              contentPadding: const EdgeInsets.all(12),
-                              isDense: true,
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      width: 1,
-                                      color: CommonColor.REGISTRARTION_COLOR),
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      width: 1,
-                                      color: CommonColor.REGISTRARTION_COLOR),
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              //borderRadius: BorderRadius.circular(10)
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      width: 1,
-                                      color: CommonColor.REGISTRARTION_COLOR),
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              hintStyle: TextStyle(
-                                fontFamily: "Roboto_Regular",
-                                fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                                  color: CommonColor.SEARCH_TEXT_COLOR
-                              ))))
-                ])),
-            Padding(
+      ListView(
+        shrinkWrap: true,
+        padding: EdgeInsets.zero,
+        physics: NeverScrollableScrollPhysics(),
+        children: <Widget>[
+          Padding(
               padding: EdgeInsets.only(
                   left: parentWidth * 0.02, right: parentWidth * 0.02),
-              child: Column(children: [
+              child:
+              Column(children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -469,9 +212,9 @@ Future<UserRegisterRespnseModel>? result;
                       padding: EdgeInsets.only(
                           left: parentWidth * 0.03, top: parentHeight * 0.009),
                       child: Text(
-                        "City",
+                        "Email",
                         style:
-                            TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
+                        TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
                       ),
                     ),
                   ],
@@ -482,19 +225,408 @@ Future<UserRegisterRespnseModel>? result;
                         left: parentWidth * 0.03,
                         right: parentWidth * 0.03),
                     child: TextFormField(
-                        controller: cityController,
+                        focusNode: _emailFocus,
+                        controller: emailController,
                         keyboardType: TextInputType.text,
-                        focusNode: _cityFocus,
                         validator: (String? value) {
                           if (value!.isEmpty) {
-                            return 'City cannot be empty';
+                            return 'Email Field Is Required';
+                          }  else if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
+                            return 'Please enter a valid email address';
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                            labelText: 'Email',
+                            labelStyle: TextStyle(
+                                color:  CommonColor.REGISTRARTION_COLOR
+                            ),
+                            contentPadding: const EdgeInsets.all(12),
+                            isDense: true,
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 1,
+                                    color: CommonColor.REGISTRARTION_COLOR),
+                                borderRadius: BorderRadius.circular(10.0)),
+                            enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 1,
+                                    color: CommonColor.REGISTRARTION_COLOR),
+                                borderRadius: BorderRadius.circular(10.0)),
+                            //borderRadius: BorderRadius.circular(10)
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 1,
+                                    color: CommonColor.REGISTRARTION_COLOR),
+                                borderRadius: BorderRadius.circular(10.0)),
+                            hintStyle: TextStyle(
+                                fontFamily: "Roboto_Regular",
+                                fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+                                color: CommonColor.SEARCH_TEXT_COLOR
+                            ))))
+              ])),
+          Padding(
+              padding: EdgeInsets.only(
+                  left: parentWidth * 0.02, right: parentWidth * 0.02),
+              child:
+              Column(children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: parentWidth * 0.03, top: parentHeight * 0.009),
+                      child: Text(
+                        "Password",
+                        style:
+                        TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
+                      ),
+                    ),
+                  ],
+                ),
+                Padding(
+                    padding: EdgeInsets.only(
+                        top: parentHeight * 0.01,
+                        left: parentWidth * 0.03,
+                        right: parentWidth * 0.03),
+                    child: TextFormField(
+                        focusNode: _passwordFocus,
+                        controller: passwordController,
+                        obscureText: true,
+                        keyboardType: TextInputType.text,
+                        validator: (String? value) {
+                          if (value!.isEmpty) {
+                            return 'Password Field Is Required';
+                          } else if (passwordController.text.length < 6) {
+                            return 'Password Must Be 6 Character';
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                            labelText: 'Password',
+                            labelStyle: TextStyle(
+                                color:  CommonColor.REGISTRARTION_COLOR
+                            ),
+                            contentPadding: const EdgeInsets.all(12),
+                            isDense: true,
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 1,
+                                    color: CommonColor.REGISTRARTION_COLOR),
+                                borderRadius: BorderRadius.circular(10.0)),
+                            enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 1,
+                                    color: CommonColor.REGISTRARTION_COLOR),
+                                borderRadius: BorderRadius.circular(10.0)),
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 1,
+                                    color: CommonColor.REGISTRARTION_COLOR),
+                                borderRadius: BorderRadius.circular(10.0)),
+                            hintStyle: TextStyle(
+                                fontFamily: "Roboto_Regular",
+                                fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+                                color: CommonColor.SEARCH_TEXT_COLOR
+                            ))))
+              ])),
+          Padding(
+              padding: EdgeInsets.only(
+                  left: parentWidth * 0.02, right: parentWidth * 0.02),
+              child:
+              Column(children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: parentWidth * 0.03, top: parentHeight * 0.009),
+                      child: Text(
+                        "Area",
+                        style:
+                        TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
+                      ),
+                    ),
+                  ],
+                ),
+                Padding(
+                    padding: EdgeInsets.only(
+                        top: parentHeight * 0.01,
+                        left: parentWidth * 0.03,
+                        right: parentWidth * 0.03),
+                    child: TextFormField(
+                        focusNode: _areaFocus,
+                        controller: areaController,
+                        keyboardType: TextInputType.text,
+                        validator: (String? value) {
+                          if (value!.isEmpty) {
+                            return 'Area cannot be empty';
+                          } else if (value.length < 3) {
+                            return 'Area must be at least 3 characters long.';
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                            labelText: 'Area',
+                            labelStyle: TextStyle(
+                                color:  CommonColor.REGISTRARTION_COLOR
+                            ),
+                            contentPadding: const EdgeInsets.all(12),
+                            isDense: true,
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 1,
+                                    color: CommonColor.REGISTRARTION_COLOR),
+                                borderRadius: BorderRadius.circular(10.0)),
+                            enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 1,
+                                    color: CommonColor.REGISTRARTION_COLOR),
+                                borderRadius: BorderRadius.circular(10.0)),
+                            //borderRadius: BorderRadius.circular(10)
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 1,
+                                    color: CommonColor.REGISTRARTION_COLOR),
+                                borderRadius: BorderRadius.circular(10.0)),
+                            hintStyle: TextStyle(
+                                fontFamily: "Roboto_Regular",
+                                fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+                                color: CommonColor.SEARCH_TEXT_COLOR
+                            ))))
+              ])),
+          Padding(
+              padding: EdgeInsets.only(
+                  left: parentWidth * 0.02, right: parentWidth * 0.02),
+              child:
+              Column(children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: parentWidth * 0.03, top: parentHeight * 0.009),
+                      child: Text(
+                        "Mobile Number",
+                        style:
+                        TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
+                      ),
+                    ),
+                  ],
+                ),
+                Padding(
+                    padding: EdgeInsets.only(
+                        top: parentHeight * 0.01,
+                        left: parentWidth * 0.03,
+                        right: parentWidth * 0.03),
+                    child: TextFormField(
+                        focusNode: _numberFocus,
+                        controller: numberController,
+                        keyboardType: TextInputType.text,
+                        validator: (String? value) {
+                          if (value!.isEmpty) {
+                            return 'Area cannot be empty';
+                          } else if (value.length < 3) {
+                            return 'Area must be at least 3 characters long.';
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                            labelText: 'Mobile Number',
+                            labelStyle: TextStyle(
+                                color:  CommonColor.REGISTRARTION_COLOR
+                            ),
+                            contentPadding: const EdgeInsets.all(12),
+                            isDense: true,
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 1,
+                                    color: CommonColor.REGISTRARTION_COLOR),
+                                borderRadius: BorderRadius.circular(10.0)),
+                            enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 1,
+                                    color: CommonColor.REGISTRARTION_COLOR),
+                                borderRadius: BorderRadius.circular(10.0)),
+                            //borderRadius: BorderRadius.circular(10)
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 1,
+                                    color: CommonColor.REGISTRARTION_COLOR),
+                                borderRadius: BorderRadius.circular(10.0)),
+                            hintStyle: TextStyle(
+                                fontFamily: "Roboto_Regular",
+                                fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+                                color: CommonColor.SEARCH_TEXT_COLOR
+                            ))))
+              ])),
+          Padding(
+            padding: EdgeInsets.only(
+                left: parentWidth * 0.02, right: parentWidth * 0.02),
+            child: Column(children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(
+                        left: parentWidth * 0.03, top: parentHeight * 0.009),
+                    child: Text(
+                      "City",
+                      style:
+                      TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                  padding: EdgeInsets.only(
+                      top: parentHeight * 0.01,
+                      left: parentWidth * 0.03,
+                      right: parentWidth * 0.03),
+                  child: TextFormField(
+                      controller: cityController,
+                      keyboardType: TextInputType.text,
+                      focusNode: _cityFocus,
+                      validator: (String? value) {
+                        if (value!.isEmpty) {
+                          return 'City cannot be empty';
+                        } else if (value.length < 3) {
+                          return 'City must be at least 3 characters long.';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                          labelText: 'City',
+                          labelStyle: TextStyle(
+                              color:  CommonColor.REGISTRARTION_COLOR
+                          ),
+                          contentPadding: const EdgeInsets.all(12),
+                          isDense: true,
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  width: 1,
+                                  color: CommonColor.REGISTRARTION_COLOR),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  width: 1,
+                                  color: CommonColor.REGISTRARTION_COLOR),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          //borderRadius: BorderRadius.circular(10)
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  width: 1,
+                                  color: CommonColor.REGISTRARTION_COLOR),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          hintStyle: TextStyle(
+                              fontFamily: "Roboto_Regular",
+                              fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+                              color: CommonColor.SEARCH_TEXT_COLOR
+                          ))))
+            ]),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+                left: parentWidth * 0.02, right: parentWidth * 0.02),
+            child: Column(children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(
+                        left: parentWidth * 0.03, top: parentHeight * 0.009),
+                    child: Text(
+                      "State",
+                      style:
+                      TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                  padding: EdgeInsets.only(
+                      top: parentHeight * 0.01,
+                      left: parentWidth * 0.03,
+                      right: parentWidth * 0.03),
+                  child: TextFormField(
+                      controller: stateController,
+                      keyboardType: TextInputType.text,
+                      focusNode: _stateFocus,
+                      validator: (String? value) {
+                        if (value!.isEmpty) {
+                          return 'State cannot be empty';
+                        } else if (value.length < 3) {
+                          return 'State must be at least 3 characters long.';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                          labelText: 'State',
+                          labelStyle: TextStyle(
+                              color:  CommonColor.REGISTRARTION_COLOR
+                          ),
+                          contentPadding: const EdgeInsets.all(12),
+                          isDense: true,
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  width: 1,
+                                  color: CommonColor.REGISTRARTION_COLOR),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  width: 1,
+                                  color: CommonColor.REGISTRARTION_COLOR),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          //borderRadius: BorderRadius.circular(10)
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  width: 1,
+                                  color: CommonColor.REGISTRARTION_COLOR),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          hintStyle: TextStyle(
+                              fontFamily: "Roboto_Regular",
+                              fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+                              color: CommonColor.SEARCH_TEXT_COLOR
+                          ))))
+            ]),
+          ),
+          Padding(
+              padding: EdgeInsets.only(
+                  left: parentWidth * 0.02, right: parentWidth * 0.02),
+              child: Column(children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: parentWidth * 0.03, top: parentHeight * 0.009),
+                      child: Text(
+                        "Country",
+                        style:
+                        TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
+                      ),
+                    ),
+                  ],
+                ),
+                Padding(
+                    padding: EdgeInsets.only(
+                        top: parentHeight * 0.01,
+                        left: parentWidth * 0.03,
+                        right: parentWidth * 0.03),
+                    child: TextFormField(
+                        controller: countryController,
+                        focusNode: _countryFocus,
+                        keyboardType: TextInputType.text,
+                        validator: (String? value) {
+                          if (value!.isEmpty) {
+                            return 'Country cannot be empty';
                           } else if (value.length < 3) {
                             return 'City must be at least 3 characters long.';
                           }
                           return null;
                         },
                         decoration: InputDecoration(
-                            labelText: 'City',
+                            labelText: 'Country',
                             labelStyle: TextStyle(
                                 color:  CommonColor.REGISTRARTION_COLOR
                             ),
@@ -517,143 +649,13 @@ Future<UserRegisterRespnseModel>? result;
                                     color: CommonColor.REGISTRARTION_COLOR),
                                 borderRadius: BorderRadius.circular(10.0)),
                             hintStyle: TextStyle(
-                              fontFamily: "Roboto_Regular",
-                              fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                                color: CommonColor.SEARCH_TEXT_COLOR
-                            ))))
-              ]),
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                  left: parentWidth * 0.02, right: parentWidth * 0.02),
-              child: Column(children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: parentWidth * 0.03, top: parentHeight * 0.009),
-                      child: Text(
-                        "State",
-                        style:
-                            TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
-                      ),
-                    ),
-                  ],
-                ),
-                Padding(
-                    padding: EdgeInsets.only(
-                        top: parentHeight * 0.01,
-                        left: parentWidth * 0.03,
-                        right: parentWidth * 0.03),
-                    child: TextFormField(
-                        controller: stateController,
-                        keyboardType: TextInputType.text,
-                        focusNode: _stateFocus,
-                        validator: (String? value) {
-                          if (value!.isEmpty) {
-                            return 'State cannot be empty';
-                          } else if (value.length < 3) {
-                            return 'State must be at least 3 characters long.';
-                          }
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                            labelText: 'State',
-                            labelStyle: TextStyle(
-                                color:  CommonColor.REGISTRARTION_COLOR
-                            ),
-                            contentPadding: const EdgeInsets.all(12),
-                            isDense: true,
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    width: 1,
-                                    color: CommonColor.REGISTRARTION_COLOR),
-                                borderRadius: BorderRadius.circular(10.0)),
-                            enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    width: 1,
-                                    color: CommonColor.REGISTRARTION_COLOR),
-                                borderRadius: BorderRadius.circular(10.0)),
-                            //borderRadius: BorderRadius.circular(10)
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    width: 1,
-                                    color: CommonColor.REGISTRARTION_COLOR),
-                                borderRadius: BorderRadius.circular(10.0)),
-                            hintStyle: TextStyle(
-                              fontFamily: "Roboto_Regular",
-                              fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                                color: CommonColor.SEARCH_TEXT_COLOR
-                            ))))
-              ]),
-            ),
-            Padding(
-                padding: EdgeInsets.only(
-                    left: parentWidth * 0.02, right: parentWidth * 0.02),
-                child: Column(children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                            left: parentWidth * 0.03, top: parentHeight * 0.009),
-                        child: Text(
-                          "Country",
-                          style:
-                              TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Padding(
-                      padding: EdgeInsets.only(
-                          top: parentHeight * 0.01,
-                          left: parentWidth * 0.03,
-                          right: parentWidth * 0.03),
-                      child: TextFormField(
-                          controller: countryController,
-                          focusNode: _countryFocus,
-                          keyboardType: TextInputType.text,
-                          validator: (String? value) {
-                            if (value!.isEmpty) {
-                              return 'Country cannot be empty';
-                            } else if (value.length < 3) {
-                              return 'City must be at least 3 characters long.';
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                              labelText: 'Country',
-                              labelStyle: TextStyle(
-                                  color:  CommonColor.REGISTRARTION_COLOR
-                              ),
-                              contentPadding: const EdgeInsets.all(12),
-                              isDense: true,
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      width: 1,
-                                      color: CommonColor.REGISTRARTION_COLOR),
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      width: 1,
-                                      color: CommonColor.REGISTRARTION_COLOR),
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              //borderRadius: BorderRadius.circular(10)
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      width: 1,
-                                      color: CommonColor.REGISTRARTION_COLOR),
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              hintStyle: TextStyle(
                                 fontFamily: "Roboto_Regular",
                                 fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                                  color: CommonColor.SEARCH_TEXT_COLOR
-                              ))))
-                ])),
-          ],
-        ),
+                                color: CommonColor.SEARCH_TEXT_COLOR
+                            ))))
+              ])),
+        ],
+      ),
 
     );
   }
@@ -726,7 +728,7 @@ Future<UserRegisterRespnseModel>? result;
   }
 
 
- /* Future<UserUpdateRegistrationResponceModel> getRegisterVendors() async {
+/* Future<UserUpdateRegistrationResponceModel> getRegisterVendors() async {
     print("HIIIIIIII ${areaController.text.trim()}"
         " ${cityController.text.trim()} "
         "${stateController.text.trim()}"
