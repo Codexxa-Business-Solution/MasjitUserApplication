@@ -13,16 +13,54 @@ class EnterMobileNumber extends StatefulWidget {
   @override
   _EnterMobileNumberState createState() => _EnterMobileNumberState();
 }
-
+final _formKey = GlobalKey<FormState>();
 class _EnterMobileNumberState extends State<EnterMobileNumber> {
   bool _checkbox = false;
-  bool _checkboxListTile = false;
   final _phoneFocus = FocusNode();
   FirebaseAuth auth = FirebaseAuth.instance;
   String verificationID = "";
 
-  TextEditingController phoneController = TextEditingController();
+  late String _number;
 
+  TextEditingController phoneController = TextEditingController();
+  validate() async {
+    final bool? isValid = _formKey.currentState?.validate();
+    if (isValid == true) {
+      print("validated");
+      print("hii");
+      debugPrint(_number);
+      showDialog(
+          context: context,
+          builder: (context) {
+            return Center(child: CircularProgressIndicator());
+          });
+      await auth.verifyPhoneNumber(
+          phoneNumber: "+91${phoneController.text}",
+          verificationCompleted: (phoneAuthCredential) async {},
+          verificationFailed: (verificationFailed) {
+            print(verificationFailed);
+          },
+          codeSent: (String verificationId, int? resendToken) async {
+            setState(() {
+              verificationID = verificationId;
+              print('verid $verificationID');
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          EnterOtpNumber(
+                            mobileNumber: phoneController.text,
+                            auth: '',
+                            verificationId: verificationID,
+                          )));
+            });
+            //Navigator.of(context).pop();
+          },
+          codeAutoRetrievalTimeout: (verificationID) async {});
+    } else {
+      _showToast(context);
+    }
+  }
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -61,203 +99,356 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
         ));
   }
 
-
-
   Widget getFirstImageFrame(double parentHeight, double parentWidth) {
-    return Padding(
-      padding: EdgeInsets.only(top: parentHeight * 0.04),
-      child: Center(
-        child: Container(
-          width: parentWidth,
-          height: parentHeight * .6,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                height: parentHeight * .23,
-                width: parentWidth * .58,
-                decoration: BoxDecoration(
-                    color: CommonColor.GRAY_COLOR,
-                    borderRadius: BorderRadius.circular(30)),
-                 child: ClipRRect(
-                    borderRadius: BorderRadius.circular(30),
-                    child:Image.network(
-                      "https://cdn.pixabay.com/photo/2015/10/25/21/02/abu-1006336__340.jpg",
-                      //listPaths[index % listPaths.length],
-                      fit: BoxFit.cover,
+    return Form(
+      key: _formKey,
 
-                    ),
-                  )
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                    top: parentHeight * 0.06,
-                    left: parentWidth * 0.13,
-                    right: parentWidth * 0.1),
-                child: Text(
-                  "Enter the Mobile No.  we will send you one time verification code to start.  ",
-                  style: TextStyle(
-                      fontSize: SizeConfig.blockSizeHorizontal * 3.5,
-                      color: CommonColor.BLACK,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: 'Roboto_bold'),
-                  //textAlign: TextAlign.center,
+      child: Padding(
+        padding: EdgeInsets.only(top: parentHeight * 0.04),
+        child: Center(
+          child: Container(
+            width: parentWidth,
+            height: parentHeight * .6,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                    height: parentHeight * .23,
+                    width: parentWidth * .58,
+                    decoration: BoxDecoration(
+                        color: CommonColor.GRAY_COLOR,
+                        borderRadius: BorderRadius.circular(30)),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(30),
+                      child: Image.network(
+                        "https://cdn.pixabay.com/photo/2015/10/25/21/02/abu-1006336__340.jpg",
+                        //listPaths[index % listPaths.length],
+                        fit: BoxFit.cover,
+                      ),
+                    )),
+                Padding(
+                  padding: EdgeInsets.only(
+                      top: parentHeight * 0.06,
+                      left: parentWidth * 0.13,
+                      right: parentWidth * 0.1),
+                  child: Text(
+                    "Enter the Mobile No.  we will send you one time verification code to start.  ",
+                    style: TextStyle(
+                        fontSize: SizeConfig.blockSizeHorizontal * 3.5,
+                        color: CommonColor.BLACK,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'Roboto_bold'),
+                    //textAlign: TextAlign.center,
+                  ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                    top: parentHeight * 0.02,
-                    left: parentWidth * 0.05,
-                    right: parentWidth * 0.02),
-                child: Container(
-                  height: parentHeight * 0.08,
-                  width: parentHeight * 0.9,
-                  child: Column(
-                    children: [
-                      Padding(
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: parentWidth * 0.02, right: parentWidth * 0.02),
+                  child: Column(children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: parentWidth * 0.03, top: parentHeight * 0.009),
+                       /*   child: Text(
+                            "State",
+                            style:
+                            TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
+                          )*/
+                        ),
+                      ],
+                    ),
+                    Padding(
                         padding: EdgeInsets.only(
-                            left: parentWidth * 0.07,
-                            right: parentWidth * 0.08,
-                            top: parentHeight * 0.009),
-                        child: Container(
-                          height: parentHeight * .06,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                color: CommonColor.REGISTRARTION_COLOR,
-                                width: 1.5),
-                            borderRadius: BorderRadius.circular(5),
-                            // color: Colors.red,
-                          ),
-                          child: Row(
-                            children: [
-                              Row(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        right: SizeConfig.screenWidth * 0.01,
-                                        top: SizeConfig.screenHeight * 0.0),
-                                    child: Container(
-                                      width: SizeConfig.screenWidth * .08,
-                                      child: Image.asset(
-                                        'assets/images/flag.png',
+                            top: parentHeight * 0.03,
+                            left: parentWidth * 0.03,
+                            right: parentWidth * 0.03),
+                        child: Row(
+                          children: [
+                             Flexible(
+                               child: TextFormField(
+                                  controller: phoneController,
+                                  keyboardType: TextInputType.text,
+                                  focusNode: _phoneFocus,
+                                  validator: (value) {
+                                    if (value == null || value.trim().isEmpty) {
+                                      return 'This field is required';
+                                    }
+                                    if (value.trim().length < 10 || value.trim().length > 10) {
+                                      return 'Please Enter Valid Number';
+                                    }
+                                    // Return null if the entered password is valid
+                                    return null;
+                                  },
+                                  onChanged: (value){
+                                    _number = value;
+                                  },
+                                  decoration: InputDecoration(
+                                    prefixIcon: Image(image: AssetImage( 'assets/images/flag.png'),),
+                                      prefixText: "+91 ",
+                                      prefixStyle: TextStyle(color: Colors.black),
+                                      labelText: 'Phone Number',
+                                      labelStyle: TextStyle(
+                                          color:  CommonColor.REGISTRARTION_COLOR
                                       ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        left: parentWidth * 0.0),
-                                    child: Text(
-                                      "+91",
-                                      style: TextStyle(
-                                        fontFamily: "Roboto_Regular",
-                                        fontWeight: FontWeight.w500,
-                                        fontSize:
-                                            SizeConfig.blockSizeHorizontal *
-                                                4.0,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Flexible(
-                                child: Padding(
-                                  padding: EdgeInsets.only(
-                                      left: parentWidth * 0.01,
-                                      right: parentWidth * 0.01),
-                                  child: TextFormField(
+                                      contentPadding: const EdgeInsets.all(12),
+                                      isDense: true,
+                                      focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              width: 1,
+                                              color: CommonColor.REGISTRARTION_COLOR),
+                                          borderRadius: BorderRadius.circular(10.0)),
+                                      enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              width: 1,
+                                              color: CommonColor.REGISTRARTION_COLOR),
+                                          borderRadius: BorderRadius.circular(10.0)),
+                                      //borderRadius: BorderRadius.circular(10)
+                                      border: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              width: 1,
+                                              color: CommonColor.REGISTRARTION_COLOR),
+                                          borderRadius: BorderRadius.circular(10.0)),
+                                      hintStyle: TextStyle(
+                                          fontFamily: "Roboto_Regular",
+                                          fontSize: SizeConfig.blockSizeHorizontal * 3.5,
+                                          color: CommonColor.SEARCH_TEXT_COLOR
+                                      ))),
+                             ),
+                          ],
+
+                        ))
+                  ]),
+                ),
+                /*Padding(
+                  padding: EdgeInsets.only(
+                      top: parentHeight * 0.02,
+                      left: parentWidth * 0.05,
+                      right: parentWidth * 0.02),
+                  child: Container(
+                    height: parentHeight * 0.08,
+                    width: parentHeight * 0.9,
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: parentWidth * 0.07,
+                              right: parentWidth * 0.08,
+                              top: parentHeight * 0.009),
+                          child: Container(
+                            height: parentHeight * .06,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: CommonColor.REGISTRARTION_COLOR,
+                                  width: 1.5),
+                              borderRadius: BorderRadius.circular(5),
+                              // color: Colors.red,
+                            ),
+                            child:
+                            Padding(
+                                padding: EdgeInsets.only(
+                                    top: parentHeight * 0.01,
+                                    left: parentWidth * 0.03,
+                                    right: parentWidth * 0.03),
+                                child: TextFormField(
                                     focusNode: _phoneFocus,
                                     controller: phoneController,
-                                    keyboardType: TextInputType.number,
-                                    autocorrect: true,
-                                    textInputAction: TextInputAction.next,
-
+                                    keyboardType: TextInputType.text,
+                                    validator: (value) {
+                                      if (value == null || value.trim().isEmpty) {
+                                        return 'This field is required';
+                                      }
+                                      if (value.trim().length < 10 || value.trim().length > 10) {
+                                        return 'Please Enter Valid Number';
+                                      }
+                                      // Return null if the entered password is valid
+                                      return null;
+                                    },
+                                    onChanged: (value){
+                                      _number = value;
+                                    },
                                     decoration: InputDecoration(
-                                      hintText: "Enter your Mobile No.",
-                                      contentPadding: EdgeInsets.only(
-                                          left: parentWidth * 0.03,
-                                          bottom: parentHeight * 0.009),
-                                      hintStyle: TextStyle(
-                                        fontFamily: "Roboto_Regular",
-                                        fontSize:
-                                            SizeConfig.blockSizeHorizontal *
-                                                4.0,
-                                        // color: CommonColor.DIVIDER_COLOR,
-                                      ),
-                                      enabledBorder: const UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Colors.transparent,
+                                        labelText: 'Mobile Number',
+                                        labelStyle: TextStyle(
+                                            color:  CommonColor.REGISTRARTION_COLOR
                                         ),
-                                      ),
-                                      focusedBorder: const UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Colors.transparent,
+                                        contentPadding: const EdgeInsets.all(12),
+                                        isDense: true,
+                                        focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                width: 1,
+                                                color: CommonColor.REGISTRARTION_COLOR),
+                                            borderRadius: BorderRadius.circular(10.0)),
+                                        enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                width: 1,
+                                                color: CommonColor.REGISTRARTION_COLOR),
+                                            borderRadius: BorderRadius.circular(10.0)),
+                                        //borderRadius: BorderRadius.circular(10)
+                                        border: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                width: 1,
+                                                color: CommonColor.REGISTRARTION_COLOR),
+                                            borderRadius: BorderRadius.circular(10.0)),
+                                        hintStyle: TextStyle(
+                                            fontFamily: "Roboto_Regular",
+                                            fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+                                            color: CommonColor.SEARCH_TEXT_COLOR
+                                        )
+
+                                    )
+
+                                ))
+
+                            */
+                /*Row(
+                              children: [
+                                Row(
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          right: SizeConfig.screenWidth * 0.01,
+                                          top: SizeConfig.screenHeight * 0.0),
+                                      child: Container(
+                                        width: SizeConfig.screenWidth * .08,
+                                        child: Image.asset(
+                                          'assets/images/flag.png',
                                         ),
                                       ),
                                     ),
-                                    // controller: emailController,
-                                    style: TextStyle(
-                                      fontFamily: "Roboto_Regular",
-                                      fontSize:
-                                          SizeConfig.blockSizeHorizontal * 3.5,
-                                      // color: CommonColor.WHITE_COLOR,
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          left: parentWidth * 0.0),
+                                      child: Text(
+                                        "+91",
+                                        style: TextStyle(
+                                          fontFamily: "Roboto_Regular",
+                                          fontWeight: FontWeight.w500,
+                                          fontSize:
+                                              SizeConfig.blockSizeHorizontal *
+                                                  4.0,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Flexible(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                        left: parentWidth * 0.01,
+                                        right: parentWidth * 0.01),
+                                    child: TextFormField(
+                                      validator: (value) {
+                                        if (value == null || value.trim().isEmpty) {
+                                          return 'This field is required';
+                                        }
+                                        if (value.trim().length < 10 || value.trim().length > 10) {
+                                          return 'Please Enter Valid Number';
+                                        }
+                                        // Return null if the entered password is valid
+                                        return null;
+                                      },
+                                      onChanged: (value){
+                                        _number = value;
+                                      },
+                                      focusNode: _phoneFocus,
+                                      controller: phoneController,
+                                      keyboardType: TextInputType.number,
+                                      autocorrect: true,
+                                      textInputAction: TextInputAction.next,
+
+                                      decoration: InputDecoration(
+                                        hintText: "Enter your Mobile No.",
+                                        contentPadding: EdgeInsets.only(
+                                            left: parentWidth * 0.03,
+                                            bottom: parentHeight * 0.009),
+                                        hintStyle: TextStyle(
+                                          fontFamily: "Roboto_Regular",
+                                          fontSize:
+                                              SizeConfig.blockSizeHorizontal *
+                                                  4.0,
+                                          // color: CommonColor.DIVIDER_COLOR,
+                                        ),
+                                        enabledBorder: const UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Colors.transparent,
+                                          ),
+                                        ),
+                                        focusedBorder: const UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Colors.transparent,
+                                          ),
+                                        ),
+                                      ),
+                                      // controller: emailController,
+                                      style: TextStyle(
+                                        fontFamily: "Roboto_Regular",
+                                        fontSize:
+                                            SizeConfig.blockSizeHorizontal * 3.5,
+                                        // color: CommonColor.WHITE_COLOR,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),*//*
                           ),
                         ),
+                      ],
+                    ),
+                  ),
+                ),*/
+                Padding(
+                  padding:  EdgeInsets.only(top: parentHeight*0.02),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left: parentWidth * 0.08),
+                            child: Checkbox(
+                              side: const BorderSide(
+                                // set border color here
+                                color: CommonColor.REGISTRARTION_TRUSTEE,
+                              ),
+                              value: _checkbox,
+                              checkColor: Colors.white,
+                              activeColor: CommonColor.REGISTRARTION_TRUSTEE,
+                              onChanged: (value) {
+                                setState(() {
+                                  _checkbox = !_checkbox;
+                                });
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                                top: parentHeight * 0.006,
+                                left: parentWidth * 0.0,
+                                right: parentWidth * 0.06),
+                            child: Text(
+                              "By clicking Sign up, you agree to our \nTerms & Conditions and Privacy Policy. ",
+                              style: TextStyle(
+                                  fontSize: SizeConfig.blockSizeHorizontal * 3.5,
+                                  color: CommonColor.BLACK,
+                                  fontWeight: FontWeight.w400,
+                                  fontFamily: 'Roboto_bold'),
+                              //textAlign: TextAlign.center,
+                            ),
+                          ), //textAlign: TextAlign.center,
+                        ],
                       ),
                     ],
                   ),
                 ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(left: parentWidth * 0.08),
-                        child: Checkbox(
-                          side: const BorderSide(
-                            // set border color here
-                            color: CommonColor.REGISTRARTION_TRUSTEE,
-                          ),
-                          value: _checkbox,
-                          checkColor: Colors.white,
-                          activeColor: CommonColor.REGISTRARTION_TRUSTEE,
-                          onChanged: (value) {
-                            setState(() {
-                              _checkbox = !_checkbox;
-                            });
-                          },
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: parentHeight * 0.006,
-                            left: parentWidth * 0.0,
-                            right: parentWidth * 0.06),
-                        child: Text(
-                          "By clicking Sign up, you agree to our \nTerms & Conditions and Privacy Policy. ",
-                          style: TextStyle(
-                              fontSize: SizeConfig.blockSizeHorizontal * 3.5,
-                              color: CommonColor.BLACK,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'Roboto_bold'),
-                          //textAlign: TextAlign.center,
-                        ),
-                      ), //textAlign: TextAlign.center,
-                    ],
-                  ),
-                ],
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -267,46 +458,11 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
   Widget ContinueButton(double parentHeight, double parentWidth) {
     return GestureDetector(
       onTap: () async {
-
-        if(phoneController.text.trim().isNotEmpty) {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return Center(child: CircularProgressIndicator());
-              });
-          //await Future<int>.delayed(Duration(seconds: 5));
-
-          // Navigator.of(context, rootNavigator: true).pop();
-          await auth.verifyPhoneNumber(
-              phoneNumber: "+91${phoneController.text}",
-              verificationCompleted: (phoneAuthCredential) async {},
-              verificationFailed: (verificationFailed) {
-                print(verificationFailed);
-              },
-              codeSent: (String verificationId, int? resendToken) async {
-                setState(() {
-                  verificationID = verificationId;
-                  print('verid $verificationID');
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              EnterOtpNumber(
-                                mobileNumber: phoneController.text,
-                                auth: '',
-                                verificationId: verificationID,
-                              )));
-                });
-                //Navigator.of(context).pop();
-              },
-              codeAutoRetrievalTimeout: (verificationID) async {});
-        }else{
-          _showToast(context);
-        }
+      validate();
       },
       child: Padding(
         padding: EdgeInsets.only(
-            top: parentHeight * 0.05,
+            top: parentHeight * 0.03,
             left: parentWidth * 0.1,
             right: parentWidth * 0.1),
         child: Container(
@@ -331,42 +487,48 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
       ),
     );
   }
+
   void _showToast(BuildContext context) {
     final scaffold = ScaffoldMessenger.of(context);
     scaffold.showSnackBar(
       SnackBar(
         content: const Text('Enter valid mobile Number'),
-        action: SnackBarAction(label: 'UNDO', onPressed: scaffold.hideCurrentSnackBar),
+        action: SnackBarAction(
+            label: 'UNDO', onPressed: scaffold.hideCurrentSnackBar),
       ),
     );
   }
+
   Widget getBottomText() {
     return Padding(
       padding: const EdgeInsets.only(top: 12),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text("Already Have an Account?",  style: TextStyle(
-              fontSize: 15,
-              fontFamily: "Roboto_Regular",
-              fontWeight: FontWeight.w400,
-              // fontSize: SizeConfig.blockSizeHorizontal * 4.5,
-              color: CommonColor.BLACK_COLOR
-          ),),
-
+          const Text(
+            "Already Have an Account?",
+            style: TextStyle(
+                fontSize: 15,
+                fontFamily: "Roboto_Regular",
+                fontWeight: FontWeight.w400,
+                // fontSize: SizeConfig.blockSizeHorizontal * 4.5,
+                color: CommonColor.BLACK_COLOR),
+          ),
           GestureDetector(
             onDoubleTap: () {},
             onTap: () {
-              Navigator.pushReplacement(context, MaterialPageRoute(
-                  builder: (context) => const LoginScreen()));
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => const LoginScreen()));
             },
             child: Container(
               color: Colors.transparent,
-              child: const Text(" Login", style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: CommonColor.RIGHT_COLOR
-              ),),
+              child: const Text(
+                " Login",
+                style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: CommonColor.RIGHT_COLOR),
+              ),
             ),
           ),
         ],
