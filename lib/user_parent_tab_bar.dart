@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:masjiduserapp/enter_mobile_number.dart';
 
 import 'package:masjiduserapp/masjit_main_new_screen.dart';
 import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/user_logout_responce_model.dart';
-import 'package:masjiduserapp/privacy_policy.dart';
 import 'package:masjiduserapp/size_config.dart';
-import 'package:masjiduserapp/terms_and_condition.dart';
 import 'package:masjiduserapp/user_login_screen.dart';
 import 'package:masjiduserapp/util/constant.dart';
 
@@ -34,7 +31,7 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
   bool searchBar = false;
   final _searchFocus = FocusNode();
   final searchController = TextEditingController();
-  String _searchText = "";
+  final String _searchText = "";
   late TabController _tabController;
   late Future<UseLogoutResponceModel> result;
   @override
@@ -88,7 +85,7 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                 child: Padding(
                   padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.0),
                   child: Center(
-                    child: Image(image: AssetImage("assets/images/appLogo.png"),
+                    child: Image(image: const AssetImage("assets/images/appLogo.png"),
                     height: SizeConfig.screenHeight*0.04,),
                   ),
                 ),
@@ -113,8 +110,8 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                           padding: EdgeInsets.only(
                               left: SizeConfig.screenWidth *
                                   0.03),
-                          child: Image(
-                            image: const AssetImage("assets/images/searchs.png"),
+                          child: const Image(
+                            image: AssetImage("assets/images/searchs.png"),
                             // fit: BoxFit.contain,
 
 
@@ -172,20 +169,21 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                     top: SizeConfig.screenHeight * 0.02),
                 child: Visibility(
                   visible: serchIcon,
-                  child: Container(
+                  child: SizedBox(
                     width: SizeConfig.screenWidth * .15,
                     child: IconButton(
                       onPressed: () {
-                        print("cjxb ${searchController}");
+                        print("cjxb $searchController");
 
-                        if(mounted)
+                        if(mounted) {
                           setState(() {
                             serchIcon = false;
                             searchBar = true;
                           });
+                        }
 
                       },
-                      icon: Icon(Icons
+                      icon: const Icon(Icons
                           .search), /*Image.asset(
                     'assets/images/appBarIcon.png',
                   ),*/
@@ -203,12 +201,12 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
           ),
         ),
         body: ListView(
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
 
-          padding: EdgeInsets.only(bottom: 20),
+          padding: const EdgeInsets.only(bottom: 20),
           children: [
-            Container(
+            SizedBox(
                 height: SizeConfig.screenHeight * 0.90,
                 child: getAddGameTabLayout(
                     SizeConfig.screenHeight, SizeConfig.screenWidth)
@@ -217,11 +215,11 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
         ),
         drawer: Padding(
           padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.04),
-          child: Container(
+          child: SizedBox(
             height: SizeConfig.screenHeight * .99,
             width: SizeConfig.screenHeight * .35,
             child: ClipRRect(
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(30),
                 bottomRight: Radius.circular(30.0),
               ),
@@ -232,7 +230,7 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                     SizedBox(
                       height: 180,
                       child: DrawerHeader(
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             gradient: LinearGradient(
                                 begin: Alignment.centerLeft,
                                 end: Alignment.centerRight,
@@ -241,7 +239,7 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                                   CommonColor.RIGHT_COLOR
                                 ])),
                           child:   Row(
-                            children: [
+                            children: const [
                               Padding(
                                 padding: EdgeInsets.only(left: 40),
                                 child: Image(image: AssetImage("assets/images/appLogo.png"),
@@ -274,7 +272,7 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                       // leading: Icon(Icons.message),
                       title: Padding(
                         padding: EdgeInsets.only(left: SizeConfig.screenWidth*0.02),
-                        child: Text(
+                        child: const Text(
                           "Privacy Policy",
                           style: TextStyle(
                               fontSize: 13,
@@ -293,7 +291,7 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                       // leading: Icon(Icons.message),
                       title: Padding(
                         padding: EdgeInsets.only(left: SizeConfig.screenWidth*0.02),
-                        child: Text(
+                        child: const Text(
                           "Terms & Condition",
                           style: TextStyle(
                               fontSize: 13,
@@ -309,7 +307,7 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                           context: context,
                           builder: (ctx) => AlertDialog(
 
-                            title: Center(child:  Text("Logout", style: TextStyle(
+                            title: const Center(child:  Text("Logout", style: TextStyle(
                               color: CommonColor.REGISTRARTION_COLOR,
                               fontWeight: FontWeight.w400,
                               fontSize: 20,
@@ -317,7 +315,7 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                             ),)),
                             content:  Padding(
                               padding:  EdgeInsets.only(left: SizeConfig.screenWidth*0.04),
-                              child: Text("Are you sure you want to log out ? You can log in anytime you want again.",
+                              child: const Text("Are you sure you want to log out ? You can log in anytime you want again.",
 
 
                                 style: TextStyle(
@@ -347,7 +345,7 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                                               box.delete(kUserPhoneNumber);
 
 
-                                                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>LoginScreen()),
+                                                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>const LoginScreen()),
                                                         (Route route) => false);
 
 
@@ -370,7 +368,7 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                                           child: Container(
                                               height: SizeConfig.screenHeight * 0.05,
                                               decoration: BoxDecoration(
-                                                gradient: LinearGradient(
+                                                gradient: const LinearGradient(
                                                     begin: Alignment.centerLeft,
                                                     end: Alignment.centerRight,
                                                     colors: [CommonColor.LEFT_COLOR, CommonColor.RIGHT_COLOR]),
@@ -404,7 +402,7 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                                               child: Container(
                                                   height: SizeConfig.screenHeight * 0.05,
                                                   decoration: BoxDecoration(
-                                                    gradient: LinearGradient(
+                                                    gradient: const LinearGradient(
                                                         begin: Alignment.centerLeft,
                                                         end: Alignment.centerRight,
                                                         colors: [CommonColor.LEFT_COLOR, CommonColor.RIGHT_COLOR]),
@@ -437,7 +435,7 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                       // leading: Icon(Icons.message),
                       title: Padding(
                         padding: EdgeInsets.only(left: SizeConfig.screenWidth*0.02),
-                        child: Text(
+                        child: const Text(
                           "Logout",
                           style: TextStyle(
                               fontSize: 13,
@@ -459,90 +457,87 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
 
 
   Widget getAddGameTabLayout(double parentHeight, double parentWidth) {
-    return Container(//
-
-        child: Padding(
-          padding:  EdgeInsets.only(top: parentHeight*0.03,right: parentWidth*0.04,left: parentWidth*0.04),
-          child: Column(
-              children: [
-                // give the tab bar a height [can change hheight to preferred height]
-                Container(
-                  height: parentHeight*0.05,
-                  decoration: BoxDecoration(
-                    color: CommonColor.WHITE_COLOR,
-                    borderRadius: BorderRadius.circular(
-                      25.0,
-                    ),  border: Border.all(color: CommonColor.REGISTRARTION_TRUSTEE, width: 0.7),
+    return Padding(
+      padding:  EdgeInsets.only(top: parentHeight*0.03,right: parentWidth*0.04,left: parentWidth*0.04),
+      child: Column(
+          children: [
+            // give the tab bar a height [can change hheight to preferred height]
+            Container(
+              height: parentHeight*0.05,
+              decoration: BoxDecoration(
+                color: CommonColor.WHITE_COLOR,
+                borderRadius: BorderRadius.circular(
+                  25.0,
+                ),  border: Border.all(color: CommonColor.REGISTRARTION_TRUSTEE, width: 0.7),
+              ),
+              child: TabBar(
+                controller: _tabController,
+                // give the indicator a decoration (color and border radius)
+                indicator: BoxDecoration(
+                  borderRadius: BorderRadius.circular(
+                    25.0,
                   ),
-                  child: TabBar(
-                    controller: _tabController,
-                    // give the indicator a decoration (color and border radius)
-                    indicator: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                        25.0,
-                      ),
-                      gradient: LinearGradient(
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
-                          colors: [CommonColor.LEFT_COLOR, CommonColor.RIGHT_COLOR]),
+                  gradient: const LinearGradient(
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                      colors: [CommonColor.LEFT_COLOR, CommonColor.RIGHT_COLOR]),
 
-                    ),
-                    labelColor: Colors.white,
-                    unselectedLabelColor: Colors.green.shade800,
-                    tabs: [
-                      // first tab [you can add an icon using the icon property]
-                      Tab(
-
-                        text: 'Joined Masjid',
-                      ),
-
-                      // second tab [you can add an icon using the icon property]
-                      Tab(
-                        text: 'All Masjid List',
-                      ),
-                    ],
-                  ),
                 ),
-                // tab bar view here
-                Expanded(
-                    child: Padding(
-                      padding:  EdgeInsets.only(top:parentHeight*0.0),
+                labelColor: Colors.white,
+                unselectedLabelColor: Colors.green.shade800,
+                tabs: const [
+                  // first tab [you can add an icon using the icon property]
+                  Tab(
 
-                      child: TabBarView(
-                        controller: _tabController,
+                    text: 'Joined Masjid',
+                  ),
+
+                  // second tab [you can add an icon using the icon property]
+                  Tab(
+                    text: 'All Masjid List',
+                  ),
+                ],
+              ),
+            ),
+            // tab bar view here
+            Expanded(
+                child: Padding(
+                  padding:  EdgeInsets.only(top:parentHeight*0.0),
+
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: [
+
+                      Stack(
                         children: [
 
-                          Stack(
-                            children: [
-
-                              Center(child: Text("Aaysha",style: TextStyle(
-                                color: Colors.red
-                              ),)),
-                              MasjitMainScreen(tabbr: '', masjitIdRemoved: '', onNext: () {
-                                _tabController.index = 1;
-                              },),
-                            ],
-                          ),
-
-                          AllMasjitList(onNext: () {
-
-                            _tabController.index = 2;
+                          const Center(child: Text("Aaysha",style: TextStyle(
+                            color: Colors.red
+                          ),)),
+                          MasjitMainScreen(tabbr: '', masjitIdRemoved: '', onNext: () {
+                            _tabController.index = 1;
                           },),
-
-
-
-
-
                         ],
-
                       ),
 
+                      AllMasjitList(onNext: () {
 
-                    )
+                        _tabController.index = 2;
+                      },),
+
+
+
+
+
+                    ],
+
+                  ),
+
+
                 )
-              ]),
+            )
+          ]),
 
-        )
     );
 
   }
@@ -579,31 +574,29 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
     }
   }
   static showExitDialog(BuildContext context) {
-    if (context != null) {
-      showGeneralDialog(
-          barrierColor: Colors.black.withOpacity(0.5),
-          transitionBuilder: (context, a1, a2, widget) {
-            final curvedValue = Curves.easeInOutBack.transform(a1.value) - 1.0;
-            // return Transform(
-            //   transform: Matrix4.translationValues(0.0, curvedValue * 200, 0.0),
-            return Transform.scale(
-              scale: a1.value,
-              child: Opacity(
-                opacity: a1.value,
-                child: ExitAppDialog(
-                  message: "Are You Sure To Exit",
-                ),
+    showGeneralDialog(
+        barrierColor: Colors.black.withOpacity(0.5),
+        transitionBuilder: (context, a1, a2, widget) {
+          final curvedValue = Curves.easeInOutBack.transform(a1.value) - 1.0;
+          // return Transform(
+          //   transform: Matrix4.translationValues(0.0, curvedValue * 200, 0.0),
+          return Transform.scale(
+            scale: a1.value,
+            child: Opacity(
+              opacity: a1.value,
+              child: const ExitAppDialog(
+                message: "Are You Sure To Exit",
               ),
-            );
-          },
-          transitionDuration: Duration(milliseconds: 200),
-          barrierDismissible: true,
-          barrierLabel: '',
-          context: context,
-          pageBuilder: (context, animation2, animation1) {
-            return Container();
-          });
-    }
+            ),
+          );
+        },
+        transitionDuration: const Duration(milliseconds: 200),
+        barrierDismissible: true,
+        barrierLabel: '',
+        context: context,
+        pageBuilder: (context, animation2, animation1) {
+          return Container();
+        });
   }
   Future<bool> _onBackPressed(){
     return showExitDialog(context);

@@ -17,37 +17,35 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        body: Container(
-          child: Column(
-            children: [
-              Container(
-                height: SizeConfig.screenHeight * 0.11,
-                decoration:  BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                        colors: [
-                          CommonColor.LEFT_COLOR,
-                          CommonColor.RIGHT_COLOR
-                        ]),
-                    border: Border(
-                        bottom: BorderSide(
-                            width: 1, color: CommonColor.RIGHT_COLOR))),
-                child: getAddMainHeadingLayout(
-                    SizeConfig.screenHeight, SizeConfig.screenWidth),
-              ),
-              Container(
-                height: SizeConfig.screenHeight * 0.88,
-                child: ListView(
-                  children: [
-                    getAddTermsTextLayout(
-                        SizeConfig.screenHeight, SizeConfig.screenWidth),
+        body: Column(
+          children: [
+            Container(
+              height: SizeConfig.screenHeight * 0.11,
+              decoration:  const BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                      colors: [
+                        CommonColor.LEFT_COLOR,
+                        CommonColor.RIGHT_COLOR
+                      ]),
+                  border: Border(
+                      bottom: BorderSide(
+                          width: 1, color: CommonColor.RIGHT_COLOR))),
+              child: getAddMainHeadingLayout(
+                  SizeConfig.screenHeight, SizeConfig.screenWidth),
+            ),
+            SizedBox(
+              height: SizeConfig.screenHeight * 0.88,
+              child: ListView(
+                children: [
+                  getAddTermsTextLayout(
+                      SizeConfig.screenHeight, SizeConfig.screenWidth),
 
-                  ],
-                ),
-              )
-            ],
-          ),
+                ],
+              ),
+            )
+          ],
         ));
   }
 

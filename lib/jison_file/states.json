@@ -1,0 +1,317 @@
+[
+  {
+    "id": "1",
+    "name_mr": "MAHARASHTRA",
+    "name_en": "MAHARASHTRA",
+    "name_hi": null,
+    "created_at": "2022-06-13 15:12:11",
+    "updated_at": "2022-06-13 15:12:11",
+    "state_id": "27"
+  },
+  {
+    "id": "2",
+    "name_mr": "JAMMU & KASHMIR",
+    "name_en": "JAMMU & KASHMIR",
+    "name_hi": null,
+    "created_at": "2022-06-13 15:12:13",
+    "updated_at": "2022-06-13 15:12:13",
+    "state_id": "1"
+  },
+  {
+    "id": "3",
+    "name_mr": "HIMACHAL PRADESH",
+    "name_en": "HIMACHAL PRADESH",
+    "name_hi": null,
+    "created_at": "2022-06-13 15:12:13",
+    "updated_at": "2022-06-13 15:12:13",
+    "state_id": "2"
+  },
+  {
+    "id": "4",
+    "name_mr": "PUNJAB",
+    "name_en": "PUNJAB",
+    "name_hi": null,
+    "created_at": "2022-06-13 15:12:14",
+    "updated_at": "2022-06-13 15:12:14",
+    "state_id": "3"
+  },
+  {
+    "id": "5",
+    "name_mr": "CHANDIGARH",
+    "name_en": "CHANDIGARH",
+    "name_hi": null,
+    "created_at": "2022-06-13 15:12:14",
+    "updated_at": "2022-06-13 15:12:14",
+    "state_id": "4"
+  },
+  {
+    "id": "6",
+    "name_mr": "UTTARANCHAL",
+    "name_en": "UTTARANCHAL",
+    "name_hi": null,
+    "created_at": "2022-06-13 15:12:14",
+    "updated_at": "2022-06-13 15:12:14",
+    "state_id": "5"
+  },
+  {
+    "id": "7",
+    "name_mr": "HARYANA",
+    "name_en": "HARYANA",
+    "name_hi": null,
+    "created_at": "2022-06-13 15:12:14",
+    "updated_at": "2022-06-13 15:12:14",
+    "state_id": "6"
+  },
+  {
+    "id": "8",
+    "name_mr": "DELHI",
+    "name_en": "DELHI",
+    "name_hi": null,
+    "created_at": "2022-06-13 15:12:15",
+    "updated_at": "2022-06-13 15:12:15",
+    "state_id": "7"
+  },
+  {
+    "id": "9",
+    "name_mr": "RAJASTHAN",
+    "name_en": "RAJASTHAN",
+    "name_hi": null,
+    "created_at": "2022-06-13 15:12:15",
+    "updated_at": "2022-06-13 15:12:15",
+    "state_id": "8"
+  },
+  {
+    "id": "10",
+    "name_mr": "UTTAR PRADESH",
+    "name_en": "UTTAR PRADESH",
+    "name_hi": null,
+    "created_at": "2022-06-13 15:12:16",
+    "updated_at": "2022-06-13 15:12:16",
+    "state_id": "9"
+  },
+  {
+    "id": "11",
+    "name_mr": "BIHAR",
+    "name_en": "BIHAR",
+    "name_hi": null,
+    "created_at": "2022-06-13 15:12:18",
+    "updated_at": "2022-06-13 15:12:18",
+    "state_id": "10"
+  },
+  {
+    "id": "12",
+    "name_mr": "SIKKIM",
+    "name_en": "SIKKIM",
+    "name_hi": null,
+    "created_at": "2022-06-13 15:12:21",
+    "updated_at": "2022-06-13 15:12:21",
+    "state_id": "11"
+  },
+  {
+    "id": "13",
+    "name_mr": "ARUNACHAL PRADESH",
+    "name_en": "ARUNACHAL PRADESH",
+    "name_hi": null,
+    "created_at": "2022-06-13 15:12:21",
+    "updated_at": "2022-06-13 15:12:21",
+    "state_id": "12"
+  },
+  {
+    "id": "14",
+    "name_mr": "NAGALAND",
+    "name_en": "NAGALAND",
+    "name_hi": null,
+    "created_at": "2022-06-13 15:12:22",
+    "updated_at": "2022-06-13 15:12:22",
+    "state_id": "13"
+  },
+  {
+    "id": "15",
+    "name_mr": "MANIPUR",
+    "name_en": "MANIPUR",
+    "name_hi": null,
+    "created_at": "2022-06-13 15:12:23",
+    "updated_at": "2022-06-13 15:12:23",
+    "state_id": "14"
+  },
+  {
+    "id": "16",
+    "name_mr": "MIZORAM",
+    "name_en": "MIZORAM",
+    "name_hi": null,
+    "created_at": "2022-06-13 15:12:23",
+    "updated_at": "2022-06-13 15:12:23",
+    "state_id": "15"
+  },
+  {
+    "id": "17",
+    "name_mr": "TRIPURA",
+    "name_en": "TRIPURA",
+    "name_hi": null,
+    "created_at": "2022-06-13 15:12:23",
+    "updated_at": "2022-06-13 15:12:23",
+    "state_id": "16"
+  },
+  {
+    "id": "18",
+    "name_mr": "MEGHALAYA",
+    "name_en": "MEGHALAYA",
+    "name_hi": null,
+    "created_at": "2022-06-13 15:12:23",
+    "updated_at": "2022-06-13 15:12:23",
+    "state_id": "17"
+  },
+  {
+    "id": "19",
+    "name_mr": "ASSAM",
+    "name_en": "ASSAM",
+    "name_hi": null,
+    "created_at": "2022-06-13 15:12:23",
+    "updated_at": "2022-06-13 15:12:23",
+    "state_id": "18"
+  },
+  {
+    "id": "20",
+    "name_mr": "WEST BENGAL",
+    "name_en": "WEST BENGAL",
+    "name_hi": null,
+    "created_at": "2022-06-13 15:12:25",
+    "updated_at": "2022-06-13 15:12:25",
+    "state_id": "19"
+  },
+  {
+    "id": "21",
+    "name_mr": "JHARKHAND",
+    "name_en": "JHARKHAND",
+    "name_hi": null,
+    "created_at": "2022-06-13 15:12:27",
+    "updated_at": "2022-06-13 15:12:27",
+    "state_id": "20"
+  },
+  {
+    "id": "22",
+    "name_mr": "ORISSA",
+    "name_en": "ORISSA",
+    "name_hi": null,
+    "created_at": "2022-06-13 15:12:28",
+    "updated_at": "2022-06-13 15:12:28",
+    "state_id": "21"
+  },
+  {
+    "id": "23",
+    "name_mr": "CHHATTISGARH",
+    "name_en": "CHHATTISGARH",
+    "name_hi": null,
+    "created_at": "2022-06-13 15:12:31",
+    "updated_at": "2022-06-13 15:12:31",
+    "state_id": "22"
+  },
+  {
+    "id": "24",
+    "name_mr": "MADHYA PRADESH",
+    "name_en": "MADHYA PRADESH",
+    "name_hi": null,
+    "created_at": "2022-06-13 15:12:32",
+    "updated_at": "2022-06-13 15:12:32",
+    "state_id": "23"
+  },
+  {
+    "id": "25",
+    "name_mr": "GUJARAT",
+    "name_en": "GUJARAT",
+    "name_hi": null,
+    "created_at": "2022-06-13 15:12:34",
+    "updated_at": "2022-06-13 15:12:34",
+    "state_id": "24"
+  },
+  {
+    "id": "26",
+    "name_mr": "DAMAN & DIU",
+    "name_en": "DAMAN & DIU",
+    "name_hi": null,
+    "created_at": "2022-06-13 15:12:36",
+    "updated_at": "2022-06-13 15:12:36",
+    "state_id": "25"
+  },
+  {
+    "id": "27",
+    "name_mr": "DADRA & NAGAR HAVELI",
+    "name_en": "DADRA & NAGAR HAVELI",
+    "name_hi": null,
+    "created_at": "2022-06-13 15:12:36",
+    "updated_at": "2022-06-13 15:12:36",
+    "state_id": "26"
+  },
+  {
+    "id": "28",
+    "name_mr": "ANDHRA PRADESH",
+    "name_en": "ANDHRA PRADESH",
+    "name_hi": null,
+    "created_at": "2022-06-13 15:12:36",
+    "updated_at": "2022-06-13 15:12:36",
+    "state_id": "28"
+  },
+  {
+    "id": "29",
+    "name_mr": "KARNATAKA",
+    "name_en": "KARNATAKA",
+    "name_hi": null,
+    "created_at": "2022-06-13 15:12:45",
+    "updated_at": "2022-06-13 15:12:45",
+    "state_id": "29"
+  },
+  {
+    "id": "30",
+    "name_mr": "GOA",
+    "name_en": "GOA",
+    "name_hi": null,
+    "created_at": "2022-06-13 15:12:46",
+    "updated_at": "2022-06-13 15:12:46",
+    "state_id": "30"
+  },
+  {
+    "id": "31",
+    "name_mr": "LAKSHADWEEP",
+    "name_en": "LAKSHADWEEP",
+    "name_hi": null,
+    "created_at": "2022-06-13 15:12:46",
+    "updated_at": "2022-06-13 15:12:46",
+    "state_id": "31"
+  },
+  {
+    "id": "32",
+    "name_mr": "KERALA",
+    "name_en": "KERALA",
+    "name_hi": null,
+    "created_at": "2022-06-13 15:12:46",
+    "updated_at": "2022-06-13 15:12:46",
+    "state_id": "32"
+  },
+  {
+    "id": "33",
+    "name_mr": "TAMIL NADU",
+    "name_en": "TAMIL NADU",
+    "name_hi": null,
+    "created_at": "2022-06-13 15:12:47",
+    "updated_at": "2022-06-13 15:12:47",
+    "state_id": "33"
+  },
+  {
+    "id": "34",
+    "name_mr": "PONDICHERRY",
+    "name_en": "PONDICHERRY",
+    "name_hi": null,
+    "created_at": "2022-06-13 15:12:49",
+    "updated_at": "2022-06-13 15:12:49",
+    "state_id": "34"
+  },
+  {
+    "id": "35",
+    "name_mr": "ANDAMAN & NICOBAR ISLANDS",
+    "name_en": "ANDAMAN & NICOBAR ISLANDS",
+    "name_hi": null,
+    "created_at": "2022-06-13 15:12:49",
+    "updated_at": "2022-06-13 15:12:49",
+    "state_id": "35"
+  }
+]

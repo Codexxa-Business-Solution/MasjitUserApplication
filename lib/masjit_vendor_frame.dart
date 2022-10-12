@@ -1,11 +1,8 @@
 
 
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_dnd/flutter_dnd.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:masjiduserapp/enter_mobile_number.dart';
 import 'package:masjiduserapp/size_config.dart';
 import 'package:masjiduserapp/user_login_screen.dart';
 import 'package:masjiduserapp/util/constant.dart';
@@ -38,7 +35,7 @@ final PageController _pageController = PageController();
     "Lorem Ipsum is simply dummy text of the \n printing and typesetting",
     "Lorem Ipsum is simply dummy text of the \n printing and typesetting",
   ];
-  bool? _isNotificationPolicyAccessGranted = false;
+  final bool? _isNotificationPolicyAccessGranted = false;
   void setInterruptionFilter(int filter) async {
     final bool? isNotificationPolicyAccessGranted =
     await FlutterDnd.isNotificationPolicyAccessGranted;
@@ -53,12 +50,12 @@ final PageController _pageController = PageController();
   Complete(){
 
     var  box = Hive.box(kBoxName);
-
+print("dndSetting $FlutterDnd");
     box.put(kOnBorading,true);
     FlutterDnd.gotoPolicySettings();
     setState(() {
 
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>LoginScreen()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>const LoginScreen()));
     });
 
 
@@ -78,7 +75,7 @@ final PageController _pageController = PageController();
       child: Scaffold(
         body: Column(
           children: [
-            Container(
+            SizedBox(
                  height: SizeConfig.screenHeight*.74,
                 width: SizeConfig.screenWidth,
                 child:
@@ -102,20 +99,7 @@ final PageController _pageController = PageController();
                         });
                       },
 
-                    /*  options: CarouselOptions(
-                        onPageChanged: (index, reason) {
-                          setState(() {
-                            currentIndex = index;
-                          });
-                        },
-                        initialPage: 1,
-                        height: SizeConfig.screenHeight * .7,
-                        // aspectRatio: 1.1,
-                        viewportFraction: 1.0,
-                        enableInfiniteScroll: false,
-                        autoPlay: false,
-                        enlargeStrategy: CenterPageEnlargeStrategy.height,
-                      ),*/
+
                       itemBuilder:
                           (context, index,) {
                         return  Padding(
@@ -137,13 +121,7 @@ final PageController _pageController = PageController();
                                     fit: BoxFit.cover,
 
                                   ),
-                                ) /*ClipRect(
-                                  borderRadius: BorderRadius.circular(30),
-                                  child: Image.network(
-                                    listPaths[index % listPaths.length],
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),*/
+                                )
                               ),
                               Padding(
                                 padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.06),
@@ -178,24 +156,7 @@ final PageController _pageController = PageController();
                         );
                       }),
                 )),
-            /* Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: listPaths.map((url) {
-                int index = listPaths.indexOf(url);
-                return Container(
-                  width: 8.0,
-                  height: 8.0,
-                  margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: currentPos == index
-                        ? Color.fromRGBO(0, 0, 0, 0.9)
-                        : Color.fromRGBO(0, 0, 0, 0.4),
-                  ),
-                );
-              }).toList(),
-            ),*/
-            //getFirstImageFrame(SizeConfig.screenHeight, SizeConfig.screenWidth),
+
             Row(
               //mainAxisAlignment: MainAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -205,26 +166,8 @@ final PageController _pageController = PageController();
                   buildIndicator(currentIndex == i)
               ],
             ),
-           /* Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                for (int i = 0; i < listPaths.length; i++)
-                  Container(
-                    width: 7,
-                    height: 7,
-                    margin: EdgeInsets.all(2),
-                    decoration: BoxDecoration(
-                      color: currentIndex == i
-                          ? Colors.green
-                          : Colors.grey.shade400,
-                      shape: BoxShape.circle,
-                    ),
-                  )
-              ],
-            ),*/
-         /* getFirstImageFrame(
-              SizeConfig.screenHeight, SizeConfig.screenWidth),*/
+
+
             getBottomButton(SizeConfig.screenHeight, SizeConfig.screenWidth),
             getSkipText(SizeConfig.screenHeight, SizeConfig.screenWidth),
           ],
@@ -248,7 +191,7 @@ final PageController _pageController = PageController();
   Widget getFirstImageFrame(double parentHeight, double parentWidth) {
     return  Center(
 
-      child: Container(
+      child: SizedBox(
         width: parentWidth,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -261,15 +204,6 @@ final PageController _pageController = PageController();
                   borderRadius: BorderRadius.circular(30)),
 
 
-              /* child: ClipRRect(
-               borderRadius: BorderRadius.all(Radius.circular(20)),
-
-              // borderRadius: BorderRadius.circular(8),
-              child: const Image(
-                  image: AssetImage("assets/images/frame_one.png"),
-                  fit: BoxFit.cover,
-                ),
-             ),*/
             ),
 
             Padding(
@@ -314,9 +248,9 @@ final PageController _pageController = PageController();
       child: GestureDetector(
         onDoubleTap: () {},
         onTap: () {
-         // currentIndex< (listPaths.length=3)? FlutterDnd.gotoPolicySettings() : "";
+          currentIndex< (listPaths.length=3)? FlutterDnd.gotoPolicySettings() : "";
 
-         // _pageController.jumpToPage(currentIndex - 1);
+          _pageController.jumpToPage(currentIndex - 1);
          currentIndex< (listPaths.length - 1)?
              _pageController.jumpToPage(currentIndex +1):
          Complete();
@@ -350,10 +284,7 @@ final PageController _pageController = PageController();
       ),
     );
   }
- /* goToNext() {
-    carouselSlider. nextPage(
-        duration: Duration(milliseconds: 300), curve: Curves.decelerate);
-  }*/
+
   Widget getSkipText(double parentHeight, double parentWidth) {
     return Padding(
       padding: EdgeInsets.only(top: parentHeight * 0.01),

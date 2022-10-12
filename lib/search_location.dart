@@ -28,35 +28,35 @@ class SearchLocationInputState extends State<SearchLocationInput> {
   @override
   void initState() {
     super.initState();
-    this.editController.addListener(this.onSearchInputChange);
+    editController.addListener(onSearchInputChange);
   }
 
   @override
   void dispose() {
-    this.editController.removeListener(this.onSearchInputChange);
-    this.editController.dispose();
+    editController.removeListener(onSearchInputChange);
+    editController.dispose();
 
     super.dispose();
   }
 
   void onSearchInputChange() {
-    if (this.editController.text.isEmpty) {
-      this.debouncer?.cancel();
-      widget.onSearchInput(this.editController.text);
+    if (editController.text.isEmpty) {
+      debouncer?.cancel();
+      widget.onSearchInput(editController.text);
 
       return;
     }
 
-    if (this.debouncer?.isActive ?? false) {
-      this.debouncer!.cancel();
+    if (debouncer?.isActive ?? false) {
+      debouncer!.cancel();
     }
 
-    this.debouncer = Timer(Duration(milliseconds: 500), () {
+    debouncer = Timer(const Duration(milliseconds: 500), () {
       if(!isSearch){
-        widget.onSearchInput(this.editController.text);
-        print("texxxxttt 1111 ${editController.text}");
+        widget.onSearchInput(editController.text);
+       
       }
-      print("texxxxttt  22222  ${editController.text}");
+   
 
 
     });
@@ -64,8 +64,7 @@ class SearchLocationInputState extends State<SearchLocationInput> {
   bool isSearch=false;
   onPassTextInputParameter(String text){
     isSearch=true;
-    this.editController.text=text;
-    // print("texxxxttt    $text");
+    editController.text=text;
   }
 
   @override
@@ -73,11 +72,12 @@ class SearchLocationInputState extends State<SearchLocationInput> {
     SizeConfig().init(context);
     return Container(
       height: SizeConfig.screenHeight * .055,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: CommonColor.SEARCH_COLOR,
         borderRadius: BorderRadius.all(Radius.circular(5)),
       ),
-      child: Stack(
+      child:
+      Stack(
         alignment: Alignment.centerRight,
         children: [
           TextField(
@@ -91,33 +91,24 @@ class SearchLocationInputState extends State<SearchLocationInput> {
                 contentPadding: EdgeInsets.only(left: SizeConfig.screenWidth*.03,right: SizeConfig.screenWidth*.02),
                 isDense: true,
                 counterText: "",
-                prefixIcon: editController.text.length == 0
+                prefixIcon: editController.text.isEmpty
                     ? Icon(
                   Icons.search_sharp,
                   color: CommonColor.SEARCH_TEXT_COLOR,
                   size: SizeConfig.screenHeight * .032,
                 )
                     : null,
-                /*suffixIcon: editController.text.length == 0
-                      ?   Icon(
-                          Icons.search_sharp,   color: CommonColor.SEARCH_TEXT_COLOR,size: SizeConfig.screenHeight * .023,
-                        )
-                      : null,*/
+
                 suffixIcon: editController.text.isNotEmpty
                     ? IconButton(
                   onPressed: editController.clear,
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.cancel,
                     color: CommonColor.BLACK,
                   ),
                 )
                     : null,
-                /*  suffixStyle: FontConfig().primaryStyle(
-                    TextStyle(
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.heading_black,
-                        fontSize: uiManager.size(context, Dimention.size14)),
-                  ),*/
+
                 hintText: "search",
                 hintStyle: TextStyle(
                   fontFamily: "Roboto_Medium",
@@ -128,37 +119,17 @@ class SearchLocationInputState extends State<SearchLocationInput> {
                 border: InputBorder.none,
                 focusedBorder: InputBorder.none,
                 enabledBorder: InputBorder.none),
-            controller: this.editController,
+            controller: editController,
             onChanged: (value) {
               isSearch=false;
-              if(mounted) setState(() {
-                this.hasSearchEntry = value.isNotEmpty;
+              if(mounted) {
+                setState(() {
+                hasSearchEntry = value.isNotEmpty;
               });
+              }
             },
           ),
-          /*  if (this.hasSearchEntry)
-              Padding(
-                padding: EdgeInsets.only(
-                    right: uiManager.width(context, Dimention.height16)),
-                child: GestureDetector(
-                  onTap: () {
-                    editController.clear();
-                    setState(() {
-                      hasSearchEntry = false;
-                    });
-                  },
-                  child: Container(
-                    child: Text(
-                      "clear".tr(),
-                      style: FontConfig().primaryStyle(
-                        TextStyle(
-                            color: AppColors.provilac_orange,
-                            fontSize: uiManager.size(context, Dimention.size14)),
-                      ),
-                    ),
-                  ),
-                ),
-              ),*/
+
         ],
       ),
     );
@@ -176,7 +147,7 @@ class SearchLocationInputState extends State<SearchLocationInput> {
                   left: parentWidth * .06, right: parentWidth * .05),
               child: Container(
                 height: parentHeight * .055,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: CommonColor.SEARCH_COLOR,
                   borderRadius: BorderRadius.all(Radius.circular(5)),
                 ),
@@ -185,7 +156,7 @@ class SearchLocationInputState extends State<SearchLocationInput> {
                     Padding(
                       padding: EdgeInsets.only(left: parentWidth * 0.03),
                       child: Image(
-                        image: new AssetImage("assets/images/search_image.png"),
+                        image: const AssetImage("assets/images/search_image.png"),
                         fit: BoxFit.contain,
                         height: parentHeight * .028,
                         //  width: parentHeight * .023,
@@ -215,7 +186,7 @@ class SearchLocationInputState extends State<SearchLocationInput> {
                             suffixIcon: editController.text.isNotEmpty
                                 ? IconButton(
                               onPressed: editController.clear,
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.cancel,
                                 color: CommonColor.BLACK,
                               ),
@@ -237,18 +208,7 @@ class SearchLocationInputState extends State<SearchLocationInput> {
               ),
             ),
           ),
-          // GestureDetector(
-          //   onTap: () {
-          //     setState(() {});
-          //   },
-          //   onDoubleTap: () {},
-          //   child: Padding(
-          //     padding: EdgeInsets.only(right: parentWidth * .05),
-          //     child: Text(
-          //       StringEn.CANCEL,
-          //     ),
-          //   ),
-          // ),
+
         ],
       ),
     );

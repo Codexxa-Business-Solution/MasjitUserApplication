@@ -33,7 +33,7 @@ class _NoticeUserTabState extends State<NoticeUserTab> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
-      body: Container(
+      body: SizedBox(
         height: SizeConfig.screenHeight * 0.9,
 
         child: getAddTermsTextLayout(

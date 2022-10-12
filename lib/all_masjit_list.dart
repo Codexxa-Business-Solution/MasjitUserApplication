@@ -18,7 +18,7 @@ class AllMasjitList extends StatefulWidget {
 
 class _AllMasjitListState extends State<AllMasjitList> {
   Future<void> onRefresh() async {
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 3));
     getAllListFuture = fetchPost();
   }
 
@@ -38,7 +38,7 @@ class _AllMasjitListState extends State<AllMasjitList> {
     SizeConfig().init(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Container(
+      body: SizedBox(
         height: SizeConfig.screenHeight,
         child: getAddTermsTextLayout(
           SizeConfig.screenHeight,
@@ -94,7 +94,7 @@ class _AllMasjitListState extends State<AllMasjitList> {
                             ),
                             child: Column(
                               children: [
-                                Container(
+                                SizedBox(
                                   // color: Colors.blue,
                                   height: parentHeight * 0.1,
                                   child: Column(children: [
@@ -125,7 +125,7 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                             ],
                                           ),
                                         ),
-                                        Container(
+                                        SizedBox(
                                           width: parentWidth * 0.44,
                                           child: Padding(
                                             padding: EdgeInsets.only(
@@ -207,7 +207,7 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                     padding: EdgeInsets.only(
                                                         left:
                                                             parentWidth * 0.05),
-                                                    child: Container(
+                                                    child: SizedBox(
                                                       width: parentWidth * .23,
                                                       height: parentWidth * .08,
                                                       child: GestureDetector(
@@ -238,7 +238,7 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                                 0.3,
                                                             decoration:
                                                                 BoxDecoration(
-                                                              gradient: LinearGradient(
+                                                              gradient: const LinearGradient(
                                                                   begin: Alignment
                                                                       .centerLeft,
                                                                   end: Alignment.centerRight,
@@ -276,7 +276,7 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                     padding: EdgeInsets.only(
                                                         left:
                                                             parentWidth * 0.05),
-                                                    child: Container(
+                                                    child: SizedBox(
                                                       width: parentWidth * 0.2,
                                                       child: Center(
                                                         child: Text(
@@ -302,7 +302,7 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                     ),
                                   ]),
                                 ),
-                                Container(
+                                SizedBox(
                                   height: parentHeight * 0.13,
 
                                   // color: Colors.green,

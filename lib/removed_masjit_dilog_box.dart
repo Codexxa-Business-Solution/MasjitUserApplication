@@ -17,12 +17,12 @@ class EndFriendDialog extends StatefulWidget {
   final String isConverted;
   final String msgId;*/
 
-  const EndFriendDialog(
-      {required this.mListener, required this.index, required this.masjitRemoveIdd,
+   const EndFriendDialog(
+      {Key? key, required this.mListener, required this.index, required this.masjitRemoveIdd,
         required this.joinedMasjid
  /*       required this.userId,
         required this.index,
-        required this.isConverted,this.msgId=""*/});
+        required this.isConverted,this.msgId=""*/}) : super(key: key);
 
   @override
   _EndFriendDialogState createState() => _EndFriendDialogState();
@@ -31,6 +31,7 @@ late Box box;
 class _EndFriendDialogState extends State<EndFriendDialog> {
   @override
   void initState() {
+    super.initState();
     box = Hive.box(kBoxName);
     //print("End friendship..${widget.msgId}");
   }
@@ -52,13 +53,13 @@ class _EndFriendDialogState extends State<EndFriendDialog> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15.0),
             ),
-            child: new Container(
+            child: Container(
               //height: SizeConfig.screenHeight * .33,
-              decoration: new BoxDecoration(
-                borderRadius: new BorderRadius.all(Radius.circular(25.0)),
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(25.0)),
                 //color: CommonColor.RED_COLOR,
               ),
-              child: new Column(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
@@ -135,7 +136,7 @@ class _EndFriendDialogState extends State<EndFriendDialog> {
         padding: EdgeInsets.only(top: parentHeight * .027),
         child: Container(
           height: parentHeight * .06,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             border: Border(
               top: BorderSide(width: 1, color: CommonColor.DIVIDER_COLOR),
             ),
@@ -171,7 +172,7 @@ class _EndFriendDialogState extends State<EndFriendDialog> {
         padding: EdgeInsets.only(top: parentHeight * .0),
         child: Container(
           height: parentHeight * .06,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             border: Border(
               top: BorderSide(width: 1, color: CommonColor.DIVIDER_COLOR),
             ),
@@ -202,17 +203,15 @@ class _EndFriendDialogState extends State<EndFriendDialog> {
 
     var response = await http.get(
         Uri.parse(
-            'http://masjid.exportica.in/api/user/remove?masjid=${masjitIdRemoved}'),
+            'http://masjid.exportica.in/api/user/remove?masjid=$masjitIdRemoved'),
         headers: headersList);
 
     if (response.statusCode == 200) {
 
       widget.joinedMasjid.removeAt(index);
 
-    Navigator.push(context, MaterialPageRoute(builder: (context)=>ParentTabBarScreen()));
-      print("Yess.. ${response.body}");
-
-      print("Hiii");
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>const ParentTabBarScreen()));
+    
 
       return useRemoveResponceModelFromJson(response.body);
     } else {

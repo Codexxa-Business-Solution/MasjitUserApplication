@@ -44,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
           box.put(kToken, value.data?.token);
           print("token ${box.get("token")}");
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ParentTabBarScreen()));
+                  MaterialPageRoute(builder: (context) => const ParentTabBarScreen()));
         });
 
     } else {
@@ -121,23 +121,23 @@ class _LoginScreenState extends State<LoginScreen> {
               },
                 decoration: InputDecoration(
                     labelText: 'Email',
-                    labelStyle: TextStyle(
+                    labelStyle: const TextStyle(
                       color: CommonColor.REGISTRARTION_COLOR
                     ),
                     contentPadding: const EdgeInsets.all(14),
                     isDense: true,
                     focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                             width: 1,
                             color: CommonColor.REGISTRARTION_COLOR),
                         borderRadius: BorderRadius.circular(10.0)),
                     enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                             width: 1,
                             color: CommonColor.REGISTRARTION_COLOR),
                         borderRadius: BorderRadius.circular(10.0)),
                     border: OutlineInputBorder(
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                             width: 1,
                             color: CommonColor.REGISTRARTION_COLOR),
                         borderRadius: BorderRadius.circular(10.0)),
@@ -163,23 +163,23 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 decoration: InputDecoration(
                     labelText: 'Password',
-                    labelStyle: TextStyle(
+                    labelStyle: const TextStyle(
                         color: CommonColor.REGISTRARTION_COLOR
                     ),
                     contentPadding: const EdgeInsets.all(15),
                     isDense: true,
                     focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                             width: 1,
                             color: CommonColor.REGISTRARTION_COLOR),
                         borderRadius: BorderRadius.circular(10.0)),
                     enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                             width: 1,
                             color: CommonColor.REGISTRARTION_COLOR),
                         borderRadius: BorderRadius.circular(10.0)),
                     border: OutlineInputBorder(
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                             width: 1,
                             color: CommonColor.REGISTRARTION_COLOR),
                         borderRadius: BorderRadius.circular(10.0)),
@@ -218,12 +218,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 contentPadding: const EdgeInsets.all(15),
                 isDense: true,
                 enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                         width: 1,
                         color: CommonColor.REGISTRARTION_COLOR),
                     borderRadius: BorderRadius.circular(10.0)),
                 border: OutlineInputBorder(
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                         width: 1,
                         color: CommonColor.REGISTRARTION_COLOR),
                     borderRadius: BorderRadius.circular(10.0)),
@@ -239,7 +239,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget getLoginButton() {
     return Padding(
-      padding: EdgeInsets.only(left: 30, right: 30, top: 35),
+      padding: const EdgeInsets.only(left: 30, right: 30, top: 35),
       child: GestureDetector(
         onTap: () {
           validate();
@@ -274,7 +274,7 @@ class _LoginScreenState extends State<LoginScreen> {
             height: 43,
 
             decoration: BoxDecoration(
-              gradient: LinearGradient(
+              gradient: const LinearGradient(
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
                   colors: [CommonColor.LEFT_COLOR, CommonColor.RIGHT_COLOR]),
@@ -328,7 +328,7 @@ class _LoginScreenState extends State<LoginScreen> {
             onDoubleTap: () {},
             onTap: () {
               Navigator.pushReplacement(context, MaterialPageRoute(
-                  builder: (context) =>  EnterMobileNumber()));
+                  builder: (context) =>  const EnterMobileNumber()));
             },
             child: Container(
               color: Colors.transparent,
@@ -360,7 +360,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
       return userLoginResponseModelFromJson(result.body);
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 }

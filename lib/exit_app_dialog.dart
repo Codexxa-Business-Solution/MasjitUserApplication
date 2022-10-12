@@ -16,7 +16,7 @@ class ExitAppDialog extends StatefulWidget {
 class _ExitAppDialogState extends State<ExitAppDialog> {
   late double textSize;
 
-  bool _isDialogShow = true;
+  final bool _isDialogShow = true;
   bool isLoaderShow = false;
 
 
@@ -43,7 +43,7 @@ class _ExitAppDialogState extends State<ExitAppDialog> {
               alignment: Alignment.topCenter,
               child: Padding(
                 padding:
-                EdgeInsets.only(top: 10),
+                const EdgeInsets.only(top: 10),
                 child: Center(
                   child: Card(
                     shape: const RoundedRectangleBorder(

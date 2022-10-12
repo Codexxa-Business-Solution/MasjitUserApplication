@@ -1,10 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/getEmailPasswordREsponseModel.dart';
-import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/user_register_response_model.dart';
-import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/user_update_response_model.dart';
 import 'package:masjiduserapp/size_config.dart';
 import 'package:masjiduserapp/user_login_screen.dart';
 import 'package:masjiduserapp/user_parent_tab_bar.dart';
@@ -78,7 +74,7 @@ class _UserRegistrationState extends State<UserRegistration> {
         print("token ${box.get("token")}");
 
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => ParentTabBarScreen()));
+            MaterialPageRoute(builder: (context) => const ParentTabBarScreen()));
 
       });
     } else {
@@ -112,7 +108,7 @@ class _UserRegistrationState extends State<UserRegistration> {
               child:
               MainHeading(SizeConfig.screenHeight, SizeConfig.screenWidth),
             ),
-            Container(
+            SizedBox(
               height: SizeConfig.screenHeight*0.9,
 
               child: GestureDetector(
@@ -121,7 +117,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                 },
                 onDoubleTap: () {},
                 child: ListView(
-                  padding: EdgeInsets.only(bottom: 30),
+                  padding: const EdgeInsets.only(bottom: 30),
                   shrinkWrap: true,
 
                   children: [
@@ -136,57 +132,51 @@ class _UserRegistrationState extends State<UserRegistration> {
   }
 
   Widget MainHeading(double parentHeight, double parentWidth) {
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          GestureDetector(
-            onTap: () {
-              Navigator.pushReplacement(context, MaterialPageRoute(
-                  builder: (context) => LoginScreen()));
-            },
-            onDoubleTap: () {},
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        GestureDetector(
+          onTap: () {
+            Navigator.pushReplacement(context, MaterialPageRoute(
+                builder: (context) => const LoginScreen()));
+          },
+          onDoubleTap: () {},
+          child: Padding(
+            padding: EdgeInsets.only(left: parentWidth * .04),
             child: Padding(
-              padding: EdgeInsets.only(left: parentWidth * .04),
-              child: Container(
-                child: Padding(
-                  padding: EdgeInsets.only(top: parentHeight * 0.02),
-                  child: Icon(
-                    Icons.arrow_back_ios,
-                    size: parentHeight * .03,
-                    color: CommonColor.WHITE_COLOR,
-                  ),
-                ),
+              padding: EdgeInsets.only(top: parentHeight * 0.02),
+              child: Icon(
+                Icons.arrow_back_ios,
+                size: parentHeight * .03,
+                color: CommonColor.WHITE_COLOR,
               ),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(top: parentHeight * 0.02),
-            child: Text(
-              "Registration",
-              style: TextStyle(
-                  fontSize: SizeConfig.blockSizeHorizontal * 5.0,
-                  fontFamily: 'Roboto_Medium',
-                  letterSpacing: parentWidth * 0.003,
-                  fontWeight: FontWeight.w400,
-                  color: CommonColor.WHITE_COLOR),
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: parentHeight * 0.02),
+          child: Text(
+            "Registration",
+            style: TextStyle(
+                fontSize: SizeConfig.blockSizeHorizontal * 5.0,
+                fontFamily: 'Roboto_Medium',
+                letterSpacing: parentWidth * 0.003,
+                fontWeight: FontWeight.w400,
+                color: CommonColor.WHITE_COLOR),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(right: parentWidth * .04),
+          child: Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Icon(
+              Icons.arrow_back_ios,
+              size: parentHeight * .03,
+              color: Colors.transparent,
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(right: parentWidth * .04),
-            child: Container(
-              child: Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: Icon(
-                  Icons.arrow_back_ios,
-                  size: parentHeight * .03,
-                  color: Colors.transparent,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -198,7 +188,7 @@ class _UserRegistrationState extends State<UserRegistration> {
       ListView(
         shrinkWrap: true,
         padding: EdgeInsets.zero,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         children: <Widget>[
           Padding(
               padding: EdgeInsets.only(
@@ -211,7 +201,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                     Padding(
                       padding: EdgeInsets.only(
                           left: parentWidth * 0.03, top: parentHeight * 0.009),
-                      child: Text(
+                      child: const Text(
                         "Email",
                         style:
                         TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
@@ -238,24 +228,24 @@ class _UserRegistrationState extends State<UserRegistration> {
                         },
                         decoration: InputDecoration(
                             labelText: 'Email',
-                            labelStyle: TextStyle(
+                            labelStyle: const TextStyle(
                                 color:  CommonColor.REGISTRARTION_COLOR
                             ),
                             contentPadding: const EdgeInsets.all(12),
                             isDense: true,
                             focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                     width: 1,
                                     color: CommonColor.REGISTRARTION_COLOR),
                                 borderRadius: BorderRadius.circular(10.0)),
                             enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                     width: 1,
                                     color: CommonColor.REGISTRARTION_COLOR),
                                 borderRadius: BorderRadius.circular(10.0)),
                             //borderRadius: BorderRadius.circular(10)
                             border: OutlineInputBorder(
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                     width: 1,
                                     color: CommonColor.REGISTRARTION_COLOR),
                                 borderRadius: BorderRadius.circular(10.0)),
@@ -276,7 +266,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                     Padding(
                       padding: EdgeInsets.only(
                           left: parentWidth * 0.03, top: parentHeight * 0.009),
-                      child: Text(
+                      child: const Text(
                         "Password",
                         style:
                         TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
@@ -304,23 +294,23 @@ class _UserRegistrationState extends State<UserRegistration> {
                         },
                         decoration: InputDecoration(
                             labelText: 'Password',
-                            labelStyle: TextStyle(
+                            labelStyle: const TextStyle(
                                 color:  CommonColor.REGISTRARTION_COLOR
                             ),
                             contentPadding: const EdgeInsets.all(12),
                             isDense: true,
                             focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                     width: 1,
                                     color: CommonColor.REGISTRARTION_COLOR),
                                 borderRadius: BorderRadius.circular(10.0)),
                             enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                     width: 1,
                                     color: CommonColor.REGISTRARTION_COLOR),
                                 borderRadius: BorderRadius.circular(10.0)),
                             border: OutlineInputBorder(
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                     width: 1,
                                     color: CommonColor.REGISTRARTION_COLOR),
                                 borderRadius: BorderRadius.circular(10.0)),
@@ -341,7 +331,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                     Padding(
                       padding: EdgeInsets.only(
                           left: parentWidth * 0.03, top: parentHeight * 0.009),
-                      child: Text(
+                      child: const Text(
                         "Area",
                         style:
                         TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
@@ -368,24 +358,24 @@ class _UserRegistrationState extends State<UserRegistration> {
                         },
                         decoration: InputDecoration(
                             labelText: 'Area',
-                            labelStyle: TextStyle(
+                            labelStyle: const TextStyle(
                                 color:  CommonColor.REGISTRARTION_COLOR
                             ),
                             contentPadding: const EdgeInsets.all(12),
                             isDense: true,
                             focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                     width: 1,
                                     color: CommonColor.REGISTRARTION_COLOR),
                                 borderRadius: BorderRadius.circular(10.0)),
                             enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                     width: 1,
                                     color: CommonColor.REGISTRARTION_COLOR),
                                 borderRadius: BorderRadius.circular(10.0)),
                             //borderRadius: BorderRadius.circular(10)
                             border: OutlineInputBorder(
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                     width: 1,
                                     color: CommonColor.REGISTRARTION_COLOR),
                                 borderRadius: BorderRadius.circular(10.0)),
@@ -406,7 +396,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                     Padding(
                       padding: EdgeInsets.only(
                           left: parentWidth * 0.03, top: parentHeight * 0.009),
-                      child: Text(
+                      child: const Text(
                         "Mobile Number",
                         style:
                         TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
@@ -433,24 +423,24 @@ class _UserRegistrationState extends State<UserRegistration> {
                         },
                         decoration: InputDecoration(
                             labelText: 'Mobile Number',
-                            labelStyle: TextStyle(
+                            labelStyle: const TextStyle(
                                 color:  CommonColor.REGISTRARTION_COLOR
                             ),
                             contentPadding: const EdgeInsets.all(12),
                             isDense: true,
                             focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                     width: 1,
                                     color: CommonColor.REGISTRARTION_COLOR),
                                 borderRadius: BorderRadius.circular(10.0)),
                             enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                     width: 1,
                                     color: CommonColor.REGISTRARTION_COLOR),
                                 borderRadius: BorderRadius.circular(10.0)),
                             //borderRadius: BorderRadius.circular(10)
                             border: OutlineInputBorder(
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                     width: 1,
                                     color: CommonColor.REGISTRARTION_COLOR),
                                 borderRadius: BorderRadius.circular(10.0)),
@@ -470,7 +460,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                   Padding(
                     padding: EdgeInsets.only(
                         left: parentWidth * 0.03, top: parentHeight * 0.009),
-                    child: Text(
+                    child: const Text(
                       "City",
                       style:
                       TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
@@ -497,24 +487,24 @@ class _UserRegistrationState extends State<UserRegistration> {
                       },
                       decoration: InputDecoration(
                           labelText: 'City',
-                          labelStyle: TextStyle(
+                          labelStyle: const TextStyle(
                               color:  CommonColor.REGISTRARTION_COLOR
                           ),
                           contentPadding: const EdgeInsets.all(12),
                           isDense: true,
                           focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                   width: 1,
                                   color: CommonColor.REGISTRARTION_COLOR),
                               borderRadius: BorderRadius.circular(10.0)),
                           enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                   width: 1,
                                   color: CommonColor.REGISTRARTION_COLOR),
                               borderRadius: BorderRadius.circular(10.0)),
                           //borderRadius: BorderRadius.circular(10)
                           border: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                   width: 1,
                                   color: CommonColor.REGISTRARTION_COLOR),
                               borderRadius: BorderRadius.circular(10.0)),
@@ -535,7 +525,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                   Padding(
                     padding: EdgeInsets.only(
                         left: parentWidth * 0.03, top: parentHeight * 0.009),
-                    child: Text(
+                    child: const Text(
                       "State",
                       style:
                       TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
@@ -562,24 +552,24 @@ class _UserRegistrationState extends State<UserRegistration> {
                       },
                       decoration: InputDecoration(
                           labelText: 'State',
-                          labelStyle: TextStyle(
+                          labelStyle: const TextStyle(
                               color:  CommonColor.REGISTRARTION_COLOR
                           ),
                           contentPadding: const EdgeInsets.all(12),
                           isDense: true,
                           focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                   width: 1,
                                   color: CommonColor.REGISTRARTION_COLOR),
                               borderRadius: BorderRadius.circular(10.0)),
                           enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                   width: 1,
                                   color: CommonColor.REGISTRARTION_COLOR),
                               borderRadius: BorderRadius.circular(10.0)),
                           //borderRadius: BorderRadius.circular(10)
                           border: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                   width: 1,
                                   color: CommonColor.REGISTRARTION_COLOR),
                               borderRadius: BorderRadius.circular(10.0)),
@@ -600,7 +590,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                     Padding(
                       padding: EdgeInsets.only(
                           left: parentWidth * 0.03, top: parentHeight * 0.009),
-                      child: Text(
+                      child: const Text(
                         "Country",
                         style:
                         TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
@@ -627,24 +617,24 @@ class _UserRegistrationState extends State<UserRegistration> {
                         },
                         decoration: InputDecoration(
                             labelText: 'Country',
-                            labelStyle: TextStyle(
+                            labelStyle: const TextStyle(
                                 color:  CommonColor.REGISTRARTION_COLOR
                             ),
                             contentPadding: const EdgeInsets.all(12),
                             isDense: true,
                             focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                     width: 1,
                                     color: CommonColor.REGISTRARTION_COLOR),
                                 borderRadius: BorderRadius.circular(10.0)),
                             enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                     width: 1,
                                     color: CommonColor.REGISTRARTION_COLOR),
                                 borderRadius: BorderRadius.circular(10.0)),
                             //borderRadius: BorderRadius.circular(10)
                             border: OutlineInputBorder(
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                     width: 1,
                                     color: CommonColor.REGISTRARTION_COLOR),
                                 borderRadius: BorderRadius.circular(10.0)),
@@ -675,7 +665,7 @@ class _UserRegistrationState extends State<UserRegistration> {
         child: Container(
             height: parentHeight * 0.06,
             decoration: BoxDecoration(
-              gradient: LinearGradient(
+              gradient: const LinearGradient(
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
                   colors: [CommonColor.LEFT_COLOR, CommonColor.RIGHT_COLOR]),
@@ -723,7 +713,7 @@ class _UserRegistrationState extends State<UserRegistration> {
 
       return userRegisterRespnseModelFromJson(result.body);
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 

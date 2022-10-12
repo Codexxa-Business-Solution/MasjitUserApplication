@@ -1,7 +1,5 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:masjiduserapp/all_masjit_list.dart';
 import 'package:masjiduserapp/common.color.dart';
 import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/notice_response_model.dart';
 import 'package:masjiduserapp/notice_user_tab.dart';
@@ -51,7 +49,7 @@ class _MasjitMappScreenState extends State<MasjitMappScreen> with SingleTickerPr
     super.initState();
    // getNotice = getNoticeSection();
     print(getNotice);
-    if (mounted)
+    if (mounted) {
       setState(() {
         showDetails = true;
         widget.tabNum == "1" ?
@@ -60,6 +58,7 @@ class _MasjitMappScreenState extends State<MasjitMappScreen> with SingleTickerPr
         print("MapScreenId ${widget.masjitTrusteeId}");
         //   ViewImage = false;
       });
+    }
     //  _tabController = new TabController(vsync: this, length: tabs.length);
   }
 
@@ -98,7 +97,7 @@ class _MasjitMappScreenState extends State<MasjitMappScreen> with SingleTickerPr
                       child: ThreeTabWithDesign(SizeConfig.screenHeight,
                           SizeConfig.screenWidth),
                     ),
-    Container(
+    SizedBox(
       height: SizeConfig.screenHeight*0.99,
 
       child: Container(
@@ -164,141 +163,141 @@ class _MasjitMappScreenState extends State<MasjitMappScreen> with SingleTickerPr
     );
   }
   Widget ThreeTabWithDesign(double parentHeight, double parentWidth) {
-    return Container(
-      child: FutureBuilder<AllMasjitDetailsResponceModel>(
-          future: getNotice,
-          builder: (context, snapshot) {
-            return ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount:1,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.only(top: parentHeight * 0.02),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        GestureDetector(
-                          onDoubleTap: () {},
-                          onTap: () {
-                            if (mounted) {
-                              setState(() {
-                                mapScreen = true;
-                                trusteeScreen = false;
-                                showDetails = false;
-                                noticeScreen = false;
-                              });
-                            }
-                          },
-                          child: Container(
-                            width: parentWidth * 0.28,
-                            height: parentHeight * 0.047,
-                            decoration: BoxDecoration(
+    return FutureBuilder<AllMasjitDetailsResponceModel>(
+        future: getNotice,
+        builder: (context, snapshot) {
+          return ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount:1,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: EdgeInsets.only(top: parentHeight * 0.02),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      GestureDetector(
+                        onDoubleTap: () {},
+                        onTap: () {
+                          if (mounted) {
+                            setState(() {
+                              mapScreen = true;
+                              trusteeScreen = false;
+                              showDetails = false;
+                              noticeScreen = false;
+                            });
+                          }
+                        },
+                        child: Container(
+                          width: parentWidth * 0.28,
+                          height: parentHeight * 0.047,
+                          decoration: BoxDecoration(
+                              color: mapScreen == true
+                                  ? CommonColor.REGISTRARTION_TRUSTEE
+                                  .withOpacity(0.9)
+                                  : Colors.white,
+                              borderRadius: BorderRadius.circular(50),
+                              border: Border.all(
+                                  color: CommonColor.RIGHT_COLOR, width: 1)),
+                          child: Center(
+                            child: Text(
+                              "Map",
+                              style: TextStyle(
                                 color: mapScreen == true
-                                    ? CommonColor.REGISTRARTION_TRUSTEE
-                                    .withOpacity(0.9)
-                                    : Colors.white,
-                                borderRadius: BorderRadius.circular(50),
-                                border: Border.all(
-                                    color: CommonColor.RIGHT_COLOR, width: 1)),
-                            child: Center(
-                              child: Text(
-                                "Map",
-                                style: TextStyle(
-                                  color: mapScreen == true
-                                      ? Colors.white
-                                      : Colors.black,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize:
-                                  SizeConfig.blockSizeHorizontal * 3.5,
-                                  fontFamily: 'Roboto_Medium',
-                                ),
+                                    ? Colors.white
+                                    : Colors.black,
+                                fontWeight: FontWeight.w400,
+                                fontSize:
+                                SizeConfig.blockSizeHorizontal * 3.5,
+                                fontFamily: 'Roboto_Medium',
                               ),
                             ),
                           ),
                         ),
-                        GestureDetector(
-                          onDoubleTap: () {},
-                          onTap: () {
-                            if (mounted)
-                              setState(() {
-                                mapScreen = false;
-                                trusteeScreen = true;
-                                showDetails = false;
-                                noticeScreen = false;
-                              });
-                          },
-                          child: Container(
-                            width: parentWidth * 0.28,
-                            height: parentHeight * 0.047,
-                            decoration: BoxDecoration(
+                      ),
+                      GestureDetector(
+                        onDoubleTap: () {},
+                        onTap: () {
+                          if (mounted) {
+                            setState(() {
+                              mapScreen = false;
+                              trusteeScreen = true;
+                              showDetails = false;
+                              noticeScreen = false;
+                            });
+                          }
+                        },
+                        child: Container(
+                          width: parentWidth * 0.28,
+                          height: parentHeight * 0.047,
+                          decoration: BoxDecoration(
+                              color: trusteeScreen
+                                  ? CommonColor.REGISTRARTION_TRUSTEE
+                                  .withOpacity(0.9)
+                                  : Colors.white,
+                              borderRadius: BorderRadius.circular(50),
+                              border: Border.all(
+                                  color: CommonColor.RIGHT_COLOR, width: 1)),
+                          child: Center(
+                            child: Text(
+                              "Trustee",
+                              style: TextStyle(
                                 color: trusteeScreen
-                                    ? CommonColor.REGISTRARTION_TRUSTEE
-                                    .withOpacity(0.9)
-                                    : Colors.white,
-                                borderRadius: BorderRadius.circular(50),
-                                border: Border.all(
-                                    color: CommonColor.RIGHT_COLOR, width: 1)),
-                            child: Center(
-                              child: Text(
-                                "Trustee",
-                                style: TextStyle(
-                                  color: trusteeScreen
-                                      ? Colors.white
-                                      : Colors.black,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize:
-                                  SizeConfig.blockSizeHorizontal * 3.5,
-                                  fontFamily: 'Roboto_Medium',
-                                ),
+                                    ? Colors.white
+                                    : Colors.black,
+                                fontWeight: FontWeight.w400,
+                                fontSize:
+                                SizeConfig.blockSizeHorizontal * 3.5,
+                                fontFamily: 'Roboto_Medium',
                               ),
                             ),
                           ),
                         ),
-                        GestureDetector(
-                          onDoubleTap: () {},
-                          onTap: () {
-                            if (mounted)
-                              setState(() {
-                                mapScreen = false;
-                                showDetails = false;
-                                trusteeScreen = false;
-                                noticeScreen = true;
-                              });
-                          },
-                          child: Container(
-                            width: parentWidth * 0.28,
-                            height: parentHeight * 0.047,
-                            decoration: BoxDecoration(
-                                color: noticeScreen
-                                    ? CommonColor.REGISTRARTION_TRUSTEE
-                                    .withOpacity(0.9)
-                                    : Colors.white,
-                                borderRadius: BorderRadius.circular(50),
-                                border: Border.all(
-                                    color: CommonColor.RIGHT_COLOR, width: 1)),
-                            child: Center(
-                              child: Text(
-                                "Notice",
-                                style: TextStyle(
-                                  color: noticeScreen == true
-                                      ? Colors.white
-                                      : Colors.black,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize:
-                                  SizeConfig.blockSizeHorizontal * 3.5,
-                                  fontFamily: 'Roboto_Medium',
-                                ),
+                      ),
+                      GestureDetector(
+                        onDoubleTap: () {},
+                        onTap: () {
+                          if (mounted) {
+                            setState(() {
+                              mapScreen = false;
+                              showDetails = false;
+                              trusteeScreen = false;
+                              noticeScreen = true;
+                            });
+                          }
+                        },
+                        child: Container(
+                          width: parentWidth * 0.28,
+                          height: parentHeight * 0.047,
+                          decoration: BoxDecoration(
+                              color: noticeScreen
+                                  ? CommonColor.REGISTRARTION_TRUSTEE
+                                  .withOpacity(0.9)
+                                  : Colors.white,
+                              borderRadius: BorderRadius.circular(50),
+                              border: Border.all(
+                                  color: CommonColor.RIGHT_COLOR, width: 1)),
+                          child: Center(
+                            child: Text(
+                              "Notice",
+                              style: TextStyle(
+                                color: noticeScreen == true
+                                    ? Colors.white
+                                    : Colors.black,
+                                fontWeight: FontWeight.w400,
+                                fontSize:
+                                SizeConfig.blockSizeHorizontal * 3.5,
+                                fontFamily: 'Roboto_Medium',
                               ),
                             ),
                           ),
                         ),
-                      ],
-                    ),
-                  );
-                });
-          }),
-    );
+                      ),
+                    ],
+                  ),
+                );
+              });
+        });
   }
   Widget showScreenLayout(double parentHeight, double parentWidth) {
     return Stack(

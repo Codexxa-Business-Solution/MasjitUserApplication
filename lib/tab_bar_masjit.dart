@@ -15,8 +15,8 @@ class _TabBarExampleState extends State<TabBarExample> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(0xFFFFFFFF),
-          title: Text(
+          backgroundColor: const Color(0xFFFFFFFF),
+          title: const Text(
             '_appBarText',
             style: TextStyle(
               color: Color(0xFF1C2447),
@@ -25,7 +25,7 @@ class _TabBarExampleState extends State<TabBarExample> {
             ),
           ),
           bottom: showTabs
-              ? TabBar(
+              ? const TabBar(
             isScrollable: true,
             tabs: <Widget>[
               Tab(
@@ -43,7 +43,7 @@ class _TabBarExampleState extends State<TabBarExample> {
         ),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: selectedIndex,
-          items: [
+          items: const [
             BottomNavigationBarItem(
                 icon: Icon(Icons.home), label: ("Aaysha")),
             BottomNavigationBarItem(

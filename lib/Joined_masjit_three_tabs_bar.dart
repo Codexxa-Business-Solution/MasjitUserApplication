@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:masjiduserapp/size_config.dart';
 
@@ -23,11 +22,12 @@ class _JoinedMasjitThreeTabsState extends State<JoinedMasjitThreeTabs> with Sing
     super.dispose();
     _tabController.dispose();
   }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body:
-       Container(
+       SizedBox(
             height: SizeConfig.screenHeight * 088,
             child: getAddTermsTextLayout(
                 SizeConfig.screenHeight, SizeConfig.screenWidth),
@@ -37,7 +37,8 @@ class _JoinedMasjitThreeTabsState extends State<JoinedMasjitThreeTabs> with Sing
 
   Widget getAddTermsTextLayout(double parentHeight, double parentWidth) {
 
-return  DefaultTabController(
+  return
+    DefaultTabController(
 
     length: 3,
 
@@ -47,413 +48,191 @@ return  DefaultTabController(
 
 
 
-          Container(
-
-            child: TabBar(
+          TabBar(
 
 
 
-                unselectedLabelColor: Colors.green.shade800,
+              unselectedLabelColor: Colors.green.shade800,
 
-                padding: EdgeInsets.zero,
+              padding: EdgeInsets.zero,
 
 
 
-                indicatorSize: TabBarIndicatorSize.label,
+              indicatorSize: TabBarIndicatorSize.label,
 
-                indicator: BoxDecoration(
+              indicator: BoxDecoration(
 
-                  borderRadius: BorderRadius.circular(50),
+                borderRadius: BorderRadius.circular(50),
 
-                  gradient: LinearGradient(
+                gradient: const LinearGradient(
 
-                      begin: Alignment.centerLeft,
+                    begin: Alignment.centerLeft,
 
-                      end: Alignment.centerRight,
+                    end: Alignment.centerRight,
 
-                      colors: [CommonColor.LEFT_COLOR, CommonColor.RIGHT_COLOR]),),
+                    colors: [CommonColor.LEFT_COLOR, CommonColor.RIGHT_COLOR]),),
 
-                tabs: [
+              tabs: [
 
-                  Tab(
+                Tab(
 
-                    child: Container(
+                  child: Container(
 
-                      width: parentWidth*0.5,
+                    width: parentWidth*0.5,
 
-                      decoration: BoxDecoration(
+                    decoration: BoxDecoration(
 
-                          borderRadius: BorderRadius.circular(50),
+                        borderRadius: BorderRadius.circular(50),
 
-                          border: Border.all(color: Colors.green.shade800, width: 0.7)),
+                        border: Border.all(color: Colors.green.shade800, width: 0.7)),
 
-                      child: Align(
+                    child: Align(
 
-                        alignment: Alignment.center,
+                      alignment: Alignment.center,
 
-                        child: Text("Map",style: TextStyle(
+                      child: Text("Map",style: TextStyle(
 
-                          fontSize: SizeConfig.blockSizeHorizontal * 3.5,
+                        fontSize: SizeConfig.blockSizeHorizontal * 3.5,
 
-                          fontFamily: 'Roboto_Bold',
+                        fontFamily: 'Roboto_Bold',
 
-                          fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.w400,
 
-                        )),
-
-                      ),
+                      )),
 
                     ),
 
                   ),
-
-                  Tab(
-
-                    child: Container(
-
-                      decoration: BoxDecoration(
-
-                          borderRadius: BorderRadius.circular(50),
-
-                          border: Border.all(color: Colors.green.shade800, width: 1)),
-
-                      child: Align(
-
-                        alignment: Alignment.center,
-
-
-
-                        child: Text("Trustee"),
-
-                      ),
-
-                    ),
-
-                  ),
-
-                  Tab(
-
-                    child: Container(
-
-                      decoration: BoxDecoration(
-
-                          borderRadius: BorderRadius.circular(50),
-
-                          border: Border.all(color: Colors.green.shade800, width: 1)),
-
-                      child: Align(
-
-                        alignment: Alignment.center,
-
-                        child: Text("Notice"),
-
-                      ),
-
-                    ),
-
-                  ),
-
-                ]),
-
-          ),
-
-          Expanded(
-
-            child: Container(
-
-              child: TabBarView(children: [
-
-                Container(
-
-                  child: Text("Map"),
 
                 ),
 
-                Stack(
+                Tab(
 
-                  children: [
+                  child: Container(
 
-                    Padding(
+                    decoration: BoxDecoration(
 
-                        padding: EdgeInsets.only(
+                        borderRadius: BorderRadius.circular(50),
 
-                            top: parentHeight * 0.0),
+                        border: Border.all(color: Colors.green.shade800, width: 1)),
 
-                        child: Container(
+                    child: const Align(
 
-                          height: parentHeight,
+                      alignment: Alignment.center,
 
-                          child: ListView.builder(
 
-                              itemCount: 4,
 
-                              padding: const EdgeInsets.only(
+                      child: Text("Trustee"),
 
-                                  bottom: 20,
+                    ),
 
-                                  top: 5
+                  ),
 
-                              ),
+                ),
 
-                              itemBuilder: (context, index) {
+                Tab(
 
-                                return Padding(
+                  child: Container(
 
-                                  padding: EdgeInsets.only(top: parentHeight*0.03),
+                    decoration: BoxDecoration(
 
-                                  child: Container(
+                        borderRadius: BorderRadius.circular(50),
 
-                                    height: parentHeight * 0.12,
+                        border: Border.all(color: Colors.green.shade800, width: 1)),
 
-                                    decoration: BoxDecoration(
+                    child: const Align(
 
-                                      color: Colors.white,
+                      alignment: Alignment.center,
 
-                                      borderRadius: BorderRadius.circular(20),
+                      child: Text("Notice"),
 
-                                      boxShadow: <BoxShadow>[
+                    ),
 
-                                        BoxShadow(
+                  ),
 
-                                          color: Colors.grey.shade300,
+                ),
 
-                                          spreadRadius: 1,
+              ]),
 
-                                          blurRadius: 5,
+          Expanded(
 
-                                          offset: const Offset(0, 5),
+            child: TabBarView(children: [
 
-                                        ),
+              const Text("Map"),
 
-                                        BoxShadow(
+              Stack(
 
-                                          color: Colors.grey.shade50,
+                children: [
 
-                                          offset: const Offset(-5, 0),
+                  Padding(
 
-                                        ),
+                      padding: EdgeInsets.only(
 
-                                        BoxShadow(
+                          top: parentHeight * 0.0),
 
-                                          color: Colors.grey.shade50,
+                      child: SizedBox(
 
-                                          offset: const Offset(5, 0),
+                        height: parentHeight,
 
-                                        )
+                        child: ListView.builder(
 
-                                      ],
+                            itemCount: 4,
 
-                                    ),
+                            padding: const EdgeInsets.only(
 
-                                    child: Column(
+                                bottom: 20,
 
-                                      children: [
+                                top: 5
 
-                                        ClipRRect(
+                            ),
 
-                                          borderRadius: BorderRadius.only(topRight: Radius.circular(10), topLeft: Radius.circular(10)),
+                            itemBuilder: (context, index) {
 
-                                          child: Container(
+                              return Padding(
 
-                                            height: parentHeight*0.06,
-
-                                            decoration: const BoxDecoration(
-
-                                                gradient: LinearGradient(
-
-                                                    begin: Alignment.centerLeft,
-
-                                                    end: Alignment.centerRight,
-
-                                                    colors: [CommonColor.LEFT_COLOR, CommonColor.RIGHT_COLOR])),
-
-                                            child: Row(
-
-                                              mainAxisAlignment: MainAxisAlignment.center,
-
-                                              children: [
-
-                                                Text("Chairman",
-
-                                                  style: TextStyle(
-
-                                                    fontSize: SizeConfig.blockSizeHorizontal * 4.9,
-
-                                                    fontFamily: 'Roboto_Bold',
-
-                                                    fontWeight: FontWeight.w500,
-
-                                                    color: CommonColor.WHITE_COLOR,
-
-
-
-                                                  ),
-
-
-
-                                                ),
-
-                                              ],
-
-                                            ),
-
-                                          ),
-
-                                        ),
-
-
-
-                                        Column(
-
-                                          children: [
-
-                                            Row(
-
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-                                              children: [
-
-                                                Padding(
-
-                                                  padding:  EdgeInsets.only(left: parentWidth*0.1,top: parentHeight*0.02),
-
-                                                  child: Text("Feroz",style: TextStyle(
-
-                                                    fontSize: SizeConfig.blockSizeHorizontal * 4.3,
-
-                                                    fontFamily: 'Roboto_Bold',
-
-                                                    fontWeight: FontWeight.w600,
-
-                                                    color: CommonColor.BLACK_COLOR,)),
-
-                                                ),
-
-                                                Padding(
-
-                                                  padding:EdgeInsets.only(right: parentWidth*0.1,top: parentHeight*0.02),
-
-                                                  child: Text("9168682309",style: TextStyle(
-
-                                                    fontSize: SizeConfig.blockSizeHorizontal * 4.3,
-
-                                                    fontFamily: 'Roboto_Bold',
-
-                                                    fontWeight: FontWeight.w600,
-
-                                                    color: CommonColor.BLACK_COLOR,)),
-
-                                                ),
-
-                                              ],
-
-                                            ),
-
-
-
-
-
-                                          ],
-
-                                        )
-
-                                      ],
-
-                                    ),
-
-                                  ),
-
-                                );
-
-                              }),
-
-                        ),
-
-
-
-                     /*   Container(
-
-                          height: parentHeight * 0.11,
-
-                          decoration: BoxDecoration(
-
-                            color: Colors.white,
-
-                            boxShadow: <BoxShadow>[
-
-                              BoxShadow(
-
-                                color: Colors.grey.shade300,
-
-                                spreadRadius: 1,
-
-                                blurRadius: 5,
-
-                                offset: const Offset(0, 5),
-
-                              ),
-
-                              BoxShadow(
-
-                                color: Colors.grey.shade50,
-
-                                offset: const Offset(-5, 0),
-
-                              ),
-
-                              BoxShadow(
-
-                                color: Colors.grey.shade50,
-
-                                offset: const Offset(5, 0),
-
-                              )
-
-                            ],
-
-                          ),
-
-
-
-                          child: Column(
-
-                            children: [
-
-                              Row(
-
-                                mainAxisAlignment: MainAxisAlignment.start,
-
-                                children: [
-
-                                  Padding(
-
-                                    padding: EdgeInsets.only(
-
-                                        left: parentWidth * 0.03, top: parentHeight * 0.007),
-
-                                    child: Text("Email Id"),
-
-                                  ),
-
-                                ],
-
-                              ),
-
-                              Padding(
-
-                                padding: EdgeInsets.only(
-
-                                    left: parentWidth * 0.025, right: parentWidth * 0.025, top: parentHeight*0.007),
+                                padding: EdgeInsets.only(top: parentHeight*0.03),
 
                                 child: Container(
 
-                                  height: parentHeight*.06,
+                                  height: parentHeight * 0.12,
 
                                   decoration: BoxDecoration(
 
-                                      border: Border.all(color: Colors.green, width: 1.5),
+                                    color: Colors.white,
 
-                                      borderRadius: BorderRadius.circular(5)
+                                    borderRadius: BorderRadius.circular(20),
+
+                                    boxShadow: <BoxShadow>[
+
+                                      BoxShadow(
+
+                                        color: Colors.grey.shade300,
+
+                                        spreadRadius: 1,
+
+                                        blurRadius: 5,
+
+                                        offset: const Offset(0, 5),
+
+                                      ),
+
+                                      BoxShadow(
+
+                                        color: Colors.grey.shade50,
+
+                                        offset: const Offset(-5, 0),
+
+                                      ),
+
+                                      BoxShadow(
+
+                                        color: Colors.grey.shade50,
+
+                                        offset: const Offset(5, 0),
+
+                                      )
+
+                                    ],
 
                                   ),
 
@@ -461,9 +240,111 @@ return  DefaultTabController(
 
                                     children: [
 
-                                      Row(
+                                      ClipRRect(
+
+                                        borderRadius: const BorderRadius.only(topRight: Radius.circular(10), topLeft: Radius.circular(10)),
+
+                                        child: Container(
+
+                                          height: parentHeight*0.06,
+
+                                          decoration: const BoxDecoration(
+
+                                              gradient: LinearGradient(
+
+                                                  begin: Alignment.centerLeft,
+
+                                                  end: Alignment.centerRight,
+
+                                                  colors: [CommonColor.LEFT_COLOR, CommonColor.RIGHT_COLOR])),
+
+                                          child: Row(
+
+                                            mainAxisAlignment: MainAxisAlignment.center,
+
+                                            children: [
+
+                                              Text("Chairman",
+
+                                                style: TextStyle(
+
+                                                  fontSize: SizeConfig.blockSizeHorizontal * 4.9,
+
+                                                  fontFamily: 'Roboto_Bold',
+
+                                                  fontWeight: FontWeight.w500,
+
+                                                  color: CommonColor.WHITE_COLOR,
 
 
+
+                                                ),
+
+
+
+                                              ),
+
+                                            ],
+
+                                          ),
+
+                                        ),
+
+                                      ),
+
+
+
+                                      Column(
+
+                                        children: [
+
+                                          Row(
+
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                                            children: [
+
+                                              Padding(
+
+                                                padding:  EdgeInsets.only(left: parentWidth*0.1,top: parentHeight*0.02),
+
+                                                child: Text("Feroz",style: TextStyle(
+
+                                                  fontSize: SizeConfig.blockSizeHorizontal * 4.3,
+
+                                                  fontFamily: 'Roboto_Bold',
+
+                                                  fontWeight: FontWeight.w600,
+
+                                                  color: CommonColor.BLACK_COLOR,)),
+
+                                              ),
+
+                                              Padding(
+
+                                                padding:EdgeInsets.only(right: parentWidth*0.1,top: parentHeight*0.02),
+
+                                                child: Text("9168682309",style: TextStyle(
+
+                                                  fontSize: SizeConfig.blockSizeHorizontal * 4.3,
+
+                                                  fontFamily: 'Roboto_Bold',
+
+                                                  fontWeight: FontWeight.w600,
+
+                                                  color: CommonColor.BLACK_COLOR,)),
+
+                                              ),
+
+                                            ],
+
+                                          ),
+
+
+
+
+
+                                        ],
 
                                       )
 
@@ -473,67 +354,175 @@ return  DefaultTabController(
 
                                 ),
 
-                              ),
+                              );
 
-
-
-                            ],
-
-                          ),
-
-                        )*/
-
-                    )
-
-                  ],
-
-                ),
-
-                Container(
-
-                    child: Flexible(
-
-                      child: Padding(
-
-                        padding:  EdgeInsets.only(top: parentHeight*0.03),
-
-                        child: Text(
-
-
-
-                          "Lorem Ipsum is simply dummy text of printing and typesetting. Lorem Ipsum is simply dummy text  of printing and typesetting.Lorem Ipsum is simply dummy text of printing and typesetting. Lorem Ipsum is simply dummy text of printing and typesetting. Lorem Ipsum is simply dummy text  of printing and typesetting.Lorem Ipsum is simply dummy text of printing and typesetting. " ,
-
-                          style:TextStyle(
-
-                            height: parentHeight*0.003,
-
-                            fontFamily: "Roboto_Regular",
-
-                            fontWeight: FontWeight.w400,
-
-
-
-                            fontSize: SizeConfig.blockSizeHorizontal * 4.5,
-
-                            color: Colors.black,
-
-                            // letterSpacing: SizeConfig.screenWidth * 0.001,
-
-                          ),
-
-                          // textAlign: TextAlign.justify,
-
-                        ),
+                            }),
 
                       ),
 
-                    )
 
-                ),
 
-              ]),
+                   /*   Container(
 
-            ),
+                        height: parentHeight * 0.11,
+
+                        decoration: BoxDecoration(
+
+                          color: Colors.white,
+
+                          boxShadow: <BoxShadow>[
+
+                            BoxShadow(
+
+                              color: Colors.grey.shade300,
+
+                              spreadRadius: 1,
+
+                              blurRadius: 5,
+
+                              offset: const Offset(0, 5),
+
+                            ),
+
+                            BoxShadow(
+
+                              color: Colors.grey.shade50,
+
+                              offset: const Offset(-5, 0),
+
+                            ),
+
+                            BoxShadow(
+
+                              color: Colors.grey.shade50,
+
+                              offset: const Offset(5, 0),
+
+                            )
+
+                          ],
+
+                        ),
+
+
+
+                        child: Column(
+
+                          children: [
+
+                            Row(
+
+                              mainAxisAlignment: MainAxisAlignment.start,
+
+                              children: [
+
+                                Padding(
+
+                                  padding: EdgeInsets.only(
+
+                                      left: parentWidth * 0.03, top: parentHeight * 0.007),
+
+                                  child: Text("Email Id"),
+
+                                ),
+
+                              ],
+
+                            ),
+
+                            Padding(
+
+                              padding: EdgeInsets.only(
+
+                                  left: parentWidth * 0.025, right: parentWidth * 0.025, top: parentHeight*0.007),
+
+                              child: Container(
+
+                                height: parentHeight*.06,
+
+                                decoration: BoxDecoration(
+
+                                    border: Border.all(color: Colors.green, width: 1.5),
+
+                                    borderRadius: BorderRadius.circular(5)
+
+                                ),
+
+                                child: Column(
+
+                                  children: [
+
+                                    Row(
+
+
+
+                                    )
+
+                                  ],
+
+                                ),
+
+                              ),
+
+                            ),
+
+
+
+                          ],
+
+                        ),
+
+                      )*/
+
+                  )
+
+                ],
+
+              ),
+
+              Container(
+
+                  child: Flexible(
+
+                    child: Padding(
+
+                      padding:  EdgeInsets.only(top: parentHeight*0.03),
+
+                      child: Text(
+
+
+
+                        "Lorem Ipsum is simply dummy text of printing and typesetting. Lorem Ipsum is simply dummy text  of printing and typesetting.Lorem Ipsum is simply dummy text of printing and typesetting. Lorem Ipsum is simply dummy text of printing and typesetting. Lorem Ipsum is simply dummy text  of printing and typesetting.Lorem Ipsum is simply dummy text of printing and typesetting. " ,
+
+                        style:TextStyle(
+
+                          height: parentHeight*0.003,
+
+                          fontFamily: "Roboto_Regular",
+
+                          fontWeight: FontWeight.w400,
+
+
+
+                          fontSize: SizeConfig.blockSizeHorizontal * 4.5,
+
+                          color: Colors.black,
+
+                          // letterSpacing: SizeConfig.screenWidth * 0.001,
+
+                        ),
+
+                        // textAlign: TextAlign.justify,
+
+                      ),
+
+                    ),
+
+                  )
+
+              ),
+
+            ]),
 
           ),
 

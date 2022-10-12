@@ -30,7 +30,7 @@ class _AllMasjitJoinedListState extends State<AllMasjitJoinedList> {
     SizeConfig().init(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Container(
+      body: SizedBox(
         height: SizeConfig.screenHeight,
         child: getAddTermsTextLayout(
             SizeConfig.screenHeight, SizeConfig.screenWidth),
@@ -57,7 +57,7 @@ class _AllMasjitJoinedListState extends State<AllMasjitJoinedList> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          MasjitNameLocation(masjitId: '', lat: '', long: '',)));
+                                          const MasjitNameLocation(masjitId: '', lat: '', long: '',)));
                             },
                             child: Container(
                                 height: parentHeight * 0.23,
@@ -84,7 +84,7 @@ class _AllMasjitJoinedListState extends State<AllMasjitJoinedList> {
                                 child: Column(
 
                                   children: [
-                                    Container(
+                                    SizedBox(
                                       height: parentHeight * 0.1,
 
                                       child: Column(children: [
@@ -115,7 +115,7 @@ class _AllMasjitJoinedListState extends State<AllMasjitJoinedList> {
                                                               snapshot.data?.data?[index].images != null?
                                                               NetworkImage(
                                                                 "${snapshot.data?.data?[index].images}",
-                                                              ): NetworkImage(""),
+                                                              ): const NetworkImage(""),
                                                               fit: BoxFit
                                                                   .cover,
                                                             ),
@@ -127,7 +127,7 @@ class _AllMasjitJoinedListState extends State<AllMasjitJoinedList> {
                                                 ],
                                               ),
                                             ),
-                                            Container(
+                                            SizedBox(
 
                                               width: parentWidth*0.44,
                                               child: Padding(
@@ -277,7 +277,7 @@ class _AllMasjitJoinedListState extends State<AllMasjitJoinedList> {
                                             ),
                                             Padding(
                                               padding:  EdgeInsets.only(left: parentWidth*0.05),
-                                              child: Container(
+                                              child: SizedBox(
                                                 width: parentWidth*.23,
                                                 height: parentWidth*.08,
                                                // color: Colors.yellow,
@@ -290,7 +290,7 @@ class _AllMasjitJoinedListState extends State<AllMasjitJoinedList> {
                                                       0.3,
                                                   decoration:
                                                   BoxDecoration(
-                                                    gradient: LinearGradient(
+                                                    gradient: const LinearGradient(
                                                         begin: Alignment
                                                             .centerLeft,
                                                         end: Alignment.centerRight,
@@ -330,7 +330,7 @@ class _AllMasjitJoinedListState extends State<AllMasjitJoinedList> {
 
                                       ]),
                                     ),
-                                    Container(
+                                    SizedBox(
                                       height: parentHeight*0.13,
 
                                       //  color: Colors.red,

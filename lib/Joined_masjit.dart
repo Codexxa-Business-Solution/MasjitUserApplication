@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:masjiduserapp/size_config.dart';
 
 
-import 'all_masjit_list.dart';
 import 'common.color.dart';
 class JoinedMasjit extends StatefulWidget {
   const JoinedMasjit({Key? key}) : super(key: key);
@@ -16,45 +15,43 @@ class _JoinedMasjitState extends State<JoinedMasjit> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        body: Container(
-          child: ListView(
-            shrinkWrap: true,
-            children: [
-             /* Container(
-                height: SizeConfig.screenHeight * 0.12,
-                decoration:  BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                        colors: [
-                          CommonColor.LEFT_COLOR,
-                          CommonColor.RIGHT_COLOR
-                        ]),
-                    border: Border(
-                        bottom: BorderSide(
-                            width: 1, color: CommonColor.RIGHT_COLOR))),
-                child: getAddMainHeadingLayout(
-                    SizeConfig.screenHeight, SizeConfig.screenWidth),
-              ),*/
-              Container(
-                height: SizeConfig.screenHeight * 088,
-                child: ListView(
-                  children: [
-                    getAddTermsTextLayout(
-                        SizeConfig.screenHeight, SizeConfig.screenWidth),
-                    /* RegistartionContant(
-                        SizeConfig.screenHeight, SizeConfig.screenWidth),
-                    PhoneNumberContant(
-                        SizeConfig.screenHeight, SizeConfig.screenWidth),
-                    Desgnation(
-                        SizeConfig.screenHeight, SizeConfig.screenWidth),
-                    SaveButton(
-                        SizeConfig.screenHeight, SizeConfig.screenWidth),*/
-                  ],
-                ),
-              )
-            ],
-          ),
+        body: ListView(
+          shrinkWrap: true,
+          children: [
+           /* Container(
+              height: SizeConfig.screenHeight * 0.12,
+              decoration:  BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                      colors: [
+                        CommonColor.LEFT_COLOR,
+                        CommonColor.RIGHT_COLOR
+                      ]),
+                  border: Border(
+                      bottom: BorderSide(
+                          width: 1, color: CommonColor.RIGHT_COLOR))),
+              child: getAddMainHeadingLayout(
+                  SizeConfig.screenHeight, SizeConfig.screenWidth),
+            ),*/
+            SizedBox(
+              height: SizeConfig.screenHeight * 088,
+              child: ListView(
+                children: [
+                  getAddTermsTextLayout(
+                      SizeConfig.screenHeight, SizeConfig.screenWidth),
+                  /* RegistartionContant(
+                      SizeConfig.screenHeight, SizeConfig.screenWidth),
+                  PhoneNumberContant(
+                      SizeConfig.screenHeight, SizeConfig.screenWidth),
+                  Desgnation(
+                      SizeConfig.screenHeight, SizeConfig.screenWidth),
+                  SaveButton(
+                      SizeConfig.screenHeight, SizeConfig.screenWidth),*/
+                ],
+              ),
+            )
+          ],
         ));
   }
 
@@ -88,7 +85,7 @@ return Center(
 
                   decoration:  BoxDecoration(
 
-                    gradient: LinearGradient(
+                    gradient: const LinearGradient(
 
                         begin: Alignment.centerLeft,
 

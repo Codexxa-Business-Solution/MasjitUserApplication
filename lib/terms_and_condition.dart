@@ -16,44 +16,35 @@ class _TermsAndConditionState extends State<TermsAndCondition> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        body: Container(
-          child: Column(
-            children: [
-              Container(
-                height: SizeConfig.screenHeight * 0.12,
-                decoration:  BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                        colors: [
-                          CommonColor.LEFT_COLOR,
-                          CommonColor.RIGHT_COLOR
-                        ]),
-                    border: Border(
-                        bottom: BorderSide(
-                            width: 1, color: CommonColor.RIGHT_COLOR))),
-                child: getAddMainHeadingLayout(
-                    SizeConfig.screenHeight, SizeConfig.screenWidth),
+        body: Column(
+          children: [
+            Container(
+              height: SizeConfig.screenHeight * 0.12,
+              decoration:  const BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                      colors: [
+                        CommonColor.LEFT_COLOR,
+                        CommonColor.RIGHT_COLOR
+                      ]),
+                  border: Border(
+                      bottom: BorderSide(
+                          width: 1, color: CommonColor.RIGHT_COLOR))),
+              child: getAddMainHeadingLayout(
+                  SizeConfig.screenHeight, SizeConfig.screenWidth),
+            ),
+            SizedBox(
+              height: SizeConfig.screenHeight * 0.88,
+              child: ListView(
+                children: [
+                  getAddTermsTextLayout(
+                      SizeConfig.screenHeight, SizeConfig.screenWidth),
+
+                ],
               ),
-              Container(
-                height: SizeConfig.screenHeight * 0.88,
-                child: ListView(
-                  children: [
-                    getAddTermsTextLayout(
-                        SizeConfig.screenHeight, SizeConfig.screenWidth),
-                   /* RegistartionContant(
-                        SizeConfig.screenHeight, SizeConfig.screenWidth),
-                    PhoneNumberContant(
-                        SizeConfig.screenHeight, SizeConfig.screenWidth),
-                    Desgnation(
-                        SizeConfig.screenHeight, SizeConfig.screenWidth),
-                    SaveButton(
-                        SizeConfig.screenHeight, SizeConfig.screenWidth),*/
-                  ],
-                ),
-              )
-            ],
-          ),
+            )
+          ],
         ));
   }
 
@@ -71,13 +62,11 @@ class _TermsAndConditionState extends State<TermsAndCondition> {
             child: Padding(
               padding: EdgeInsets.only(left: parentWidth * .04),
               child: Container(
-                child: Padding(
-                  padding: EdgeInsets.only(top: parentHeight * 0.07),
-                  child: Icon(
-                    Icons.arrow_back_ios,
-                    size: parentHeight * .025,
-                    color: CommonColor.WHITE_COLOR,
-                  ),
+                padding: EdgeInsets.only(top: parentHeight * 0.07),
+                child: Icon(
+                  Icons.arrow_back_ios,
+                  size: parentHeight * .025,
+                  color: CommonColor.WHITE_COLOR,
                 ),
               ),
             ),
@@ -96,14 +85,12 @@ class _TermsAndConditionState extends State<TermsAndCondition> {
           ),
           Padding(
             padding: EdgeInsets.only(right: parentWidth * .04),
-            child: Container(
-              child: Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: Icon(
-                  Icons.arrow_back_ios,
-                  size: parentHeight * .03,
-                  color: Colors.transparent,
-                ),
+            child: Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Icon(
+                Icons.arrow_back_ios,
+                size: parentHeight * .03,
+                color: Colors.transparent,
               ),
             ),
           ),
@@ -120,8 +107,7 @@ class _TermsAndConditionState extends State<TermsAndCondition> {
             EdgeInsets.only(left: parentWidth * .04, right: parentWidth * .04),
 
             child: Text(
-
-             "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+              "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
               style:TextStyle(
                 height: parentHeight*0.003,
               fontFamily: "Roboto_Regular",

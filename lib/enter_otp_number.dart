@@ -1,15 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:masjiduserapp/all_masjit_list.dart';
-import 'package:masjiduserapp/login_with_phone.dart';
-import 'package:masjiduserapp/masjit_main_new_screen.dart';
+
 import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/user_register_response_model.dart';
 import 'package:masjiduserapp/size_config.dart';
-import 'package:masjiduserapp/user_login_screen.dart';
-import 'package:masjiduserapp/user_parent_tab_bar.dart';
+
 import 'package:masjiduserapp/user_registration.dart';
 import 'package:masjiduserapp/util/constant.dart';
 import 'package:pinput/pinput.dart';
@@ -27,7 +23,7 @@ bool isLoading = false;
 final defaultPinTheme = PinTheme(
   width: 56,
   height: 56,
-  textStyle: TextStyle(
+  textStyle: const TextStyle(
     fontSize: 22,
     color: CommonColor.REGISTRARTION_TRUSTEE /* Color.fromRGBO(30, 60, 87, 1)*/,
   ),
@@ -53,8 +49,8 @@ class EnterOtpNumber extends StatefulWidget {
 }
 
 class _EnterOtpNumberState extends State<EnterOtpNumber> {
-  bool _checkbox = false;
-  bool _checkboxListTile = false;
+  final bool _checkbox = false;
+  final bool _checkboxListTile = false;
   final TextEditingController _pinPutController = TextEditingController();
   final FocusNode _pinPutFocusNode = FocusNode();
   late Box box;
@@ -105,22 +101,20 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
         children: [
           Container(
             height: SizeConfig.screenHeight * 0.10,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.transparent,
             ),
             child: getAddMainHeadingLayout(
                 SizeConfig.screenHeight, SizeConfig.screenWidth),
           ),
-          Container(
-             // height: SizeConfig.screenHeight ,
-              child: Column(
-                children: [
-                  getFirstImageFrame(
-                      SizeConfig.screenHeight, SizeConfig.screenWidth),
-                  ContinueButton(
-                      SizeConfig.screenHeight, SizeConfig.screenWidth),
-                ],
-              ))
+          Column(
+            children: [
+              getFirstImageFrame(
+                  SizeConfig.screenHeight, SizeConfig.screenWidth),
+              ContinueButton(
+                  SizeConfig.screenHeight, SizeConfig.screenWidth),
+            ],
+          )
         ],
       ),
     ));
@@ -140,13 +134,11 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
             child: Padding(
               padding: EdgeInsets.only(left: parentWidth * .04),
               child: Container(
-                child: Padding(
-                  padding: EdgeInsets.only(top: parentHeight * 0.02),
-                  child: Icon(
-                    Icons.arrow_back_ios,
-                    size: parentHeight * .025,
-                    color: CommonColor.BLACK,
-                  ),
+                padding: EdgeInsets.only(top: parentHeight * 0.02),
+                child: Icon(
+                  Icons.arrow_back_ios,
+                  size: parentHeight * .025,
+                  color: CommonColor.BLACK,
                 ),
               ),
             ),
@@ -165,13 +157,11 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
           Padding(
             padding: EdgeInsets.only(right: parentWidth * .04),
             child: Container(
-              child: Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: Icon(
-                  Icons.arrow_back_ios,
-                  size: parentHeight * .03,
-                  color: Colors.transparent,
-                ),
+              padding: const EdgeInsets.all(5.0),
+              child: Icon(
+                Icons.arrow_back_ios,
+                size: parentHeight * .03,
+                color: Colors.transparent,
               ),
             ),
           ),
@@ -193,7 +183,7 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
 
       return userPhoneNumberRegistrationResponceModelFromJson(result.body);
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
@@ -201,7 +191,7 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
     return Padding(
       padding: EdgeInsets.only(top: parentHeight * 0.03),
       child: Center(
-        child: Container(
+        child: SizedBox(
 
           width: parentWidth,
           height: parentHeight*0.6,
@@ -244,16 +234,14 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      child: Padding(
-                        padding: EdgeInsets.only(right: parentWidth * 0.0),
-                        child: Text(
-                          " Send to ",
-                          style: TextStyle(
-                              fontFamily: "Roboto_Regular",
-                              fontWeight: FontWeight.w400,
-                              fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                              color: CommonColor.BLACK_COLOR),
-                        ),
+                       padding: EdgeInsets.only(right: parentWidth * 0.0),
+                      child: Text(
+                        " Send to ",
+                        style: TextStyle(
+                            fontFamily: "Roboto_Regular",
+                            fontWeight: FontWeight.w400,
+                            fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+                            color: CommonColor.BLACK_COLOR),
                       ),
                     ),
                     Padding(
@@ -300,7 +288,7 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Container(
-                                margin: EdgeInsets.only(bottom: 9),
+                                margin: const EdgeInsets.only(bottom: 9),
                                 width: 20,
                                 height: parentHeight * 0.002,
                                 color: CommonColor.REGISTRARTION_TRUSTEE,
@@ -328,7 +316,7 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
                           ),
                         ),
                       ),
-                      Row(
+                      /*Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
@@ -353,7 +341,7 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
                             ),
                           ),
                         ],
-                      ),
+                      ),*/
                     ],
                   ),
                 ),
@@ -371,7 +359,7 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
         onTap: () async {
           showDialog(context: context, builder: (context)
           {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
           );
          // isLoading = true;
@@ -386,7 +374,7 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => UserRegistration(phoneNum: widget.mobileNumber,)));
           }catch(excepti){
-            ScaffoldMessenger.of(context).showSnackBar( SnackBar(content: Text('Some Error Occured. Try Again Later')));
+            ScaffoldMessenger.of(context).showSnackBar( const SnackBar(content: Text('Some Error Occured. Try Again Later')));
           }
         },
         child: Padding(
@@ -399,7 +387,7 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
               Container(
                   height: parentHeight * 0.06,
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
+                    gradient: const LinearGradient(
                         begin: Alignment.centerLeft,
                         end: Alignment.centerRight,
                         colors: [
@@ -418,7 +406,7 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
                           color: CommonColor.WHITE_COLOR),
                     ),
                   )),
-              Padding(
+             /* Padding(
                 padding: EdgeInsets.only(top: parentHeight * 0.03),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -449,7 +437,7 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
                     ),
                   ],
                 ),
-              ),
+              ),*/
             ],
           ),
         ),
@@ -460,7 +448,7 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
   void _showSnackBar(String pin, BuildContext context) {
     final snackBar = SnackBar(
       duration: const Duration(seconds: 3),
-      content: Container(
+      content: SizedBox(
         height: 80.0,
         child: Center(
           child: Text(

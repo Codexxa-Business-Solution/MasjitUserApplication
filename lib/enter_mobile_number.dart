@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:masjiduserapp/enter_otp_number.dart';
 import 'package:masjiduserapp/size_config.dart';
 import 'package:masjiduserapp/user_login_screen.dart';
@@ -32,7 +31,7 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
       showDialog(
           context: context,
           builder: (context) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           });
       await auth.verifyPhoneNumber(
           phoneNumber: "+91${phoneController.text}",
@@ -77,11 +76,11 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
             children: [
               Container(
                 height: SizeConfig.screenHeight * 0.10,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.transparent,
                 ),
-                /*child: getAddMainHeadingLayout(
-                    SizeConfig.screenHeight, SizeConfig.screenWidth),*/
+               child: getAddMainHeadingLayout(
+                    SizeConfig.screenHeight, SizeConfig.screenWidth),
               ),
               Container(
                   //height: SizeConfig.screenHeight,
@@ -98,7 +97,58 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
           ),
         ));
   }
-
+  Widget getAddMainHeadingLayout(double parentHeight, double parentWidth) {
+    return Padding(
+      padding: EdgeInsets.only(top: parentHeight * .05),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          GestureDetector(
+            onTap: () {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => const LoginScreen()));
+            },
+            onDoubleTap: () {},
+            child: Padding(
+              padding: EdgeInsets.only(left: parentWidth * .04),
+              child: Container(
+                padding: EdgeInsets.only(top: parentHeight * 0.02),
+                child: Icon(
+                  Icons.arrow_back_ios,
+                  size: parentHeight * .025,
+                  color: CommonColor.BLACK,
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: parentHeight * 0.07),
+            child: Text(
+              "SAHR / IFTAR",
+              style: TextStyle(
+                  fontSize: SizeConfig.blockSizeHorizontal * 5.0,
+                  fontFamily: 'Roboto_Medium',
+                  fontWeight: FontWeight.w400,
+                  color: Colors.transparent),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(right: parentWidth * .04),
+            child: Container(
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Icon(
+                  Icons.arrow_back_ios,
+                  size: parentHeight * .03,
+                  color: Colors.transparent,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
   Widget getFirstImageFrame(double parentHeight, double parentWidth) {
     return Form(
       key: _formKey,
@@ -106,7 +156,7 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
       child: Padding(
         padding: EdgeInsets.only(top: parentHeight * 0.04),
         child: Center(
-          child: Container(
+          child: SizedBox(
             width: parentWidth,
             height: parentHeight * .6,
             child: Column(
@@ -185,28 +235,28 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
                                     _number = value;
                                   },
                                   decoration: InputDecoration(
-                                    prefixIcon: Image(image: AssetImage( 'assets/images/flag.png'),),
+                                    prefixIcon: const Image(image: AssetImage( 'assets/images/flag.png'),),
                                       prefixText: "+91 ",
-                                      prefixStyle: TextStyle(color: Colors.black),
+                                      prefixStyle: const TextStyle(color: Colors.black),
                                       labelText: 'Phone Number',
-                                      labelStyle: TextStyle(
+                                      labelStyle: const TextStyle(
                                           color:  CommonColor.REGISTRARTION_COLOR
                                       ),
                                       contentPadding: const EdgeInsets.all(12),
                                       isDense: true,
                                       focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
+                                          borderSide: const BorderSide(
                                               width: 1,
                                               color: CommonColor.REGISTRARTION_COLOR),
                                           borderRadius: BorderRadius.circular(10.0)),
                                       enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
+                                          borderSide: const BorderSide(
                                               width: 1,
                                               color: CommonColor.REGISTRARTION_COLOR),
                                           borderRadius: BorderRadius.circular(10.0)),
                                       //borderRadius: BorderRadius.circular(10)
                                       border: OutlineInputBorder(
-                                          borderSide: BorderSide(
+                                          borderSide: const BorderSide(
                                               width: 1,
                                               color: CommonColor.REGISTRARTION_COLOR),
                                           borderRadius: BorderRadius.circular(10.0)),
@@ -221,188 +271,7 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
                         ))
                   ]),
                 ),
-                /*Padding(
-                  padding: EdgeInsets.only(
-                      top: parentHeight * 0.02,
-                      left: parentWidth * 0.05,
-                      right: parentWidth * 0.02),
-                  child: Container(
-                    height: parentHeight * 0.08,
-                    width: parentHeight * 0.9,
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(
-                              left: parentWidth * 0.07,
-                              right: parentWidth * 0.08,
-                              top: parentHeight * 0.009),
-                          child: Container(
-                            height: parentHeight * .06,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: CommonColor.REGISTRARTION_COLOR,
-                                  width: 1.5),
-                              borderRadius: BorderRadius.circular(5),
-                              // color: Colors.red,
-                            ),
-                            child:
-                            Padding(
-                                padding: EdgeInsets.only(
-                                    top: parentHeight * 0.01,
-                                    left: parentWidth * 0.03,
-                                    right: parentWidth * 0.03),
-                                child: TextFormField(
-                                    focusNode: _phoneFocus,
-                                    controller: phoneController,
-                                    keyboardType: TextInputType.text,
-                                    validator: (value) {
-                                      if (value == null || value.trim().isEmpty) {
-                                        return 'This field is required';
-                                      }
-                                      if (value.trim().length < 10 || value.trim().length > 10) {
-                                        return 'Please Enter Valid Number';
-                                      }
-                                      // Return null if the entered password is valid
-                                      return null;
-                                    },
-                                    onChanged: (value){
-                                      _number = value;
-                                    },
-                                    decoration: InputDecoration(
-                                        labelText: 'Mobile Number',
-                                        labelStyle: TextStyle(
-                                            color:  CommonColor.REGISTRARTION_COLOR
-                                        ),
-                                        contentPadding: const EdgeInsets.all(12),
-                                        isDense: true,
-                                        focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                width: 1,
-                                                color: CommonColor.REGISTRARTION_COLOR),
-                                            borderRadius: BorderRadius.circular(10.0)),
-                                        enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                width: 1,
-                                                color: CommonColor.REGISTRARTION_COLOR),
-                                            borderRadius: BorderRadius.circular(10.0)),
-                                        //borderRadius: BorderRadius.circular(10)
-                                        border: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                width: 1,
-                                                color: CommonColor.REGISTRARTION_COLOR),
-                                            borderRadius: BorderRadius.circular(10.0)),
-                                        hintStyle: TextStyle(
-                                            fontFamily: "Roboto_Regular",
-                                            fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                                            color: CommonColor.SEARCH_TEXT_COLOR
-                                        )
 
-                                    )
-
-                                ))
-
-                            */
-                /*Row(
-                              children: [
-                                Row(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          right: SizeConfig.screenWidth * 0.01,
-                                          top: SizeConfig.screenHeight * 0.0),
-                                      child: Container(
-                                        width: SizeConfig.screenWidth * .08,
-                                        child: Image.asset(
-                                          'assets/images/flag.png',
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          left: parentWidth * 0.0),
-                                      child: Text(
-                                        "+91",
-                                        style: TextStyle(
-                                          fontFamily: "Roboto_Regular",
-                                          fontWeight: FontWeight.w500,
-                                          fontSize:
-                                              SizeConfig.blockSizeHorizontal *
-                                                  4.0,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Flexible(
-                                  child: Padding(
-                                    padding: EdgeInsets.only(
-                                        left: parentWidth * 0.01,
-                                        right: parentWidth * 0.01),
-                                    child: TextFormField(
-                                      validator: (value) {
-                                        if (value == null || value.trim().isEmpty) {
-                                          return 'This field is required';
-                                        }
-                                        if (value.trim().length < 10 || value.trim().length > 10) {
-                                          return 'Please Enter Valid Number';
-                                        }
-                                        // Return null if the entered password is valid
-                                        return null;
-                                      },
-                                      onChanged: (value){
-                                        _number = value;
-                                      },
-                                      focusNode: _phoneFocus,
-                                      controller: phoneController,
-                                      keyboardType: TextInputType.number,
-                                      autocorrect: true,
-                                      textInputAction: TextInputAction.next,
-
-                                      decoration: InputDecoration(
-                                        hintText: "Enter your Mobile No.",
-                                        contentPadding: EdgeInsets.only(
-                                            left: parentWidth * 0.03,
-                                            bottom: parentHeight * 0.009),
-                                        hintStyle: TextStyle(
-                                          fontFamily: "Roboto_Regular",
-                                          fontSize:
-                                              SizeConfig.blockSizeHorizontal *
-                                                  4.0,
-                                          // color: CommonColor.DIVIDER_COLOR,
-                                        ),
-                                        enabledBorder: const UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Colors.transparent,
-                                          ),
-                                        ),
-                                        focusedBorder: const UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Colors.transparent,
-                                          ),
-                                        ),
-                                      ),
-                                      // controller: emailController,
-                                      style: TextStyle(
-                                        fontFamily: "Roboto_Regular",
-                                        fontSize:
-                                            SizeConfig.blockSizeHorizontal * 3.5,
-                                        // color: CommonColor.WHITE_COLOR,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),*//*
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),*/
                 Padding(
                   padding:  EdgeInsets.only(top: parentHeight*0.02),
                   child: Column(
@@ -468,7 +337,7 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
         child: Container(
             height: parentHeight * 0.06,
             decoration: BoxDecoration(
-              gradient: LinearGradient(
+              gradient: const LinearGradient(
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
                   colors: [CommonColor.LEFT_COLOR, CommonColor.RIGHT_COLOR]),

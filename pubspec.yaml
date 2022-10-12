@@ -51,6 +51,10 @@ dependencies:
   firebase_core: ^1.8.0
   firebase_auth: ^3.1.1
   flutter_launcher_icons: ^0.10.0
+  country_state_city_picker: ^1.2.8
+  flutter_local_notifications: ^12.0.2
+  intl: ^0.17.0
+  android_alarm_manager_plus: ^2.0.7+1
 
 dev_dependencies:
   flutter_test:
@@ -84,6 +88,9 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/images/
+    - assets/states.json
+    - assets/districts.json
+    - assets/talukas.json
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

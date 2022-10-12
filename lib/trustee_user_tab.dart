@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -7,7 +6,6 @@ import 'package:http/http.dart' as http;
 import 'package:masjiduserapp/util/constant.dart';
 
 import 'common.color.dart';
-import 'masjit_user_app_api/JoinedMsjitAllApi.dart';
 import 'masjit_user_app_api/masjit_app_responce_model/notice_response_model.dart';
 class TrusteeUserTab extends StatefulWidget {
 
@@ -31,8 +29,7 @@ class _TrusteeUserTabState extends State<TrusteeUserTab> {
     box = Hive.box(kBoxName);
     super.initState();
    getNotice = getNoticeSection(widget.masjitTrusteeId);
-    print(" fffffff $getNotice");
-    print("trusteeScreenId ${widget.masjitTrusteeId}");
+
 
   }
   @override
@@ -40,7 +37,7 @@ class _TrusteeUserTabState extends State<TrusteeUserTab> {
    return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
-      body: Container(
+      body: SizedBox(
         height: SizeConfig.screenHeight*0.9,
         child: getAddTermsTextLayout(
             SizeConfig.screenHeight, SizeConfig.screenWidth),
@@ -87,7 +84,7 @@ class _TrusteeUserTabState extends State<TrusteeUserTab> {
                     child: Column(
                       children: [
                         ClipRRect(
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                               topRight: Radius.circular(10),
                               topLeft: Radius.circular(10)),
                           child: Container(
@@ -163,7 +160,7 @@ class _TrusteeUserTabState extends State<TrusteeUserTab> {
                   ),
                 );
               })
-         :Center(child: CircularProgressIndicator());
+         :const Center(child: CircularProgressIndicator());
 
         });
   }

@@ -12,17 +12,13 @@ class EndFriendDialog extends StatefulWidget {
   final int index;
   final String masjitRemoveIdd;
   final List joinedMasjid;
-/*  final String userId;
-  final int index;
-  final String isConverted;
-  final String msgId;*/
+
 
   const EndFriendDialog(
       {required this.mListener, required this.index, required this.masjitRemoveIdd,
         required this.joinedMasjid
- /*       required this.userId,
-        required this.index,
-        required this.isConverted,this.msgId=""*/});
+
+      });
 
   @override
   _EndFriendDialogState createState() => _EndFriendDialogState();
@@ -52,13 +48,13 @@ class _EndFriendDialogState extends State<EndFriendDialog> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15.0),
             ),
-            child: new Container(
+            child: Container(
               //height: SizeConfig.screenHeight * .33,
-              decoration: new BoxDecoration(
-                borderRadius: new BorderRadius.all(Radius.circular(25.0)),
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(25.0)),
                 //color: CommonColor.RED_COLOR,
               ),
-              child: new Column(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
@@ -109,7 +105,7 @@ class _EndFriendDialogState extends State<EndFriendDialog> {
           Flexible(
             child: Text(
               "Are you sure you want to Removed Masjit from your account? You can add the same Masjit again after you Remove it.",
-             // ApplicationLocalizations.of(context)!.translate("end_friend_subtext")!,
+           //ApplicationLocalizations.of(context)!.translate("end_friend_subtext")!,
               style: TextStyle(
                 color: CommonColor.BLACK_COLOR,
                 fontSize: SizeConfig.blockSizeHorizontal * 4.0,
@@ -135,7 +131,7 @@ class _EndFriendDialogState extends State<EndFriendDialog> {
         padding: EdgeInsets.only(top: parentHeight * .027),
         child: Container(
           height: parentHeight * .06,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             border: Border(
               top: BorderSide(width: 1, color: CommonColor.DIVIDER_COLOR),
             ),
@@ -171,7 +167,7 @@ class _EndFriendDialogState extends State<EndFriendDialog> {
         padding: EdgeInsets.only(top: parentHeight * .0),
         child: Container(
           height: parentHeight * .06,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             border: Border(
               top: BorderSide(width: 1, color: CommonColor.DIVIDER_COLOR),
             ),
@@ -181,7 +177,6 @@ class _EndFriendDialogState extends State<EndFriendDialog> {
             children: [
               Text(
                "CANCLE",
-
                 style: TextStyle(
                   color: CommonColor.DELETE_GAME_COLOR,
                   fontSize: SizeConfig.blockSizeHorizontal * 4.4,
@@ -202,17 +197,17 @@ class _EndFriendDialogState extends State<EndFriendDialog> {
 
     var response = await http.get(
         Uri.parse(
-            'http://masjid.exportica.in/api/user/remove?masjid=${masjitIdRemoved}'),
+            'http://masjid.exportica.in/api/user/remove?masjid=$masjitIdRemoved'),
         headers: headersList);
 
     if (response.statusCode == 200) {
 
 
       widget.joinedMasjid.removeAt(index);
-      var removeId = box.get(kJoinedCommonId);
+      //var removeId = box.get(kJoinedCommonId);
       print("removedId  ${box.get(kJoinedCommonId)}");
 
-    Navigator.push(context, MaterialPageRoute(builder: (context)=>ParentTabBarScreen()));
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>const ParentTabBarScreen()));
       print("Yess.. ${response.body}");
 
       print("Hiii");
