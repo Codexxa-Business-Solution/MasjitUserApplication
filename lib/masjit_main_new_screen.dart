@@ -333,10 +333,10 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                                       0.02),
                                                           child: Container(
                                                             child: Image.asset(
-                                                              'assets/images/image.png',
+                                                              'assets/images/masjit_logo.png',
                                                               height: SizeConfig
                                                                       .screenHeight *
-                                                                  .04,
+                                                                  .05,
                                                             ),
                                                           ),
                                                         ),
