@@ -250,19 +250,113 @@ print("dndSetting $FlutterDnd");
         onTap: () {
           // currentIndex< (listPaths.length=3)? FlutterDnd.gotoPolicySettings() : "";
 
-currentIndex++;
-          // _pageController.jumpToPage(currentIndex - 1);
-          // for(int i =0;i<=listPaths.length;i++){
-            _pageController.jumpToPage(currentIndex);
+          currentIndex++;
 
-            currentIndex == 3? complete():Container();
+          _pageController.jumpToPage(currentIndex);
 
-          //   print("crtIndex$currentIndex");
-          // // complete();
-          // }
-         // currentIndex < (listPaths.length - 1)?
-        //      _pageController.jumpToPage(1+currentIndex):
-        // complete();
+          currentIndex == 3 ?
+
+          showDialog(
+              context: context,
+              builder: (ctx) => AlertDialog(
+
+                title: const Center(child:  Text("DND Activation", style: TextStyle(
+                  color: CommonColor.REGISTRARTION_COLOR,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 20,
+                  fontFamily: 'Roboto_Medium',
+                ),)),
+                content:  Padding(
+                  padding:  EdgeInsets.only(left: SizeConfig.screenWidth*0.04),
+                  child: const Text("DND Activation Mandatory for this Application",
+
+
+                    style: TextStyle(
+                      color: CommonColor.BLACK,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14,
+                      fontFamily: 'Roboto_Medium',
+                    ),
+
+                  ),
+                ),
+                actions: <Widget>[
+                  Padding(
+                    padding:  EdgeInsets.only(bottom: SizeConfig.screenHeight*0.03),
+                    child: Center(
+                      child: Row(
+                        //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+
+                          GestureDetector(
+                            onTap: () {
+
+                              complete();
+
+                              //currentIndex == 3 ? complete() : Container();
+                              //cityController.text.isEmpty ? validate = true : validate = false;
+
+                            },
+                            child:  Padding(
+                              padding: EdgeInsets.only(
+
+                                  left: SizeConfig.screenWidth * 0.14,
+                                  right: SizeConfig.screenWidth * 0.11),
+                              child: Container(
+                                  height: SizeConfig.screenHeight * 0.05,
+
+                                  child: Center(
+                                    child: Text(
+                                      "Allow",
+                                      style: TextStyle(
+                                          fontFamily: "Roboto_Regular",
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: SizeConfig.blockSizeHorizontal * 4.5,
+                                          color: CommonColor.BLACK_COLOR),
+                                    ),
+                                  )),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Padding(
+                              padding:  EdgeInsets.only(top: SizeConfig.screenHeight*0.0),
+                              child: GestureDetector(
+
+                                child:  Padding(
+                                  padding: EdgeInsets.only(
+
+                                      left: SizeConfig.screenWidth * 0.11,
+                                      right: SizeConfig.screenWidth * 0.11),
+                                  child: Container(
+                                      height: SizeConfig.screenHeight * 0.05,
+
+                                      child: Center(
+                                        child: Text(
+                                          "Cancle",
+                                          style: TextStyle(
+                                              fontFamily: "Roboto_Regular",
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: SizeConfig.blockSizeHorizontal * 4.5,
+                                              color: CommonColor.BLACK_COLOR),
+                                        ),
+                                      )),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+              )):Container();
+          // currentIndex == 3 ?
         },
         child: Container(
           height: parentHeight * 0.06,
@@ -301,8 +395,108 @@ currentIndex++;
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           GestureDetector(
-            onTap: (){
-              complete();
+            onTap: () {
+              showDialog(
+                  context: context,
+                  builder: (ctx) => AlertDialog(
+
+                    title: const Center(child:  Text("DND Activation", style: TextStyle(
+                      color: CommonColor.REGISTRARTION_COLOR,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 20,
+                      fontFamily: 'Roboto_Medium',
+                    ),)),
+                    content:  Padding(
+                      padding:  EdgeInsets.only(left: SizeConfig.screenWidth*0.04),
+                      child: const Text("DND Activation Mandatory for this Application",
+
+
+                        style: TextStyle(
+                          color: CommonColor.BLACK,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 14,
+                          fontFamily: 'Roboto_Medium',
+                        ),
+
+                      ),
+                    ),
+                    actions: <Widget>[
+                      Padding(
+                        padding:  EdgeInsets.only(bottom: SizeConfig.screenHeight*0.03),
+                        child: Center(
+                          child: Row(
+                            //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+
+                              GestureDetector(
+                                onTap: () {
+
+                                  complete();
+
+                                  //currentIndex == 3 ? complete() : Container();
+                                  //cityController.text.isEmpty ? validate = true : validate = false;
+
+                                },
+                                child:  Padding(
+                                  padding: EdgeInsets.only(
+
+                                      left: SizeConfig.screenWidth * 0.14,
+                                      right: SizeConfig.screenWidth * 0.11),
+                                  child: Container(
+                                      height: SizeConfig.screenHeight * 0.05,
+
+                                      child: Center(
+                                        child: Text(
+                                          "Allow",
+                                          style: TextStyle(
+                                              fontFamily: "Roboto_Regular",
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: SizeConfig.blockSizeHorizontal * 4.5,
+                                              color: CommonColor.BLACK_COLOR),
+                                        ),
+                                      )),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Padding(
+                                  padding:  EdgeInsets.only(top: SizeConfig.screenHeight*0.0),
+                                  child: GestureDetector(
+
+                                    child:  Padding(
+                                      padding: EdgeInsets.only(
+
+                                          left: SizeConfig.screenWidth * 0.11,
+                                          right: SizeConfig.screenWidth * 0.11),
+                                      child: Container(
+                                          height: SizeConfig.screenHeight * 0.05,
+
+                                          child: Center(
+                                            child: Text(
+                                              "Cancle",
+                                              style: TextStyle(
+                                                  fontFamily: "Roboto_Regular",
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: SizeConfig.blockSizeHorizontal * 4.5,
+                                                  color: CommonColor.BLACK_COLOR),
+                                            ),
+                                          )),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ));
+              //complete();
             },
             child: Text(
               "Skip",

@@ -412,13 +412,15 @@ class _UserRegistrationState extends State<UserRegistration> {
                     child: TextFormField(
                         focusNode: _numberFocus,
                         controller: numberController,
-                        keyboardType: TextInputType.text,
-                        validator: (String? value) {
-                          if (value!.isEmpty) {
-                            return 'Area cannot be empty';
-                          } else if (value.length < 3) {
-                            return 'Area must be at least 3 characters long.';
+                        keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'This field is required';
                           }
+                          if (value.trim().length < 10 || value.trim().length > 10) {
+                            return 'Please Enter Valid Number';
+                          }
+                          // Return null if the entered password is valid
                           return null;
                         },
                         decoration: InputDecoration(

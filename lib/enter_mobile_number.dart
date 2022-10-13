@@ -219,7 +219,7 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
                              Flexible(
                                child: TextFormField(
                                   controller: phoneController,
-                                  keyboardType: TextInputType.text,
+                                  keyboardType: TextInputType.number,
                                   focusNode: _phoneFocus,
                                   validator: (value) {
                                     if (value == null || value.trim().isEmpty) {

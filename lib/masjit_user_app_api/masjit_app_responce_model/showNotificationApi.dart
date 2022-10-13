@@ -93,7 +93,7 @@ Future<void> callback() async {
   NotificationService().notificationsPlugin.show(
         999999,
         'DND is Activated',
-        'afalfhalfhalsdflalf',
+        'Turn of DND after Namaz Completed',
         const NotificationDetails(
           android: AndroidNotificationDetails(
             'Masjid',

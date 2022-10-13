@@ -61,11 +61,11 @@ class MyApp extends StatelessWidget with WidgetsBindingObserver {
       destination = const MasjitVendorFrame();
     }
     return MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Azan for Salah Masjid',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const MyHomePage(title: 'Flutter Demo Home Page'),
+        home: const MyHomePage(title: ''),
         debugShowCheckedModeBanner: false,
         routes: <String, WidgetBuilder>{
           '/frame': (BuildContext context) => const MasjitVendorFrame(),
