@@ -47,7 +47,7 @@ final PageController _pageController = PageController();
   }
 
 
-  Complete(){
+  complete(){
 
     var  box = Hive.box(kBoxName);
 print("dndSetting $FlutterDnd");
@@ -253,7 +253,7 @@ print("dndSetting $FlutterDnd");
           _pageController.jumpToPage(currentIndex - 1);
          currentIndex< (listPaths.length - 1)?
              _pageController.jumpToPage(currentIndex +1):
-         Complete();
+        complete();
         },
         child: Container(
           height: parentHeight * 0.06,
@@ -293,7 +293,7 @@ print("dndSetting $FlutterDnd");
         children: [
           GestureDetector(
             onTap: (){
-              Complete();
+              complete();
             },
             child: Text(
               "Skip",

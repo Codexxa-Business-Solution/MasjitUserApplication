@@ -22,7 +22,6 @@ class _ExitAppDialogState extends State<ExitAppDialog> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 

@@ -101,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
     SizeConfig().init(context);
     return Padding(
       padding: EdgeInsets.only(bottom: SizeConfig.screenBottom),
-      child: Scaffold(
+      child:  Scaffold(
         backgroundColor: Colors.white,
         body: splash(SizeConfig.screenHeight, SizeConfig.screenWidth),
       ),
@@ -135,7 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
       print("session token   $accessToken");
 
       if (accessToken == null) {
-        return Timer(durtaion, navigateRegistrationPage);
+        return Timer(durtaion, navigateParentPage);
       } else if (accessToken != null) {
         return Timer(durtaion, navigateHomePage);
       }

@@ -9,19 +9,8 @@ import 'package:timezone/timezone.dart' as tz;
 @pragma('vm:entry-point')
 void onDidReceiveNotificationResponse(
     NotificationResponse notificationResponse) async {
-  final String? payload = notificationResponse.payload;
-  print('notification(${notificationResponse.id}) action tapped: '
-      '${notificationResponse.actionId} with'
-      ' payload: ${notificationResponse.payload}');
-
   if (notificationResponse.actionId == 'id_1') {
-    FlutterDnd.setInterruptionFilter(FlutterDnd.INTERRUPTION_FILTER_NONE);
-  }
-
-  if (notificationResponse.input?.isNotEmpty ?? false) {
-    // ignore: avoid_print
-    print(
-        'notification action tapped with input: ${notificationResponse.input}');
+    FlutterDnd.setInterruptionFilter(FlutterDnd.INTERRUPTION_FILTER_ALL);
   }
 }
 
@@ -87,33 +76,34 @@ class NotificationService {
           uiLocalNotificationDateInterpretation:
               UILocalNotificationDateInterpretation.absoluteTime,
         );
-        print('helppp: ${dndTime.difference(current)}');
         await AndroidAlarmManager.oneShot(
           dndTime.difference(current),
           i,
-          () {
-            FlutterDnd.setInterruptionFilter(
-                FlutterDnd.INTERRUPTION_FILTER_ALL);
-            notificationsPlugin.show(
-              999999,
-              'DND is Activated',
-              'afalfhalfhalsdflalf',
-              const NotificationDetails(
-                android: AndroidNotificationDetails(
-                  'Masjid',
-                  'notify about azan',
-                  ongoing: true,
-                  actions: <AndroidNotificationAction>[
-                    AndroidNotificationAction('id_1', 'Turn off'),
-                  ],
-                ),
-              ),
-            );
-          },
+          callback,
           exact: true,
           allowWhileIdle: true,
         );
       }
     }
   }
+}
+
+Future<void> callback() async {
+  FlutterDnd.setInterruptionFilter(FlutterDnd.INTERRUPTION_FILTER_NONE);
+  NotificationService().notificationsPlugin.show(
+        999999,
+        'DND is Activated',
+        'afalfhalfhalsdflalf',
+        const NotificationDetails(
+          android: AndroidNotificationDetails(
+            'Masjid',
+            'notify about azan',
+            ongoing: true,
+            autoCancel: false,
+            actions: <AndroidNotificationAction>[
+              AndroidNotificationAction('id_1', 'Turn off'),
+            ],
+          ),
+        ),
+      );
 }
