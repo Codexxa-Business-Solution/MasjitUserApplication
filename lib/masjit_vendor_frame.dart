@@ -248,12 +248,21 @@ print("dndSetting $FlutterDnd");
       child: GestureDetector(
         onDoubleTap: () {},
         onTap: () {
-          currentIndex< (listPaths.length=3)? FlutterDnd.gotoPolicySettings() : "";
+          // currentIndex< (listPaths.length=3)? FlutterDnd.gotoPolicySettings() : "";
 
-          _pageController.jumpToPage(currentIndex - 1);
-         currentIndex< (listPaths.length - 1)?
-             _pageController.jumpToPage(currentIndex +1):
-        complete();
+currentIndex++;
+          // _pageController.jumpToPage(currentIndex - 1);
+          // for(int i =0;i<=listPaths.length;i++){
+            _pageController.jumpToPage(currentIndex);
+
+            currentIndex == 3? complete():Container();
+
+          //   print("crtIndex$currentIndex");
+          // // complete();
+          // }
+         // currentIndex < (listPaths.length - 1)?
+        //      _pageController.jumpToPage(1+currentIndex):
+        // complete();
         },
         child: Container(
           height: parentHeight * 0.06,
@@ -272,7 +281,7 @@ print("dndSetting $FlutterDnd");
           ),
           child: Center(
             child: Text(
-             currentIndex< (listPaths.length + 1)?  "Next" :"Continue",
+              currentIndex == 2?  "Continue" :"Next",
               style: TextStyle(
                   fontSize: SizeConfig.blockSizeHorizontal * 4.0,
                   color: Colors.white,
