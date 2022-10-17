@@ -4,7 +4,6 @@ import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/getEmailPasswordREsponseModel.dart';
-import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/register_error.dart';
 import 'package:masjiduserapp/size_config.dart';
 import 'package:masjiduserapp/user_login_screen.dart';
 import 'package:masjiduserapp/user_parent_tab_bar.dart';
