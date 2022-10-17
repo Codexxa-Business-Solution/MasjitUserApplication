@@ -1119,7 +1119,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
                                           right: parentWidth * 0.05,
                                           top: parentHeight * 0.01),
                                       child: Text(
-                                          "Jammat  ${snapshot.data?.eid?[index].jammat?[0]}",
+                                          "JAMAA'T  ${snapshot.data?.eid?[index].jammat?[0]}",
                                           style: TextStyle(
                                             fontSize:
                                                 SizeConfig.blockSizeHorizontal *

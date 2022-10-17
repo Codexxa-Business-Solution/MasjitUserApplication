@@ -1,3 +1,4 @@
+import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/getEmailPasswordREsponseModel.dart';
@@ -6,12 +7,15 @@ import 'package:masjiduserapp/user_login_screen.dart';
 import 'package:masjiduserapp/user_parent_tab_bar.dart';
 import 'package:http/http.dart' as http;
 import 'package:masjiduserapp/util/constant.dart';
+import 'package:masjiduserapp/util/get_location.dart';
 
 import 'common.color.dart';
+import 'masjit_user_app_api/place.dart';
 
 class UserRegistration extends StatefulWidget {
   final String phoneNum;
-  const UserRegistration({Key? key,required this.phoneNum}) : super(key: key);
+
+  const UserRegistration({Key? key, required this.phoneNum}) : super(key: key);
 
   @override
   _UserRegistrationState createState() => _UserRegistrationState();
@@ -39,6 +43,15 @@ TextEditingController cityController = TextEditingController();
 TextEditingController stateController = TextEditingController();
 TextEditingController countryController = TextEditingController();
 final _formKey = GlobalKey<FormState>();
+Place? address;
+String _address = '';
+String _addressss = '';
+String selectValue = "";
+List categoryItemlist = [];
+
+String countryValue = "";
+String stateValue = "";
+String cityValue = "";
 
 String? validatepass(value) {
   if (value!.isEmpty) {
@@ -73,9 +86,10 @@ class _UserRegistrationState extends State<UserRegistration> {
         box.put(kToken, value.data?.token);
         print("token ${box.get("token")}");
 
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const ParentTabBarScreen()));
-
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const ParentTabBarScreen()));
       });
     } else {
       print("not validated");
@@ -88,7 +102,6 @@ class _UserRegistrationState extends State<UserRegistration> {
 
     return Scaffold(
         resizeToAvoidBottomInset: false,
-
         body: Column(
           // shrinkWrap: true,
           children: [
@@ -106,11 +119,10 @@ class _UserRegistrationState extends State<UserRegistration> {
                       bottom: BorderSide(
                           width: 1, color: CommonColor.RIGHT_COLOR))),
               child:
-              MainHeading(SizeConfig.screenHeight, SizeConfig.screenWidth),
+                  MainHeading(SizeConfig.screenHeight, SizeConfig.screenWidth),
             ),
             SizedBox(
-              height: SizeConfig.screenHeight*0.9,
-
+              height: SizeConfig.screenHeight * 0.9,
               child: GestureDetector(
                 onTap: () {
                   FocusScope.of(context).requestFocus(FocusNode());
@@ -119,10 +131,11 @@ class _UserRegistrationState extends State<UserRegistration> {
                 child: ListView(
                   padding: const EdgeInsets.only(bottom: 30),
                   shrinkWrap: true,
-
                   children: [
-                    AreaContant(SizeConfig.screenHeight, SizeConfig.screenWidth),
+                    AreaContant(
+                        SizeConfig.screenHeight, SizeConfig.screenWidth),
                     ContinueButton(SizeConfig.screenHeight, SizeConfig.screenWidth),
+                    getBottomText(),
                   ],
                 ),
               ),
@@ -137,8 +150,8 @@ class _UserRegistrationState extends State<UserRegistration> {
       children: [
         GestureDetector(
           onTap: () {
-            Navigator.pushReplacement(context, MaterialPageRoute(
-                builder: (context) => const LoginScreen()));
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => const LoginScreen()));
           },
           onDoubleTap: () {},
           child: Padding(
@@ -183,9 +196,7 @@ class _UserRegistrationState extends State<UserRegistration> {
   Widget AreaContant(double parentHeight, double parentWidth) {
     return Form(
       key: _formKey,
-      child:
-
-      ListView(
+      child: ListView(
         shrinkWrap: true,
         padding: EdgeInsets.zero,
         physics: const NeverScrollableScrollPhysics(),
@@ -193,8 +204,7 @@ class _UserRegistrationState extends State<UserRegistration> {
           Padding(
               padding: EdgeInsets.only(
                   left: parentWidth * 0.02, right: parentWidth * 0.02),
-              child:
-              Column(children: [
+              child: Column(children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -204,7 +214,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                       child: const Text(
                         "Email",
                         style:
-                        TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
+                            TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
                       ),
                     ),
                   ],
@@ -221,7 +231,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                         validator: (String? value) {
                           if (value!.isEmpty) {
                             return 'Email Field Is Required';
-                          }  else if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
+                          } else if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
                             return 'Please enter a valid email address';
                           }
                           return null;
@@ -229,8 +239,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                         decoration: InputDecoration(
                             labelText: 'Email',
                             labelStyle: const TextStyle(
-                                color:  CommonColor.REGISTRARTION_COLOR
-                            ),
+                                color: CommonColor.REGISTRARTION_COLOR),
                             contentPadding: const EdgeInsets.all(12),
                             isDense: true,
                             focusedBorder: OutlineInputBorder(
@@ -252,14 +261,12 @@ class _UserRegistrationState extends State<UserRegistration> {
                             hintStyle: TextStyle(
                                 fontFamily: "Roboto_Regular",
                                 fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                                color: CommonColor.SEARCH_TEXT_COLOR
-                            ))))
+                                color: CommonColor.SEARCH_TEXT_COLOR))))
               ])),
           Padding(
               padding: EdgeInsets.only(
                   left: parentWidth * 0.02, right: parentWidth * 0.02),
-              child:
-              Column(children: [
+              child: Column(children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -269,7 +276,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                       child: const Text(
                         "Password",
                         style:
-                        TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
+                            TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
                       ),
                     ),
                   ],
@@ -295,8 +302,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                         decoration: InputDecoration(
                             labelText: 'Password',
                             labelStyle: const TextStyle(
-                                color:  CommonColor.REGISTRARTION_COLOR
-                            ),
+                                color: CommonColor.REGISTRARTION_COLOR),
                             contentPadding: const EdgeInsets.all(12),
                             isDense: true,
                             focusedBorder: OutlineInputBorder(
@@ -317,14 +323,12 @@ class _UserRegistrationState extends State<UserRegistration> {
                             hintStyle: TextStyle(
                                 fontFamily: "Roboto_Regular",
                                 fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                                color: CommonColor.SEARCH_TEXT_COLOR
-                            ))))
+                                color: CommonColor.SEARCH_TEXT_COLOR))))
               ])),
           Padding(
               padding: EdgeInsets.only(
                   left: parentWidth * 0.02, right: parentWidth * 0.02),
-              child:
-              Column(children: [
+              child: Column(children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -334,7 +338,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                       child: const Text(
                         "Area",
                         style:
-                        TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
+                            TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
                       ),
                     ),
                   ],
@@ -359,8 +363,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                         decoration: InputDecoration(
                             labelText: 'Area',
                             labelStyle: const TextStyle(
-                                color:  CommonColor.REGISTRARTION_COLOR
-                            ),
+                                color: CommonColor.REGISTRARTION_COLOR),
                             contentPadding: const EdgeInsets.all(12),
                             isDense: true,
                             focusedBorder: OutlineInputBorder(
@@ -382,14 +385,12 @@ class _UserRegistrationState extends State<UserRegistration> {
                             hintStyle: TextStyle(
                                 fontFamily: "Roboto_Regular",
                                 fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                                color: CommonColor.SEARCH_TEXT_COLOR
-                            ))))
+                                color: CommonColor.SEARCH_TEXT_COLOR))))
               ])),
           Padding(
               padding: EdgeInsets.only(
                   left: parentWidth * 0.02, right: parentWidth * 0.02),
-              child:
-              Column(children: [
+              child: Column(children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -399,7 +400,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                       child: const Text(
                         "Mobile Number",
                         style:
-                        TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
+                            TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
                       ),
                     ),
                   ],
@@ -417,7 +418,8 @@ class _UserRegistrationState extends State<UserRegistration> {
                           if (value == null || value.trim().isEmpty) {
                             return 'This field is required';
                           }
-                          if (value.trim().length < 10 || value.trim().length > 10) {
+                          if (value.trim().length < 10 ||
+                              value.trim().length > 10) {
                             return 'Please Enter Valid Number';
                           }
                           // Return null if the entered password is valid
@@ -426,8 +428,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                         decoration: InputDecoration(
                             labelText: 'Mobile Number',
                             labelStyle: const TextStyle(
-                                color:  CommonColor.REGISTRARTION_COLOR
-                            ),
+                                color: CommonColor.REGISTRARTION_COLOR),
                             contentPadding: const EdgeInsets.all(12),
                             isDense: true,
                             focusedBorder: OutlineInputBorder(
@@ -449,10 +450,9 @@ class _UserRegistrationState extends State<UserRegistration> {
                             hintStyle: TextStyle(
                                 fontFamily: "Roboto_Regular",
                                 fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                                color: CommonColor.SEARCH_TEXT_COLOR
-                            ))))
+                                color: CommonColor.SEARCH_TEXT_COLOR))))
               ])),
-          Padding(
+          /* Padding(
             padding: EdgeInsets.only(
                 left: parentWidth * 0.02, right: parentWidth * 0.02),
             child: Column(children: [
@@ -465,7 +465,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                     child: const Text(
                       "City",
                       style:
-                      TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
+                          TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
                     ),
                   ),
                 ],
@@ -490,8 +490,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                       decoration: InputDecoration(
                           labelText: 'City',
                           labelStyle: const TextStyle(
-                              color:  CommonColor.REGISTRARTION_COLOR
-                          ),
+                              color: CommonColor.REGISTRARTION_COLOR),
                           contentPadding: const EdgeInsets.all(12),
                           isDense: true,
                           focusedBorder: OutlineInputBorder(
@@ -513,8 +512,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                           hintStyle: TextStyle(
                               fontFamily: "Roboto_Regular",
                               fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                              color: CommonColor.SEARCH_TEXT_COLOR
-                          ))))
+                              color: CommonColor.SEARCH_TEXT_COLOR))))
             ]),
           ),
           Padding(
@@ -530,7 +528,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                     child: const Text(
                       "State",
                       style:
-                      TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
+                          TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
                     ),
                   ),
                 ],
@@ -555,8 +553,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                       decoration: InputDecoration(
                           labelText: 'State',
                           labelStyle: const TextStyle(
-                              color:  CommonColor.REGISTRARTION_COLOR
-                          ),
+                              color: CommonColor.REGISTRARTION_COLOR),
                           contentPadding: const EdgeInsets.all(12),
                           isDense: true,
                           focusedBorder: OutlineInputBorder(
@@ -578,8 +575,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                           hintStyle: TextStyle(
                               fontFamily: "Roboto_Regular",
                               fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                              color: CommonColor.SEARCH_TEXT_COLOR
-                          ))))
+                              color: CommonColor.SEARCH_TEXT_COLOR))))
             ]),
           ),
           Padding(
@@ -595,7 +591,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                       child: const Text(
                         "Country",
                         style:
-                        TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
+                            TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
                       ),
                     ),
                   ],
@@ -620,8 +616,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                         decoration: InputDecoration(
                             labelText: 'Country',
                             labelStyle: const TextStyle(
-                                color:  CommonColor.REGISTRARTION_COLOR
-                            ),
+                                color: CommonColor.REGISTRARTION_COLOR),
                             contentPadding: const EdgeInsets.all(12),
                             isDense: true,
                             focusedBorder: OutlineInputBorder(
@@ -643,21 +638,180 @@ class _UserRegistrationState extends State<UserRegistration> {
                             hintStyle: TextStyle(
                                 fontFamily: "Roboto_Regular",
                                 fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                                color: CommonColor.SEARCH_TEXT_COLOR
-                            ))))
-              ])),
+                                color: CommonColor.SEARCH_TEXT_COLOR))))
+              ])),*/
+          Padding(
+            padding: EdgeInsets.only(top: parentHeight * 0.03),
+            child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                height: 100,
+                child: Column(
+                  children: [
+                    CSCPicker(
+                      showStates: true,
+                      showCities: true,
+                      flagState: CountryFlag.DISABLE,
+                      dropdownDecoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          color: Colors.white,
+                          border: Border.all(
+                              color: Colors.grey.shade300, width: 1)),
+                      disabledDropdownDecoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          color: Colors.grey.shade300,
+                          border: Border.all(
+                              color: Colors.grey.shade300, width: 1)),
+                      countrySearchPlaceholder: "Country",
+                      stateSearchPlaceholder: "State",
+                      citySearchPlaceholder: "City",
+                      countryDropdownLabel: "*Country",
+                      stateDropdownLabel: "*State",
+                      cityDropdownLabel: "*City",
+                      selectedItemStyle: TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                      ),
+                      dropdownHeadingStyle: TextStyle(
+                          color: Colors.black,
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold),
+                      dropdownItemStyle: TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                      ),
+                      dropdownDialogRadius: 10.0,
+                      searchBarRadius: 10.0,
+                      onCountryChanged: (value) {
+                        setState(() {
+                          value != null ? countryValue = value : "Country";
+                        });
+                      },
+                      onStateChanged: (value) {
+                        setState(() {
+                          value != null ? stateValue = value : "State";
+                        });
+                      },
+                      onCityChanged: (value) {
+                        setState(() {
+                          value != null ? cityValue = value : "City";
+                        });
+                      },
+                    ),
+
+                    /* TextButton(
+                        onPressed: () {
+                          setState(() {
+                            _addressss = "$cityValue, $stateValue, $countryValue";
+                          });
+                        },
+                        child: Text("Print Data")),
+                    Text(_addressss)*/
+                  ],
+                )),
+          ),
+          Stack(
+            children: [
+              Visibility(
+                visible: _address.isNotEmpty ? false : true,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      top: parentHeight * 0.03,
+                      left: parentWidth * 0.3,
+                      right: parentWidth * 0.3),
+                  child: GestureDetector(
+                    onDoubleTap: () {},
+                    onTap: () {
+                      Future<Place?> result = Navigator.of(context).push<Place>(
+                        MaterialPageRoute(
+                          builder: (context) => const GetLocation(),
+                        ),
+                      );
+
+                      result.then((value) {
+                        if (value == null) return;
+                        setState(() {
+                          address = value;
+                          _address =
+                              'Area ${address?.lat},\n City ${address?.long}, \n Postal Code ${address?.postalCode},\n State ${address?.administrativeArea}, \n Country ${address?.country}';
+                          setState(() {});
+                        });
+                      });
+                    },
+                    child: Container(
+                      height: parentHeight * 0.04,
+                      decoration: BoxDecoration(
+                          color: Colors.green,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: parentWidth * 0.01,
+                                right: parentWidth * 0.01),
+                            child: Text(
+                              "Select Location",
+                              style: TextStyle(
+                                  fontSize:
+                                      SizeConfig.blockSizeHorizontal * 2.5,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Visibility(
+                visible: _address.isNotEmpty ? true : false,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      top: parentHeight * 0.02, left: parentWidth * 0.05),
+                  child: Container(
+                    width: parentWidth * 0.9,
+                    height: parentHeight * 0.05,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            width: 1, color: CommonColor.REGISTRARTION_COLOR),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(left: parentWidth * 0.02),
+                          child: _address.isNotEmpty
+                              ? Text(
+                                  "${address?.subLocality}, ${address?.locality}, ${address?.postalCode}")
+                              : Text(""),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
         ],
       ),
-
     );
   }
-
 
   Widget ContinueButton(double parentHeight, double parentWidth) {
     return GestureDetector(
       onTap: () {
-        validate();
+        var box = Hive.box(kBoxName);
+        box.put(kUserLatitude, address?.lat);
+        box.put(kUserLongitude, address?.long);
+        box.put(kUserSubLocality, address?.subLocality);
+        box.put(kUserLocality, address?.locality);
 
+        print("${box.get("currentLatitude")}  ${box.get("currentLongitude")}");
+
+        _address.isNotEmpty
+            ? validate()
+            : ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text("Please Select Your Current Location")));
       },
       child: Padding(
         padding: EdgeInsets.only(
@@ -687,14 +841,53 @@ class _UserRegistrationState extends State<UserRegistration> {
     );
   }
 
+  Widget getBottomText() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 12),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text(
+            "Already Have an Account?",
+            style: TextStyle(
+                fontSize: 15,
+                fontFamily: "Roboto_Regular",
+                fontWeight: FontWeight.w400,
+                // fontSize: SizeConfig.blockSizeHorizontal * 4.5,
+                color: CommonColor.BLACK_COLOR),
+          ),
+          GestureDetector(
+            onDoubleTap: () {},
+            onTap: () {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>  LoginScreen()));
+            },
+            child: Container(
+              color: Colors.transparent,
+              child: const Text(
+                " Login",
+                style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: CommonColor.RIGHT_COLOR),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
   Future<UserRegisterRespnseModel> getRegisterUsers() async {
-
     print("HIIIIIIII ${areaController.text.trim()}"
         " ${cityController.text.trim()} "
         "${stateController.text.trim()}"
-        " ${countryController.text.trim()}" " ${emailController.text.trim()}"
-        " ${passwordController.text.trim()}"" ${widget.phoneNum}");
+        " ${countryController.text.trim()}"
+        " ${emailController.text.trim()}"
+        " ${passwordController.text.trim()}"
+        " ${widget.phoneNum}");
     try {
       final result = await http.post(
           Uri.parse("http://masjid.exportica.in/api/user/register"),
@@ -703,9 +896,9 @@ class _UserRegistrationState extends State<UserRegistration> {
             "email": emailController.text.trim(),
             "password": passwordController.text.trim(),
             "area": areaController.text.trim(),
-            "city": cityController.text.trim(),
-            "state": stateController.text.trim(),
-            "country": countryController.text.trim()
+            "city": cityValue,
+            "state": stateValue,
+            "country": countryValue
           });
       print("new user:" + result.body);
       if (result.statusCode == 200) {
@@ -718,34 +911,4 @@ class _UserRegistrationState extends State<UserRegistration> {
       rethrow;
     }
   }
-
-
-/* Future<UserUpdateRegistrationResponceModel> getRegisterVendors() async {
-    print("HIIIIIIII ${areaController.text.trim()}"
-        " ${cityController.text.trim()} "
-        "${stateController.text.trim()}"
-        " ${countryController.text.trim()}");
-
-    var headersList = {'Authorization': 'Bearer ${box.get(kToken)}'};
-    try {
-      final result = await http.post(
-          Uri.parse("http://masjid.exportica.in/api/user/update"),
-          headers: headersList,
-          body: {
-            "area": areaController.text.trim(),
-            "city": cityController.text.trim(),
-            "state": stateController.text.trim(),
-            "country": countryController.text.trim()
-          });
-      print("new user:" + result.body);
-      if (result.statusCode == 200) {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => ParentTabBarScreen()));
-      }
-
-      return userUpdateRegistrationResponceModelFromJson(result.body);
-    } catch (e) {
-      throw e;
-    }
-  }*/
 }

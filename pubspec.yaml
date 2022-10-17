@@ -55,6 +55,10 @@ dependencies:
   flutter_local_notifications: ^12.0.2
   intl: ^0.17.0
   android_alarm_manager_plus: ^2.0.7+1
+  geocoding: ^2.0.5
+  csc_picker: ^0.2.6
+  flutter_google_places: ^0.3.0
+  google_maps_webservice: ^0.0.19
 
 dev_dependencies:
   flutter_test:

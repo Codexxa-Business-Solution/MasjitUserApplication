@@ -8,24 +8,22 @@ import 'package:masjiduserapp/user_login_screen.dart';
 import 'package:masjiduserapp/util/constant.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:masjiduserapp/util/get_location.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'masjit_user_app_api/place.dart';
 import 'all_masjit_list.dart';
 import 'common.color.dart';
 import 'exit_app_dialog.dart';
 
 class ParentTabBarScreen extends StatefulWidget {
-  const ParentTabBarScreen({
-    Key? key
-  }) : super(key: key);
-
+  const ParentTabBarScreen({Key? key}) : super(key: key);
 
   @override
   _ParentTabBarScreenState createState() => _ParentTabBarScreenState();
 }
 
-class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTickerProviderStateMixin  {
-
+class _ParentTabBarScreenState extends State<ParentTabBarScreen>
+    with SingleTickerProviderStateMixin {
   bool serchIcon = true;
   late Box box;
   bool searchBar = false;
@@ -34,13 +32,16 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
   final String _searchText = "";
   late TabController _tabController;
   late Future<UseLogoutResponceModel> result;
+  Place? address;
+  String _address = '';
+
   @override
   void initState() {
-    // Hive.openBox(kBoxName);
     box = Hive.box(kBoxName);
     _tabController = TabController(length: 2, vsync: this);
     super.initState();
   }
+
   @override
   void dispose() {
     super.dispose();
@@ -51,11 +52,9 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
   Widget build(BuildContext context) {
     SizeConfig().init(context);
 
-
     return WillPopScope(
       onWillPop: _onBackPressed,
       child: Scaffold(
-
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           leading: Builder(
@@ -66,130 +65,102 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                   icon: Image.asset(
                     "assets/images/drower.png",
                     height: SizeConfig.screenHeight * 16,
-                    //s width: Siz////////eConfig.screenWidth * 30,
                   ),
-
-                  /* Image(image: AssetImage("assets/images/drower.png"),),*/
                   onPressed: () {
                     Scaffold.of(context).openDrawer();
                   },
-                  tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+                  tooltip:
+                      MaterialLocalizations.of(context).openAppDrawerTooltip,
                 ),
               );
             },
           ),
-          title: Stack(
-            children: [
-              Visibility(
-                visible: serchIcon,
-                child: Padding(
-                  padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.0),
-                  child: Center(
-                    child: Image(image: const AssetImage("assets/images/appLogo.png"),
-                    height: SizeConfig.screenHeight*0.04,),
-                  ),
-                ),
+          title: Padding(
+            padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.0),
+            child: Center(
+              child: Image(
+                image: const AssetImage("assets/images/appLogo.png"),
+                height: SizeConfig.screenHeight * 0.04,
               ),
-              Visibility(
-                visible: searchBar,
-                child: Padding(
-                  padding: EdgeInsets.only(
-                      left: SizeConfig.screenWidth * .0,
-                      right: SizeConfig.screenWidth * .0,top: SizeConfig.screenHeight*0.01),
-                  child: Container(
-                    height: SizeConfig.screenHeight * .050,
-
-                    decoration: const BoxDecoration(
-                      color: CommonColor.SEARCH_COLOR,
-                      borderRadius:
-                      BorderRadius.all(Radius.circular(10)),
-                    ),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(
-                              left: SizeConfig.screenWidth *
-                                  0.03),
-                          child: const Image(
-                            image: AssetImage("assets/images/searchs.png"),
-                            // fit: BoxFit.contain,
-
-
-                          ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                left: SizeConfig.screenWidth *
-                                    0.02,
-                                right: SizeConfig.screenWidth *
-                                    .01),
-                            child: TextFormField(
-                              scrollPadding: EdgeInsets.only(
-                                  bottom:
-                                  SizeConfig.screenHeight *
-                                      .005),
-                              controller: searchController,
-                              focusNode: _searchFocus,
-                              keyboardType: TextInputType.text,
-                              decoration: InputDecoration(
-                                isDense: true,
-                                counterText: "",
-                                enabledBorder: InputBorder.none,
-                                focusedBorder: InputBorder.none,
-
-                                errorBorder: InputBorder.none,
-                                disabledBorder: InputBorder.none,
-
-                                hintText: "Search",
-                                hintStyle: TextStyle(
-                                  fontFamily: "Roboto_Regular",
-                                  fontSize: SizeConfig
-                                      .blockSizeHorizontal *
-                                      4.6,
-                                  color: CommonColor
-                                      .SEARCH_TEXT_COLOR,
-                                  fontWeight: FontWeight.w500,
-                                ),
-
-                              ),
-                            ),
-                          ),)
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
           actions: [
-            Padding(
-                padding: EdgeInsets.only(
-                    right: SizeConfig.screenWidth * 0.0,
-                    top: SizeConfig.screenHeight * 0.02),
-                child: Visibility(
-                  visible: serchIcon,
-                  child: SizedBox(
-                    width: SizeConfig.screenWidth * .15,
-                    child: IconButton(
-                      onPressed: () {
-                        print("cjxb $searchController");
-
-                        if(mounted) {
-                          setState(() {
-                            serchIcon = false;
-                            searchBar = true;
-                          });
-                        }
-
-                      },
-                      icon: const Icon(Icons
-                          .search), /*Image.asset(
-                    'assets/images/appBarIcon.png',
-                  ),*/
-                    ),
+            /* IconButton(
+              onPressed: () {
+                Future<Place?> result = Navigator.of(context).push<Place>(
+                  MaterialPageRoute(
+                    builder: (context) => const GetLocation(),
                   ),
-                ))
+                );
+
+                result.then((value) {
+                  if (value == null) return;
+                  setState(() {
+                    address = value;
+                    _address =
+                    'Area ${address?.lat},\n City ${address?.long}, \n Postal Code ${address?.postalCode},\n State ${address?.administrativeArea}, \n Country ${address?.country}';
+                    setState(() {});
+                  });
+                });
+              },
+              icon: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const Icon(Icons.location_on_sharp),
+                  Text("${address?.subLocality}")
+                ],
+              ),
+            ),*/
+            Container(
+              width: SizeConfig.screenWidth * 0.4,
+              // color: Colors.red,
+              child: IconButton(
+                onPressed: () {
+                  Future<Place?> result = Navigator.of(context).push<Place>(
+                    MaterialPageRoute(
+                      builder: (context) => const GetLocation(comeFrom: "1",),
+                    ),
+                  );
+
+                  result.then((value) {
+                    if (value == null) return;
+
+                    box.delete("currentLatitude");
+                    box.delete("currentLongitude");
+                    box.delete("currentsubLocality");
+                    box.delete("currentLocality");
+
+                    setState(() {
+                      address = value;
+                      _address =
+                          'Area ${address?.lat},\n City ${address?.long}, \n Postal Code ${address?.postalCode},\n State ${address?.administrativeArea}, \n Country ${address?.country}';
+                      box.put(kUserLatitude, address?.lat);
+                      box.put(kUserLongitude, address?.long);
+                      box.put(kUserSubLocality, address?.subLocality);
+                      box.put(kUserLocality, address?.locality);
+                      setState(() {});
+                    });
+                  });
+                },
+                icon: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(top: 10),
+                      child: const Icon(Icons.location_on_sharp),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text("${box.get("currentsubLocality")}"),
+                        Text("${box.get("currentLocality")}"),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            )
           ],
           flexibleSpace: Container(
             decoration: const BoxDecoration(
@@ -203,14 +174,12 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
         body: ListView(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-
           padding: const EdgeInsets.only(bottom: 20),
           children: [
             SizedBox(
                 height: SizeConfig.screenHeight * 0.90,
                 child: getAddGameTabLayout(
-                    SizeConfig.screenHeight, SizeConfig.screenWidth)
-            ),
+                    SizeConfig.screenHeight, SizeConfig.screenWidth)),
           ],
         ),
         drawer: Padding(
@@ -226,30 +195,32 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
               child: Drawer(
                 child: ListView(
                   padding: EdgeInsets.zero,
-                  children:  <Widget>[
+                  children: <Widget>[
                     SizedBox(
                       height: 180,
                       child: DrawerHeader(
-                        decoration: const BoxDecoration(
-                            gradient: LinearGradient(
-                                begin: Alignment.centerLeft,
-                                end: Alignment.centerRight,
-                                colors: [
-                                  CommonColor.LEFT_COLOR,
-                                  CommonColor.RIGHT_COLOR
-                                ])),
-                          child:   Row(
+                          decoration: const BoxDecoration(
+                              gradient: LinearGradient(
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.centerRight,
+                                  colors: [
+                                CommonColor.LEFT_COLOR,
+                                CommonColor.RIGHT_COLOR
+                              ])),
+                          child: Row(
                             children: const [
                               Padding(
                                 padding: EdgeInsets.only(left: 40),
-                                child: Image(image: AssetImage("assets/images/appLogo.png"),
-                                  height: 120,),
+                                child: Image(
+                                  image:
+                                      AssetImage("assets/images/appLogo.png"),
+                                  height: 120,
+                                ),
                               ),
                             ],
-                          )
-                      ),
+                          )),
                     ),
-           /*         ListTile(
+                    /*         ListTile(
                       // leading: Icon(Icons.message),
                       title: Padding(
                         padding: EdgeInsets.only(left: 8),
@@ -271,7 +242,8 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                       },
                       // leading: Icon(Icons.message),
                       title: Padding(
-                        padding: EdgeInsets.only(left: SizeConfig.screenWidth*0.02),
+                        padding: EdgeInsets.only(
+                            left: SizeConfig.screenWidth * 0.02),
                         child: const Text(
                           "Privacy Policy",
                           style: TextStyle(
@@ -290,7 +262,8 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                       },
                       // leading: Icon(Icons.message),
                       title: Padding(
-                        padding: EdgeInsets.only(left: SizeConfig.screenWidth*0.02),
+                        padding: EdgeInsets.only(
+                            left: SizeConfig.screenWidth * 0.02),
                         child: const Text(
                           "Terms & Condition",
                           style: TextStyle(
@@ -304,137 +277,186 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
                     ListTile(
                       onTap: () {
                         showDialog(
-                          context: context,
-                          builder: (ctx) => AlertDialog(
+                            context: context,
+                            builder: (ctx) => AlertDialog(
+                                  title: const Center(
+                                      child: Text(
+                                    "Logout",
+                                    style: TextStyle(
+                                      color: CommonColor.REGISTRARTION_COLOR,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 20,
+                                      fontFamily: 'Roboto_Medium',
+                                    ),
+                                  )),
+                                  content: Padding(
+                                    padding: EdgeInsets.only(
+                                        left: SizeConfig.screenWidth * 0.04),
+                                    child: const Text(
+                                      "Are you sure you want to log out ? You can log in anytime you want again.",
+                                      style: TextStyle(
+                                        color: CommonColor.BLACK,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 14,
+                                        fontFamily: 'Roboto_Medium',
+                                      ),
+                                    ),
+                                  ),
+                                  actions: <Widget>[
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          bottom:
+                                              SizeConfig.screenHeight * 0.03),
+                                      child: Center(
+                                        child: Column(
+                                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                getLogoutUser().then((value) {
+                                                  box.delete(kToken);
+                                                  //box.delete(kBoxName);
+                                                  box.delete(kUserPhoneNumber);
 
-                            title: const Center(child:  Text("Logout", style: TextStyle(
-                              color: CommonColor.REGISTRARTION_COLOR,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 20,
-                              fontFamily: 'Roboto_Medium',
-                            ),)),
-                            content:  Padding(
-                              padding:  EdgeInsets.only(left: SizeConfig.screenWidth*0.04),
-                              child: const Text("Are you sure you want to log out ? You can log in anytime you want again.",
+                                                  Navigator.of(context)
+                                                      .pushAndRemoveUntil(
+                                                          MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  const LoginScreen()),
+                                                          (Route route) =>
+                                                              false);
 
-
-                                style: TextStyle(
-                                  color: CommonColor.BLACK,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 14,
-                                  fontFamily: 'Roboto_Medium',
-                                ),
-
-                              ),
-                            ),
-                            actions: <Widget>[
-                              Padding(
-                                padding:  EdgeInsets.only(bottom: SizeConfig.screenHeight*0.03),
-                                child: Center(
-                                  child: Column(
-                                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-
-                                      GestureDetector(
-                                        onTap: () {
-
-
-                                            getLogoutUser().then((value){
-                                              box.delete(kToken);
-                                              //box.delete(kBoxName);
-                                              box.delete(kUserPhoneNumber);
-
-
-                                                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>const LoginScreen()),
-                                                        (Route route) => false);
-
-
-
-                                            //  Navigator.popUntil(context, ModalRoute.withName (EnterMobileNumber()));
-                                           /*   Navigator.pushReplacement(
+                                                  //  Navigator.popUntil(context, ModalRoute.withName (EnterMobileNumber()));
+                                                  /*   Navigator.pushReplacement(
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
                                                           EnterMobileNumber()));*/
-                                            });
-                                            //cityController.text.isEmpty ? _validate = true : _validate = false;
-
-                                        },
-                                        child:  Padding(
-                                          padding: EdgeInsets.only(
-
-                                              left: SizeConfig.screenWidth * 0.1,
-                                              right: SizeConfig.screenWidth * 0.1),
-                                          child: Container(
-                                              height: SizeConfig.screenHeight * 0.05,
-                                              decoration: BoxDecoration(
-                                                gradient: const LinearGradient(
-                                                    begin: Alignment.centerLeft,
-                                                    end: Alignment.centerRight,
-                                                    colors: [CommonColor.LEFT_COLOR, CommonColor.RIGHT_COLOR]),
-                                                borderRadius: BorderRadius.circular(30),
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  "Yes",
-                                                  style: TextStyle(
-                                                      fontFamily: "Roboto_Regular",
-                                                      fontWeight: FontWeight.w700,
-                                                      fontSize: SizeConfig.blockSizeHorizontal * 4.5,
-                                                      color: CommonColor.WHITE_COLOR),
-                                                ),
-                                              )),
-                                        ),
-                                      ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: Padding(
-                                          padding:  EdgeInsets.only(top: SizeConfig.screenHeight*0.03),
-                                          child: GestureDetector(
-
-                                            child:  Padding(
-                                              padding: EdgeInsets.only(
-                                                  top: SizeConfig.screenHeight * 0.0,
-                                                  left: SizeConfig.screenWidth * 0.1,
-                                                  right: SizeConfig.screenWidth * 0.1),
-                                              child: Container(
-                                                  height: SizeConfig.screenHeight * 0.05,
-                                                  decoration: BoxDecoration(
-                                                    gradient: const LinearGradient(
-                                                        begin: Alignment.centerLeft,
-                                                        end: Alignment.centerRight,
-                                                        colors: [CommonColor.LEFT_COLOR, CommonColor.RIGHT_COLOR]),
-                                                    borderRadius: BorderRadius.circular(30),
-                                                  ),
-                                                  child: Center(
-                                                    child: Text(
-                                                      "Cancle",
-                                                      style: TextStyle(
-                                                          fontFamily: "Roboto_Regular",
-                                                          fontWeight: FontWeight.w700,
-                                                          fontSize: SizeConfig.blockSizeHorizontal * 4.5,
-                                                          color: CommonColor.WHITE_COLOR),
+                                                });
+                                                //cityController.text.isEmpty ? _validate = true : _validate = false;
+                                              },
+                                              child: Padding(
+                                                padding: EdgeInsets.only(
+                                                    left:
+                                                        SizeConfig.screenWidth *
+                                                            0.1,
+                                                    right:
+                                                        SizeConfig.screenWidth *
+                                                            0.1),
+                                                child: Container(
+                                                    height: SizeConfig
+                                                            .screenHeight *
+                                                        0.05,
+                                                    decoration: BoxDecoration(
+                                                      gradient:
+                                                          const LinearGradient(
+                                                              begin: Alignment
+                                                                  .centerLeft,
+                                                              end: Alignment
+                                                                  .centerRight,
+                                                              colors: [
+                                                            CommonColor
+                                                                .LEFT_COLOR,
+                                                            CommonColor
+                                                                .RIGHT_COLOR
+                                                          ]),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              30),
                                                     ),
-                                                  )),
+                                                    child: Center(
+                                                      child: Text(
+                                                        "Yes",
+                                                        style: TextStyle(
+                                                            fontFamily:
+                                                                "Roboto_Regular",
+                                                            fontWeight:
+                                                                FontWeight.w700,
+                                                            fontSize: SizeConfig
+                                                                    .blockSizeHorizontal *
+                                                                4.5,
+                                                            color: CommonColor
+                                                                .WHITE_COLOR),
+                                                      ),
+                                                    )),
+                                              ),
                                             ),
-                                          ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: Padding(
+                                                padding: EdgeInsets.only(
+                                                    top: SizeConfig
+                                                            .screenHeight *
+                                                        0.03),
+                                                child: GestureDetector(
+                                                  child: Padding(
+                                                    padding: EdgeInsets.only(
+                                                        top: SizeConfig
+                                                                .screenHeight *
+                                                            0.0,
+                                                        left: SizeConfig
+                                                                .screenWidth *
+                                                            0.1,
+                                                        right: SizeConfig
+                                                                .screenWidth *
+                                                            0.1),
+                                                    child: Container(
+                                                        height: SizeConfig
+                                                                .screenHeight *
+                                                            0.05,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          gradient: const LinearGradient(
+                                                              begin: Alignment
+                                                                  .centerLeft,
+                                                              end: Alignment
+                                                                  .centerRight,
+                                                              colors: [
+                                                                CommonColor
+                                                                    .LEFT_COLOR,
+                                                                CommonColor
+                                                                    .RIGHT_COLOR
+                                                              ]),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(30),
+                                                        ),
+                                                        child: Center(
+                                                          child: Text(
+                                                            "Cancel",
+                                                            style: TextStyle(
+                                                                fontFamily:
+                                                                    "Roboto_Regular",
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w700,
+                                                                fontSize: SizeConfig
+                                                                        .blockSizeHorizontal *
+                                                                    4.5,
+                                                                color: CommonColor
+                                                                    .WHITE_COLOR),
+                                                          ),
+                                                        )),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                    ],
+                                    ),
+                                  ],
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30),
                                   ),
-                                ),
-                              ),
-                            ],
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          ));
+                                ));
                       },
                       // leading: Icon(Icons.message),
                       title: Padding(
-                        padding: EdgeInsets.only(left: SizeConfig.screenWidth*0.02),
+                        padding: EdgeInsets.only(
+                            left: SizeConfig.screenWidth * 0.02),
                         child: const Text(
                           "Logout",
                           style: TextStyle(
@@ -455,113 +477,96 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
     );
   }
 
-
   Widget getAddGameTabLayout(double parentHeight, double parentWidth) {
     return Padding(
-      padding:  EdgeInsets.only(top: parentHeight*0.03,right: parentWidth*0.04,left: parentWidth*0.04),
-      child: Column(
-          children: [
-            // give the tab bar a height [can change hheight to preferred height]
-            Container(
-              height: parentHeight*0.05,
-              decoration: BoxDecoration(
-                color: CommonColor.WHITE_COLOR,
-                borderRadius: BorderRadius.circular(
-                  25.0,
-                ),  border: Border.all(color: CommonColor.REGISTRARTION_TRUSTEE, width: 0.7),
+      padding: EdgeInsets.only(
+          top: parentHeight * 0.03,
+          right: parentWidth * 0.04,
+          left: parentWidth * 0.04),
+      child: Column(children: [
+        // give the tab bar a height [can change hheight to preferred height]
+        Container(
+          height: parentHeight * 0.05,
+          decoration: BoxDecoration(
+            color: CommonColor.WHITE_COLOR,
+            borderRadius: BorderRadius.circular(
+              25.0,
+            ),
+            border: Border.all(
+                color: CommonColor.REGISTRARTION_TRUSTEE, width: 0.7),
+          ),
+          child: TabBar(
+            controller: _tabController,
+            // give the indicator a decoration (color and border radius)
+            indicator: BoxDecoration(
+              borderRadius: BorderRadius.circular(
+                25.0,
               ),
-              child: TabBar(
-                controller: _tabController,
-                // give the indicator a decoration (color and border radius)
-                indicator: BoxDecoration(
-                  borderRadius: BorderRadius.circular(
-                    25.0,
-                  ),
-                  gradient: const LinearGradient(
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                      colors: [CommonColor.LEFT_COLOR, CommonColor.RIGHT_COLOR]),
+              gradient: const LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  colors: [CommonColor.LEFT_COLOR, CommonColor.RIGHT_COLOR]),
+            ),
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.green.shade800,
+            tabs: const [
+              // first tab [you can add an icon using the icon property]
+              Tab(
+                text: 'Joined Masjid',
+              ),
 
-                ),
-                labelColor: Colors.white,
-                unselectedLabelColor: Colors.green.shade800,
-                tabs: const [
-                  // first tab [you can add an icon using the icon property]
-                  Tab(
-
-                    text: 'Joined Masjid',
-                  ),
-
-                  // second tab [you can add an icon using the icon property]
-                  Tab(
-                    text: 'All Masjid List',
+              // second tab [you can add an icon using the icon property]
+              Tab(
+                text: 'All Masjid List',
+              ),
+            ],
+          ),
+        ),
+        // tab bar view here
+        Expanded(
+            child: Padding(
+          padding: EdgeInsets.only(top: parentHeight * 0.0),
+          child: TabBarView(
+            controller: _tabController,
+            children: [
+              Stack(
+                children: [
+                  const Center(
+                      child: Text(
+                    "Aaysha",
+                    style: TextStyle(color: Colors.red),
+                  )),
+                  MasjitMainScreen(
+                    tabbr: '',
+                    masjitIdRemoved: '',
+                    onNext: () {
+                      _tabController.index = 1;
+                    },
                   ),
                 ],
               ),
-            ),
-            // tab bar view here
-            Expanded(
-                child: Padding(
-                  padding:  EdgeInsets.only(top:parentHeight*0.0),
-
-                  child: TabBarView(
-                    controller: _tabController,
-                    children: [
-
-                      Stack(
-                        children: [
-
-                          const Center(child: Text("Aaysha",style: TextStyle(
-                            color: Colors.red
-                          ),)),
-                          MasjitMainScreen(tabbr: '', masjitIdRemoved: '', onNext: () {
-                            _tabController.index = 1;
-                          },),
-                        ],
-                      ),
-
-                      AllMasjitList(onNext: () {
-
-                        _tabController.index = 2;
-                      },),
-
-
-
-
-
-                    ],
-
-                  ),
-
-
-                )
-            )
-          ]),
-
+              AllMasjitList(
+                onNext: () {
+                  _tabController.index = 2;
+                },
+              ),
+            ],
+          ),
+        ))
+      ]),
     );
-
   }
 
-  Future<UseLogoutResponceModel>getLogoutUser () async {
+  Future<UseLogoutResponceModel> getLogoutUser() async {
     print(" tokennn ${box.get(kToken)}");
 
-    var headersList = {
-      'Authorization': 'Bearer ${box.get(kToken)}'
-    };
-
-
-
+    var headersList = {'Authorization': 'Bearer ${box.get(kToken)}'};
 
     var response = await http.get(
         Uri.parse('http://masjid.exportica.in/api/user/logout'),
-        headers:headersList
-    );
-
-
+        headers: headersList);
 
     if (response.statusCode == 200) {
-
-
       print("Yess.. ${response.body}");
 
       print("Hiii");
@@ -573,6 +578,7 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
       throw Exception('Failed to create album.');
     }
   }
+
   static showExitDialog(BuildContext context) {
     showGeneralDialog(
         barrierColor: Colors.black.withOpacity(0.5),
@@ -598,8 +604,8 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen> with SingleTick
           return Container();
         });
   }
-  Future<bool> _onBackPressed(){
+
+  Future<bool> _onBackPressed() {
     return showExitDialog(context);
   }
-
 }
