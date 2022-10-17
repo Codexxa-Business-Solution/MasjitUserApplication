@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:masjiduserapp/common.color.dart';
@@ -220,14 +222,16 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget getLocationcode(double parentHeight, double parentWidth){
+  Widget getLocationcode(double parentHeight, double parentWidth) {
     return Stack(
       children: [
         Visibility(
           visible: _address.isNotEmpty ? false : true,
           child: Padding(
             padding: EdgeInsets.only(
-                top: parentHeight * 0.03, left: parentWidth * 0.3, right: parentWidth * 0.3),
+                top: parentHeight * 0.03,
+                left: parentWidth * 0.3,
+                right: parentWidth * 0.3),
             child: GestureDetector(
               onDoubleTap: () {},
               onTap: () {
@@ -242,7 +246,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   setState(() {
                     address = value;
                     _address =
-                    'Area ${address?.lat},\n City ${address?.long}, \n Postal Code ${address?.postalCode},\n State ${address?.administrativeArea}, \n Country ${address?.country}';
+                        'Area ${address?.lat},\n City ${address?.long}, \n Postal Code ${address?.postalCode},\n State ${address?.administrativeArea}, \n Country ${address?.country}';
                     setState(() {});
                   });
                 });
@@ -257,8 +261,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(
-                          left: parentWidth * 0.01,
-                          right: parentWidth * 0.01),
+                          left: parentWidth * 0.01, right: parentWidth * 0.01),
                       child: Text(
                         "Select Location",
                         style: TextStyle(
@@ -291,7 +294,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: EdgeInsets.only(left: parentWidth * 0.02),
                     child: _address.isNotEmpty
                         ? Text(
-                        "${address?.subLocality}, ${address?.locality}, ${address?.postalCode}")
+                            "${address?.subLocality}, ${address?.locality}, ${address?.postalCode}")
                         : Text(""),
                   ),
                 ],
@@ -314,13 +317,14 @@ class _LoginScreenState extends State<LoginScreen> {
           box.put(kUserSubLocality, address?.subLocality);
           box.put(kUserLocality, address?.locality);
 
-          print("${box.get("currentLatitude")}  ${box.get("currentLongitude")}");
+          print(
+              "${box.get("currentLatitude")}  ${box.get("currentLongitude")}");
 
           _address.isNotEmpty
               ? validate()
               : ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text("Please Select Your Current Location")));
-         /* validate();*/
+                  content: Text("Please Select Your Current Location")));
+          /* validate();*/
         },
         onDoubleTap: () {},
         child: Container(
@@ -367,7 +371,9 @@ class _LoginScreenState extends State<LoginScreen> {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>  UserRegistration(phoneNum: '',)));
+                      builder: (context) => UserRegistration(
+                            phoneNum: '',
+                          )));
             },
             child: Container(
               color: Colors.transparent,
@@ -393,9 +399,15 @@ class _LoginScreenState extends State<LoginScreen> {
         "password": passwordController.text.trim(),
       });
       print("new user:" + result.body);
+      print("statusCode:" + result.statusCode.toString());
+
       if (result.statusCode == 200) {
-        /* Navigator.push(context,
-            MaterialPageRoute(builder: (context) => ParentTabBarScreen()));*/
+        Map<String, dynamic> body = jsonDecode(result.body);
+
+        if (!body['success']) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text("${body['message']}")));
+        }
       }
 
       return userLoginResponseModelFromJson(result.body);
