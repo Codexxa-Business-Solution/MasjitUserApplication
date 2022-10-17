@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/getEmailPasswordREsponseModel.dart';
+import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/register_error.dart';
 import 'package:masjiduserapp/size_config.dart';
 import 'package:masjiduserapp/user_login_screen.dart';
 import 'package:masjiduserapp/user_parent_tab_bar.dart';
@@ -134,7 +137,8 @@ class _UserRegistrationState extends State<UserRegistration> {
                   children: [
                     AreaContant(
                         SizeConfig.screenHeight, SizeConfig.screenWidth),
-                    ContinueButton(SizeConfig.screenHeight, SizeConfig.screenWidth),
+                    ContinueButton(
+                        SizeConfig.screenHeight, SizeConfig.screenWidth),
                     getBottomText(),
                   ],
                 ),
@@ -204,254 +208,190 @@ class _UserRegistrationState extends State<UserRegistration> {
           Padding(
               padding: EdgeInsets.only(
                   left: parentWidth * 0.02, right: parentWidth * 0.02),
-              child: Column(children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: parentWidth * 0.03, top: parentHeight * 0.009),
-                      child: const Text(
-                        "Email",
-                        style:
-                            TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
-                      ),
-                    ),
-                  ],
-                ),
-                Padding(
-                    padding: EdgeInsets.only(
-                        top: parentHeight * 0.01,
-                        left: parentWidth * 0.03,
-                        right: parentWidth * 0.03),
-                    child: TextFormField(
-                        focusNode: _emailFocus,
-                        controller: emailController,
-                        keyboardType: TextInputType.text,
-                        validator: (String? value) {
-                          if (value!.isEmpty) {
-                            return 'Email Field Is Required';
-                          } else if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-                            return 'Please enter a valid email address';
-                          }
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                            labelText: 'Email',
-                            labelStyle: const TextStyle(
-                                color: CommonColor.REGISTRARTION_COLOR),
-                            contentPadding: const EdgeInsets.all(12),
-                            isDense: true,
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    width: 1,
-                                    color: CommonColor.REGISTRARTION_COLOR),
-                                borderRadius: BorderRadius.circular(10.0)),
-                            enabledBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    width: 1,
-                                    color: CommonColor.REGISTRARTION_COLOR),
-                                borderRadius: BorderRadius.circular(10.0)),
-                            //borderRadius: BorderRadius.circular(10)
-                            border: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    width: 1,
-                                    color: CommonColor.REGISTRARTION_COLOR),
-                                borderRadius: BorderRadius.circular(10.0)),
-                            hintStyle: TextStyle(
-                                fontFamily: "Roboto_Regular",
-                                fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                                color: CommonColor.SEARCH_TEXT_COLOR))))
-              ])),
+              child: Padding(
+                  padding: EdgeInsets.only(
+                      top: parentHeight * 0.03,
+                      left: parentWidth * 0.03,
+                      right: parentWidth * 0.03),
+                  child: TextFormField(
+                      focusNode: _emailFocus,
+                      controller: emailController,
+                      keyboardType: TextInputType.text,
+                      validator: (String? value) {
+                        if (value!.isEmpty) {
+                          return 'Email Field Is Required';
+                        } else if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
+                          return 'Please enter a valid email address';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                          labelText: 'Email',
+                          labelStyle: const TextStyle(
+                              color: CommonColor.REGISTRARTION_COLOR),
+                          contentPadding: const EdgeInsets.all(12),
+                          isDense: true,
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  width: 1,
+                                  color: CommonColor.REGISTRARTION_COLOR),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  width: 1,
+                                  color: CommonColor.REGISTRARTION_COLOR),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          //borderRadius: BorderRadius.circular(10)
+                          border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  width: 1,
+                                  color: CommonColor.REGISTRARTION_COLOR),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          hintStyle: TextStyle(
+                              fontFamily: "Roboto_Regular",
+                              fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+                              color: CommonColor.SEARCH_TEXT_COLOR))))),
           Padding(
               padding: EdgeInsets.only(
                   left: parentWidth * 0.02, right: parentWidth * 0.02),
-              child: Column(children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: parentWidth * 0.03, top: parentHeight * 0.009),
-                      child: const Text(
-                        "Password",
-                        style:
-                            TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
-                      ),
-                    ),
-                  ],
-                ),
-                Padding(
-                    padding: EdgeInsets.only(
-                        top: parentHeight * 0.01,
-                        left: parentWidth * 0.03,
-                        right: parentWidth * 0.03),
-                    child: TextFormField(
-                        focusNode: _passwordFocus,
-                        controller: passwordController,
-                        obscureText: true,
-                        keyboardType: TextInputType.text,
-                        validator: (String? value) {
-                          if (value!.isEmpty) {
-                            return 'Password Field Is Required';
-                          } else if (passwordController.text.length < 6) {
-                            return 'Password Must Be 6 Character';
-                          }
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                            labelText: 'Password',
-                            labelStyle: const TextStyle(
-                                color: CommonColor.REGISTRARTION_COLOR),
-                            contentPadding: const EdgeInsets.all(12),
-                            isDense: true,
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    width: 1,
-                                    color: CommonColor.REGISTRARTION_COLOR),
-                                borderRadius: BorderRadius.circular(10.0)),
-                            enabledBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    width: 1,
-                                    color: CommonColor.REGISTRARTION_COLOR),
-                                borderRadius: BorderRadius.circular(10.0)),
-                            border: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    width: 1,
-                                    color: CommonColor.REGISTRARTION_COLOR),
-                                borderRadius: BorderRadius.circular(10.0)),
-                            hintStyle: TextStyle(
-                                fontFamily: "Roboto_Regular",
-                                fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                                color: CommonColor.SEARCH_TEXT_COLOR))))
-              ])),
+              child: Padding(
+                  padding: EdgeInsets.only(
+                      top: parentHeight * 0.03,
+                      left: parentWidth * 0.03,
+                      right: parentWidth * 0.03),
+                  child: TextFormField(
+                      focusNode: _passwordFocus,
+                      controller: passwordController,
+                      obscureText: true,
+                      keyboardType: TextInputType.text,
+                      validator: (String? value) {
+                        if (value!.isEmpty) {
+                          return 'Password Field Is Required';
+                        } else if (passwordController.text.length < 6) {
+                          return 'Password Must Be 6 Character';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                          labelText: 'Password',
+                          labelStyle: const TextStyle(
+                              color: CommonColor.REGISTRARTION_COLOR),
+                          contentPadding: const EdgeInsets.all(12),
+                          isDense: true,
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  width: 1,
+                                  color: CommonColor.REGISTRARTION_COLOR),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  width: 1,
+                                  color: CommonColor.REGISTRARTION_COLOR),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  width: 1,
+                                  color: CommonColor.REGISTRARTION_COLOR),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          hintStyle: TextStyle(
+                              fontFamily: "Roboto_Regular",
+                              fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+                              color: CommonColor.SEARCH_TEXT_COLOR))))),
           Padding(
               padding: EdgeInsets.only(
                   left: parentWidth * 0.02, right: parentWidth * 0.02),
-              child: Column(children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: parentWidth * 0.03, top: parentHeight * 0.009),
-                      child: const Text(
-                        "Area",
-                        style:
-                            TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
-                      ),
-                    ),
-                  ],
-                ),
-                Padding(
-                    padding: EdgeInsets.only(
-                        top: parentHeight * 0.01,
-                        left: parentWidth * 0.03,
-                        right: parentWidth * 0.03),
-                    child: TextFormField(
-                        focusNode: _areaFocus,
-                        controller: areaController,
-                        keyboardType: TextInputType.text,
-                        validator: (String? value) {
-                          if (value!.isEmpty) {
-                            return 'Area cannot be empty';
-                          } else if (value.length < 3) {
-                            return 'Area must be at least 3 characters long.';
-                          }
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                            labelText: 'Area',
-                            labelStyle: const TextStyle(
-                                color: CommonColor.REGISTRARTION_COLOR),
-                            contentPadding: const EdgeInsets.all(12),
-                            isDense: true,
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    width: 1,
-                                    color: CommonColor.REGISTRARTION_COLOR),
-                                borderRadius: BorderRadius.circular(10.0)),
-                            enabledBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    width: 1,
-                                    color: CommonColor.REGISTRARTION_COLOR),
-                                borderRadius: BorderRadius.circular(10.0)),
-                            //borderRadius: BorderRadius.circular(10)
-                            border: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    width: 1,
-                                    color: CommonColor.REGISTRARTION_COLOR),
-                                borderRadius: BorderRadius.circular(10.0)),
-                            hintStyle: TextStyle(
-                                fontFamily: "Roboto_Regular",
-                                fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                                color: CommonColor.SEARCH_TEXT_COLOR))))
-              ])),
+              child: Padding(
+                  padding: EdgeInsets.only(
+                      top: parentHeight * 0.03,
+                      left: parentWidth * 0.03,
+                      right: parentWidth * 0.03),
+                  child: TextFormField(
+                      focusNode: _areaFocus,
+                      controller: areaController,
+                      keyboardType: TextInputType.text,
+                      validator: (String? value) {
+                        if (value!.isEmpty) {
+                          return 'Area cannot be empty';
+                        } else if (value.length < 3) {
+                          return 'Area must be at least 3 characters long.';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                          labelText: 'Area',
+                          labelStyle: const TextStyle(
+                              color: CommonColor.REGISTRARTION_COLOR),
+                          contentPadding: const EdgeInsets.all(12),
+                          isDense: true,
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  width: 1,
+                                  color: CommonColor.REGISTRARTION_COLOR),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  width: 1,
+                                  color: CommonColor.REGISTRARTION_COLOR),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          //borderRadius: BorderRadius.circular(10)
+                          border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  width: 1,
+                                  color: CommonColor.REGISTRARTION_COLOR),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          hintStyle: TextStyle(
+                              fontFamily: "Roboto_Regular",
+                              fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+                              color: CommonColor.SEARCH_TEXT_COLOR))))),
           Padding(
               padding: EdgeInsets.only(
                   left: parentWidth * 0.02, right: parentWidth * 0.02),
-              child: Column(children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: parentWidth * 0.03, top: parentHeight * 0.009),
-                      child: const Text(
-                        "Mobile Number",
-                        style:
-                            TextStyle(color: CommonColor.REGISTRARTION_TRUSTEE),
-                      ),
-                    ),
-                  ],
-                ),
-                Padding(
-                    padding: EdgeInsets.only(
-                        top: parentHeight * 0.01,
-                        left: parentWidth * 0.03,
-                        right: parentWidth * 0.03),
-                    child: TextFormField(
-                        focusNode: _numberFocus,
-                        controller: numberController,
-                        keyboardType: TextInputType.number,
-                        validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            return 'This field is required';
-                          }
-                          if (value.trim().length < 10 ||
-                              value.trim().length > 10) {
-                            return 'Please Enter Valid Number';
-                          }
-                          // Return null if the entered password is valid
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                            labelText: 'Mobile Number',
-                            labelStyle: const TextStyle(
-                                color: CommonColor.REGISTRARTION_COLOR),
-                            contentPadding: const EdgeInsets.all(12),
-                            isDense: true,
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    width: 1,
-                                    color: CommonColor.REGISTRARTION_COLOR),
-                                borderRadius: BorderRadius.circular(10.0)),
-                            enabledBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    width: 1,
-                                    color: CommonColor.REGISTRARTION_COLOR),
-                                borderRadius: BorderRadius.circular(10.0)),
-                            //borderRadius: BorderRadius.circular(10)
-                            border: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    width: 1,
-                                    color: CommonColor.REGISTRARTION_COLOR),
-                                borderRadius: BorderRadius.circular(10.0)),
-                            hintStyle: TextStyle(
-                                fontFamily: "Roboto_Regular",
-                                fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                                color: CommonColor.SEARCH_TEXT_COLOR))))
-              ])),
+              child: Padding(
+                  padding: EdgeInsets.only(
+                      top: parentHeight * 0.03,
+                      left: parentWidth * 0.03,
+                      right: parentWidth * 0.03),
+                  child: TextFormField(
+                      focusNode: _numberFocus,
+                      controller: numberController,
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'This field is required';
+                        }
+                        if (value.trim().length < 10 ||
+                            value.trim().length > 10) {
+                          return 'Please Enter Valid Number';
+                        }
+                        // Return null if the entered password is valid
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                          labelText: 'Mobile Number',
+                          labelStyle: const TextStyle(
+                              color: CommonColor.REGISTRARTION_COLOR),
+                          contentPadding: const EdgeInsets.all(12),
+                          isDense: true,
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  width: 1,
+                                  color: CommonColor.REGISTRARTION_COLOR),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  width: 1,
+                                  color: CommonColor.REGISTRARTION_COLOR),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          //borderRadius: BorderRadius.circular(10)
+                          border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  width: 1,
+                                  color: CommonColor.REGISTRARTION_COLOR),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          hintStyle: TextStyle(
+                              fontFamily: "Roboto_Regular",
+                              fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+                              color: CommonColor.SEARCH_TEXT_COLOR))))),
           /* Padding(
             padding: EdgeInsets.only(
                 left: parentWidth * 0.02, right: parentWidth * 0.02),
@@ -859,10 +799,8 @@ class _UserRegistrationState extends State<UserRegistration> {
           GestureDetector(
             onDoubleTap: () {},
             onTap: () {
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>  LoginScreen()));
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()));
             },
             child: Container(
               color: Colors.transparent,
@@ -900,7 +838,21 @@ class _UserRegistrationState extends State<UserRegistration> {
             "state": stateValue,
             "country": countryValue
           });
+
       print("new user:" + result.body);
+      print("status:" + result.statusCode.toString());
+
+      if (result.statusCode == 422) {
+        Map<String, dynamic> body = jsonDecode(result.body);
+        Map<String, dynamic> error = body['errors'];
+
+        for (var et in error.entries) {
+          print('${et.key}, ${et.value[0]}');
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text("${et.value[0]}")));
+        }
+      }
+
       if (result.statusCode == 200) {
         // Navigator.push(context,
         //     MaterialPageRoute(builder: (context) => ParentTabBarScreen()));
