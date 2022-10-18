@@ -685,11 +685,11 @@ class _AllMasjitListState extends State<AllMasjitList> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Padding(
-                              padding:  EdgeInsets.only(top: parentHeight*0.1),
+                              padding:  EdgeInsets.only(top: parentHeight*0.05),
                               child: Text(
                                 "No Masjid Found at this Location",
                                 style: TextStyle(
-                                    color: Colors.black,
+                                    color: Colors.black38,
                                 fontWeight: FontWeight.bold),
                               ),
                             ),
