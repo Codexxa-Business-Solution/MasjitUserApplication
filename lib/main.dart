@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget with WidgetsBindingObserver {
       destination = const MasjitVendorFrame();
     }
     return MaterialApp(
-        title: 'Azan for Salah Masjid',
+        title: 'Azan for Salah User',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),

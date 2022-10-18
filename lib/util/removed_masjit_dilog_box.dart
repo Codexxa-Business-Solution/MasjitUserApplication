@@ -80,7 +80,7 @@ class _EndFriendDialogState extends State<EndFriendDialog> {
     return Padding(
       padding: EdgeInsets.only(top: parentHeight * .02),
       child: Text(
-       "Remove Masjit",
+       "Remove Masjid",
       //  ApplicationLocalizations.of(context)!.translate("end_friendship")!,
         style: TextStyle(
           color: CommonColor.BLACK_COLOR,
@@ -104,7 +104,7 @@ class _EndFriendDialogState extends State<EndFriendDialog> {
         children: [
           Flexible(
             child: Text(
-              "Are you sure you want to Removed Masjit from your account? You can add the same Masjit again after you Remove it.",
+              "Are you sure you want to Removed Masjid from your account? You can add the same Masjid again after you Remove it.",
            //ApplicationLocalizations.of(context)!.translate("end_friend_subtext")!,
               style: TextStyle(
                 color: CommonColor.BLACK_COLOR,
@@ -140,7 +140,7 @@ class _EndFriendDialogState extends State<EndFriendDialog> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "REMOVE MASJIT",
+                "REMOVE MASJID",
                /* ApplicationLocalizations.of(context)!.translate("end_friendship_text")!,*/
                 style: TextStyle(
                   color: CommonColor.RED_COLOR,
