@@ -1392,6 +1392,13 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                   ],
                                 )),
                           ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 30),
+                            child: Divider(
+                              thickness: 1,
+                              color: Colors.green,
+                            ),
+                          )
                         ],
                       ),
                     );
