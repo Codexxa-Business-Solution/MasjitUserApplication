@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/notice_response_model.dart';
 import 'package:masjiduserapp/size_config.dart';
 import 'package:http/http.dart' as http;
@@ -59,23 +60,66 @@ class _NoticeUserTabState extends State<NoticeUserTab> {
                 itemBuilder:
                     (context, index) {
                   return  Padding(
-                    padding:  EdgeInsets.only(left: parentWidth*0.02),
-                    child: Text("${snapshot.data?.notice?[index].notice}",
-                      style: TextStyle(
-                        // height: parentHeight*0.002,
+                    padding:  EdgeInsets.only(left: parentWidth*0.02, right: parentWidth*0.02, top: 10),
+                    child: Container(
+                      height: 45,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(color: Colors.green, width: 1)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 10),
+                              child: Text("${snapshot.data?.notice?[index].notice}hhu hihh ihu ihiui huhu yugy ugyu gyu gy uyuyuy uyuyuu",
+                                style: TextStyle(
+                                  // height: parentHeight*0.002,
 
-                        fontFamily: "Roboto_Regular",
+                                  fontFamily: "Roboto_Regular",
 
-                        fontWeight: FontWeight.w400,
+                                  fontWeight: FontWeight.w400,
 
-                        fontSize: SizeConfig.blockSizeHorizontal * 4.3,
+                                  fontSize: SizeConfig.blockSizeHorizontal * 4.3,
 
-                        color: Colors.black,
+                                  color: Colors.black,
 
-                        // letterSpacing: SizeConfig.screenWidth * 0.001,
+                                  // letterSpacing: SizeConfig.screenWidth * 0.001,
+                                ),
+
+                                // textAlign: TextAlign.justify,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(right: 10, top: 5),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                snapshot.data?.notice?[index].createdAt !=
+                                    null
+                                    ? Text(
+                                  DateFormat("dd/MM/yyyy").format(
+                                      DateTime.parse(
+                                          "${snapshot.data?.notice?[index].createdAt}")),
+                                )
+                                    : Text(""),
+                                snapshot.data?.notice?[index].createdAt !=
+                                    null
+                                    ? Text(
+                                  DateFormat().add_jm().format(
+                                      DateTime.parse(
+                                          "${snapshot.data?.notice?[index].createdAt}")
+                                          .add(Duration(
+                                          hours: 5,
+                                          minutes: 30))),
+                                )
+                                    : Text(""),
+                              ],
+                            ),
+                          )
+                        ],
                       ),
-
-                      // textAlign: TextAlign.justify,
                     ),
                   ) ;
                 })
