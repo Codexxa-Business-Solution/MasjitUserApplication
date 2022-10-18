@@ -72,7 +72,7 @@ class _NoticeUserTabState extends State<NoticeUserTab> {
                           Expanded(
                             child: Padding(
                               padding: EdgeInsets.only(left: 10),
-                              child: Text("${snapshot.data?.notice?[index].notice}hhu hihh ihu ihiui huhu yugy ugyu gyu gy uyuyuy uyuyuu",
+                              child: Text("${snapshot.data?.notice?[index].notice}",
                                 style: TextStyle(
                                   // height: parentHeight*0.002,
 
