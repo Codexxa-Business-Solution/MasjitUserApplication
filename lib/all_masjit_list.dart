@@ -517,7 +517,7 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                       child: Row(
                                                         children: const [
                                                           Text(
-                                                            "JAMAA'T",
+                                                            "JAMAAT",
                                                             style: TextStyle(
                                                                 fontFamily:
                                                                     'Roboto_Bold',
@@ -1028,7 +1028,7 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                       child: Row(
                                                         children: const [
                                                           Text(
-                                                            "JAMAA'T",
+                                                            "JAMAAT",
                                                             style: TextStyle(
                                                                 fontFamily:
                                                                     'Roboto_Bold',

@@ -379,7 +379,7 @@ class _AllMasjitJoinedListState extends State<AllMasjitJoinedList> {
                                                 padding: EdgeInsets.only(top: parentHeight*0.012, left: parentWidth*0.0),
                                                 child: Row(
                                                   children: const [
-                                                    Text("JAMAA'T",style: TextStyle(
+                                                    Text("JAMAAT",style: TextStyle(
                                                         fontFamily:
                                                         'Roboto_Bold',
                                                         fontWeight:

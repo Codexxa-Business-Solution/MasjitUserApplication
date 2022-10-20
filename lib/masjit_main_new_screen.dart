@@ -945,7 +945,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                             child: Row(
                                                               children: const [
                                                                 Text(
-                                                                  "JAMAA'T",
+                                                                  "JAMAAT",
                                                                   style: TextStyle(
                                                                       fontFamily:
                                                                           'Roboto_Bold',
@@ -1184,7 +1184,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                                 child: Row(
                                                                   children: const [
                                                                     Text(
-                                                                      "JAMAA'T",
+                                                                      "JAMAAT",
                                                                       style: TextStyle(
                                                                           fontFamily: 'Roboto_Bold',
                                                                           fontWeight: FontWeight.w500,
@@ -1442,7 +1442,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                         child: Row(
                           children: const [
                             Text(
-                              "JAMAA'T",
+                              "JAMAAT",
                               style: TextStyle(
                                   fontFamily: 'Roboto_Bold',
                                   fontWeight: FontWeight.w500,
@@ -1649,7 +1649,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                             child: Row(
                               children: const [
                                 Text(
-                                  "JAMAA'T",
+                                  "JAMAAT",
                                   style: TextStyle(
                                       fontFamily: 'Roboto_Bold',
                                       fontWeight: FontWeight.w500,
@@ -1765,7 +1765,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                     Padding(
                       padding: EdgeInsets.only(left: parentWidth * 0.33),
                       child: Text(
-                        "SAHR / IFTAR",
+                        "SAHAR / IFTAR",
                         style: TextStyle(
                             fontFamily: "Roboto_Regular",
                             fontWeight: FontWeight.w700,
@@ -1823,7 +1823,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                       padding: EdgeInsets.only(
                                           left: parentWidth * 0.1,
                                           top: parentHeight * 0.0),
-                                      child: Text("SAHR",
+                                      child: Text("SAHAR",
                                           style: TextStyle(
                                             fontSize:
                                                 SizeConfig.blockSizeHorizontal *

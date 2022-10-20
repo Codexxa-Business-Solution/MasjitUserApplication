@@ -403,7 +403,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
                                                     itemBuilder:
                                                         (BuildContext context,
                                                             int itemIndex,
-                                                            int index) {
+                                                            int index1) {
                                                       return getFirstImageFrame(
                                                           SizeConfig
                                                               .screenHeight,
@@ -413,7 +413,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
                                                       snapshot
                                                           .data?.images?[index]
                                                     },*/
-                                                          "http://masjid.exportica.in/${snapshot.data?.images?[0]}",
+                                                          "http://masjid.exportica.in/${snapshot.data?.images?[index1]}",
                                                           snapshot.data?.images
                                                               ?.length);
                                                     }),
@@ -627,7 +627,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
                         child: Row(
                           children: const [
                             Text(
-                              "JAMAA'T",
+                              "JAMAAT",
                               style: TextStyle(
                                   fontFamily: 'Roboto_Bold',
                                   fontWeight: FontWeight.w500,
@@ -818,7 +818,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
                       child: Row(
                         children: const [
                           Text(
-                            "JAMAA'T",
+                            "JAMAAT",
                             style: TextStyle(
                                 fontFamily: 'Roboto_Bold',
                                 fontWeight: FontWeight.w500,
@@ -944,7 +944,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "SAHR / IFTAR",
+                              "SAHAR / IFTAR",
                               style: TextStyle(
                                 fontSize: SizeConfig.blockSizeHorizontal * 4.3,
                                 fontFamily: 'Roboto_Bold',
@@ -965,7 +965,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
                               padding: EdgeInsets.only(
                                   left: parentWidth * 0.1,
                                   top: parentHeight * 0.02),
-                              child: Text("SAHR",
+                              child: Text("SAHAR",
                                   style: TextStyle(
                                     fontSize:
                                         SizeConfig.blockSizeHorizontal * 4.3,
@@ -1119,7 +1119,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
                                           right: parentWidth * 0.05,
                                           top: parentHeight * 0.01),
                                       child: Text(
-                                          "JAMAA'T  ${snapshot.data?.eid?[index].jammat?[0]}",
+                                          "JAMAAT  ${snapshot.data?.eid?[index].jammat?[0]}",
                                           style: TextStyle(
                                             fontSize:
                                                 SizeConfig.blockSizeHorizontal *
