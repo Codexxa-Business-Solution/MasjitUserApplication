@@ -285,10 +285,10 @@ class _LoginScreenState extends State<LoginScreen> {
           visible: _address.isNotEmpty ? true : false,
           child: Padding(
             padding: EdgeInsets.only(
-                top: parentHeight * 0.02, left: parentWidth * 0.04,right: parentWidth*0),
+                top: parentHeight * 0.02, left: parentWidth * 0.04,right: parentWidth*0.04),
             child: Container(
               width: parentWidth * 1,
-              height: parentHeight * 0.07,
+              height: parentHeight * 0.06,
               decoration: BoxDecoration(
                   border: Border.all(
                       width: 1, color: CommonColor.REGISTRARTION_COLOR),
