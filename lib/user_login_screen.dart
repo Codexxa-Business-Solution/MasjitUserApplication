@@ -252,10 +252,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 });
               },
               child: Container(
-                height: parentHeight * 0.04,
+                height: parentHeight * 0.06,
                 decoration: BoxDecoration(
-                    color: Colors.green,
-                    borderRadius: BorderRadius.circular(10)),
+
+                    //color: Colors.green,
+
+
+                      border: Border.all(color: CommonColor.REGISTRARTION_COLOR),
+                    borderRadius: BorderRadius.all(Radius.circular(20))
+                  ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -265,7 +270,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Text(
                         "Select Location",
                         style: TextStyle(
-                            fontSize: SizeConfig.blockSizeHorizontal * 2.5,
+                            fontSize: SizeConfig.blockSizeHorizontal * 3.5,
                             color: Colors.black,
                             fontWeight: FontWeight.bold),
                       ),
@@ -280,10 +285,10 @@ class _LoginScreenState extends State<LoginScreen> {
           visible: _address.isNotEmpty ? true : false,
           child: Padding(
             padding: EdgeInsets.only(
-                top: parentHeight * 0.02, left: parentWidth * 0.05),
+                top: parentHeight * 0.02, left: parentWidth * 0.04,right: parentWidth*0),
             child: Container(
-              width: parentWidth * 0.9,
-              height: parentHeight * 0.06,
+              width: parentWidth * 1,
+              height: parentHeight * 0.07,
               decoration: BoxDecoration(
                   border: Border.all(
                       width: 1, color: CommonColor.REGISTRARTION_COLOR),

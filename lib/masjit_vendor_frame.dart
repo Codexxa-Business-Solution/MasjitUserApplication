@@ -25,15 +25,11 @@ final PageController _pageController = PageController();
     "https://cdn.pixabay.com/photo/2015/10/25/21/02/abu-1006336__340.jpg",
     "https://cdn.pixabay.com/photo/2015/10/25/21/02/abu-1006336__340.jpg",
 "https://cdn.pixabay.com/photo/2015/01/28/23/10/mosque-615415_960_720.jpg"];
-  final List<String> Frame = [
-    "Frame 1",
-    "Frame 2",
-    "Frame 3",
-  ];
+
   final List<String> FrameText = [
-    "Lorem Ipsum is simply dummy text of the \n printing and typesetting",
-    "Lorem Ipsum is simply dummy text of the \n printing and typesetting",
-    "Lorem Ipsum is simply dummy text of the \n printing and typesetting",
+    "This app use for Islamic namaz timetable of masjids",
+    "Islamic prayer times are calculated based on the sunrise and sunset time of the location.",
+    "Use push notifications to send Azan Time. then auto on DND mode.",
   ];
   final bool? _isNotificationPolicyAccessGranted = false;
   void setInterruptionFilter(int filter) async {
@@ -123,7 +119,7 @@ print("dndSetting $FlutterDnd");
                                   ),
                                 )
                               ),
-                              Padding(
+                         /*     Padding(
                                 padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.06),
                                 child: Text(
 
@@ -135,16 +131,18 @@ print("dndSetting $FlutterDnd");
                                       fontFamily: 'Roboto_bold'),
                                   textAlign: TextAlign.center,
                                 ),
-                              ),
+                              ),*/
                               Padding(
                                 padding: EdgeInsets.only(
-                                  top: SizeConfig.screenHeight * 0.02,
+                                  top: SizeConfig.screenHeight * 0.07,
+                                  left: SizeConfig.screenWidth*0.07,
+                                  right: SizeConfig.screenWidth*0.07
                                 ),
                                 child: Text(
                                   FrameText[index % FrameText.length],
                                   style: TextStyle(
-                                      fontSize: SizeConfig.blockSizeHorizontal * 3.0,
-                                      color: CommonColor.BLACK,
+                                      fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+                                      color: CommonColor.REGISTRARTION_COLOR,
                                       fontWeight: FontWeight.w500,
                                       height: 1.6,
                                       fontFamily: 'Roboto_Regular'),
@@ -206,7 +204,7 @@ print("dndSetting $FlutterDnd");
 
             ),
 
-            Padding(
+        /*    Padding(
               padding: EdgeInsets.only(top: parentHeight * 0.06),
               child: Text(
                 "Frame 1",
@@ -217,13 +215,13 @@ print("dndSetting $FlutterDnd");
                     fontFamily: 'Roboto_bold'),
                 textAlign: TextAlign.center,
               ),
-            ),
+            ),*/
             Padding(
               padding: EdgeInsets.only(
                 top: parentHeight * 0.02,
               ),
               child: Text(
-                "Lorem Ipsum is simply dummy text of the \n printing and typesetting",
+                "This app use for Islamic namaz timetable of masjids",
                 style: TextStyle(
                     fontSize: SizeConfig.blockSizeHorizontal * 3.0,
                     color: CommonColor.BLACK,
@@ -254,135 +252,186 @@ print("dndSetting $FlutterDnd");
 
           _pageController.jumpToPage(currentIndex);
 
-          currentIndex == 3 ?
-
-          showDialog(
-              context: context,
-              builder: (ctx) => AlertDialog(
-
-                title: const Center(child:  Text("DND Activation", style: TextStyle(
-                  color: CommonColor.REGISTRARTION_COLOR,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 20,
-                  fontFamily: 'Roboto_Medium',
-                ),)),
-                content:  Padding(
-                  padding:  EdgeInsets.only(left: SizeConfig.screenWidth*0.04),
-                  child: const Text("DND Activation Mandatory for this Application",
-
-
+          // currentIndex == 3 ?
+        },
+        child: Stack(
+          children: [
+            Visibility(
+              visible: currentIndex !=2? true : false,
+              child: Container(
+                height: parentHeight * 0.06,
+                width: parentWidth * 0.8,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(20.0),
+                  ),
+                  gradient: LinearGradient(
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                      colors: [
+                        CommonColor.GET_STARTED_LEFT_COLOR,
+                        CommonColor.GET_STARTED_RIGHT_COLOR
+                      ]),
+                ),
+                child: Center(
+                  child: Text(
+                   "Next",
                     style: TextStyle(
-                      color: CommonColor.BLACK,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14,
-                      fontFamily: 'Roboto_Medium',
-                    ),
-
+                        fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Roboto_Regular'),
                   ),
                 ),
-                actions: <Widget>[
-                  Padding(
-                    padding:  EdgeInsets.only(bottom: SizeConfig.screenHeight*0.03),
-                    child: Center(
-                      child: Row(
-                        //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
+              ),
+            ),
+            Visibility(
+              visible: currentIndex==2? true : false,
+              child: GestureDetector(
+                onTap: (){
+                  showDialog(
+                      context: context,
+                      builder: (ctx) => AlertDialog(
 
-                          GestureDetector(
-                            onTap: () {
+                        title: const Center(child:  Text("DND Activation", style: TextStyle(
+                          color: CommonColor.REGISTRARTION_COLOR,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 18,
+                          fontFamily: 'Roboto_Medium',
+                        ),)),
+                        content:  Padding(
+                          padding:  EdgeInsets.only(left: SizeConfig.screenWidth*0.04),
+                          child: const Text("DND Activation Mandatory for this Application",
 
-                              complete();
 
-                              //currentIndex == 3 ? complete() : Container();
-                              //cityController.text.isEmpty ? validate = true : validate = false;
-
-                            },
-                            child:  Padding(
-                              padding: EdgeInsets.only(
-
-                                  left: SizeConfig.screenWidth * 0.14,
-                                  right: SizeConfig.screenWidth * 0.11),
-                              child: Container(
-                                  height: SizeConfig.screenHeight * 0.05,
-
-                                  child: Center(
-                                    child: Text(
-                                      "Allow",
-                                      style: TextStyle(
-                                          fontFamily: "Roboto_Regular",
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: SizeConfig.blockSizeHorizontal * 4.5,
-                                          color: CommonColor.BLACK_COLOR),
-                                    ),
-                                  )),
+                            style: TextStyle(
+                              color: CommonColor.BLACK,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14,
+                              fontFamily: 'Roboto_Medium',
                             ),
+
                           ),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                            child: Padding(
-                              padding:  EdgeInsets.only(top: SizeConfig.screenHeight*0.0),
-                              child: GestureDetector(
+                        ),
+                        actions: <Widget>[
+                          Padding(
+                            padding:  EdgeInsets.only(bottom: SizeConfig.screenHeight*0.02,left: parentWidth*0.04,right: SizeConfig.screenWidth*0.04),
+                            child: Center(
+                              child: Row(
+                                //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
 
-                                child:  Padding(
-                                  padding: EdgeInsets.only(
+                                  GestureDetector(
+                                    onTap: () {
 
-                                      left: SizeConfig.screenWidth * 0.11,
-                                      right: SizeConfig.screenWidth * 0.11),
-                                  child: Container(
-                                      height: SizeConfig.screenHeight * 0.05,
+                                      complete();
 
-                                      child: Center(
-                                        child: Text(
-                                          "Cancle",
-                                          style: TextStyle(
-                                              fontFamily: "Roboto_Regular",
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: SizeConfig.blockSizeHorizontal * 4.5,
-                                              color: CommonColor.BLACK_COLOR),
+
+                                    },
+                                    child:  Padding(
+                                      padding: EdgeInsets.only(
+                                          right: parentWidth*0.03
+                                      ),
+                                      child: Container(
+                                          height: SizeConfig.screenHeight * 0.05,
+                                          width: SizeConfig.screenWidth * 0.3,
+                                          decoration:  BoxDecoration(
+                                            gradient: const LinearGradient(
+                                                begin: Alignment.centerLeft,
+                                                end: Alignment.centerRight,
+                                                colors: [CommonColor.LEFT_COLOR, CommonColor.RIGHT_COLOR]),
+                                            borderRadius: BorderRadius.circular(30),),
+
+
+                                          child: Center(
+                                            child: Text(
+                                              "Allow",
+                                              style: TextStyle(
+                                                  fontFamily: "Roboto_Regular",
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: SizeConfig.blockSizeHorizontal * 3.5,
+                                                  color: CommonColor.WHITE_COLOR),
+                                            ),
+                                          )),
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Padding(
+                                      padding:  EdgeInsets.only(top: SizeConfig.screenHeight*0.0),
+                                      child: GestureDetector(
+
+                                        child:  Padding(
+                                          padding: EdgeInsets.only(
+                                              left: parentWidth*0.02
+                                          ),
+
+                                          child: Container(
+                                              height: SizeConfig.screenHeight * 0.05,
+                                              width: SizeConfig.screenWidth * 0.3,
+                                              decoration: BoxDecoration(
+                                                gradient: const LinearGradient(
+                                                    begin: Alignment.centerLeft,
+                                                    end: Alignment.centerRight,
+                                                    colors: [CommonColor.LEFT_COLOR, CommonColor.RIGHT_COLOR]),
+                                                borderRadius: BorderRadius.circular(30),),
+
+
+                                              child: Center(
+                                                child: Text(
+                                                  "Cancel",
+                                                  style: TextStyle(
+                                                      fontFamily: "Roboto_Regular",
+                                                      fontWeight: FontWeight.w400,
+                                                      fontSize: SizeConfig.blockSizeHorizontal * 3.5,
+                                                      color: CommonColor.WHITE_COLOR),
+                                                ),
+                                              )),
                                         ),
-                                      )),
-                                ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
                         ],
-                      ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ));
+                },
+                child: Container(
+                  height: parentHeight * 0.06,
+                  width: parentWidth * 0.8,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20.0),
+                    ),
+                    gradient: LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: [
+                          CommonColor.GET_STARTED_LEFT_COLOR,
+                          CommonColor.GET_STARTED_RIGHT_COLOR
+                        ]),
+                  ),
+                  child: Center(
+                    child: Text(
+                      "Continue",
+                      style: TextStyle(
+                          fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Roboto_Regular'),
                     ),
                   ),
-                ],
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
                 ),
-              )):Container();
-          // currentIndex == 3 ?
-        },
-        child: Container(
-          height: parentHeight * 0.06,
-          width: parentWidth * 0.8,
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(
-              Radius.circular(20.0),
+              ),
             ),
-            gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: [
-                  CommonColor.GET_STARTED_LEFT_COLOR,
-                  CommonColor.GET_STARTED_RIGHT_COLOR
-                ]),
-          ),
-          child: Center(
-            child: Text(
-              currentIndex == 2?  "Continue" :"Next",
-              style: TextStyle(
-                  fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Roboto_Regular'),
-            ),
-          ),
+          ],
         ),
       ),
     );
@@ -403,7 +452,7 @@ print("dndSetting $FlutterDnd");
                     title: const Center(child:  Text("DND Activation", style: TextStyle(
                       color: CommonColor.REGISTRARTION_COLOR,
                       fontWeight: FontWeight.w400,
-                      fontSize: 20,
+                      fontSize: 18,
                       fontFamily: 'Roboto_Medium',
                     ),)),
                     content:  Padding(
@@ -422,10 +471,10 @@ print("dndSetting $FlutterDnd");
                     ),
                     actions: <Widget>[
                       Padding(
-                        padding:  EdgeInsets.only(bottom: SizeConfig.screenHeight*0.03),
+                        padding:  EdgeInsets.only(bottom: SizeConfig.screenHeight*0.02,left: parentWidth*0.04,right: SizeConfig.screenWidth*0.04),
                         child: Center(
                           child: Row(
-                            //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
 
                               GestureDetector(
@@ -433,17 +482,22 @@ print("dndSetting $FlutterDnd");
 
                                   complete();
 
-                                  //currentIndex == 3 ? complete() : Container();
-                                  //cityController.text.isEmpty ? validate = true : validate = false;
 
                                 },
                                 child:  Padding(
                                   padding: EdgeInsets.only(
-
-                                      left: SizeConfig.screenWidth * 0.14,
-                                      right: SizeConfig.screenWidth * 0.11),
+                                      right: parentWidth*0.03
+                                  ),
                                   child: Container(
                                       height: SizeConfig.screenHeight * 0.05,
+                                      width: SizeConfig.screenWidth * 0.3,
+                                      decoration:  BoxDecoration(
+                                        gradient: const LinearGradient(
+                                            begin: Alignment.centerLeft,
+                                            end: Alignment.centerRight,
+                                            colors: [CommonColor.LEFT_COLOR, CommonColor.RIGHT_COLOR]),
+                                        borderRadius: BorderRadius.circular(30),),
+
 
                                       child: Center(
                                         child: Text(
@@ -451,8 +505,8 @@ print("dndSetting $FlutterDnd");
                                           style: TextStyle(
                                               fontFamily: "Roboto_Regular",
                                               fontWeight: FontWeight.w400,
-                                              fontSize: SizeConfig.blockSizeHorizontal * 4.5,
-                                              color: CommonColor.BLACK_COLOR),
+                                              fontSize: SizeConfig.blockSizeHorizontal * 3.5,
+                                              color: CommonColor.WHITE_COLOR),
                                         ),
                                       )),
                                 ),
@@ -467,20 +521,28 @@ print("dndSetting $FlutterDnd");
 
                                     child:  Padding(
                                       padding: EdgeInsets.only(
+                                          left: parentWidth*0.02
+                                      ),
 
-                                          left: SizeConfig.screenWidth * 0.11,
-                                          right: SizeConfig.screenWidth * 0.11),
                                       child: Container(
                                           height: SizeConfig.screenHeight * 0.05,
+                                          width: SizeConfig.screenWidth * 0.3,
+                                          decoration: BoxDecoration(
+                                            gradient: const LinearGradient(
+                                                begin: Alignment.centerLeft,
+                                                end: Alignment.centerRight,
+                                                colors: [CommonColor.LEFT_COLOR, CommonColor.RIGHT_COLOR]),
+                                            borderRadius: BorderRadius.circular(30),),
+
 
                                           child: Center(
                                             child: Text(
-                                              "Cancle",
+                                              "Cancel",
                                               style: TextStyle(
                                                   fontFamily: "Roboto_Regular",
                                                   fontWeight: FontWeight.w400,
-                                                  fontSize: SizeConfig.blockSizeHorizontal * 4.5,
-                                                  color: CommonColor.BLACK_COLOR),
+                                                  fontSize: SizeConfig.blockSizeHorizontal * 3.5,
+                                                  color: CommonColor.WHITE_COLOR),
                                             ),
                                           )),
                                     ),
@@ -498,12 +560,18 @@ print("dndSetting $FlutterDnd");
                   ));
               //complete();
             },
-            child: Text(
-              "Skip",
-              style: TextStyle(
-                  fontSize: SizeConfig.blockSizeHorizontal * 3.0,
-                  color: CommonColor.FRAME_NAME,
-                  fontFamily: 'Roboto_Regular'),
+            child: Container(
+              color: Colors.transparent,
+              child: Padding(
+                padding: EdgeInsets.only(top: parentHeight*0.01),
+                child: Text(
+                  "Skip",
+                  style: TextStyle(
+                      fontSize: SizeConfig.blockSizeHorizontal * 3.0,
+                      color: CommonColor.FRAME_NAME,
+                      fontFamily: 'Roboto_Regular'),
+                ),
+              ),
             ),
           ),
         ],
