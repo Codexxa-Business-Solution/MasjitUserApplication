@@ -224,7 +224,7 @@ print("dndSetting $FlutterDnd");
                 "This app use for Islamic namaz timetable of masjids",
                 style: TextStyle(
                     fontSize: SizeConfig.blockSizeHorizontal * 3.0,
-                    color: CommonColor.BLACK,
+                    color: CommonColor.BLACK ,
                     fontWeight: FontWeight.w500,
                     height: 1.6,
                     fontFamily: 'Roboto_Regular'),
