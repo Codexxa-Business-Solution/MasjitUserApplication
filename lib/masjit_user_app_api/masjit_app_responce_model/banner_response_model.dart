@@ -13,29 +13,13 @@ class BannerImage {
     this.data,
   });
 
-  List<Datum>? data;
+  List<String>? data;
 
   factory BannerImage.fromJson(Map<String, dynamic> json) => BannerImage(
-    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    data: List<String>.from(json["data"].map((x) => x)),
   );
 
   Map<String, dynamic> toJson() => {
-    "data": List<dynamic>.from(data!.map((x) => x.toJson())),
-  };
-}
-
-class Datum {
-  Datum({
-    this.image,
-  });
-
-  String? image;
-
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-    image: json["image"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "image": image,
+    "data": List<dynamic>.from(data!.map((x) => x)),
   };
 }

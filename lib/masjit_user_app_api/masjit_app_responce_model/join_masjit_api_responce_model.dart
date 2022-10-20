@@ -33,7 +33,6 @@ class Datum {
     this.sahr,
     this.iftar,
     this.eid,
-    this.banners,
     this.place,
   });
 
@@ -44,7 +43,6 @@ class Datum {
   dynamic? sahr;
   dynamic? iftar;
   List<Eid>? eid;
-  List<dynamic>? banners;
   List<Place>? place;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -55,7 +53,6 @@ class Datum {
     sahr: json["sahr"],
     iftar: json["iftar"],
     eid: List<Eid>.from(json["eid"].map((x) => Eid.fromJson(x))),
-    banners: List<dynamic>.from(json["banners"].map((x) => x)),
     place: List<Place>.from(json["place"].map((x) => Place.fromJson(x))),
   );
 
@@ -67,7 +64,6 @@ class Datum {
     "sahr": sahr,
     "iftar": iftar,
     "eid": List<dynamic>.from(eid!.map((x) => x.toJson())),
-    "banners": List<dynamic>.from(banners!.map((x) => x)),
     "place": List<dynamic>.from(place!.map((x) => x.toJson())),
   };
 }

@@ -146,7 +146,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                               int index1) {
                             final img = snapshot.data?.data?.isNotEmpty ?? false
                                 ? NetworkImage(
-                                    "http://masjid.exportica.in/img/banner/${snapshot.data?.data?[index1].image}",
+                                    "http://masjid.exportica.in${snapshot.data?.data?[index1]}",
                                   )
                                 : const NetworkImage("");
 
@@ -1175,20 +1175,6 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                         children: [
                                                           Column(
                                                             children: [
-                                                              /*  Padding(
-                    padding: EdgeInsets.only(top: parentHeight * 0.03),
-                    child: Padding(
-                      padding: EdgeInsets.only(left: parentWidth * 0.0),
-                      child: const Text(
-                        "AZAN",
-                        style: TextStyle(
-                            fontFamily: 'Roboto_Bold',
-                            fontWeight: FontWeight.w500,
-                            color: CommonColor.BLACK_COLOR,
-                            fontSize: 14),
-                      ),
-                    ),
-                  ),*/
                                                               Padding(
                                                                 padding: EdgeInsets.only(
                                                                     top: parentHeight *
@@ -1219,23 +1205,6 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                                 return Column(
                                                                   // mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                                   children: [
-                                                                    /*Padding(
-                          padding: EdgeInsets.only(
-                              top: parentHeight * 0.03,
-                              right: parentHeight * 0.25),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                "${snapshot.data?.data?[0].jumma?.azan}",
-                                style: TextStyle(
-                                    fontSize:
-                                        SizeConfig.blockSizeHorizontal *
-                                            3.3),
-                              ),
-                            ],
-                          ),
-                        ),*/
                                                                     Padding(
                                                                       padding:
                                                                           const EdgeInsets.only(top: 12),
@@ -1284,109 +1253,6 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                           SizeConfig.screenHeight,
                                           SizeConfig.screenWidth,
                                         ),
-                                        Visibility(
-                                          visible: false,
-                                          child: SizedBox(
-                                              //height: SizeConfig.screenHeight*.74,
-                                              width: SizeConfig.screenWidth,
-                                              child: Padding(
-                                                  padding: EdgeInsets.only(
-                                                      right: SizeConfig
-                                                              .screenHeight *
-                                                          .0,
-                                                      top: SizeConfig
-                                                              .screenHeight *
-                                                          .0),
-                                                  child: snapshot
-                                                              .data
-                                                              ?.data?[index]
-                                                              .banners
-                                                              ?.length !=
-                                                          null
-                                                      ? CarouselSlider
-                                                          .builder(
-                                                              // carouselController: _controller,
-                                                              itemCount: snapshot
-                                                                  .data
-                                                                  ?.data?[index]
-                                                                  .banners
-                                                                  ?.length,
-                                                              //widget.getChatGroupInfoData.length,
-                                                              options: CarouselOptions(
-                                                                onPageChanged:
-                                                                    (index,
-                                                                        reason) {
-                                                                  setState(
-                                                                      () {
-                                                                    currentIndex =
-                                                                        index;
-                                                                  });
-                                                                },
-                                                                initialPage:
-                                                                    1,
-                                                                height:
-                                                                    SizeConfig.screenHeight *
-                                                                        .27,
-                                                                // aspectRatio: 1.1,
-                                                                viewportFraction:
-                                                                    1.0,
-                                                                enableInfiniteScroll:
-                                                                    false,
-                                                                autoPlay:
-                                                                    false,
-                                                                enlargeStrategy:
-                                                                    CenterPageEnlargeStrategy
-                                                                        .height,
-                                                              ),
-                                                              itemBuilder: (BuildContext context, int itemIndex, int index1) {
-                                                              final img = snapshot.data?.data?[index].images?.isNotEmpty ??
-                                                                        false
-                                                                    ? NetworkImage(
-                                                                        "http://masjid.exportica.in/${snapshot.data?.data?[index].banners?[index1]}",
-                                                                      )
-                                                                    : const NetworkImage(
-                                                                        "");
-
-                                                                return Padding(
-                                                                  padding: EdgeInsets.only(
-                                                                      top: parentHeight *
-                                                                          0.03,
-                                                                      bottom:
-                                                                          parentHeight * 0.06),
-                                                                  child: Container(
-                                                                      height: parentHeight * 0.17,
-                                                                      decoration: BoxDecoration(
-                                                                        color:
-                                                                            Colors.grey.shade200,
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(20),
-                                                                        boxShadow: <BoxShadow>[
-                                                                          BoxShadow(
-                                                                            color: Colors.grey.shade300,
-                                                                            spreadRadius: 1,
-                                                                            blurRadius: 2,
-                                                                            offset: const Offset(0, 1),
-                                                                          ),
-                                                                          BoxShadow(
-                                                                            color: Colors.grey.shade50,
-                                                                            offset: const Offset(-3, 0),
-                                                                          ),
-                                                                          BoxShadow(
-                                                                            color: Colors.grey.shade50,
-                                                                            offset: const Offset(1, 0),
-                                                                          )
-                                                                        ],
-                                                                      ),
-                                                                      child: Center(
-                                                                        child:
-                                                                            Container(
-                                                                          decoration: BoxDecoration(image: DecorationImage(image: img, fit: BoxFit.cover)),
-                                                                        ),
-                                                                      )),
-                                                                );
-                                                              })
-                                                      : Container())),
-                                        )
                                       ],
                                     )
                                   ],
