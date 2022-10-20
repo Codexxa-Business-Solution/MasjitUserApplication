@@ -22,7 +22,7 @@ class _MasjitVendorFrameState extends State<MasjitVendorFrame> with WidgetsBindi
 
 final PageController _pageController = PageController();
   List<String> listPaths = [
-    "https://cdn.pixabay.com/photo/2015/10/25/21/02/abu-1006336__340.jpg",
+    "https://www.opindia.com/wp-content/uploads/2022/05/Aligarh-Masjid.jpg",
     "https://cdn.pixabay.com/photo/2015/10/25/21/02/abu-1006336__340.jpg",
 "https://cdn.pixabay.com/photo/2015/01/28/23/10/mosque-615415_960_720.jpg"];
 
