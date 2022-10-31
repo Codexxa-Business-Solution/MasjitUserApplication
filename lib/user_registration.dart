@@ -747,10 +747,18 @@ class _UserRegistrationState extends State<UserRegistration> {
 
         print("${box.get("currentLatitude")}  ${box.get("currentLongitude")}");
 
-        _address.isNotEmpty
-            ? validate()
-            : ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                content: Text("Please Select Your Current Location")));
+
+        if(cityValue.isNotEmpty){
+          _address.isNotEmpty
+              ? validate()
+              : ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text("Please Select Your Current Location")));
+        } else{
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text("Please Select Country, State, City")));
+        }
+
+
       },
       child: Padding(
         padding: EdgeInsets.only(
