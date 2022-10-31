@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:http/http.dart' as http;
 import 'package:masjiduserapp/common.color.dart';
 import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/all_masjit_remove_list_response_model.dart';
+import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/showNotificationApi.dart';
+import 'package:masjiduserapp/parent_masjit_location_name.dart';
 import 'package:masjiduserapp/size_config.dart';
 import 'package:masjiduserapp/user_parent_tab_bar.dart';
 import 'package:masjiduserapp/util/constant.dart';
-import 'package:http/http.dart' as http;
 
 class EndFriendDialog extends StatefulWidget {
   final EndFriendDialogInterface mListener;
@@ -13,17 +15,18 @@ class EndFriendDialog extends StatefulWidget {
   final String masjitRemoveIdd;
   final List joinedMasjid;
 
-
   const EndFriendDialog(
-      {required this.mListener, required this.index, required this.masjitRemoveIdd,
-        required this.joinedMasjid
-
-      });
+      {required this.mListener,
+      required this.index,
+      required this.masjitRemoveIdd,
+      required this.joinedMasjid});
 
   @override
   _EndFriendDialogState createState() => _EndFriendDialogState();
 }
+
 late Box box;
+
 class _EndFriendDialogState extends State<EndFriendDialog> {
   @override
   void initState() {
@@ -80,8 +83,8 @@ class _EndFriendDialogState extends State<EndFriendDialog> {
     return Padding(
       padding: EdgeInsets.only(top: parentHeight * .02),
       child: Text(
-       "Remove Masjid",
-      //  ApplicationLocalizations.of(context)!.translate("end_friendship")!,
+        "Remove Masjid",
+        //  ApplicationLocalizations.of(context)!.translate("end_friendship")!,
         style: TextStyle(
           color: CommonColor.BLACK_COLOR,
           fontSize: SizeConfig.blockSizeHorizontal * 4.5,
@@ -105,7 +108,7 @@ class _EndFriendDialogState extends State<EndFriendDialog> {
           Flexible(
             child: Text(
               "Are you sure you want to Removed Masjid from your account? You can add the same Masjid again after you Remove it.",
-           //ApplicationLocalizations.of(context)!.translate("end_friend_subtext")!,
+              //ApplicationLocalizations.of(context)!.translate("end_friend_subtext")!,
               style: TextStyle(
                 color: CommonColor.BLACK_COLOR,
                 fontSize: SizeConfig.blockSizeHorizontal * 4.0,
@@ -124,7 +127,13 @@ class _EndFriendDialogState extends State<EndFriendDialog> {
   Widget getAddMainMessageLayout(double parentHeight, double parentWidth) {
     return GestureDetector(
       onTap: () {
-        getRemoveMasjit(widget.masjitRemoveIdd,widget.index);
+
+
+        print("AlreadyTimmeeeee $namazTimes");
+
+        NotificationService().scheduleNotifications(times: namazTimes);
+
+        getRemoveMasjit(widget.masjitRemoveIdd, widget.index);
       },
       onDoubleTap: () {},
       child: Padding(
@@ -141,7 +150,7 @@ class _EndFriendDialogState extends State<EndFriendDialog> {
             children: [
               Text(
                 "REMOVE MASJID",
-               /* ApplicationLocalizations.of(context)!.translate("end_friendship_text")!,*/
+                /* ApplicationLocalizations.of(context)!.translate("end_friendship_text")!,*/
                 style: TextStyle(
                   color: CommonColor.RED_COLOR,
                   fontSize: SizeConfig.blockSizeHorizontal * 4.2,
@@ -176,7 +185,7 @@ class _EndFriendDialogState extends State<EndFriendDialog> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-               "CANCLE",
+                "CANCLE",
                 style: TextStyle(
                   color: CommonColor.DELETE_GAME_COLOR,
                   fontSize: SizeConfig.blockSizeHorizontal * 4.4,
@@ -191,8 +200,8 @@ class _EndFriendDialogState extends State<EndFriendDialog> {
     );
   }
 
-
-  Future<UseRemoveResponceModel> getRemoveMasjit(masjitIdRemoved, int index) async {
+  Future<UseRemoveResponceModel> getRemoveMasjit(
+      masjitIdRemoved, int index) async {
     var headersList = {'Authorization': 'Bearer ${box.get(kToken)}'};
 
     var response = await http.get(
@@ -201,13 +210,18 @@ class _EndFriendDialogState extends State<EndFriendDialog> {
         headers: headersList);
 
     if (response.statusCode == 200) {
-
-
       widget.joinedMasjid.removeAt(index);
       //var removeId = box.get(kJoinedCommonId);
       print("removedId  ${box.get(kJoinedCommonId)}");
 
-    Navigator.push(context, MaterialPageRoute(builder: (context)=>const ParentTabBarScreen()));
+      /*namazTimes.clear();*/
+
+      namazTimes.clear();
+
+      print("Cleartrimmeeeee new $namazTimes");
+
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const ParentTabBarScreen()));
       print("Yess.. ${response.body}");
 
       print("Hiii");
@@ -219,9 +233,6 @@ class _EndFriendDialogState extends State<EndFriendDialog> {
   }
 }
 
-
-
-
 abstract class EndFriendDialogInterface {
-  callUnFriendApi(String userId, String isConverted, int index,String msgId);
+  callUnFriendApi(String userId, String isConverted, int index, String msgId);
 }

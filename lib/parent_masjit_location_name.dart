@@ -15,6 +15,9 @@ import 'common.color.dart';
 import 'notice_user_tab.dart';
 import 'package:http/http.dart' as http;
 
+List<WeeklyNamaz> namazTimes = [];
+
+
 class MasjitNameLocation extends StatefulWidget {
   const MasjitNameLocation(
       {required this.masjitId, required this.lat, required this.long});
@@ -54,7 +57,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
   var getMasjidJoinButton;
   late final NotificationService service;
 
-  List<WeeklyNamaz> namazTimes = [];
+
 
   @override
   void initState() {
@@ -563,7 +566,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "DAILY TIME",
+                      "JAMMAT TIME",
                       style: TextStyle(
                         fontSize: SizeConfig.blockSizeHorizontal * 4.3,
                         fontFamily: 'Roboto_Bold',
@@ -656,6 +659,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
                                       for (WeeklyNamaz time
                                           in snapshot.data?.weeklyNamaz ?? []) {
                                         namazTimes.add(time);
+                                        print("trimmeeeeesss $namazTimes");
                                       }
 
 
@@ -741,7 +745,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
     return Padding(
       padding: EdgeInsets.only(top: parentHeight * 0.03),
       child: Container(
-        height: parentHeight * 0.18,
+        height: parentHeight * 0.15,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           boxShadow: <BoxShadow>[
@@ -798,7 +802,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
               children: [
                 Column(
                   children: [
-                    Padding(
+                   /* Padding(
                       padding: EdgeInsets.only(top: parentHeight * 0.03),
                       child: Padding(
                         padding: EdgeInsets.only(left: parentWidth * 0.0),
@@ -811,7 +815,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
                               fontSize: 14),
                         ),
                       ),
-                    ),
+                    ),*/
                     Padding(
                       padding: EdgeInsets.only(
                           top: parentHeight * 0.01, left: parentWidth * 0.03),
@@ -836,7 +840,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
                       return Column(
                         // mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Padding(
+                        /*  Padding(
                             padding: EdgeInsets.only(
                                 top: parentHeight * 0.03,
                                 right: parentHeight * 0.25),
@@ -851,7 +855,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
                                 ),
                               ],
                             ),
-                          ),
+                          ),*/
                           SizedBox(
                               height: parentHeight * 0.04,
                               width: parentWidth * 0.7,
@@ -978,7 +982,14 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
                               padding: EdgeInsets.only(
                                   right: parentWidth * 0.1,
                                   top: parentHeight * 0.02),
-                              child: Text("${snapshot.data?.sahr}",
+                              child: snapshot.data?.sahr != null ? Text("${snapshot.data?.sahr}",
+                                  style: TextStyle(
+                                    fontSize:
+                                        SizeConfig.blockSizeHorizontal * 4.3,
+                                    fontFamily: 'Roboto_Bold',
+                                    fontWeight: FontWeight.w600,
+                                    color: CommonColor.BLACK_COLOR,
+                                  )):Text("5:30 AM",
                                   style: TextStyle(
                                     fontSize:
                                         SizeConfig.blockSizeHorizontal * 4.3,
@@ -1009,7 +1020,14 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
                                 padding: EdgeInsets.only(
                                     right: parentWidth * 0.1,
                                     top: parentHeight * 0.02),
-                                child: Text("${snapshot.data?.iftar}",
+                                child:snapshot.data?.iftar != null ? Text("${snapshot.data?.iftar}",
+                                    style: TextStyle(
+                                      fontSize:
+                                          SizeConfig.blockSizeHorizontal * 4.3,
+                                      fontFamily: 'Roboto_Bold',
+                                      fontWeight: FontWeight.w600,
+                                      color: CommonColor.BLACK_COLOR,
+                                    )) : Text("5:30 AM",
                                     style: TextStyle(
                                       fontSize:
                                           SizeConfig.blockSizeHorizontal * 4.3,
@@ -1144,6 +1162,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
   Widget ContinueButton(double parentHeight, double parentWidth) {
     return GestureDetector(
       onTap: () {
+        print("timesssssss $namazTimes");
         NotificationService().scheduleNotifications(times: namazTimes);
         getJoinButtonSection(widget.masjitId);
       },

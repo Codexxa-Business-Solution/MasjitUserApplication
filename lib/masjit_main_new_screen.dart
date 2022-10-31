@@ -38,7 +38,6 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
   bool shariIftar = false;
   bool eid = false;
 
-
   bool mapScreen = false;
   bool trusteeScreen = false;
   bool noticeScreen = false;
@@ -104,9 +103,8 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
             ),
             child: Column(
               children: [
-
-
-                getBannerLayout(SizeConfig.screenHeight, SizeConfig.screenWidth),
+                getBannerLayout(
+                    SizeConfig.screenHeight, SizeConfig.screenWidth),
                 Expanded(
                   child: ThreeTabWithDesign(
                       SizeConfig.screenHeight, SizeConfig.screenWidth),
@@ -191,23 +189,14 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                           })
                       : Container()),
               Row(
-                mainAxisAlignment:
-                MainAxisAlignment.center,
-                crossAxisAlignment:
-                CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  for (int i = 0;
-                  i <
-                      (snapshot
-                          .data
-                          ?.data?.length ??
-                          0);
-                  i++)
+                  for (int i = 0; i < (snapshot.data?.data?.length ?? 0); i++)
                     Container(
                       width: 7,
                       height: 7,
-                      margin:
-                      const EdgeInsets.all(2),
+                      margin: const EdgeInsets.all(2),
                       decoration: BoxDecoration(
                         color: currentIndex == i
                             ? Colors.green
@@ -237,8 +226,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                       child: Column(
                         children: [
                           Row(
-                            mainAxisAlignment:
-                                MainAxisAlignment.spaceAround,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               GestureDetector(
                                 onDoubleTap: () {},
@@ -267,8 +255,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                   width: parentWidth * 0.28,
                                   height: parentHeight * 0.047,
                                   decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.circular(50),
+                                      borderRadius: BorderRadius.circular(50),
                                       border: Border.all(
                                           color: CommonColor.RIGHT_COLOR,
                                           width: 1)),
@@ -325,8 +312,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                       ? CommonColor.REGISTRARTION_TRUSTEE
                                       .withOpacity(0.9)
                                       : Colors.white,*/
-                                      borderRadius:
-                                          BorderRadius.circular(50),
+                                      borderRadius: BorderRadius.circular(50),
                                       border: Border.all(
                                           color: CommonColor.RIGHT_COLOR,
                                           width: 1)),
@@ -382,8 +368,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                       ? CommonColor.REGISTRARTION_TRUSTEE
                                       .withOpacity(0.9)
                                       : Colors.white,*/
-                                      borderRadius:
-                                          BorderRadius.circular(50),
+                                      borderRadius: BorderRadius.circular(50),
                                       border: Border.all(
                                           color: CommonColor.RIGHT_COLOR,
                                           width: 1)),
@@ -407,13 +392,11 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                             ],
                           ),
                           Padding(
-                            padding:
-                                EdgeInsets.only(top: parentHeight * 0.03),
+                            padding: EdgeInsets.only(top: parentHeight * 0.03),
                             child: Visibility(
                                 visible: showDetails,
                                 child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Row(
                                       children: [
@@ -426,14 +409,13 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                             children: [
                                               Padding(
                                                 padding: EdgeInsets.only(
-                                                  right: SizeConfig
-                                                          .screenWidth *
-                                                      0.0,
+                                                  right:
+                                                      SizeConfig.screenWidth *
+                                                          0.0,
                                                 ),
                                                 child: Padding(
                                                   padding: EdgeInsets.only(
-                                                      left: parentWidth *
-                                                          0.02),
+                                                      left: parentWidth * 0.02),
                                                   child: Image.asset(
                                                     'assets/images/masjit_logo.png',
                                                     height: SizeConfig
@@ -448,15 +430,12 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
 
                                                 child: Padding(
                                                   padding: EdgeInsets.only(
-                                                      top: parentHeight *
-                                                          0.01,
-                                                      left: parentWidth *
-                                                          0.02),
+                                                      top: parentHeight * 0.01,
+                                                      left: parentWidth * 0.02),
                                                   child: Text(
                                                     snapshot
                                                                 .data
-                                                                ?.data?[
-                                                                    index]
+                                                                ?.data?[index]
                                                                 .place?[0]
                                                                 .masjidName !=
                                                             null
@@ -489,22 +468,19 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                             child: GestureDetector(
                                               onTap: () {
                                                 showGeneralDialog(
-                                                    barrierColor: Colors
-                                                        .black
+                                                    barrierColor: Colors.black
                                                         .withOpacity(0.8),
-                                                    transitionBuilder:
-                                                        (context, a1, a2,
-                                                            widget) {
+                                                    transitionBuilder: (context,
+                                                        a1, a2, widget) {
                                                       final curvedValue = Curves
                                                               .easeInOutBack
-                                                              .transform(a1
-                                                                  .value) -
+                                                              .transform(
+                                                                  a1.value) -
                                                           1.0;
                                                       // return Transform(
                                                       //   transform: Matrix4.translationValues(
                                                       //       0.0, curvedValue * 200, 0.0),
-                                                      return Transform
-                                                          .scale(
+                                                      return Transform.scale(
                                                         scale: a1.value,
                                                         child: Opacity(
                                                           opacity: a1.value,
@@ -522,10 +498,8 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                     },
                                                     transitionDuration:
                                                         const Duration(
-                                                            milliseconds:
-                                                                200),
-                                                    barrierDismissible:
-                                                        true,
+                                                            milliseconds: 200),
+                                                    barrierDismissible: true,
                                                     barrierLabel: '',
                                                     context: context,
                                                     // ignore: missing_return
@@ -540,8 +514,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                     "id ${snapshot.data?.data?[index].id}");
                                               },
                                               child: Container(
-                                                  height:
-                                                      parentHeight * 0.03,
+                                                  height: parentHeight * 0.03,
                                                   width: parentWidth * 0.3,
                                                   decoration: BoxDecoration(
                                                     gradient:
@@ -557,8 +530,8 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                               .RIGHT_COLOR
                                                         ]),
                                                     borderRadius:
-                                                        BorderRadius
-                                                            .circular(7),
+                                                        BorderRadius.circular(
+                                                            7),
                                                   ),
                                                   child: Center(
                                                     child: Text(
@@ -567,8 +540,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                           fontFamily:
                                                               "Roboto_Regular",
                                                           fontWeight:
-                                                              FontWeight
-                                                                  .w700,
+                                                              FontWeight.w700,
                                                           fontSize: SizeConfig
                                                                   .blockSizeHorizontal *
                                                               3.0,
@@ -589,18 +561,15 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                           top: parentHeight * 0.003,
                                           left: parentHeight * 0.01),
                                       child: Text(
-                                        snapshot
-                                                    .data
-                                                    ?.data?[index]
-                                                    .place?[0]
+                                        snapshot.data?.data?[index].place?[0]
                                                     .subLocality !=
                                                 null
                                             ? "${snapshot.data?.data?[index].place?[0].subLocality}"
                                             : "",
                                         style: TextStyle(
-                                            fontSize: SizeConfig
-                                                    .blockSizeHorizontal *
-                                                4.0,
+                                            fontSize:
+                                                SizeConfig.blockSizeHorizontal *
+                                                    4.0,
                                             color: CommonColor.BLACK_COLOR,
                                             fontWeight: FontWeight.w400,
                                             height: 1.6,
@@ -620,8 +589,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                 fontSize: SizeConfig
                                                         .blockSizeHorizontal *
                                                     4.0,
-                                                color:
-                                                    CommonColor.BLACK_COLOR,
+                                                color: CommonColor.BLACK_COLOR,
                                                 fontWeight: FontWeight.w400,
                                                 height: 1.6,
                                                 fontFamily: 'Roboto_Bold'),
@@ -637,8 +605,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                               color: Colors.transparent,
                                               child: Padding(
                                                 padding: EdgeInsets.only(
-                                                    right:
-                                                        parentWidth * 0.05),
+                                                    right: parentWidth * 0.05),
                                                 child: Text(
                                                   "View",
                                                   style: TextStyle(
@@ -665,17 +632,13 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                           width: SizeConfig.screenWidth,
                                           child: Padding(
                                               padding: EdgeInsets.only(
-                                                  right: SizeConfig
-                                                          .screenHeight *
-                                                      .0,
-                                                  top:
+                                                  right:
                                                       SizeConfig.screenHeight *
-                                                          .0),
-                                              child: snapshot
-                                                          .data
-                                                          ?.data?[index]
-                                                          .images
-                                                          ?.length !=
+                                                          .0,
+                                                  top: SizeConfig.screenHeight *
+                                                      .0),
+                                              child: snapshot.data?.data?[index]
+                                                          .images?.length !=
                                                       null
                                                   ? CarouselSlider.builder(
                                                       // carouselController: _controller,
@@ -686,11 +649,9 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                           ?.length,
                                                       /* snapshot.data?.data?[index].images?[0].length,*/
                                                       //widget.getChatGroupInfoData.length,
-                                                      options:
-                                                          CarouselOptions(
+                                                      options: CarouselOptions(
                                                         onPageChanged:
-                                                            (index,
-                                                                reason) {
+                                                            (index, reason) {
                                                           setState(() {
                                                             currentIndex =
                                                                 index;
@@ -701,8 +662,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                                 .screenHeight *
                                                             .27,
                                                         // aspectRatio: 1.1,
-                                                        viewportFraction:
-                                                            1.0,
+                                                        viewportFraction: 1.0,
                                                         enableInfiniteScroll:
                                                             false,
                                                         autoPlay: false,
@@ -723,8 +683,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                                   parentWidth *
                                                                       0.03),
                                                           child: SizedBox(
-                                                            width:
-                                                                parentWidth,
+                                                            width: parentWidth,
                                                             child: Column(
                                                               crossAxisAlignment:
                                                                   CrossAxisAlignment
@@ -736,18 +695,23 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                                           0.02),
                                                                   child:
                                                                       Container(
-                                                                    height: parentHeight *
-                                                                        .23,
-                                                                    width: parentWidth *
-                                                                        .94,
+                                                                    height:
+                                                                        parentHeight *
+                                                                            .23,
+                                                                    width:
+                                                                        parentWidth *
+                                                                            .94,
                                                                     decoration:
                                                                         BoxDecoration(
-                                                                            image: DecorationImage(
-                                                                      image: snapshot.data?.data?[index].images != null
+                                                                            image:
+                                                                                DecorationImage(
+                                                                      image: snapshot.data?.data?[index].images !=
+                                                                              null
                                                                           ? NetworkImage(
                                                                               "http://masjid.exportica.in/${snapshot.data?.data?[index].images?[index1]}",
                                                                             )
-                                                                          : const NetworkImage(""),
+                                                                          : const NetworkImage(
+                                                                              ""),
                                                                       fit: BoxFit
                                                                           .cover,
                                                                     )),
@@ -770,18 +734,14 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                         children: [
                                           for (int i = 0;
                                               i <
-                                                  (snapshot
-                                                          .data
-                                                          ?.data?[index]
-                                                          .images
-                                                          ?.length ??
+                                                  (snapshot.data?.data?[index]
+                                                          .images?.length ??
                                                       0);
                                               i++)
                                             Container(
                                               width: 7,
                                               height: 7,
-                                              margin:
-                                                  const EdgeInsets.all(2),
+                                              margin: const EdgeInsets.all(2),
                                               decoration: BoxDecoration(
                                                 color: currentIndex == i
                                                     ? Colors.green
@@ -804,24 +764,18 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                   BorderRadius.circular(20),
                                               boxShadow: <BoxShadow>[
                                                 BoxShadow(
-                                                  color:
-                                                      Colors.grey.shade300,
+                                                  color: Colors.grey.shade300,
                                                   spreadRadius: 1,
                                                   blurRadius: 5,
-                                                  offset:
-                                                      const Offset(0, 5),
+                                                  offset: const Offset(0, 5),
                                                 ),
                                                 BoxShadow(
-                                                  color:
-                                                      Colors.grey.shade50,
-                                                  offset:
-                                                      const Offset(-5, 0),
+                                                  color: Colors.grey.shade50,
+                                                  offset: const Offset(-5, 0),
                                                 ),
                                                 BoxShadow(
-                                                  color:
-                                                      Colors.grey.shade50,
-                                                  offset:
-                                                      const Offset(5, 0),
+                                                  color: Colors.grey.shade50,
+                                                  offset: const Offset(5, 0),
                                                 )
                                               ],
                                             ),
@@ -829,16 +783,15 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                               children: [
                                                 ClipRRect(
                                                   borderRadius:
-                                                      const BorderRadius
-                                                              .only(
-                                                          topRight: Radius
-                                                              .circular(10),
-                                                          topLeft: Radius
-                                                              .circular(
+                                                      const BorderRadius.only(
+                                                          topRight:
+                                                              Radius.circular(
+                                                                  10),
+                                                          topLeft:
+                                                              Radius.circular(
                                                                   10)),
                                                   child: Container(
-                                                    height:
-                                                        parentHeight * 0.04,
+                                                    height: parentHeight * 0.04,
                                                     decoration: const BoxDecoration(
                                                         gradient: LinearGradient(
                                                             begin: Alignment
@@ -857,7 +810,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "DAILY TIME",
+                                                          "JAMMAT TIME",
                                                           style: TextStyle(
                                                             fontSize: SizeConfig
                                                                     .blockSizeHorizontal *
@@ -865,8 +818,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                             fontFamily:
                                                                 'Roboto_Bold',
                                                             fontWeight:
-                                                                FontWeight
-                                                                    .w600,
+                                                                FontWeight.w600,
                                                             color: CommonColor
                                                                 .WHITE_COLOR,
                                                           ),
@@ -876,8 +828,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                   ),
                                                 ),
                                                 SizedBox(
-                                                  height:
-                                                      parentHeight * 0.13,
+                                                  height: parentHeight * 0.13,
 
                                                   //  color: Colors.red,
                                                   child: Row(
@@ -887,13 +838,13 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                         children: [
                                                           Padding(
                                                             padding: EdgeInsets.only(
-                                                                top: parentHeight *
-                                                                    0.027,
+                                                                top:
+                                                                    parentHeight *
+                                                                        0.027,
                                                                 right:
                                                                     parentHeight *
                                                                         0.0),
-                                                            child:
-                                                                const Text(
+                                                            child: const Text(
                                                               "AZAN",
                                                               style: TextStyle(
                                                                   color: Colors
@@ -903,21 +854,27 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w500,
-                                                                  fontSize:
-                                                                      10),
+                                                                  fontSize: 10),
                                                             ),
                                                           ),
                                                           Padding(
-                                                            padding: EdgeInsets
-                                                                .only(
-                                                                    top: parentHeight *
+                                                            padding: EdgeInsets.only(
+                                                                top:
+                                                                    parentHeight *
                                                                         0.0),
                                                             child: Container(
-                                                                width: parentWidth * 0.14,
-                                                                height: parentHeight * 0.024,
-                                                                decoration: const BoxDecoration(
-                                                                    // color: Colors.blue,
-                                                                    border: Border(bottom: BorderSide(width: 1, color: CommonColor.SEARCH_COLOR))),
+                                                                width:
+                                                                    parentWidth *
+                                                                        0.14,
+                                                                height:
+                                                                    parentHeight *
+                                                                        0.024,
+                                                                decoration:
+                                                                    const BoxDecoration(
+                                                                        // color: Colors.blue,
+                                                                        border: Border(
+                                                                            bottom:
+                                                                                BorderSide(width: 1, color: CommonColor.SEARCH_COLOR))),
                                                                 child: Padding(
                                                                   padding: EdgeInsets.only(
                                                                       left: parentWidth *
@@ -929,16 +886,20 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                                         fontFamily:
                                                                             'Roboto_Bold',
                                                                         fontWeight:
-                                                                            FontWeight.w500,
-                                                                        color: CommonColor.BLACK_COLOR,
-                                                                        fontSize: 10),
+                                                                            FontWeight
+                                                                                .w500,
+                                                                        color: CommonColor
+                                                                            .BLACK_COLOR,
+                                                                        fontSize:
+                                                                            10),
                                                                   ),
                                                                 )),
                                                           ),
                                                           Padding(
                                                             padding: EdgeInsets.only(
-                                                                top: parentHeight *
-                                                                    0.01,
+                                                                top:
+                                                                    parentHeight *
+                                                                        0.01,
                                                                 left:
                                                                     parentWidth *
                                                                         0.0),
@@ -949,8 +910,9 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                                   style: TextStyle(
                                                                       fontFamily:
                                                                           'Roboto_Bold',
-                                                                      fontWeight: FontWeight
-                                                                          .w500,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
                                                                       color: CommonColor
                                                                           .BLACK_COLOR,
                                                                       fontSize:
@@ -971,77 +933,91 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                                     null
                                                                 ?*/
                                                       Expanded(
-                                                        child: ListView
-                                                            .builder(
-                                                                shrinkWrap:
-                                                                    true,
-                                                                itemCount: snapshot
-                                                                    .data
-                                                                    ?.data?[
-                                                                        0]
-                                                                    .weeklyNamaz
-                                                                    ?.length,
-                                                                scrollDirection:
-                                                                    Axis
-                                                                        .horizontal,
-                                                                physics:
-                                                                    const NeverScrollableScrollPhysics(),
-                                                                itemBuilder:
-                                                                    (context,
-                                                                        index1) {
-                                                                  return Column(
-                                                                    // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                                    children: [
-                                                                      Padding(
-                                                                        padding:
-                                                                            EdgeInsets.only(top: parentHeight * 0.01, right: parentHeight * 0.006),
-                                                                        child:
-                                                                            Text(
-                                                                          "${snapshot.data?.data?[index].weeklyNamaz?[index1].day}",
-                                                                          style: const TextStyle(fontFamily: 'Roboto_Bold', fontWeight: FontWeight.w500, color: CommonColor.BLACK_COLOR, fontSize: 10),
-                                                                        ),
-                                                                      ),
-                                                                      Padding(
-                                                                        padding:
-                                                                            EdgeInsets.only(top: parentHeight * 0.01),
-                                                                        child:
-                                                                            Container(
-                                                                          width: parentWidth * 0.145,
-                                                                          height: parentHeight * 0.031,
-                                                                          decoration: const BoxDecoration(
-                                                                              // color: Colors.blue,
-                                                                              border: Border(bottom: BorderSide(width: 1, color: CommonColor.SEARCH_COLOR))),
-                                                                          child: Padding(
-                                                                            padding: EdgeInsets.only(
-                                                                                //left: parentHeight * 0.0,
-                                                                                left: parentHeight * 0.006),
-                                                                            child: Row(
-                                                                              children: [
-                                                                                Text(
-                                                                                  "${snapshot.data?.data?[index].weeklyNamaz?[index1].azan}",
-                                                                                  style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 3.0),
-                                                                                ),
-                                                                              ],
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                      Padding(
-                                                                        padding:
-                                                                            EdgeInsets.only(top: parentHeight * 0.01, right: parentHeight * 0.00),
+                                                        child: ListView.builder(
+                                                            shrinkWrap: true,
+                                                            itemCount: snapshot
+                                                                .data
+                                                                ?.data?[0]
+                                                                .weeklyNamaz
+                                                                ?.length,
+                                                            scrollDirection:
+                                                                Axis.horizontal,
+                                                            physics:
+                                                                const NeverScrollableScrollPhysics(),
+                                                            itemBuilder:
+                                                                (context,
+                                                                    index1) {
+                                                              return Column(
+                                                                // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                children: [
+                                                                  Padding(
+                                                                    padding: EdgeInsets.only(
+                                                                        top: parentHeight *
+                                                                            0.01,
+                                                                        right: parentHeight *
+                                                                            0.006),
+                                                                    child: Text(
+                                                                      "${snapshot.data?.data?[index].weeklyNamaz?[index1].day}",
+                                                                      style: const TextStyle(
+                                                                          fontFamily:
+                                                                              'Roboto_Bold',
+                                                                          fontWeight: FontWeight
+                                                                              .w500,
+                                                                          color: CommonColor
+                                                                              .BLACK_COLOR,
+                                                                          fontSize:
+                                                                              10),
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding: EdgeInsets.only(
+                                                                        top: parentHeight *
+                                                                            0.01),
+                                                                    child:
+                                                                        Container(
+                                                                      width: parentWidth *
+                                                                          0.145,
+                                                                      height: parentHeight *
+                                                                          0.031,
+                                                                      decoration: const BoxDecoration(
+                                                                          // color: Colors.blue,
+                                                                          border: Border(bottom: BorderSide(width: 1, color: CommonColor.SEARCH_COLOR))),
+                                                                      child:
+                                                                          Padding(
+                                                                        padding: EdgeInsets.only(
+                                                                            //left: parentHeight * 0.0,
+                                                                            left: parentHeight * 0.006),
                                                                         child:
                                                                             Row(
                                                                           children: [
                                                                             Text(
-                                                                              "${snapshot.data?.data?[index].weeklyNamaz?[index1].jammat}",
+                                                                              "${snapshot.data?.data?[index].weeklyNamaz?[index1].azan}",
                                                                               style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 3.0),
                                                                             ),
                                                                           ],
                                                                         ),
                                                                       ),
-                                                                    ],
-                                                                  );
-                                                                }),
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding: EdgeInsets.only(
+                                                                        top: parentHeight *
+                                                                            0.01,
+                                                                        right: parentHeight *
+                                                                            0.00),
+                                                                    child: Row(
+                                                                      children: [
+                                                                        Text(
+                                                                          "${snapshot.data?.data?[index].weeklyNamaz?[index1].jammat}",
+                                                                          style:
+                                                                              TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 3.0),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              );
+                                                            }),
                                                       )
                                                       /*   : Container();
                                                           })*/
@@ -1066,24 +1042,23 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                             child: Column(
                                               children: [
                                                 Container(
-                                                    height:
-                                                        parentHeight * 0.04,
-                                                    decoration:
-                                                        BoxDecoration(
-                                                      gradient: const LinearGradient(
-                                                          begin: Alignment
-                                                              .centerLeft,
-                                                          end: Alignment
-                                                              .centerRight,
-                                                          colors: [
+                                                    height: parentHeight * 0.04,
+                                                    decoration: BoxDecoration(
+                                                      gradient:
+                                                          const LinearGradient(
+                                                              begin: Alignment
+                                                                  .centerLeft,
+                                                              end: Alignment
+                                                                  .centerRight,
+                                                              colors: [
                                                             CommonColor
                                                                 .LEFT_COLOR,
                                                             CommonColor
                                                                 .RIGHT_COLOR
                                                           ]),
                                                       borderRadius:
-                                                          BorderRadius
-                                                              .circular(30),
+                                                          BorderRadius.circular(
+                                                              30),
                                                     ),
                                                     child: Row(
                                                       mainAxisAlignment:
@@ -1103,9 +1078,9 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w700,
-                                                                fontSize:
-                                                                    SizeConfig.blockSizeHorizontal *
-                                                                        4.0,
+                                                                fontSize: SizeConfig
+                                                                        .blockSizeHorizontal *
+                                                                    4.0,
                                                                 color: CommonColor
                                                                     .WHITE_COLOR),
                                                           ),
@@ -1115,8 +1090,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                               right:
                                                                   parentWidth *
                                                                       0.05),
-                                                          child:
-                                                              Image.asset(
+                                                          child: Image.asset(
                                                             'assets/images/up_arrow.png',
                                                           ),
                                                         ),
@@ -1125,26 +1099,24 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                 Visibility(
                                                     visible: FridayTime,
                                                     child: Container(
-                                                      height: parentHeight *
-                                                          0.13,
-                                                      decoration:
-                                                          BoxDecoration(
+                                                      height:
+                                                          parentHeight * 0.13,
+                                                      decoration: BoxDecoration(
                                                         color: Colors.white,
-                                                        borderRadius: const BorderRadius
-                                                                .only(
-                                                            bottomRight:
-                                                                Radius
+                                                        borderRadius:
+                                                            const BorderRadius
+                                                                    .only(
+                                                                bottomRight:
+                                                                    Radius
+                                                                        .circular(
+                                                                            20),
+                                                                bottomLeft: Radius
                                                                     .circular(
-                                                                        20),
-                                                            bottomLeft: Radius
-                                                                .circular(
-                                                                    20)),
-                                                        boxShadow: <
-                                                            BoxShadow>[
+                                                                        20)),
+                                                        boxShadow: <BoxShadow>[
                                                           BoxShadow(
                                                             color: Colors
-                                                                .grey
-                                                                .shade300,
+                                                                .grey.shade300,
                                                             spreadRadius: 1,
                                                             blurRadius: 5,
                                                             offset:
@@ -1153,16 +1125,14 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                           ),
                                                           BoxShadow(
                                                             color: Colors
-                                                                .grey
-                                                                .shade50,
+                                                                .grey.shade50,
                                                             offset:
                                                                 const Offset(
                                                                     -5, 0),
                                                           ),
                                                           BoxShadow(
                                                             color: Colors
-                                                                .grey
-                                                                .shade50,
+                                                                .grey.shade50,
                                                             offset:
                                                                 const Offset(
                                                                     5, 0),
@@ -1186,10 +1156,14 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                                     Text(
                                                                       "JAMAAT",
                                                                       style: TextStyle(
-                                                                          fontFamily: 'Roboto_Bold',
-                                                                          fontWeight: FontWeight.w500,
-                                                                          color: CommonColor.BLACK_COLOR,
-                                                                          fontSize: 14),
+                                                                          fontFamily:
+                                                                              'Roboto_Bold',
+                                                                          fontWeight: FontWeight
+                                                                              .w500,
+                                                                          color: CommonColor
+                                                                              .BLACK_COLOR,
+                                                                          fontSize:
+                                                                              14),
                                                                     ),
                                                                   ],
                                                                 ),
@@ -1198,16 +1172,17 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                           ),
                                                           FutureBuilder<
                                                                   AllMasjitJoinListResponceModel>(
-                                                              future:
-                                                                  getNotice,
+                                                              future: getNotice,
                                                               builder: (context,
                                                                   snapshot) {
                                                                 return Column(
                                                                   // mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                                   children: [
                                                                     Padding(
-                                                                      padding:
-                                                                          const EdgeInsets.only(top: 12),
+                                                                      padding: const EdgeInsets
+                                                                              .only(
+                                                                          top:
+                                                                              12),
                                                                       child: SizedBox(
                                                                           // color: Colors.red,
                                                                           height: parentHeight * 0.11,
@@ -1244,11 +1219,228 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                             ),
                                           ),
                                         ),
-                                        getAddshariIftarLayout(
+                                        /* getAddshariIftarLayout(
                                             SizeConfig.screenHeight,
                                             SizeConfig.screenWidth,
                                             "${snapshot.data?.data?[index].sahr}",
-                                            "${snapshot.data?.data?[index].iftar}"),
+                                            "${snapshot.data?.data?[index].iftar}"),*/
+                                        GestureDetector(
+                                          onTapDown: (tab) {
+                                            setState(() {
+                                              shariIftar = !shariIftar;
+                                            });
+                                          },
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                                top: parentHeight * 0.01,
+                                                left: parentWidth * 0.0,
+                                                right: parentWidth * 0.0),
+                                            child: Column(
+                                              children: [
+                                                Container(
+                                                    height: parentHeight * 0.04,
+                                                    decoration: BoxDecoration(
+                                                      gradient:
+                                                          const LinearGradient(
+                                                              begin: Alignment
+                                                                  .centerLeft,
+                                                              end: Alignment
+                                                                  .centerRight,
+                                                              colors: [
+                                                            CommonColor
+                                                                .LEFT_COLOR,
+                                                            CommonColor
+                                                                .RIGHT_COLOR
+                                                          ]),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              30),
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Padding(
+                                                          padding: EdgeInsets.only(
+                                                              left:
+                                                                  parentWidth *
+                                                                      0.33),
+                                                          child: Text(
+                                                            "SAHAR / IFTAR",
+                                                            style: TextStyle(
+                                                                fontFamily:
+                                                                    "Roboto_Regular",
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w700,
+                                                                fontSize: SizeConfig
+                                                                        .blockSizeHorizontal *
+                                                                    4.0,
+                                                                color: CommonColor
+                                                                    .WHITE_COLOR),
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding: EdgeInsets.only(
+                                                              right:
+                                                                  parentWidth *
+                                                                      0.05),
+                                                          child: Image.asset(
+                                                            'assets/images/up_arrow.png',
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    )),
+                                                Visibility(
+                                                    visible: shariIftar,
+                                                    child: Container(
+                                                        height:
+                                                            parentHeight * 0.13,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: Colors.white,
+                                                          borderRadius:
+                                                              const BorderRadius
+                                                                      .only(
+                                                                  bottomRight: Radius
+                                                                      .circular(
+                                                                          20),
+                                                                  bottomLeft: Radius
+                                                                      .circular(
+                                                                          20)),
+                                                          boxShadow: <
+                                                              BoxShadow>[
+                                                            BoxShadow(
+                                                              color: Colors.grey
+                                                                  .shade300,
+                                                              spreadRadius: 1,
+                                                              blurRadius: 5,
+                                                              offset:
+                                                                  const Offset(
+                                                                      0, 5),
+                                                            ),
+                                                            BoxShadow(
+                                                              color: Colors
+                                                                  .grey.shade50,
+                                                              offset:
+                                                                  const Offset(
+                                                                      -5, 0),
+                                                            ),
+                                                            BoxShadow(
+                                                              color: Colors
+                                                                  .grey.shade50,
+                                                              offset:
+                                                                  const Offset(
+                                                                      5, 0),
+                                                            )
+                                                          ],
+                                                        ),
+                                                        child: FutureBuilder<
+                                                                AllMasjitJoinListResponceModel>(
+                                                            future: getNotice,
+                                                            builder: (context,
+                                                                snapshot) {
+                                                              return Column(
+                                                                children: [
+                                                                  Padding(
+                                                                    padding: EdgeInsets.only(
+                                                                        top: parentHeight *
+                                                                            0.02),
+                                                                    child: Row(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceBetween,
+                                                                      children: [
+                                                                        Padding(
+                                                                          padding: EdgeInsets.only(
+                                                                              left: parentWidth * 0.1,
+                                                                              top: parentHeight * 0.0),
+                                                                          child: Text(
+                                                                              "SAHAR",
+                                                                              style: TextStyle(
+                                                                                fontSize: SizeConfig.blockSizeHorizontal * 4.3,
+                                                                                fontFamily: 'Roboto_Bold',
+                                                                                fontWeight: FontWeight.w600,
+                                                                                color: CommonColor.BLACK_COLOR,
+                                                                              )),
+                                                                        ),
+                                                                        Padding(
+                                                                          padding: EdgeInsets.only(
+                                                                              right: parentWidth * 0.1,
+                                                                              top: parentHeight * 0.0),
+                                                                          child: snapshot.data?.data?[index].sahr != null
+                                                                              ? Text("${snapshot.data?.data?[index].sahr}",
+                                                                                  style: TextStyle(
+                                                                                    fontSize: SizeConfig.blockSizeHorizontal * 4.3,
+                                                                                    fontFamily: 'Roboto_Bold',
+                                                                                    fontWeight: FontWeight.w600,
+                                                                                    color: CommonColor.BLACK_COLOR,
+                                                                                  ))
+                                                                              : Text("5:30 AM",
+                                                                                  style: TextStyle(
+                                                                                    fontSize: SizeConfig.blockSizeHorizontal * 4.3,
+                                                                                    fontFamily: 'Roboto_Bold',
+                                                                                    fontWeight: FontWeight.w600,
+                                                                                    color: CommonColor.BLACK_COLOR,
+                                                                                  )),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                  Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceBetween,
+                                                                    children: [
+                                                                      Padding(
+                                                                        padding: EdgeInsets.only(
+                                                                            left: parentHeight *
+                                                                                0.05,
+                                                                            top:
+                                                                                parentHeight * 0.03),
+                                                                        child: Text(
+                                                                            "IFTAR",
+                                                                            style:
+                                                                                TextStyle(
+                                                                              fontSize: SizeConfig.blockSizeHorizontal * 4.3,
+                                                                              fontFamily: 'Roboto_Bold',
+                                                                              fontWeight: FontWeight.w600,
+                                                                              color: CommonColor.BLACK_COLOR,
+                                                                            )),
+                                                                      ),
+                                                                      Padding(
+                                                                        padding: EdgeInsets.only(
+                                                                            right: parentWidth *
+                                                                                0.1,
+                                                                            top:
+                                                                                parentHeight * 0.03),
+                                                                        child: snapshot.data?.data?[index].iftar !=
+                                                                                null
+                                                                            ? Text("${snapshot.data?.data?[index].iftar}",
+                                                                                style: TextStyle(
+                                                                                  fontSize: SizeConfig.blockSizeHorizontal * 4.3,
+                                                                                  fontFamily: 'Roboto_Bold',
+                                                                                  fontWeight: FontWeight.w600,
+                                                                                  color: CommonColor.BLACK_COLOR,
+                                                                                ))
+                                                                            : Text("5:30 AM",
+                                                                                style: TextStyle(
+                                                                                  fontSize: SizeConfig.blockSizeHorizontal * 4.3,
+                                                                                  fontFamily: 'Roboto_Bold',
+                                                                                  fontWeight: FontWeight.w600,
+                                                                                  color: CommonColor.BLACK_COLOR,
+                                                                                )),
+                                                                      )
+                                                                    ],
+                                                                  )
+                                                                ],
+                                                              );
+                                                            })))
+                                              ],
+                                            ),
+                                          ),
+                                        ),
                                         getAddEidLayout(
                                           SizeConfig.screenHeight,
                                           SizeConfig.screenWidth,
@@ -1293,8 +1485,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                             style: TextStyle(
                                 fontFamily: "Roboto_Regular",
                                 fontWeight: FontWeight.w700,
-                                fontSize:
-                                    SizeConfig.blockSizeHorizontal * 4.3,
+                                fontSize: SizeConfig.blockSizeHorizontal * 4.3,
                                 color: CommonColor.WHITE_COLOR),
                           ),
                         )),
@@ -2248,7 +2439,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
 
       print("Bannner ${jsonData['data']}");
 
-      for(int i =0;i<2;i++){
+      for (int i = 0; i < 2; i++) {
         print("${jsonData['data'][i]}");
       }
       print("Hiii");

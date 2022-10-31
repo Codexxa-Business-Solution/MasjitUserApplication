@@ -45,6 +45,8 @@ class NotificationService {
   Future<void> scheduleNotifications({
     required List<WeeklyNamaz> times,
   }) async {
+    print("schedule $times");
+
     DateTime current = DateTime.now();
 
     await notificationsPlugin.cancelAll();
