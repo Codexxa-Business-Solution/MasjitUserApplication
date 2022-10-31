@@ -161,7 +161,7 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen>
                             color: CommonColor.WHITE_COLOR,
                             fontSize:
                             SizeConfig.blockSizeHorizontal *
-                                4.0,
+                                3.1,
                             fontFamily: "Roboto_Regular",
                             fontWeight: FontWeight.w600,
                           ),
