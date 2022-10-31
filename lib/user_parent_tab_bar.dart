@@ -153,8 +153,30 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text("${box.get("currentsubLocality")}"),
-                        Text("${box.get("currentLocality")}"),
+                        Text("${box.get("currentsubLocality")} ",
+
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: CommonColor.WHITE_COLOR,
+                            fontSize:
+                            SizeConfig.blockSizeHorizontal *
+                                4.0,
+                            fontFamily: "Roboto_Regular",
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        Text("${box.get("currentLocality")}",   maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                                        color: CommonColor.WHITE_COLOR,
+                                        fontSize:
+                                            SizeConfig.blockSizeHorizontal *
+                                                3.0,
+                                        fontFamily: "Roboto_Regular",
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                        ),
                       ],
                     )
                   ],
