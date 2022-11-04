@@ -109,7 +109,7 @@ class _EndFriendDialogState extends State<EndFriendDialog> {
         children: [
           Flexible(
             child: Text(
-              "Are you sure you want to Removed Masjid from your account? You can add the same Masjid again after you Remove it.",
+              "Are you sure you want to Remove Masjid from your account? You can add the same Masjid again after you Remove it.",
               //ApplicationLocalizations.of(context)!.translate("end_friend_subtext")!,
               style: TextStyle(
                 color: CommonColor.BLACK_COLOR,
@@ -187,7 +187,7 @@ class _EndFriendDialogState extends State<EndFriendDialog> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "CANCLE",
+                "CANCEL",
                 style: TextStyle(
                   color: CommonColor.DELETE_GAME_COLOR,
                   fontSize: SizeConfig.blockSizeHorizontal * 4.4,

@@ -27,9 +27,9 @@ final PageController _pageController = PageController();
 "https://cdn.pixabay.com/photo/2015/01/28/23/10/mosque-615415_960_720.jpg"];
 
   final List<String> FrameText = [
-    "This app use for Islamic namaz timetable of masjids",
-    "Islamic prayer times are calculated based on the sunrise and sunset time of the location.",
-    "Use push notifications to send Azan Time. then auto on DND mode.",
+    "This app use for Islamic Namaz Timetable of Masjids.",
+    "Islamic prayer times are calculated based on the Sunrise and Sunset time of the location.",
+    "Use push notifications to remind Azan Time, then auto on DND mode.",
   ];
   final bool? _isNotificationPolicyAccessGranted = false;
   void setInterruptionFilter(int filter) async {
