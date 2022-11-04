@@ -1,4 +1,6 @@
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:masjiduserapp/common.color.dart';
@@ -215,6 +217,17 @@ class _EndFriendDialogState extends State<EndFriendDialog> {
       print("removedId  ${box.get(kJoinedCommonId)}");
 
       /*namazTimes.clear();*/
+
+      for(int i = 0; i < namazTimes.length; i++){
+        await AndroidAlarmManager.cancel(i);
+      }
+
+
+
+      final FlutterLocalNotificationsPlugin notificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+
+      await notificationsPlugin.cancelAll();
 
       namazTimes.clear();
 
