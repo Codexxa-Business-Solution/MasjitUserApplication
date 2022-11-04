@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -404,8 +405,6 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                           padding: EdgeInsets.only(
                                               right: parentWidth * 0.07),
                                           child: Row(
-                                            /*  mainAxisAlignment:
-                                            MainAxisAlignment.start,*/
                                             children: [
                                               Padding(
                                                 padding: EdgeInsets.only(
@@ -424,34 +423,65 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                   ),
                                                 ),
                                               ),
-                                              SizedBox(
+                                              Container(
                                                 width: parentWidth * 0.5,
                                                 // color:Colors.red,
-
-                                                child: Padding(
-                                                  padding: EdgeInsets.only(
-                                                      top: parentHeight * 0.01,
-                                                      left: parentWidth * 0.02),
-                                                  child: Text(
-                                                    snapshot
-                                                                .data
-                                                                ?.data?[index]
-                                                                .place?[0]
-                                                                .masjidName !=
-                                                            null
-                                                        ? "${snapshot.data?.data?[index].place?[0].masjidName}"
-                                                        : "",
-                                                    style: TextStyle(
-                                                        fontSize: SizeConfig
-                                                                .blockSizeHorizontal *
-                                                            4.0,
-                                                        color: CommonColor
-                                                            .BLACK_COLOR,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        fontFamily:
-                                                            'Roboto_Bold'),
-                                                  ),
+                                                child: Row(
+                                                  children: [
+                                                    Flexible(
+                                                      child: Padding(
+                                                        padding: EdgeInsets.only(
+                                                            top: parentHeight * 0.01,
+                                                            left: parentWidth * 0.02),
+                                                        child: Text(
+                                                          snapshot
+                                                                      .data
+                                                                      ?.data?[index]
+                                                                      .place?[0]
+                                                                      .masjidName !=
+                                                                  null
+                                                              ? "${snapshot.data?.data?[index].place?[0].masjidName}"
+                                                              : "",
+                                                          style: TextStyle(
+                                                              fontSize: SizeConfig
+                                                                      .blockSizeHorizontal *
+                                                                  4.0,
+                                                              color: CommonColor
+                                                                  .BLACK_COLOR,
+                                                              fontWeight:
+                                                                  FontWeight.w400,
+                                                              fontFamily:
+                                                                  'Roboto_Bold'),
+                                                          maxLines: 1,
+                                                            overflow: TextOverflow.ellipsis,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Flexible(
+                                                      child: Padding(
+                                                        padding: EdgeInsets.only(
+                                                            left: parentHeight * 0.01,
+                                                        top: 6),
+                                                        child: Text(
+                                                          snapshot.data?.data?[index].place?[0]
+                                                              .subLocality !=
+                                                              null
+                                                              ? "${snapshot.data?.data?[index].place?[0].subLocality}"
+                                                              : "",
+                                                          style: TextStyle(
+                                                              fontSize:
+                                                              SizeConfig.blockSizeHorizontal *
+                                                                  4.0,
+                                                              color: CommonColor.BLACK_COLOR,
+                                                              fontWeight: FontWeight.w400,
+                                                              height: 1.6,
+                                                              fontFamily: 'Roboto_Bold'),
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow.ellipsis,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
                                             ],
@@ -556,7 +586,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                         ),
                                       ],
                                     ),
-                                    Padding(
+                                    /*Padding(
                                       padding: EdgeInsets.only(
                                           top: parentHeight * 0.003,
                                           left: parentHeight * 0.01),
@@ -575,7 +605,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                             height: 1.6,
                                             fontFamily: 'Roboto_Bold'),
                                       ),
-                                    ),
+                                    ),*/
                                     Padding(
                                       padding: EdgeInsets.only(
                                           left: parentHeight * 0.014),
@@ -992,7 +1022,9 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                                           children: [
                                                                             Text(
                                                                               "${snapshot.data?.data?[index].weeklyNamaz?[index1].azan}",
-                                                                              style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 3.0),
+                                                                              style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 2.7),
+                                                                              maxLines: 1,
+                                                                              overflow: TextOverflow.ellipsis,
                                                                             ),
                                                                           ],
                                                                         ),
@@ -1010,7 +1042,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                                                                         Text(
                                                                           "${snapshot.data?.data?[index].weeklyNamaz?[index1].jammat}",
                                                                           style:
-                                                                              TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 3.0),
+                                                                              TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 2.7),
                                                                         ),
                                                                       ],
                                                                     ),
