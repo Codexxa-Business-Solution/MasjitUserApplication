@@ -509,7 +509,7 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen>
                                     padding: EdgeInsets.only(
                                         left: SizeConfig.screenWidth * 0.04),
                                     child: const Text(
-                                      "Are you sure you want to log out ? You can log in anytime you want again.",
+                                      "Are you sure you want to delete your account?",
                                       style: TextStyle(
                                         color: CommonColor.BLACK,
                                         fontWeight: FontWeight.w400,
