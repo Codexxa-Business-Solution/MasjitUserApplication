@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
+import 'package:http/http.dart' as http;
 import 'package:masjiduserapp/masjit_main_new_screen.dart';
+import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/deleteAccount_response_model.dart';
 import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/user_logout_responce_model.dart';
 import 'package:masjiduserapp/size_config.dart';
 import 'package:masjiduserapp/user_login_screen.dart';
+import 'package:masjiduserapp/user_registration.dart';
 import 'package:masjiduserapp/util/constant.dart';
-
-import 'package:http/http.dart' as http;
 import 'package:masjiduserapp/util/get_location.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'masjit_user_app_api/place.dart';
+
 import 'all_masjit_list.dart';
 import 'common.color.dart';
 import 'exit_app_dialog.dart';
+import 'masjit_user_app_api/place.dart';
 
 class ParentTabBarScreen extends StatefulWidget {
   const ParentTabBarScreen({Key? key}) : super(key: key);
@@ -118,7 +119,9 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen>
                 onPressed: () {
                   Future<Place?> result = Navigator.of(context).push<Place>(
                     MaterialPageRoute(
-                      builder: (context) => const GetLocation(comeFrom: "1",),
+                      builder: (context) => const GetLocation(
+                        comeFrom: "1",
+                      ),
                     ),
                   );
 
@@ -153,29 +156,27 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text("${box.get("currentsubLocality")} ",
-
+                        Text(
+                          "${box.get("currentsubLocality")} ",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             color: CommonColor.WHITE_COLOR,
-                            fontSize:
-                            SizeConfig.blockSizeHorizontal *
-                                3.1,
+                            fontSize: SizeConfig.blockSizeHorizontal * 3.1,
                             fontFamily: "Roboto_Regular",
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        Text("${box.get("currentLocality")}",   maxLines: 1,
+                        Text(
+                          "${box.get("currentLocality")}",
+                          maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                                        color: CommonColor.WHITE_COLOR,
-                                        fontSize:
-                                            SizeConfig.blockSizeHorizontal *
-                                                3.0,
-                                        fontFamily: "Roboto_Regular",
-                                        fontWeight: FontWeight.w600,
-                                      ),
+                          style: TextStyle(
+                            color: CommonColor.WHITE_COLOR,
+                            fontSize: SizeConfig.blockSizeHorizontal * 3.0,
+                            fontFamily: "Roboto_Regular",
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ],
                     )
@@ -489,6 +490,181 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen>
                         ),
                       ),
                     ),
+                    ListTile(
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (ctx) => AlertDialog(
+                                  title: const Center(
+                                      child: Text(
+                                    "Delete Account",
+                                    style: TextStyle(
+                                      color: CommonColor.REGISTRARTION_COLOR,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 20,
+                                      fontFamily: 'Roboto_Medium',
+                                    ),
+                                  )),
+                                  content: Padding(
+                                    padding: EdgeInsets.only(
+                                        left: SizeConfig.screenWidth * 0.04),
+                                    child: const Text(
+                                      "Are you sure you want to log out ? You can log in anytime you want again.",
+                                      style: TextStyle(
+                                        color: CommonColor.BLACK,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 14,
+                                        fontFamily: 'Roboto_Medium',
+                                      ),
+                                    ),
+                                  ),
+                                  actions: <Widget>[
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          bottom:
+                                              SizeConfig.screenHeight * 0.03),
+                                      child: Center(
+                                        child: Column(
+                                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                getDeleteAccount();
+
+                                                //cityController.text.isEmpty ? _validate = true : _validate = false;
+                                              },
+                                              child: Padding(
+                                                padding: EdgeInsets.only(
+                                                    left:
+                                                        SizeConfig.screenWidth *
+                                                            0.1,
+                                                    right:
+                                                        SizeConfig.screenWidth *
+                                                            0.1),
+                                                child: Container(
+                                                    height: SizeConfig
+                                                            .screenHeight *
+                                                        0.05,
+                                                    decoration: BoxDecoration(
+                                                      gradient:
+                                                          const LinearGradient(
+                                                              begin: Alignment
+                                                                  .centerLeft,
+                                                              end: Alignment
+                                                                  .centerRight,
+                                                              colors: [
+                                                            CommonColor
+                                                                .LEFT_COLOR,
+                                                            CommonColor
+                                                                .RIGHT_COLOR
+                                                          ]),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              30),
+                                                    ),
+                                                    child: Center(
+                                                      child: Text(
+                                                        "Yes",
+                                                        style: TextStyle(
+                                                            fontFamily:
+                                                                "Roboto_Regular",
+                                                            fontWeight:
+                                                                FontWeight.w700,
+                                                            fontSize: SizeConfig
+                                                                    .blockSizeHorizontal *
+                                                                4.5,
+                                                            color: CommonColor
+                                                                .WHITE_COLOR),
+                                                      ),
+                                                    )),
+                                              ),
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: Padding(
+                                                padding: EdgeInsets.only(
+                                                    top: SizeConfig
+                                                            .screenHeight *
+                                                        0.03),
+                                                child: GestureDetector(
+                                                  child: Padding(
+                                                    padding: EdgeInsets.only(
+                                                        top: SizeConfig
+                                                                .screenHeight *
+                                                            0.0,
+                                                        left: SizeConfig
+                                                                .screenWidth *
+                                                            0.1,
+                                                        right: SizeConfig
+                                                                .screenWidth *
+                                                            0.1),
+                                                    child: Container(
+                                                        height: SizeConfig
+                                                                .screenHeight *
+                                                            0.05,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          gradient: const LinearGradient(
+                                                              begin: Alignment
+                                                                  .centerLeft,
+                                                              end: Alignment
+                                                                  .centerRight,
+                                                              colors: [
+                                                                CommonColor
+                                                                    .LEFT_COLOR,
+                                                                CommonColor
+                                                                    .RIGHT_COLOR
+                                                              ]),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(30),
+                                                        ),
+                                                        child: Center(
+                                                          child: Text(
+                                                            "Cancel",
+                                                            style: TextStyle(
+                                                                fontFamily:
+                                                                    "Roboto_Regular",
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w700,
+                                                                fontSize: SizeConfig
+                                                                        .blockSizeHorizontal *
+                                                                    4.5,
+                                                                color: CommonColor
+                                                                    .WHITE_COLOR),
+                                                          ),
+                                                        )),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                ));
+                      },
+                      // leading: Icon(Icons.message),
+                      title: Padding(
+                        padding: EdgeInsets.only(
+                            left: SizeConfig.screenWidth * 0.02),
+                        child: const Text(
+                          "Delete Account",
+                          style: TextStyle(
+                              fontSize: 13,
+                              fontFamily: 'Roboto_Medium',
+                              fontWeight: FontWeight.w500,
+                              color: CommonColor.REGISTRARTION_COLOR),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -594,6 +770,35 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen>
       print("Hiii");
 
       return useLogoutResponceModelFromJson(response.body);
+    } else {
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      throw Exception('Failed to create album.');
+    }
+  }
+
+  Future<DeleteAccount> getDeleteAccount() async {
+    print(" tokennn ${box.get(kToken)}");
+
+    var headersList = {'Authorization': 'Bearer ${box.get(kToken)}'};
+
+    var response = await http.get(
+        Uri.parse('http://masjid.exportica.in/api/user/delete_account'),
+        headers: headersList);
+
+    if (response.statusCode == 200) {
+      print("Yess.. ${response.body}");
+
+      print("delete");
+
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => UserRegistration(
+                    phoneNum: '',
+                  )));
+
+      return deleteAccountFromJson(response.body);
     } else {
       // If the server did not return a 201 CREATED response,
       // then throw an exception.
