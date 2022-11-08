@@ -146,7 +146,7 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
           Padding(
             padding: EdgeInsets.only(top: parentHeight * 0.07),
             child: Text(
-              "SAHR / IFTAR",
+              "SAHAR / IFTAR",
               style: TextStyle(
                   fontSize: SizeConfig.blockSizeHorizontal * 5.0,
                   fontFamily: 'Roboto_Medium',
@@ -316,32 +316,7 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
                           ),
                         ),
                       ),
-                      /*Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            // width: SizeConfig.screenWidth * .09,
-                            child: Image.asset(
-                              'assets/images/showImage.png',
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(right: parentWidth * 0.0),
-                            child: TextButton(
-                              child: Text(
-                                "Show",
-                                style: TextStyle(
-                                    fontFamily: "Roboto_Regular",
-                                    fontWeight: FontWeight.w400,
-                                    fontSize:
-                                        SizeConfig.blockSizeHorizontal * 4.0,
-                                    color: CommonColor.SHOW_BUTTON),
-                              ),
-                              onPressed: () {},
-                            ),
-                          ),
-                        ],
-                      ),*/
+
                     ],
                   ),
                 ),

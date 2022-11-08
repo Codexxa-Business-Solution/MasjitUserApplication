@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'notice_response_model.dart';
+
 AllMasjitJoinListResponceModel allMasjitJoinListResponceModelFromJson(String str) => AllMasjitJoinListResponceModel.fromJson(json.decode(str));
 
 String allMasjitJoinListResponceModelToJson(AllMasjitJoinListResponceModel data) => json.encode(data.toJson());
@@ -160,26 +162,26 @@ class Place {
   };
 }
 
-class WeeklyNamaz {
-  WeeklyNamaz({
-    this.day,
-    this.azan,
-    this.jammat,
-  });
-
-  String? day;
-  String? azan;
-  String? jammat;
-
-  factory WeeklyNamaz.fromJson(Map<String, dynamic> json) => WeeklyNamaz(
-    day: json["day"],
-    azan: json["azan"],
-    jammat: json["jammat"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "day": day,
-    "azan": azan,
-    "jammat": jammat,
-  };
-}
+// class WeeklyNamaz {
+//   WeeklyNamaz({
+//     this.day,
+//     this.azan,
+//     this.jammat,
+//   });
+//
+//   String? day;
+//   String? azan;
+//   String? jammat;
+//
+//   factory WeeklyNamaz.fromJson(Map<String, dynamic> json) => WeeklyNamaz(
+//     day: json["day"],
+//     azan: json["azan"],
+//     jammat: json["jammat"],
+//   );
+//
+//   Map<String, dynamic> toJson() => {
+//     "day": day,
+//     "azan": azan,
+//     "jammat": jammat,
+//   };
+// }

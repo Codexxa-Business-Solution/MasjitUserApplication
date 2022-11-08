@@ -16,6 +16,7 @@ class CommonColor{
   static const MASJIT_NAME = const Color(0xFF414141);
   static const RED_COLOR= const Color(0xFFE90000);
   static const DIVIDER_COLOR = const Color(0xFFCBCBCB);
+  static const GENERAL_POST_CONTAINER_COLOR = const Color(0xFFCDD2FD);
 
 
   static const LOGO_COLOR = const Color(0xFF3a81d8);

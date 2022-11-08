@@ -78,6 +78,7 @@ class NotificationService {
           uiLocalNotificationDateInterpretation:
               UILocalNotificationDateInterpretation.absoluteTime,
         );
+
         await AndroidAlarmManager.oneShot(
           dndTime.difference(current),
           i,
@@ -85,6 +86,8 @@ class NotificationService {
           exact: true,
           allowWhileIdle: true,
         );
+
+        break;
       }
     }
   }

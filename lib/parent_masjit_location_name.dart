@@ -1,4 +1,3 @@
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -16,7 +15,6 @@ import 'notice_user_tab.dart';
 import 'package:http/http.dart' as http;
 
 List<WeeklyNamaz> namazTimes = [];
-
 
 class MasjitNameLocation extends StatefulWidget {
   const MasjitNameLocation(
@@ -56,8 +54,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
   var getMasjidInfo;
   var getMasjidJoinButton;
   late final NotificationService service;
-
-
+  List<WeeklyNamaz> namazTimes = [];
 
   @override
   void initState() {
@@ -70,6 +67,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
         getMasjidInfo = getNoticeSection(widget.masjitId);
         //  getMasjidJoinButton = getJoinButtonSection(widget.masjitId);
         print(getMasjidInfo);
+
         print("parentScreenId ${widget.masjitId}");
       });
     }
@@ -646,7 +644,8 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
                       future: getMasjidInfo,
                       builder: (context, snapshot) {
                         return Expanded(
-                            child: snapshot.data?.weeklyNamaz?.isNotEmpty ?? false
+                            child: snapshot.data?.weeklyNamaz?.isNotEmpty ??
+                                    false
                                 ? ListView.builder(
                                     shrinkWrap: true,
                                     itemCount:
@@ -659,9 +658,11 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
                                       for (WeeklyNamaz time
                                           in snapshot.data?.weeklyNamaz ?? []) {
                                         namazTimes.add(time);
+                                        // box.put(kWeeklyTimes, time);
                                         print("trimmeeeeesss $namazTimes");
                                       }
 
+                                      // print(" timer ${box.get(kWeeklyTimes)}");
 
                                       return Column(
                                         // mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -796,13 +797,12 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
                 ),
               ),
             ),
-
             Row(
               //mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Column(
                   children: [
-                   /* Padding(
+                    /* Padding(
                       padding: EdgeInsets.only(top: parentHeight * 0.03),
                       child: Padding(
                         padding: EdgeInsets.only(left: parentWidth * 0.0),
@@ -840,7 +840,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
                       return Column(
                         // mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                        /*  Padding(
+                          /*  Padding(
                             padding: EdgeInsets.only(
                                 top: parentHeight * 0.03,
                                 right: parentHeight * 0.25),
@@ -982,21 +982,25 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
                               padding: EdgeInsets.only(
                                   right: parentWidth * 0.1,
                                   top: parentHeight * 0.02),
-                              child: snapshot.data?.sahr != null ? Text("${snapshot.data?.sahr}",
-                                  style: TextStyle(
-                                    fontSize:
-                                        SizeConfig.blockSizeHorizontal * 4.3,
-                                    fontFamily: 'Roboto_Bold',
-                                    fontWeight: FontWeight.w600,
-                                    color: CommonColor.BLACK_COLOR,
-                                  )):Text("5:30 AM",
-                                  style: TextStyle(
-                                    fontSize:
-                                        SizeConfig.blockSizeHorizontal * 4.3,
-                                    fontFamily: 'Roboto_Bold',
-                                    fontWeight: FontWeight.w600,
-                                    color: CommonColor.BLACK_COLOR,
-                                  )),
+                              child: snapshot.data?.sahr != null
+                                  ? Text("${snapshot.data?.sahr}",
+                                      style: TextStyle(
+                                        fontSize:
+                                            SizeConfig.blockSizeHorizontal *
+                                                4.3,
+                                        fontFamily: 'Roboto_Bold',
+                                        fontWeight: FontWeight.w600,
+                                        color: CommonColor.BLACK_COLOR,
+                                      ))
+                                  : Text("5:30 AM",
+                                      style: TextStyle(
+                                        fontSize:
+                                            SizeConfig.blockSizeHorizontal *
+                                                4.3,
+                                        fontFamily: 'Roboto_Bold',
+                                        fontWeight: FontWeight.w600,
+                                        color: CommonColor.BLACK_COLOR,
+                                      )),
                             ),
                           ],
                         ),
@@ -1020,21 +1024,25 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
                                 padding: EdgeInsets.only(
                                     right: parentWidth * 0.1,
                                     top: parentHeight * 0.02),
-                                child:snapshot.data?.iftar != null ? Text("${snapshot.data?.iftar}",
-                                    style: TextStyle(
-                                      fontSize:
-                                          SizeConfig.blockSizeHorizontal * 4.3,
-                                      fontFamily: 'Roboto_Bold',
-                                      fontWeight: FontWeight.w600,
-                                      color: CommonColor.BLACK_COLOR,
-                                    )) : Text("5:30 AM",
-                                    style: TextStyle(
-                                      fontSize:
-                                          SizeConfig.blockSizeHorizontal * 4.3,
-                                      fontFamily: 'Roboto_Bold',
-                                      fontWeight: FontWeight.w600,
-                                      color: CommonColor.BLACK_COLOR,
-                                    )))
+                                child: snapshot.data?.iftar != null
+                                    ? Text("${snapshot.data?.iftar}",
+                                        style: TextStyle(
+                                          fontSize:
+                                              SizeConfig.blockSizeHorizontal *
+                                                  4.3,
+                                          fontFamily: 'Roboto_Bold',
+                                          fontWeight: FontWeight.w600,
+                                          color: CommonColor.BLACK_COLOR,
+                                        ))
+                                    : Text("5:30 AM",
+                                        style: TextStyle(
+                                          fontSize:
+                                              SizeConfig.blockSizeHorizontal *
+                                                  4.3,
+                                          fontFamily: 'Roboto_Bold',
+                                          fontWeight: FontWeight.w600,
+                                          color: CommonColor.BLACK_COLOR,
+                                        )))
                           ],
                         )
                       ],

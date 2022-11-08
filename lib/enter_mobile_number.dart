@@ -124,7 +124,7 @@ class _EnterMobileNumberState extends State<EnterMobileNumber> {
           Padding(
             padding: EdgeInsets.only(top: parentHeight * 0.07),
             child: Text(
-              "SAHR / IFTAR",
+              "SAHAR / IFTAR",
               style: TextStyle(
                   fontSize: SizeConfig.blockSizeHorizontal * 5.0,
                   fontFamily: 'Roboto_Medium',
