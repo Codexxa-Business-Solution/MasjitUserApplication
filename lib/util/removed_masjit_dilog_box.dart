@@ -13,15 +13,12 @@ import 'package:masjiduserapp/util/constant.dart';
 
 class EndFriendDialog extends StatefulWidget {
   final EndFriendDialogInterface mListener;
-  final int index;
   final String masjitRemoveIdd;
-  final List joinedMasjid;
 
   const EndFriendDialog(
       {required this.mListener,
-      required this.index,
       required this.masjitRemoveIdd,
-      required this.joinedMasjid});
+      });
 
   @override
   _EndFriendDialogState createState() => _EndFriendDialogState();
@@ -133,9 +130,9 @@ class _EndFriendDialogState extends State<EndFriendDialog> {
 
         print("AlreadyTimmeeeee $namazTimes");
 
-        NotificationService().scheduleNotifications(times: namazTimes);
+        // NotificationService().scheduleNotifications(times: namazTimes);
 
-        getRemoveMasjit(widget.masjitRemoveIdd, widget.index);
+        getRemoveMasjit(widget.masjitRemoveIdd);
       },
       onDoubleTap: () {},
       child: Padding(
@@ -203,7 +200,7 @@ class _EndFriendDialogState extends State<EndFriendDialog> {
   }
 
   Future<UseRemoveResponceModel> getRemoveMasjit(
-      masjitIdRemoved, int index) async {
+      masjitIdRemoved) async {
     var headersList = {'Authorization': 'Bearer ${box.get(kToken)}'};
 
     var response = await http.get(
@@ -212,15 +209,14 @@ class _EndFriendDialogState extends State<EndFriendDialog> {
         headers: headersList);
 
     if (response.statusCode == 200) {
-      widget.joinedMasjid.removeAt(index);
       //var removeId = box.get(kJoinedCommonId);
       print("removedId  ${box.get(kJoinedCommonId)}");
 
       /*namazTimes.clear();*/
 
-      for(int i = 0; i < namazTimes.length; i++){
-        await AndroidAlarmManager.cancel(i);
-      }
+      // for(int i = 0; i < namazTimes.length; i++){
+      //   await AndroidAlarmManager.cancel(i);
+      // }
 
 
 

@@ -1,8 +1,14 @@
+import 'dart:convert';
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter_dnd/flutter_dnd.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/notice_response_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -42,47 +48,130 @@ class NotificationService {
     );
   }
 
-  Future<void> scheduleNotifications({
-    required List<WeeklyNamaz> times,
-  }) async {
-    print("schedule $times");
+  static Future<List<WeeklyNamaz>> getNamazTimes() async {
+    final file = File(
+        '/data/data/com.azanforsalah.user/app_flutter/time.json');
 
-    DateTime current = DateTime.now();
+    final namazJson = jsonDecode(file.readAsStringSync());
+    return List<WeeklyNamaz>.from(
+        namazJson.map((x) => WeeklyNamaz.fromJson(x)));
+  }
 
-    await notificationsPlugin.cancelAll();
+  static Future<void> scheduleNextNotification() async {
+    log('FINAL DND next next');
+    await scheduleNotifications();
+  }
 
-    tz.initializeTimeZones();
-    int i = 1;
-    for (WeeklyNamaz time in times) {
-      DateTime notificationTime = DateFormat.jm().parse(time.azan!);
-      DateTime dndTime = DateFormat.jm().parse(time.jammat!);
-      notificationTime = DateTime(current.year, current.month, current.day,
-          notificationTime.hour, notificationTime.minute);
-      dndTime = DateTime(current.year, current.month, current.day, dndTime.hour,
-          dndTime.minute);
-      bool shouldSchedule = notificationTime.isAfter(current);
-
-      if (shouldSchedule) {
-        await notificationsPlugin.zonedSchedule(
-          i++,
-          'Azan Time',
-          '',
-          tz.TZDateTime.from(notificationTime, tz.local),
+  static Future<void> callback() async {
+    FlutterDnd.setInterruptionFilter(FlutterDnd.INTERRUPTION_FILTER_NONE);
+    NotificationService().notificationsPlugin.show(
+          999999,
+          'DND is Activated',
+          'Turn off DND after Namaz Completed',
           const NotificationDetails(
             android: AndroidNotificationDetails(
               'Masjid',
               'notify about azan',
+              ongoing: true,
+              autoCancel: false,
+              actions: <AndroidNotificationAction>[
+                AndroidNotificationAction('id_1', 'Turn off'),
+              ],
             ),
           ),
-          androidAllowWhileIdle: true,
-          uiLocalNotificationDateInterpretation:
-              UILocalNotificationDateInterpretation.absoluteTime,
         );
+  }
+
+  static Future<void> scheduleNotifications() async {
+    final namaz = await getNamazTimes();
+
+    DateTime current = DateTime.now();
+    DateTime nextScheduleTime = DateTime.now();
+
+    await NotificationService().notificationsPlugin.cancelAll();
+
+    tz.initializeTimeZones();
+    int schedule = 123;
+
+    for (int i = 0; i < namaz.length; i++) {
+      DateTime notificationTime = DateFormat.jm().parse(namaz[i].azan!);
+      DateTime dndTime = DateFormat.jm().parse(namaz[i].jammat!);
+      notificationTime = DateTime(
+        current.year,
+        current.month,
+        current.day,
+        notificationTime.hour,
+        notificationTime.minute,
+      );
+      dndTime = DateTime(
+        current.year,
+        current.month,
+        current.day,
+        dndTime.hour,
+        dndTime.minute,
+      );
+
+      if (i < 4) {
+        DateTime notificationTime = DateFormat.jm().parse(namaz[i + 1].azan!);
+        nextScheduleTime = DateTime(
+          current.year,
+          current.month,
+          current.day,
+          notificationTime.hour,
+          notificationTime.minute,
+        ).subtract(Duration(minutes: 1));
+      } else {
+        DateTime notificationTime = DateFormat.jm().parse(namaz[0].azan!);
+        current = current.add(Duration(days: 1));
+        nextScheduleTime = DateTime(
+          current.year,
+          current.month,
+          current.day,
+          notificationTime.hour,
+          notificationTime.minute,
+        );
+      }
+
+      bool shouldSchedule = notificationTime.isAfter(current);
+
+      if (shouldSchedule) {
+        log('FINAL DND: Notify on $notificationTime');
+        await NotificationService().notificationsPlugin.zonedSchedule(
+              i++,
+              'Azan Time',
+              '',
+              /* tz.TZDateTime.from(
+            DateTime.now().add(Duration(seconds: seconds)),
+            tz.local,
+          ),*/
+              tz.TZDateTime.from(notificationTime, tz.local),
+              const NotificationDetails(
+                android: AndroidNotificationDetails(
+                  'Masjid',
+                  'notify about azan',
+                ),
+              ),
+              androidAllowWhileIdle: true,
+              uiLocalNotificationDateInterpretation:
+                  UILocalNotificationDateInterpretation.absoluteTime,
+            );
+
+        log('FINAL DND: DND activate on $dndTime');
 
         await AndroidAlarmManager.oneShot(
           dndTime.difference(current),
-          i,
+          schedule++,
           callback,
+          exact: true,
+          allowWhileIdle: true,
+        );
+
+        log('FINAL DND: scheduleNextNotification on $nextScheduleTime');
+
+        await AndroidAlarmManager.oneShot(
+          nextScheduleTime.difference(current),
+          schedule,
+          scheduleNextNotification,
           exact: true,
           allowWhileIdle: true,
         );
@@ -91,24 +180,4 @@ class NotificationService {
       }
     }
   }
-}
-
-Future<void> callback() async {
-  FlutterDnd.setInterruptionFilter(FlutterDnd.INTERRUPTION_FILTER_NONE);
-  NotificationService().notificationsPlugin.show(
-        999999,
-        'DND is Activated',
-        'Turn off DND after Namaz Completed',
-        const NotificationDetails(
-          android: AndroidNotificationDetails(
-            'Masjid',
-            'notify about azan',
-            ongoing: true,
-            autoCancel: false,
-            actions: <AndroidNotificationAction>[
-              AndroidNotificationAction('id_1', 'Turn off'),
-            ],
-          ),
-        ),
-      );
 }

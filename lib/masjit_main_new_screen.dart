@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -7,11 +9,15 @@ import 'package:http/http.dart' as http;
 import 'package:masjiduserapp/banners.dart';
 import 'package:masjiduserapp/common.color.dart';
 import 'package:masjiduserapp/map_screen.dart';
+import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/showNotificationApi.dart';
+import 'package:masjiduserapp/parent_masjit_location_name.dart';
 import 'package:masjiduserapp/size_config.dart';
 import 'package:masjiduserapp/util/constant.dart';
 import 'package:masjiduserapp/util/removed_masjit_dilog_box.dart';
 
 import 'masjit_user_app_api/masjit_app_responce_model/join_masjit_api_responce_model.dart';
+
+late Box box;
 
 class MasjitMainScreen extends StatefulWidget {
   const MasjitMainScreen({
@@ -36,6 +42,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
   void initState() {
     _tabController = TabController(length: 1, vsync: this);
     super.initState();
+    box = Hive.box(kBoxName);
   }
 
   @override
@@ -145,14 +152,14 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
     );
   }
 
-  /* Widget getAddEidLayout() {
-    return 
+/* Widget getAddEidLayout() {
+    return
   }
  */
 }
 
 Future<AllMasjitJoinListResponceModel> getNoticeSection() async {
-  box = Hive.box(kBoxName);
+  final Box box = Hive.box(kBoxName);
   var headersList = {'Authorization': 'Bearer ${box.get(kToken)}'};
 
   var response = await http.get(
@@ -176,107 +183,184 @@ class JoinedMasjidCard extends StatefulWidget {
   State<JoinedMasjidCard> createState() => _JoinedMasjidCardState();
 }
 
-class _JoinedMasjidCardState extends State<JoinedMasjidCard> {
+class _JoinedMasjidCardState extends State<JoinedMasjidCard> with EndFriendDialogInterface{
   bool isImageVisible = false;
   bool isJummaVisible = false;
   bool isEidVisible = false;
   bool isSharVisible = false;
   int currentIndex = 0;
+  String masjidId="";
+
+
+  @override
+  void initState() {
+    super.initState();
+    box = Hive.box(kBoxName);
+    masjidId = widget.masjid.id.toString();
+    // NotificationService().scheduleNotifications();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            CircularButton(
-              label: 'Map',
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => MasjitMappScreen(
-                      tabNum: "1",
-                      masjitTrusteeId: '${widget.masjid.id}',
-                      lat: "${widget.masjid.place?[0].lat}",
-                      long: "${widget.masjid.place?[0].long}",
-                      masjitNoticeId: '${widget.masjid.id}',
-                    ),
-                  ),
-                );
-              },
-            ),
-            CircularButton(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => MasjitMappScreen(
-                      tabNum: "2",
-                      masjitTrusteeId: '${widget.masjid.id}',
-                      lat: "${widget.masjid.place?[0].lat}",
-                      long: "${widget.masjid.place?[0].long}",
-                      masjitNoticeId: '${widget.masjid.id}',
-                    ),
-                  ),
-                );
-              },
-              label: "Trustee",
-            ),
-            CircularButton(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => MasjitMappScreen(
-                      tabNum: "3",
-                      masjitTrusteeId: '${widget.masjid.id}',
-                      lat: "${widget.masjid.place?[0].lat}",
-                      long: "${widget.masjid.place?[0].long}",
-                      masjitNoticeId: '${widget.masjid.id}',
-                    ),
-                  ),
-                );
-              },
-              label: "Notice",
-            ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Image.asset(
-              'assets/images/masjit_logo.png',
-              width: 30,
-              height: 30,
-            ),
-            Text('${widget.masjid.place?[0].masjidName}'),
-            GestureDetector(
-              onTap: () {},
-              child: Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                      colors: [
-                        CommonColor.LEFT_COLOR,
-                        CommonColor.RIGHT_COLOR
-                      ]),
-                  borderRadius: BorderRadius.circular(7),
+        Padding(
+          padding: EdgeInsets.only(top: 12),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Container(
+                height: 35,
+                width: 100,
+                child: CircularButton(
+                  label: 'Map',
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MasjitMappScreen(
+                          tabNum: "1",
+                          masjitTrusteeId: '${widget.masjid.id}',
+                          lat: "${widget.masjid.place?[0].lat}",
+                          long: "${widget.masjid.place?[0].long}",
+                          masjitNoticeId: '${widget.masjid.id}',
+                        ),
+                      ),
+                    );
+                  },
                 ),
-                child: const Text(
-                  "Remove",
+              ),
+              Container(
+                height: 35,
+                width: 100,
+                child: CircularButton(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MasjitMappScreen(
+                          tabNum: "2",
+                          masjitTrusteeId: '${widget.masjid.id}',
+                          lat: "${widget.masjid.place?[0].lat}",
+                          long: "${widget.masjid.place?[0].long}",
+                          masjitNoticeId: '${widget.masjid.id}',
+                        ),
+                      ),
+                    );
+                  },
+                  label: "Trustee",
+                ),
+              ),
+              Container(
+                height: 35,
+                width: 100,
+                child: CircularButton(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MasjitMappScreen(
+                          tabNum: "3",
+                          masjitTrusteeId: '${widget.masjid.id}',
+                          lat: "${widget.masjid.place?[0].lat}",
+                          long: "${widget.masjid.place?[0].long}",
+                          masjitNoticeId: '${widget.masjid.id}',
+                        ),
+                      ),
+                    );
+                  },
+                  label: "Notice",
+                ),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding:  EdgeInsets.only(top: 12),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Image.asset(
+                'assets/images/masjit_logo.png',
+                width: 30,
+                height: 30,
+              ),
+              SizedBox(width: 120,
+                child: Text(
+                  '${widget.masjid.place?[0].masjidName}',
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
-                    fontSize: 12,
-                    color: CommonColor.WHITE_COLOR,
                   ),
                 ),
               ),
-            ),
-          ],
+              SizedBox(
+                  width: 80,
+                  child: Text('${widget.masjid.place?[0].subLocality}')),
+              GestureDetector(
+                onTap: () {
+                  showGeneralDialog(
+                      barrierColor: Colors.black
+                          .withOpacity(0.8),
+                      transitionBuilder: (context,
+                          a1, a2, widget) {
+                        final curvedValue = Curves
+                            .easeInOutBack
+                            .transform(
+                            a1.value) -
+                            1.0;
+                        // return Transform(
+                        //   transform: Matrix4.translationValues(
+                        //       0.0, curvedValue * 200, 0.0),
+                        return Transform.scale(
+                          scale: a1.value,
+                          child: Opacity(
+                            opacity: a1.value,
+                            child:
+                            EndFriendDialog(
+                              mListener: this,
+                              masjitRemoveIdd: masjidId,
+                            ),
+                          ),
+                        );
+                      },
+                      transitionDuration:
+                      const Duration(
+                          milliseconds: 200),
+                      barrierDismissible: true,
+                      barrierLabel: '',
+                      context: context,
+                      // ignore: missing_return
+                      pageBuilder: (context,
+                          animation2,
+                          animation1) {
+                        return Container();
+                      });
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: [
+                          CommonColor.LEFT_COLOR,
+                          CommonColor.RIGHT_COLOR
+                        ]),
+                    borderRadius: BorderRadius.circular(7),
+                  ),
+                  child: const Text(
+                    "Remove",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 12,
+                      color: CommonColor.WHITE_COLOR,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -555,6 +639,22 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard> {
                                     physics:
                                         const NeverScrollableScrollPhysics(),
                                     itemBuilder: (context, index1) {
+                                      // box.delete("weeklytimes");
+                                      // box.put(kWeeklyTimes, jsonEncode(widget.masjid
+                                      //     .weeklyNamaz));
+                                      // print(" mainScreen ${box.get(kWeeklyTimes)}");
+
+
+                                      final file = File(
+                                          '/data/data/com.azanforsalah.user/app_flutter/time.json');
+                                      if(!file.existsSync())
+                                        file.create(recursive: true);
+
+                                      file.writeAsString(
+                                          jsonEncode(widget.masjid
+                                              .weeklyNamaz));
+
+
                                       return Column(
                                         children: [
                                           Padding(
@@ -1213,19 +1313,21 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard> {
                                                                             0);
                                                                     i++)
                                                                   Text(
-                                                                      " ${widget.masjid.eid?[index].jammat?[i]}",
-                                                                      style:
-                                                                          TextStyle(
-                                                                        fontSize:
-                                                                            SizeConfig.blockSizeHorizontal *
-                                                                                4.3,
-                                                                        fontFamily:
-                                                                            'Roboto_Bold',
-                                                                        fontWeight:
-                                                                            FontWeight.w600,
-                                                                        color: CommonColor
-                                                                            .BLACK_COLOR,
-                                                                      )),
+                                                                    " ${widget.masjid.eid?[index].jammat?[i]}",
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontSize:
+                                                                          SizeConfig.blockSizeHorizontal *
+                                                                              4.3,
+                                                                      fontFamily:
+                                                                          'Roboto_Bold',
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w600,
+                                                                      color: CommonColor
+                                                                          .BLACK_COLOR,
+                                                                    ),
+                                                                  ),
                                                               ],
                                                             ),
                                                           ],
@@ -1260,6 +1362,10 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard> {
       ],
     );
   }
+
+  @override
+  callUnFriendApi(String userId, String isConverted, int index, String msgId) {
+  }
 }
 
 class CircularButton extends StatelessWidget {
@@ -1276,8 +1382,9 @@ class CircularButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(50),
-            border: Border.all(color: CommonColor.RIGHT_COLOR, width: 1)),
+          borderRadius: BorderRadius.circular(50),
+          border: Border.all(color: CommonColor.RIGHT_COLOR, width: 1),
+        ),
         child: Center(
           child: Text(
             label,
