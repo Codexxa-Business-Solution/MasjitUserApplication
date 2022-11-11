@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -218,7 +220,9 @@ class _EndFriendDialogState extends State<EndFriendDialog> {
       //   await AndroidAlarmManager.cancel(i);
       // }
 
-
+      final file = File(
+          '/data/data/com.azanforsalah.user/app_flutter/time.json');
+      file.writeAsStringSync('');
 
       final FlutterLocalNotificationsPlugin notificationsPlugin =
       FlutterLocalNotificationsPlugin();

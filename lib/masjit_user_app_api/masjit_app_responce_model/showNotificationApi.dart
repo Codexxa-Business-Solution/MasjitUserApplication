@@ -5,10 +5,8 @@ import 'dart:io';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter_dnd/flutter_dnd.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/notice_response_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -49,8 +47,7 @@ class NotificationService {
   }
 
   static Future<List<WeeklyNamaz>> getNamazTimes() async {
-    final file = File(
-        '/data/data/com.azanforsalah.user/app_flutter/time.json');
+    final file = File('/data/data/com.azanforsalah.user/app_flutter/time.json');
 
     final namazJson = jsonDecode(file.readAsStringSync());
     return List<WeeklyNamaz>.from(
@@ -91,6 +88,7 @@ class NotificationService {
     await NotificationService().notificationsPlugin.cancelAll();
 
     tz.initializeTimeZones();
+    int notificationId = 456;
     int schedule = 123;
 
     for (int i = 0; i < namaz.length; i++) {
@@ -112,24 +110,14 @@ class NotificationService {
       );
 
       if (i < 4) {
-        DateTime notificationTime = DateFormat.jm().parse(namaz[i + 1].azan!);
+        DateTime nextNotificationTime = DateFormat.jm().parse(namaz[i + 1].azan!);
         nextScheduleTime = DateTime(
           current.year,
           current.month,
           current.day,
-          notificationTime.hour,
-          notificationTime.minute,
+          nextNotificationTime.hour,
+          nextNotificationTime.minute,
         ).subtract(Duration(minutes: 1));
-      } else {
-        DateTime notificationTime = DateFormat.jm().parse(namaz[0].azan!);
-        current = current.add(Duration(days: 1));
-        nextScheduleTime = DateTime(
-          current.year,
-          current.month,
-          current.day,
-          notificationTime.hour,
-          notificationTime.minute,
-        );
       }
 
       bool shouldSchedule = notificationTime.isAfter(current);
@@ -137,13 +125,9 @@ class NotificationService {
       if (shouldSchedule) {
         log('FINAL DND: Notify on $notificationTime');
         await NotificationService().notificationsPlugin.zonedSchedule(
-              i++,
+              notificationId++,
               'Azan Time',
               '',
-              /* tz.TZDateTime.from(
-            DateTime.now().add(Duration(seconds: seconds)),
-            tz.local,
-          ),*/
               tz.TZDateTime.from(notificationTime, tz.local),
               const NotificationDetails(
                 android: AndroidNotificationDetails(
@@ -167,6 +151,18 @@ class NotificationService {
         );
 
         log('FINAL DND: scheduleNextNotification on $nextScheduleTime');
+
+        if(i == 4) {
+          DateTime nextNotificationTime = DateFormat.jm().parse(namaz[0].azan!);
+          current = current.add(Duration(days: 1));
+          nextScheduleTime = DateTime(
+            current.year,
+            current.month,
+            current.day,
+            nextNotificationTime.hour,
+            nextNotificationTime.minute,
+          );
+        }
 
         await AndroidAlarmManager.oneShot(
           nextScheduleTime.difference(current),
