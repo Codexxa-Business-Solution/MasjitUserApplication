@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import '../../SharePreferenceClass.dart';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -7,7 +7,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:masjiduserapp/common.color.dart';
 import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/all_masjit_remove_list_response_model.dart';
-import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/showNotificationApi.dart';
 import 'package:masjiduserapp/parent_masjit_location_name.dart';
 import 'package:masjiduserapp/size_config.dart';
 import 'package:masjiduserapp/user_parent_tab_bar.dart';
@@ -19,7 +18,7 @@ class EndFriendDialog extends StatefulWidget {
 
   const EndFriendDialog(
       {required this.mListener,
-      required this.masjitRemoveIdd,
+        required this.masjitRemoveIdd,
       });
 
   @override
@@ -214,7 +213,7 @@ class _EndFriendDialogState extends State<EndFriendDialog> {
       //var removeId = box.get(kJoinedCommonId);
       print("removedId  ${box.get(kJoinedCommonId)}");
 
-      /*namazTimes.clear();*/
+     AndroidAlarmManager.cancel(await AppPreferences.getScheduleId());
 
       // for(int i = 0; i < namazTimes.length; i++){
       //   await AndroidAlarmManager.cancel(i);
@@ -222,14 +221,7 @@ class _EndFriendDialogState extends State<EndFriendDialog> {
 
       final file = File(
           '/data/data/com.azanforsalah.user/app_flutter/time.json');
-      file.writeAsStringSync('');
-
-      final FlutterLocalNotificationsPlugin notificationsPlugin =
-      FlutterLocalNotificationsPlugin();
-
-      await notificationsPlugin.cancelAll();
-
-      namazTimes.clear();
+      file.writeAsStringSync('[]');
 
       print("Cleartrimmeeeee new $namazTimes");
 

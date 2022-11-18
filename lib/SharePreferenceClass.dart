@@ -18,6 +18,19 @@ class AppPreferences {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString("weekly_namaz", wTime);
   }
+
+
+  static Future<int> getScheduleId() async {
+    SharedPreferences  prefs = await SharedPreferences.getInstance();
+    return prefs.getInt("getSchedule") ?? 0;
+  }
+
+  static setSchedule(int scheduleId) async {
+    SharedPreferences   prefs = await SharedPreferences.getInstance();
+    print("getSchedule   $scheduleId");
+    prefs.setInt("getSchedule", scheduleId);
+  }
+
   static clearAppPreference() async {
     prefs = await getInstance();
     prefs?.clear();

@@ -4,6 +4,8 @@ class CommonColor{
   static const FACEBOOK_COLOR = const Color(0xFF3a81d8);
   static const RIGHT_COLOR = const Color(0xFF289C51);
   static const LEFT_COLOR = const Color(0xFF1C6A39);
+  static const LEFT_GREDIENT_COLOR = const Color(0xFFAD4DFA);
+  static const RIGHT_GREDIENT_COLOR = const Color(0xFFEF4AB7);
   static const WHITE_COLOR = const Color(0xFFFFFFFF);
   static const BLACK_COLOR = const Color(0xFF000000);
   static const REGISTRARTION_COLOR = const Color(0xFF1E713D);

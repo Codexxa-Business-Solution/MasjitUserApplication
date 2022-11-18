@@ -8,3 +8,4 @@ const String kUserLongitude = "currentLongitude";
 const String kUserSubLocality = "currentsubLocality";
 const String kUserLocality = "currentLocality";
 const String kWeeklyTimes = "weeklytimes";
+const String knextSchedule = "scheduleTime";

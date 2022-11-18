@@ -4,8 +4,6 @@
 
 import 'dart:convert';
 
-import 'notice_response_model.dart';
-
 AllMasjitJoinListResponceModel allMasjitJoinListResponceModelFromJson(String str) => AllMasjitJoinListResponceModel.fromJson(json.decode(str));
 
 String allMasjitJoinListResponceModelToJson(AllMasjitJoinListResponceModel data) => json.encode(data.toJson());
@@ -29,6 +27,7 @@ class AllMasjitJoinListResponceModel {
 class Datum {
   Datum({
     this.id,
+    this.isPrimary,
     this.images,
     this.weeklyNamaz,
     this.jumma,
@@ -39,6 +38,7 @@ class Datum {
   });
 
   int? id;
+  bool? isPrimary;
   List<String>? images;
   List<WeeklyNamaz>? weeklyNamaz;
   Jumma? jumma;
@@ -49,6 +49,7 @@ class Datum {
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
     id: json["id"],
+    isPrimary: json["is_primary"],
     images: List<String>.from(json["images"].map((x) => x)),
     weeklyNamaz: List<WeeklyNamaz>.from(json["weekly_namaz"].map((x) => WeeklyNamaz.fromJson(x))),
     jumma: Jumma.fromJson(json["jumma"]),
@@ -60,6 +61,7 @@ class Datum {
 
   Map<String, dynamic> toJson() => {
     "id": id,
+    "is_primary": isPrimary,
     "images": List<dynamic>.from(images!.map((x) => x)),
     "weekly_namaz": List<dynamic>.from(weeklyNamaz!.map((x) => x.toJson())),
     "jumma": jumma?.toJson(),
@@ -162,26 +164,26 @@ class Place {
   };
 }
 
-// class WeeklyNamaz {
-//   WeeklyNamaz({
-//     this.day,
-//     this.azan,
-//     this.jammat,
-//   });
-//
-//   String? day;
-//   String? azan;
-//   String? jammat;
-//
-//   factory WeeklyNamaz.fromJson(Map<String, dynamic> json) => WeeklyNamaz(
-//     day: json["day"],
-//     azan: json["azan"],
-//     jammat: json["jammat"],
-//   );
-//
-//   Map<String, dynamic> toJson() => {
-//     "day": day,
-//     "azan": azan,
-//     "jammat": jammat,
-//   };
-// }
+class WeeklyNamaz {
+  WeeklyNamaz({
+    this.day,
+    this.azan,
+    this.jammat,
+  });
+
+  String? day;
+  String? azan;
+  String? jammat;
+
+  factory WeeklyNamaz.fromJson(Map<String, dynamic> json) => WeeklyNamaz(
+    day: json["day"],
+    azan: json["azan"],
+    jammat: json["jammat"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "day": day,
+    "azan": azan,
+    "jammat": jammat,
+  };
+}

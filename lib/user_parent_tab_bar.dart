@@ -61,7 +61,7 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen>
           leading: Builder(
             builder: (BuildContext context) {
               return Padding(
-                padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.02),
+                padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.0),
                 child: IconButton(
                   icon: Image.asset(
                     "assets/images/drower.png",
@@ -71,13 +71,13 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen>
                     Scaffold.of(context).openDrawer();
                   },
                   tooltip:
-                      MaterialLocalizations.of(context).openAppDrawerTooltip,
+                  MaterialLocalizations.of(context).openAppDrawerTooltip,
                 ),
               );
             },
           ),
           title: Padding(
-            padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.0),
+            padding: EdgeInsets.only(left: SizeConfig.screenHeight * 0.05),
             child: Center(
               child: Image(
                 image: const AssetImage("assets/images/appLogo.png"),
@@ -112,75 +112,78 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen>
                 ],
               ),
             ),*/
-            Container(
-              width: SizeConfig.screenWidth * 0.4,
-              // color: Colors.red,
-              child: IconButton(
-                onPressed: () {
-                  Future<Place?> result = Navigator.of(context).push<Place>(
-                    MaterialPageRoute(
-                      builder: (context) => const GetLocation(
-                        comeFrom: "1",
+            Padding(
+              padding:  EdgeInsets.only(bottom: SizeConfig.screenHeight*0.01,),
+              child: Container(
+                width: SizeConfig.screenWidth * 0.4,
+                //color: Colors.red,
+                child: IconButton(
+                  onPressed: () {
+                    Future<Place?> result = Navigator.of(context).push<Place>(
+                      MaterialPageRoute(
+                        builder: (context) => const GetLocation(
+                          comeFrom: "1",
+                        ),
                       ),
-                    ),
-                  );
+                    );
 
-                  result.then((value) {
-                    if (value == null) return;
+                    result.then((value) {
+                      if (value == null) return;
 
-                    box.delete("currentLatitude");
-                    box.delete("currentLongitude");
-                    box.delete("currentsubLocality");
-                    box.delete("currentLocality");
+                      box.delete("currentLatitude");
+                      box.delete("currentLongitude");
+                      box.delete("currentsubLocality");
+                      box.delete("currentLocality");
 
-                    setState(() {
-                      address = value;
-                      _address =
-                          'Area ${address?.lat},\n City ${address?.long}, \n Postal Code ${address?.postalCode},\n State ${address?.administrativeArea}, \n Country ${address?.country}';
-                      box.put(kUserLatitude, address?.lat);
-                      box.put(kUserLongitude, address?.long);
-                      box.put(kUserSubLocality, address?.subLocality);
-                      box.put(kUserLocality, address?.locality);
-                      setState(() {});
+                      setState(() {
+                        address = value;
+                        _address =
+                        'Area ${address?.lat},\n City ${address?.long}, \n Postal Code ${address?.postalCode},\n State ${address?.administrativeArea}, \n Country ${address?.country}';
+                        box.put(kUserLatitude, address?.lat);
+                        box.put(kUserLongitude, address?.long);
+                        box.put(kUserSubLocality, address?.subLocality);
+                        box.put(kUserLocality, address?.locality);
+                        setState(() {});
+                      });
                     });
-                  });
-                },
-                icon: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(top: 10),
-                      child: const Icon(Icons.location_on_sharp),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          "${box.get("currentsubLocality")} ",
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: CommonColor.WHITE_COLOR,
-                            fontSize: SizeConfig.blockSizeHorizontal * 3.1,
-                            fontFamily: "Roboto_Regular",
-                            fontWeight: FontWeight.w600,
+                  },
+                  icon: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 3),
+                        child: const Icon(Icons.location_on_sharp),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            "${box.get("currentsubLocality")} ",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: CommonColor.WHITE_COLOR,
+                              fontSize: SizeConfig.blockSizeHorizontal * 3.1,
+                              fontFamily: "Roboto_Regular",
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
-                        ),
-                        Text(
-                          "${box.get("currentLocality")}",
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: CommonColor.WHITE_COLOR,
-                            fontSize: SizeConfig.blockSizeHorizontal * 3.0,
-                            fontFamily: "Roboto_Regular",
-                            fontWeight: FontWeight.w600,
+                          Text(
+                            "${box.get("currentLocality")}",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: CommonColor.WHITE_COLOR,
+                              fontSize: SizeConfig.blockSizeHorizontal * 3.0,
+                              fontFamily: "Roboto_Regular",
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
-                        ),
-                      ],
-                    )
-                  ],
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             )
@@ -227,36 +230,23 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen>
                                   begin: Alignment.centerLeft,
                                   end: Alignment.centerRight,
                                   colors: [
-                                CommonColor.LEFT_COLOR,
-                                CommonColor.RIGHT_COLOR
-                              ])),
+                                    CommonColor.LEFT_COLOR,
+                                    CommonColor.RIGHT_COLOR
+                                  ])),
                           child: Row(
                             children: const [
                               Padding(
                                 padding: EdgeInsets.only(left: 40),
                                 child: Image(
                                   image:
-                                      AssetImage("assets/images/appLogo.png"),
+                                  AssetImage("assets/images/appLogo.png"),
                                   height: 120,
                                 ),
                               ),
                             ],
                           )),
                     ),
-                    /*         ListTile(
-                      // leading: Icon(Icons.message),
-                      title: Padding(
-                        padding: EdgeInsets.only(left: 8),
-                        child: Text(
-                          "Notification",
-                          style: TextStyle(
-                              fontSize: 13,
-                              fontFamily: 'Roboto_Medium',
-                              fontWeight: FontWeight.w500,
-                              color: CommonColor.REGISTRARTION_COLOR),
-                        ),
-                      ),
-                    ),*/
+
                     ListTile(
                       onTap: () {
                         // Navigator.push(
@@ -302,8 +292,8 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen>
                         showDialog(
                             context: context,
                             builder: (ctx) => AlertDialog(
-                                  title: const Center(
-                                      child: Text(
+                              title: const Center(
+                                  child: Text(
                                     "Logout",
                                     style: TextStyle(
                                       color: CommonColor.REGISTRARTION_COLOR,
@@ -312,91 +302,151 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen>
                                       fontFamily: 'Roboto_Medium',
                                     ),
                                   )),
-                                  content: Padding(
-                                    padding: EdgeInsets.only(
-                                        left: SizeConfig.screenWidth * 0.04),
-                                    child: const Text(
-                                      "Are you sure you want to log out ? You can log in anytime you want again.",
-                                      style: TextStyle(
-                                        color: CommonColor.BLACK,
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 14,
-                                        fontFamily: 'Roboto_Medium',
-                                      ),
-                                    ),
+                              content: Padding(
+                                padding: EdgeInsets.only(
+                                    left: SizeConfig.screenWidth * 0.04),
+                                child: const Text(
+                                  "Are you sure you want to log out ? You can log in anytime you want again.",
+                                  style: TextStyle(
+                                    color: CommonColor.BLACK,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 14,
+                                    fontFamily: 'Roboto_Medium',
                                   ),
-                                  actions: <Widget>[
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          bottom:
-                                              SizeConfig.screenHeight * 0.03),
-                                      child: Center(
-                                        child: Column(
-                                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            GestureDetector(
-                                              onTap: () {
-                                                getLogoutUser().then((value) {
-                                                  box.delete(kToken);
-                                                  //box.delete(kBoxName);
-                                                  box.delete(kUserPhoneNumber);
+                                ),
+                              ),
+                              actions: <Widget>[
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      bottom:
+                                      SizeConfig.screenHeight * 0.03),
+                                  child: Center(
+                                    child: Column(
+                                      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            getLogoutUser().then((value) {
+                                              box.delete(kToken);
+                                              //box.delete(kBoxName);
+                                              box.delete(kUserPhoneNumber);
 
-                                                  Navigator.of(context)
-                                                      .pushAndRemoveUntil(
-                                                          MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  const LoginScreen()),
-                                                          (Route route) =>
-                                                              false);
+                                              Navigator.of(context)
+                                                  .pushAndRemoveUntil(
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                      const LoginScreen()),
+                                                      (Route route) =>
+                                                  false);
 
-                                                  //  Navigator.popUntil(context, ModalRoute.withName (EnterMobileNumber()));
-                                                  /*   Navigator.pushReplacement(
+                                              //  Navigator.popUntil(context, ModalRoute.withName (EnterMobileNumber()));
+                                              /*   Navigator.pushReplacement(
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
                                                           EnterMobileNumber()));*/
-                                                });
-                                                //cityController.text.isEmpty ? _validate = true : _validate = false;
-                                              },
+                                            });
+                                            //cityController.text.isEmpty ? _validate = true : _validate = false;
+                                          },
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                                left:
+                                                SizeConfig.screenWidth *
+                                                    0.1,
+                                                right:
+                                                SizeConfig.screenWidth *
+                                                    0.1),
+                                            child: Container(
+                                                height: SizeConfig
+                                                    .screenHeight *
+                                                    0.05,
+                                                decoration: BoxDecoration(
+                                                  gradient:
+                                                  const LinearGradient(
+                                                      begin: Alignment
+                                                          .centerLeft,
+                                                      end: Alignment
+                                                          .centerRight,
+                                                      colors: [
+                                                        CommonColor
+                                                            .LEFT_COLOR,
+                                                        CommonColor
+                                                            .RIGHT_COLOR
+                                                      ]),
+                                                  borderRadius:
+                                                  BorderRadius.circular(
+                                                      30),
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    "Yes",
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                        "Roboto_Regular",
+                                                        fontWeight:
+                                                        FontWeight.w700,
+                                                        fontSize: SizeConfig
+                                                            .blockSizeHorizontal *
+                                                            4.5,
+                                                        color: CommonColor
+                                                            .WHITE_COLOR),
+                                                  ),
+                                                )),
+                                          ),
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                                top: SizeConfig
+                                                    .screenHeight *
+                                                    0.03),
+                                            child: GestureDetector(
                                               child: Padding(
                                                 padding: EdgeInsets.only(
-                                                    left:
-                                                        SizeConfig.screenWidth *
-                                                            0.1,
-                                                    right:
-                                                        SizeConfig.screenWidth *
-                                                            0.1),
+                                                    top: SizeConfig
+                                                        .screenHeight *
+                                                        0.0,
+                                                    left: SizeConfig
+                                                        .screenWidth *
+                                                        0.1,
+                                                    right: SizeConfig
+                                                        .screenWidth *
+                                                        0.1),
                                                 child: Container(
                                                     height: SizeConfig
-                                                            .screenHeight *
+                                                        .screenHeight *
                                                         0.05,
-                                                    decoration: BoxDecoration(
-                                                      gradient:
-                                                          const LinearGradient(
-                                                              begin: Alignment
-                                                                  .centerLeft,
-                                                              end: Alignment
-                                                                  .centerRight,
-                                                              colors: [
+                                                    decoration:
+                                                    BoxDecoration(
+                                                      gradient: const LinearGradient(
+                                                          begin: Alignment
+                                                              .centerLeft,
+                                                          end: Alignment
+                                                              .centerRight,
+                                                          colors: [
                                                             CommonColor
                                                                 .LEFT_COLOR,
                                                             CommonColor
                                                                 .RIGHT_COLOR
                                                           ]),
                                                       borderRadius:
-                                                          BorderRadius.circular(
-                                                              30),
+                                                      BorderRadius
+                                                          .circular(30),
                                                     ),
                                                     child: Center(
                                                       child: Text(
-                                                        "Yes",
+                                                        "Cancel",
                                                         style: TextStyle(
                                                             fontFamily:
-                                                                "Roboto_Regular",
+                                                            "Roboto_Regular",
                                                             fontWeight:
-                                                                FontWeight.w700,
+                                                            FontWeight
+                                                                .w700,
                                                             fontSize: SizeConfig
-                                                                    .blockSizeHorizontal *
+                                                                .blockSizeHorizontal *
                                                                 4.5,
                                                             color: CommonColor
                                                                 .WHITE_COLOR),
@@ -404,77 +454,17 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen>
                                                     )),
                                               ),
                                             ),
-                                            GestureDetector(
-                                              onTap: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: Padding(
-                                                padding: EdgeInsets.only(
-                                                    top: SizeConfig
-                                                            .screenHeight *
-                                                        0.03),
-                                                child: GestureDetector(
-                                                  child: Padding(
-                                                    padding: EdgeInsets.only(
-                                                        top: SizeConfig
-                                                                .screenHeight *
-                                                            0.0,
-                                                        left: SizeConfig
-                                                                .screenWidth *
-                                                            0.1,
-                                                        right: SizeConfig
-                                                                .screenWidth *
-                                                            0.1),
-                                                    child: Container(
-                                                        height: SizeConfig
-                                                                .screenHeight *
-                                                            0.05,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          gradient: const LinearGradient(
-                                                              begin: Alignment
-                                                                  .centerLeft,
-                                                              end: Alignment
-                                                                  .centerRight,
-                                                              colors: [
-                                                                CommonColor
-                                                                    .LEFT_COLOR,
-                                                                CommonColor
-                                                                    .RIGHT_COLOR
-                                                              ]),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(30),
-                                                        ),
-                                                        child: Center(
-                                                          child: Text(
-                                                            "Cancel",
-                                                            style: TextStyle(
-                                                                fontFamily:
-                                                                    "Roboto_Regular",
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                fontSize: SizeConfig
-                                                                        .blockSizeHorizontal *
-                                                                    4.5,
-                                                                color: CommonColor
-                                                                    .WHITE_COLOR),
-                                                          ),
-                                                        )),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
+                                          ),
                                         ),
-                                      ),
+                                      ],
                                     ),
-                                  ],
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30),
                                   ),
-                                ));
+                                ),
+                              ],
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                            ));
                       },
                       // leading: Icon(Icons.message),
                       title: Padding(
@@ -495,8 +485,8 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen>
                         showDialog(
                             context: context,
                             builder: (ctx) => AlertDialog(
-                                  title: const Center(
-                                      child: Text(
+                              title: const Center(
+                                  child: Text(
                                     "Delete Account",
                                     style: TextStyle(
                                       color: CommonColor.REGISTRARTION_COLOR,
@@ -505,73 +495,133 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen>
                                       fontFamily: 'Roboto_Medium',
                                     ),
                                   )),
-                                  content: Padding(
-                                    padding: EdgeInsets.only(
-                                        left: SizeConfig.screenWidth * 0.04),
-                                    child: const Text(
-                                      "Are you sure you want to delete your account?",
-                                      style: TextStyle(
-                                        color: CommonColor.BLACK,
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 14,
-                                        fontFamily: 'Roboto_Medium',
-                                      ),
-                                    ),
+                              content: Padding(
+                                padding: EdgeInsets.only(
+                                    left: SizeConfig.screenWidth * 0.04),
+                                child: const Text(
+                                  "Are you sure you want to delete your account?",
+                                  style: TextStyle(
+                                    color: CommonColor.BLACK,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 14,
+                                    fontFamily: 'Roboto_Medium',
                                   ),
-                                  actions: <Widget>[
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          bottom:
-                                              SizeConfig.screenHeight * 0.03),
-                                      child: Center(
-                                        child: Column(
-                                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            GestureDetector(
-                                              onTap: () {
-                                                getDeleteAccount();
+                                ),
+                              ),
+                              actions: <Widget>[
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      bottom:
+                                      SizeConfig.screenHeight * 0.03),
+                                  child: Center(
+                                    child: Column(
+                                      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            getDeleteAccount();
 
-                                                //cityController.text.isEmpty ? _validate = true : _validate = false;
-                                              },
+                                            //cityController.text.isEmpty ? _validate = true : _validate = false;
+                                          },
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                                left:
+                                                SizeConfig.screenWidth *
+                                                    0.1,
+                                                right:
+                                                SizeConfig.screenWidth *
+                                                    0.1),
+                                            child: Container(
+                                                height: SizeConfig
+                                                    .screenHeight *
+                                                    0.05,
+                                                decoration: BoxDecoration(
+                                                  gradient:
+                                                  const LinearGradient(
+                                                      begin: Alignment
+                                                          .centerLeft,
+                                                      end: Alignment
+                                                          .centerRight,
+                                                      colors: [
+                                                        CommonColor
+                                                            .LEFT_COLOR,
+                                                        CommonColor
+                                                            .RIGHT_COLOR
+                                                      ]),
+                                                  borderRadius:
+                                                  BorderRadius.circular(
+                                                      30),
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    "Yes",
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                        "Roboto_Regular",
+                                                        fontWeight:
+                                                        FontWeight.w700,
+                                                        fontSize: SizeConfig
+                                                            .blockSizeHorizontal *
+                                                            4.5,
+                                                        color: CommonColor
+                                                            .WHITE_COLOR),
+                                                  ),
+                                                )),
+                                          ),
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                                top: SizeConfig
+                                                    .screenHeight *
+                                                    0.03),
+                                            child: GestureDetector(
                                               child: Padding(
                                                 padding: EdgeInsets.only(
-                                                    left:
-                                                        SizeConfig.screenWidth *
-                                                            0.1,
-                                                    right:
-                                                        SizeConfig.screenWidth *
-                                                            0.1),
+                                                    top: SizeConfig
+                                                        .screenHeight *
+                                                        0.0,
+                                                    left: SizeConfig
+                                                        .screenWidth *
+                                                        0.1,
+                                                    right: SizeConfig
+                                                        .screenWidth *
+                                                        0.1),
                                                 child: Container(
                                                     height: SizeConfig
-                                                            .screenHeight *
+                                                        .screenHeight *
                                                         0.05,
-                                                    decoration: BoxDecoration(
-                                                      gradient:
-                                                          const LinearGradient(
-                                                              begin: Alignment
-                                                                  .centerLeft,
-                                                              end: Alignment
-                                                                  .centerRight,
-                                                              colors: [
+                                                    decoration:
+                                                    BoxDecoration(
+                                                      gradient: const LinearGradient(
+                                                          begin: Alignment
+                                                              .centerLeft,
+                                                          end: Alignment
+                                                              .centerRight,
+                                                          colors: [
                                                             CommonColor
                                                                 .LEFT_COLOR,
                                                             CommonColor
                                                                 .RIGHT_COLOR
                                                           ]),
                                                       borderRadius:
-                                                          BorderRadius.circular(
-                                                              30),
+                                                      BorderRadius
+                                                          .circular(30),
                                                     ),
                                                     child: Center(
                                                       child: Text(
-                                                        "Yes",
+                                                        "Cancel",
                                                         style: TextStyle(
                                                             fontFamily:
-                                                                "Roboto_Regular",
+                                                            "Roboto_Regular",
                                                             fontWeight:
-                                                                FontWeight.w700,
+                                                            FontWeight
+                                                                .w700,
                                                             fontSize: SizeConfig
-                                                                    .blockSizeHorizontal *
+                                                                .blockSizeHorizontal *
                                                                 4.5,
                                                             color: CommonColor
                                                                 .WHITE_COLOR),
@@ -579,77 +629,17 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen>
                                                     )),
                                               ),
                                             ),
-                                            GestureDetector(
-                                              onTap: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: Padding(
-                                                padding: EdgeInsets.only(
-                                                    top: SizeConfig
-                                                            .screenHeight *
-                                                        0.03),
-                                                child: GestureDetector(
-                                                  child: Padding(
-                                                    padding: EdgeInsets.only(
-                                                        top: SizeConfig
-                                                                .screenHeight *
-                                                            0.0,
-                                                        left: SizeConfig
-                                                                .screenWidth *
-                                                            0.1,
-                                                        right: SizeConfig
-                                                                .screenWidth *
-                                                            0.1),
-                                                    child: Container(
-                                                        height: SizeConfig
-                                                                .screenHeight *
-                                                            0.05,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          gradient: const LinearGradient(
-                                                              begin: Alignment
-                                                                  .centerLeft,
-                                                              end: Alignment
-                                                                  .centerRight,
-                                                              colors: [
-                                                                CommonColor
-                                                                    .LEFT_COLOR,
-                                                                CommonColor
-                                                                    .RIGHT_COLOR
-                                                              ]),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(30),
-                                                        ),
-                                                        child: Center(
-                                                          child: Text(
-                                                            "Cancel",
-                                                            style: TextStyle(
-                                                                fontFamily:
-                                                                    "Roboto_Regular",
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                fontSize: SizeConfig
-                                                                        .blockSizeHorizontal *
-                                                                    4.5,
-                                                                color: CommonColor
-                                                                    .WHITE_COLOR),
-                                                          ),
-                                                        )),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
+                                          ),
                                         ),
-                                      ),
+                                      ],
                                     ),
-                                  ],
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30),
                                   ),
-                                ));
+                                ),
+                              ],
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                            ));
                       },
                       // leading: Icon(Icons.message),
                       title: Padding(
@@ -723,34 +713,34 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen>
         // tab bar view here
         Expanded(
             child: Padding(
-          padding: EdgeInsets.only(top: parentHeight * 0.0),
-          child: TabBarView(
-            controller: _tabController,
-            children: [
-              Stack(
+              padding: EdgeInsets.only(top: parentHeight * 0.0),
+              child: TabBarView(
+                controller: _tabController,
                 children: [
-                  const Center(
-                      child: Text(
-                    "Aaysha",
-                    style: TextStyle(color: Colors.red),
-                  )),
-                  MasjitMainScreen(
-                    tabbr: '',
-                    masjitIdRemoved: '',
+                  Stack(
+                    children: [
+                      const Center(
+                          child: Text(
+                            "Aaysha",
+                            style: TextStyle(color: Colors.red),
+                          )),
+                      MasjitMainScreen(
+                        tabbr: '',
+                        masjitIdRemoved: '',
+                        onNext: () {
+                          _tabController.index = 1;
+                        },
+                      ),
+                    ],
+                  ),
+                  AllMasjitList(
                     onNext: () {
-                      _tabController.index = 1;
+                      _tabController.index = 2;
                     },
                   ),
                 ],
               ),
-              AllMasjitList(
-                onNext: () {
-                  _tabController.index = 2;
-                },
-              ),
-            ],
-          ),
-        ))
+            ))
       ]),
     );
   }
@@ -795,8 +785,8 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen>
           context,
           MaterialPageRoute(
               builder: (context) => UserRegistration(
-                    phoneNum: '',
-                  )));
+                phoneNum: '',
+              )));
 
       return deleteAccountFromJson(response.body);
     } else {
