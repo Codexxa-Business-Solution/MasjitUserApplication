@@ -1866,82 +1866,48 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                     ),
                   ),
 
-                  /*widget.index==0? SizedBox(
-                    width: 67,
-                    height: 45,
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.02,
-                        right: MediaQuery.of(context).size.width * 0.02,
-
-                      ),
-                      child: Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          gradient: const LinearGradient(
-                              begin: Alignment.centerLeft,
-                              end: Alignment.centerRight,
-                              colors: [
-                                Colors.pink, Colors.red, Colors.orange
-                              ]),
-                          borderRadius: BorderRadius.circular(7),
+                ],
+              ),
+              widget.masjid.isPrimary == true
+                  ? Padding(
+                    padding: EdgeInsets.only( left: 65),
+                    child: SizedBox(
+                      width: 67,
+                      height: 47,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height * 0.02,
+                          right: MediaQuery.of(context).size.width * 0.02,
                         ),
-                        child: const Text(
-                          "Primary",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 12,
-                            color: CommonColor.WHITE_COLOR,
+                        child: Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                                colors: [
+                                  Colors.pink,
+                                  Colors.red,
+                                  Colors.orange
+                                ]),
+                            borderRadius: BorderRadius.circular(7),
+                          ),
+                          child: const Text(
+                            "Primary",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 12,
+                              color: CommonColor.WHITE_COLOR,
+                            ),
                           ),
                         ),
                       ),
                     ),
                   )
-                      : SizedBox(  width: 67,
-                    height: 45),*/
-                ],
-              ),
-              widget.masjid.isPrimary == true
-                  ? Padding(
-                      padding: EdgeInsets.only(left: 100),
-                      child: SizedBox(
-                        width: 67,
-                        height: 47,
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height * 0.02,
-                            right: MediaQuery.of(context).size.width * 0.02,
-                          ),
-                          child: Container(
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              gradient: const LinearGradient(
-                                  begin: Alignment.centerLeft,
-                                  end: Alignment.centerRight,
-                                  colors: [
-                                    Colors.pink,
-                                    Colors.red,
-                                    Colors.orange
-                                  ]),
-                              borderRadius: BorderRadius.circular(7),
-                            ),
-                            child: const Text(
-                              "Primary",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 12,
-                                color: CommonColor.WHITE_COLOR,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
                   : Padding(
                       padding: EdgeInsets.only(
                         top: MediaQuery.of(context).size.height * 0.02,
-                          left: 100
-                      ),
+                      left: 60),
                       child: GestureDetector(
                         onTap: () {
                           showDialog(
@@ -2137,7 +2103,7 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                                   ));
                         },
                         child: Container(
-                            width: 67,
+                            width: 62,
                             height: 30,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
@@ -2185,6 +2151,7 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                 child: Padding(
                   padding: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height * 0.02,
+                    right: 10
                   ),
                   child: Container(
                     padding: const EdgeInsets.all(8),
