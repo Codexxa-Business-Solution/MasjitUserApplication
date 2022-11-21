@@ -124,7 +124,7 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
 /* Widget getAddEidLayout() {
     return
   }
- *//*
+ */ /*
 
 }
 
@@ -190,11 +190,11 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                       end: Alignment.centerRight,
                       colors: [
                       Colors.pink, Colors.red, Colors.orange
-                       *//*
+                       */ /*
 
             */
 /* CommonColor.LEFT_GREDIENT_COLOR,
-                        CommonColor.RIGHT_GREDIENT_COLOR*//*
+                        CommonColor.RIGHT_GREDIENT_COLOR*/ /*
 
             */
 /*
@@ -202,7 +202,7 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                   borderRadius: BorderRadius.circular(7),
                 ),
                 child: Text("Primary"),
-              *//*
+              */ /*
 
             */
 /*  child: GradientText(
@@ -215,11 +215,11 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                   colors: [
                     Colors.pink, Colors.red, Colors.orange
                   ],
-                ),*//*
+                ),*/ /*
 */
 /*
               ),
-            ),*//*
+            ),*/ /*
 
 
           ],
@@ -374,7 +374,7 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                 ),
               )
                   : SizedBox(  width: 67,
-                height: 45),*//*
+                height: 45),*/ /*
 
             Padding(
                 padding: EdgeInsets.only(
@@ -855,7 +855,7 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                               )
                               */
 /*   : Container();
-                                                  })*//*
+                                                  })*/ /*
 
                             ],
                           ),
@@ -1562,7 +1562,6 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
   @override
   callUnFriendApi(String userId, String isConverted, int index, String msgId) {
     // TODO: implement callUnFriendApi
-    throw UnimplementedError();
   }
 
   @override
@@ -1614,10 +1613,11 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                     child: const Banners(),
                   ),
                   Expanded(
-                    child: ListView.builder(
-                      itemCount: data.length,
-                      itemBuilder: (context, index) {
-                        /* confirmRemove() {
+                    child: snap.data?.data?.isNotEmpty ?? false
+                        ? ListView.builder(
+                            itemCount: data.length,
+                            itemBuilder: (context, index) {
+                              /* confirmRemove() {
                           showGeneralDialog(
                               barrierColor: Colors.black.withOpacity(0.8),
                               transitionBuilder: (context, a1, a2, widget) {
@@ -1649,9 +1649,41 @@ class _MasjitMainScreenState extends State<MasjitMainScreen>
                               });
                         } */
 
-                        return JoinedMasjidCard(masjid: data[index]);
-                      },
-                    ),
+                              return JoinedMasjidCard(masjid: data[index]);
+                            },
+                          )
+                        : GestureDetector(
+                            onTap: () {
+                              widget.onNext();
+                            },
+                            child: Center(
+                              child: Container(
+                                  height: 50,
+                                  width: 110,
+                                  decoration: BoxDecoration(
+                                    gradient: const LinearGradient(
+                                        begin: Alignment.centerLeft,
+                                        end: Alignment.centerRight,
+                                        colors: [
+                                          CommonColor.LEFT_COLOR,
+                                          CommonColor.RIGHT_COLOR
+                                        ]),
+                                    borderRadius: BorderRadius.circular(7),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "Join Masjid",
+                                      style: TextStyle(
+                                          fontFamily: "Roboto_Regular",
+                                          fontWeight: FontWeight.w700,
+                                          fontSize:
+                                              SizeConfig.blockSizeHorizontal *
+                                                  4.3,
+                                          color: CommonColor.WHITE_COLOR),
+                                    ),
+                                  )),
+                            ),
+                          ),
                   ),
                 ],
               );
@@ -1786,159 +1818,170 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
         Padding(
           padding: EdgeInsets.only(top: 3),
           child: Row(
-            //  mainAxisAlignment: MainAxisAlignment.spaceB,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Image.asset(
-                'assets/images/masjit_logo.png',
-                width: 35,
-                height: 35,
-              ),
-              SizedBox(
-                width: 80,
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.02,
+              Row(
+                // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.01,),
+                    child: Image.asset(
+                      'assets/images/masjit_logo.png',
+                      width: 35,
+                      height: 35,
+                    ),
                   ),
-                  child: SizedBox(
-                    width: 100,
-                    child: Text(
-                      '${widget.masjid.place?[0].masjidName}',
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 14,
+                  SizedBox(
+                    width: 80,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.02,
                       ),
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.02,
-                  right: MediaQuery.of(context).size.width * 0.12,
-                ),
-                child: SizedBox(
-                  width: 37,
-                  child: Text('${widget.masjid.place?[0].subLocality}',
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 14,
-                      )),
-                ),
-              ),
-
-              /*widget.index==0? SizedBox(
-                width: 67,
-                height: 45,
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.02,
-                    right: MediaQuery.of(context).size.width * 0.02,
-
-                  ),
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
-                          colors: [
-                            Colors.pink, Colors.red, Colors.orange
-                          ]),
-                      borderRadius: BorderRadius.circular(7),
-                    ),
-                    child: const Text(
-                      "Primary",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12,
-                        color: CommonColor.WHITE_COLOR,
-                      ),
-                    ),
-                  ),
-                ),
-              )
-                  : SizedBox(  width: 67,
-                height: 45),*/
-              widget.masjid.isPrimary == true
-                  ?  SizedBox(
-                width: 67,
-                height: 47,
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.02,
-                    right: MediaQuery.of(context).size.width * 0.02,
-                  ),
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
-                          colors: [
-                            Colors.pink,
-                            Colors.red,
-                            Colors.orange
-                          ]),
-                      borderRadius: BorderRadius.circular(7),
-                    ),
-                    child: const Text(
-                      "Primary",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12,
-                        color: CommonColor.WHITE_COLOR,
-                      ),
-                    ),
-                  ),
-                ),
-              )
-                  : Padding(
-                padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.02,
-                  right: MediaQuery.of(context).size.width * 0.02,
-                ),
-                child: GestureDetector(
-                  onTap: (){
-                    showDialog(
-                        context: context,
-                        builder: (ctx) => AlertDialog(
-                          title: const Center(
-                              child: Text(
-                                "Make Primary",
-                                style: TextStyle(
-                                  color: CommonColor.REGISTRARTION_COLOR,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 20,
-                                  fontFamily: 'Roboto_Medium',
-                                ),
-                              )),
-                          content: Padding(
-                            padding: EdgeInsets.only(
-                                left: SizeConfig.screenWidth * 0.04),
-                            child: const Text(
-                              "Do you want to make this Masjid Primary?",
-                              style: TextStyle(
-                                color: CommonColor.BLACK,
-                                fontWeight: FontWeight.w400,
+                      child: SizedBox(
+                        width: 100,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '${widget.masjid.place?[0].masjidName}',
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w700,
                                 fontSize: 14,
-                                fontFamily: 'Roboto_Medium',
+                              ),
+                            ),
+                            SizedBox(
+                              width: 60,
+                              child:
+                                  Text('${widget.masjid.place?[0].subLocality}',
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 14,
+                                      )),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  /*widget.index==0? SizedBox(
+                    width: 67,
+                    height: 45,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.02,
+                        right: MediaQuery.of(context).size.width * 0.02,
+
+                      ),
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                              colors: [
+                                Colors.pink, Colors.red, Colors.orange
+                              ]),
+                          borderRadius: BorderRadius.circular(7),
+                        ),
+                        child: const Text(
+                          "Primary",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 12,
+                            color: CommonColor.WHITE_COLOR,
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                      : SizedBox(  width: 67,
+                    height: 45),*/
+                ],
+              ),
+              widget.masjid.isPrimary == true
+                  ? Padding(
+                      padding: EdgeInsets.only(left: 100),
+                      child: SizedBox(
+                        width: 67,
+                        height: 47,
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            top: MediaQuery.of(context).size.height * 0.02,
+                            right: MediaQuery.of(context).size.width * 0.02,
+                          ),
+                          child: Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.centerRight,
+                                  colors: [
+                                    Colors.pink,
+                                    Colors.red,
+                                    Colors.orange
+                                  ]),
+                              borderRadius: BorderRadius.circular(7),
+                            ),
+                            child: const Text(
+                              "Primary",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 12,
+                                color: CommonColor.WHITE_COLOR,
                               ),
                             ),
                           ),
-                          actions: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  bottom:
-                                  SizeConfig.screenHeight * 0.03),
-                              child: Center(
-                                child: Column(
-                                  //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        /* getLogoutUser().then((value) {
+                        ),
+                      ),
+                    )
+                  : Padding(
+                      padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.02,
+                          left: 100
+                      ),
+                      child: GestureDetector(
+                        onTap: () {
+                          showDialog(
+                              context: context,
+                              builder: (ctx) => AlertDialog(
+                                    title: const Center(
+                                        child: Text(
+                                      "Make Primary",
+                                      style: TextStyle(
+                                        color: CommonColor.REGISTRARTION_COLOR,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 20,
+                                        fontFamily: 'Roboto_Medium',
+                                      ),
+                                    )),
+                                    content: Padding(
+                                      padding: EdgeInsets.only(
+                                          left: SizeConfig.screenWidth * 0.04),
+                                      child: const Text(
+                                        "Do you want to make this Masjid Primary?",
+                                        style: TextStyle(
+                                          color: CommonColor.BLACK,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 14,
+                                          fontFamily: 'Roboto_Medium',
+                                        ),
+                                      ),
+                                    ),
+                                    actions: <Widget>[
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            bottom:
+                                                SizeConfig.screenHeight * 0.03),
+                                        child: Center(
+                                          child: Column(
+                                            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              GestureDetector(
+                                                onTap: () {
+                                                  /* getLogoutUser().then((value) {
                                                 box.delete(kToken);
                                                 //box.delete(kBoxName);
                                                 box.delete(kUserPhoneNumber);
@@ -1952,15 +1995,16 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                                                     false);
 
                                                 //  Navigator.popUntil(context, ModalRoute.withName (EnterMobileNumber()));
-                                                *//*   Navigator.pushReplacement(
+                                                */ /*   Navigator.pushReplacement(
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          EnterMobileNumber()));*//*
+                                                          EnterMobileNumber()));*/ /*
                                               });*/
-                                        //cityController.text.isEmpty ? _validate = true : _validate = false;
-                                        makePrimaryApi("${widget.masjid.id}");
-                                        /* final file = File(
+                                                  //cityController.text.isEmpty ? _validate = true : _validate = false;
+                                                  makePrimaryApi(
+                                                      "${widget.masjid.id}");
+                                                  /* final file = File(
                                                   '/data/data/com.azanforsalah.user/app_flutter/time.json');
                                               if (!file.existsSync())
                                                 file.create(recursive: true);
@@ -1968,141 +2012,146 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                                               file.writeAsString(jsonEncode(
                                                   widget.masjid.weeklyNamaz));*/
 
-                                        print("new ${widget.masjid.weeklyNamaz}");
-                                      },
-                                      child: Padding(
-                                        padding: EdgeInsets.only(
-                                            left:
-                                            SizeConfig.screenWidth *
-                                                0.1,
-                                            right:
-                                            SizeConfig.screenWidth *
-                                                0.1),
-                                        child: Container(
-                                            height: SizeConfig
-                                                .screenHeight *
-                                                0.05,
-                                            decoration: BoxDecoration(
-                                              gradient:
-                                              const LinearGradient(
-                                                  begin: Alignment
-                                                      .centerLeft,
-                                                  end: Alignment
-                                                      .centerRight,
-                                                  colors: [
-                                                    CommonColor
-                                                        .LEFT_COLOR,
-                                                    CommonColor
-                                                        .RIGHT_COLOR
-                                                  ]),
-                                              borderRadius:
-                                              BorderRadius.circular(
-                                                  30),
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                "Yes",
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                    "Roboto_Regular",
-                                                    fontWeight:
-                                                    FontWeight.w700,
-                                                    fontSize: SizeConfig
-                                                        .blockSizeHorizontal *
-                                                        4.5,
-                                                    color: CommonColor
-                                                        .WHITE_COLOR),
-                                              ),
-                                            )),
-                                      ),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: Padding(
-                                        padding: EdgeInsets.only(
-                                            top: SizeConfig
-                                                .screenHeight *
-                                                0.03),
-                                        child: GestureDetector(
-                                          child: Padding(
-                                            padding: EdgeInsets.only(
-                                                top: SizeConfig
-                                                    .screenHeight *
-                                                    0.0,
-                                                left: SizeConfig
-                                                    .screenWidth *
-                                                    0.1,
-                                                right: SizeConfig
-                                                    .screenWidth *
-                                                    0.1),
-                                            child: Container(
-                                                height: SizeConfig
-                                                    .screenHeight *
-                                                    0.05,
-                                                decoration:
-                                                BoxDecoration(
-                                                  gradient: const LinearGradient(
-                                                      begin: Alignment
-                                                          .centerLeft,
-                                                      end: Alignment
-                                                          .centerRight,
-                                                      colors: [
-                                                        CommonColor
-                                                            .LEFT_COLOR,
-                                                        CommonColor
-                                                            .RIGHT_COLOR
-                                                      ]),
-                                                  borderRadius:
-                                                  BorderRadius
-                                                      .circular(30),
+                                                  print(
+                                                      "new ${widget.masjid.weeklyNamaz}");
+                                                },
+                                                child: Padding(
+                                                  padding: EdgeInsets.only(
+                                                      left: SizeConfig
+                                                              .screenWidth *
+                                                          0.1,
+                                                      right: SizeConfig
+                                                              .screenWidth *
+                                                          0.1),
+                                                  child: Container(
+                                                      height: SizeConfig
+                                                              .screenHeight *
+                                                          0.05,
+                                                      decoration: BoxDecoration(
+                                                        gradient:
+                                                            const LinearGradient(
+                                                                begin: Alignment
+                                                                    .centerLeft,
+                                                                end: Alignment
+                                                                    .centerRight,
+                                                                colors: [
+                                                              CommonColor
+                                                                  .LEFT_COLOR,
+                                                              CommonColor
+                                                                  .RIGHT_COLOR
+                                                            ]),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(30),
+                                                      ),
+                                                      child: Center(
+                                                        child: Text(
+                                                          "Yes",
+                                                          style: TextStyle(
+                                                              fontFamily:
+                                                                  "Roboto_Regular",
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w700,
+                                                              fontSize: SizeConfig
+                                                                      .blockSizeHorizontal *
+                                                                  4.5,
+                                                              color: CommonColor
+                                                                  .WHITE_COLOR),
+                                                        ),
+                                                      )),
                                                 ),
-                                                child: Center(
-                                                  child: Text(
-                                                    "Cancel",
-                                                    style: TextStyle(
-                                                        fontFamily:
-                                                        "Roboto_Regular",
-                                                        fontWeight:
-                                                        FontWeight
-                                                            .w700,
-                                                        fontSize: SizeConfig
-                                                            .blockSizeHorizontal *
-                                                            4.5,
-                                                        color: CommonColor
-                                                            .WHITE_COLOR),
+                                              ),
+                                              GestureDetector(
+                                                onTap: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Padding(
+                                                  padding: EdgeInsets.only(
+                                                      top: SizeConfig
+                                                              .screenHeight *
+                                                          0.03),
+                                                  child: GestureDetector(
+                                                    child: Padding(
+                                                      padding: EdgeInsets.only(
+                                                          top: SizeConfig
+                                                                  .screenHeight *
+                                                              0.0,
+                                                          left: SizeConfig
+                                                                  .screenWidth *
+                                                              0.1,
+                                                          right: SizeConfig
+                                                                  .screenWidth *
+                                                              0.1),
+                                                      child: Container(
+                                                          height: SizeConfig
+                                                                  .screenHeight *
+                                                              0.05,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            gradient: const LinearGradient(
+                                                                begin: Alignment
+                                                                    .centerLeft,
+                                                                end: Alignment
+                                                                    .centerRight,
+                                                                colors: [
+                                                                  CommonColor
+                                                                      .LEFT_COLOR,
+                                                                  CommonColor
+                                                                      .RIGHT_COLOR
+                                                                ]),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        30),
+                                                          ),
+                                                          child: Center(
+                                                            child: Text(
+                                                              "Cancel",
+                                                              style: TextStyle(
+                                                                  fontFamily:
+                                                                      "Roboto_Regular",
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                  fontSize:
+                                                                      SizeConfig
+                                                                              .blockSizeHorizontal *
+                                                                          4.5,
+                                                                  color: CommonColor
+                                                                      .WHITE_COLOR),
+                                                            ),
+                                                          )),
+                                                    ),
                                                   ),
-                                                )),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ),
+                                    ],
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30),
                                     ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                        ));
-                  },
-                  child: Container(
-                      width: 67,
-                      height: 30,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                              width: 1,
-                              color: CommonColor.REGISTRARTION_COLOR)),
-                      child: Center(
-                        child: Text("Make Primary",
-                            style: const TextStyle(
-                                fontSize: 8, fontWeight: FontWeight.bold)),
-                      )),
-                ),
-              ),
+                                  ));
+                        },
+                        child: Container(
+                            width: 67,
+                            height: 30,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                    width: 1,
+                                    color: CommonColor.REGISTRARTION_COLOR)),
+                            child: Center(
+                              child: Text("Make Primary",
+                                  style: const TextStyle(
+                                      fontSize: 8,
+                                      fontWeight: FontWeight.bold)),
+                            )),
+                      ),
+                    ),
               GestureDetector(
                 onTap: () {
                   showGeneralDialog(
@@ -2211,14 +2260,14 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
             Visibility(
               visible: isImageVisible,
               child: SizedBox(
-                //height: SizeConfig.screenHeight*.74,
+                  //height: SizeConfig.screenHeight*.74,
                   width: SizeConfig.screenWidth,
                   child: Padding(
                       padding: EdgeInsets.only(
                           right: SizeConfig.screenHeight * .0,
                           top: SizeConfig.screenHeight * .0),
                       child: CarouselSlider.builder(
-                        // carouselController: _controller,
+                          // carouselController: _controller,
                           itemCount: widget.masjid.images?.length ?? 0,
                           options: CarouselOptions(
                             onPageChanged: (index, reason) {
@@ -2239,9 +2288,9 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                             return Padding(
                               padding: EdgeInsets.only(
                                   left:
-                                  MediaQuery.of(context).size.width * 0.03,
+                                      MediaQuery.of(context).size.width * 0.03,
                                   right:
-                                  MediaQuery.of(context).size.width * 0.03),
+                                      MediaQuery.of(context).size.width * 0.03),
                               child: SizedBox(
                                 width: MediaQuery.of(context).size.width,
                                 child: Column(
@@ -2250,25 +2299,25 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                                     Padding(
                                       padding: EdgeInsets.only(
                                           top: MediaQuery.of(context)
-                                              .size
-                                              .height *
+                                                  .size
+                                                  .height *
                                               0.02),
                                       child: Container(
                                         height:
-                                        MediaQuery.of(context).size.height *
-                                            .23,
+                                            MediaQuery.of(context).size.height *
+                                                .23,
                                         width:
-                                        MediaQuery.of(context).size.width *
-                                            .94,
+                                            MediaQuery.of(context).size.width *
+                                                .94,
                                         decoration: BoxDecoration(
                                             image: DecorationImage(
-                                              image: widget.masjid.images != null
-                                                  ? NetworkImage(
-                                                "http://masjid.exportica.in/${widget.masjid.images?[index1]}",
-                                              )
-                                                  : const NetworkImage(""),
-                                              fit: BoxFit.cover,
-                                            )),
+                                          image: widget.masjid.images != null
+                                              ? NetworkImage(
+                                                  "http://masjid.exportica.in/${widget.masjid.images?[index1]}",
+                                                )
+                                              : const NetworkImage(""),
+                                          fit: BoxFit.cover,
+                                        )),
                                       ),
                                     ),
                                   ],
@@ -2337,9 +2386,9 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                                     begin: Alignment.centerLeft,
                                     end: Alignment.centerRight,
                                     colors: [
-                                      CommonColor.LEFT_COLOR,
-                                      CommonColor.RIGHT_COLOR
-                                    ])),
+                                  CommonColor.LEFT_COLOR,
+                                  CommonColor.RIGHT_COLOR
+                                ])),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -2347,7 +2396,7 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                                   "JAMMAT TIME",
                                   style: TextStyle(
                                     fontSize:
-                                    SizeConfig.blockSizeHorizontal * 4.0,
+                                        SizeConfig.blockSizeHorizontal * 4.0,
                                     fontFamily: 'Roboto_Bold',
                                     fontWeight: FontWeight.w600,
                                     color: CommonColor.WHITE_COLOR,
@@ -2366,11 +2415,11 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                                   Padding(
                                     padding: EdgeInsets.only(
                                         top:
-                                        MediaQuery.of(context).size.height *
-                                            0.027,
+                                            MediaQuery.of(context).size.height *
+                                                0.027,
                                         right:
-                                        MediaQuery.of(context).size.height *
-                                            0.0),
+                                            MediaQuery.of(context).size.height *
+                                                0.0),
                                     child: const Text(
                                       "AZAN",
                                       style: TextStyle(
@@ -2383,29 +2432,29 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                                   Padding(
                                     padding: EdgeInsets.only(
                                         top:
-                                        MediaQuery.of(context).size.height *
-                                            0.0),
+                                            MediaQuery.of(context).size.height *
+                                                0.0),
                                     child: Container(
                                         width:
-                                        MediaQuery.of(context).size.width *
-                                            0.14,
+                                            MediaQuery.of(context).size.width *
+                                                0.14,
                                         height:
-                                        MediaQuery.of(context).size.height *
-                                            0.024,
+                                            MediaQuery.of(context).size.height *
+                                                0.024,
                                         decoration: const BoxDecoration(
                                           // color: Colors.blue,
                                           border: Border(
                                             bottom: BorderSide(
                                                 width: 1,
                                                 color:
-                                                CommonColor.SEARCH_COLOR),
+                                                    CommonColor.SEARCH_COLOR),
                                           ),
                                         ),
                                         child: Padding(
                                           padding: EdgeInsets.only(
                                               left: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
+                                                      .size
+                                                      .width *
                                                   0.02),
                                           child: const Text(
                                             "AZAN",
@@ -2420,11 +2469,11 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                                   Padding(
                                     padding: EdgeInsets.only(
                                         top:
-                                        MediaQuery.of(context).size.height *
-                                            0.01,
+                                            MediaQuery.of(context).size.height *
+                                                0.01,
                                         left:
-                                        MediaQuery.of(context).size.width *
-                                            0.0),
+                                            MediaQuery.of(context).size.width *
+                                                0.0),
                                     child: Row(
                                       children: const [
                                         Text(
@@ -2443,50 +2492,39 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                               Expanded(
                                 child: GestureDetector(
                                   onTap: () {
-                                 // NotificationService.scheduleNotifications();
+                                    // NotificationService.scheduleNotifications();
                                   },
-
                                   child: ListView.builder(
                                       shrinkWrap: true,
                                       itemCount:
-                                      widget.masjid.weeklyNamaz?.length,
+                                          widget.masjid.weeklyNamaz?.length,
                                       scrollDirection: Axis.horizontal,
                                       physics:
-                                      const NeverScrollableScrollPhysics(),
+                                          const NeverScrollableScrollPhysics(),
                                       itemBuilder: (context, index1) {
-
                                         final file = File(
                                             '/data/data/com.azanforsalah.user/app_flutter/time.json');
                                         if (!file.existsSync())
                                           file.create(recursive: true);
 
-
-                                        if( widget.masjid.isPrimary == true){
-
-                                       NotificationService.scheduleNotifications();
-                                               file.writeAsString(jsonEncode(
-
-
+                                        if (widget.masjid.isPrimary == true) {
+                                          NotificationService
+                                              .scheduleNotifications();
+                                          file.writeAsString(jsonEncode(
                                               widget.masjid.weeklyNamaz));
-
                                         }
-
-
-
-
-
 
                                         return Column(
                                           children: [
                                             Padding(
                                               padding: EdgeInsets.only(
                                                   top: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
+                                                          .size
+                                                          .height *
                                                       0.01,
                                                   right: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
+                                                          .size
+                                                          .height *
                                                       0.006),
                                               child: Text(
                                                 "${widget.masjid.weeklyNamaz?[index1].day}",
@@ -2494,24 +2532,24 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                                                     fontFamily: 'Roboto_Bold',
                                                     fontWeight: FontWeight.w500,
                                                     color:
-                                                    CommonColor.BLACK_COLOR,
+                                                        CommonColor.BLACK_COLOR,
                                                     fontSize: 10),
                                               ),
                                             ),
                                             Padding(
                                               padding: EdgeInsets.only(
                                                   top: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
+                                                          .size
+                                                          .height *
                                                       0.01),
                                               child: Container(
                                                 width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
+                                                        .size
+                                                        .width *
                                                     0.145,
                                                 height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
+                                                        .size
+                                                        .height *
                                                     0.031,
                                                 decoration: const BoxDecoration(
                                                   border: Border(
@@ -2523,21 +2561,22 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                                                 ),
                                                 child: Padding(
                                                   padding: EdgeInsets.only(
-                                                      left: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                          0.006),
+                                                      left:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.006),
                                                   child: Row(
                                                     children: [
                                                       Text(
                                                         "${widget.masjid.weeklyNamaz?[index1].azan}",
                                                         style: TextStyle(
                                                             fontSize: SizeConfig
-                                                                .blockSizeHorizontal *
+                                                                    .blockSizeHorizontal *
                                                                 2.7),
                                                         maxLines: 1,
-                                                        overflow:
-                                                        TextOverflow.ellipsis,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
                                                       ),
                                                     ],
                                                   ),
@@ -2547,12 +2586,12 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                                             Padding(
                                               padding: EdgeInsets.only(
                                                   top: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
+                                                          .size
+                                                          .height *
                                                       0.01,
                                                   right: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
+                                                          .size
+                                                          .height *
                                                       0.00),
                                               child: Row(
                                                 children: [
@@ -2560,7 +2599,7 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                                                     "${widget.masjid.weeklyNamaz?[index1].jammat}",
                                                     style: TextStyle(
                                                         fontSize: SizeConfig
-                                                            .blockSizeHorizontal *
+                                                                .blockSizeHorizontal *
                                                             2.7),
                                                   ),
                                                 ],
@@ -2618,8 +2657,8 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                                         fontFamily: "Roboto_Regular",
                                         fontWeight: FontWeight.w700,
                                         fontSize:
-                                        SizeConfig.blockSizeHorizontal *
-                                            4.0,
+                                            SizeConfig.blockSizeHorizontal *
+                                                4.0,
                                         color: CommonColor.WHITE_COLOR),
                                   ),
                                 ),
@@ -2668,12 +2707,12 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                                       Padding(
                                         padding: EdgeInsets.only(
                                             top: MediaQuery.of(context)
-                                                .size
-                                                .height *
+                                                    .size
+                                                    .height *
                                                 0.03,
                                             left: MediaQuery.of(context)
-                                                .size
-                                                .width *
+                                                    .size
+                                                    .width *
                                                 0.03),
                                         child: Row(
                                           children: const [
@@ -2683,7 +2722,7 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                                                   fontFamily: 'Roboto_Bold',
                                                   fontWeight: FontWeight.w500,
                                                   color:
-                                                  CommonColor.BLACK_COLOR,
+                                                      CommonColor.BLACK_COLOR,
                                                   fontSize: 14),
                                             ),
                                           ],
@@ -2697,47 +2736,47 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                                       Padding(
                                         padding: const EdgeInsets.only(top: 12),
                                         child: SizedBox(
-                                          // color: Colors.red,
+                                            // color: Colors.red,
                                             height: MediaQuery.of(context)
-                                                .size
-                                                .height *
+                                                    .size
+                                                    .height *
                                                 0.11,
                                             width: MediaQuery.of(context)
-                                                .size
-                                                .width *
+                                                    .size
+                                                    .width *
                                                 0.7,
                                             child: ListView.builder(
                                                 shrinkWrap: true,
                                                 scrollDirection:
-                                                Axis.horizontal,
+                                                    Axis.horizontal,
                                                 itemCount: widget.masjid.jumma
                                                     ?.jammat?.length,
                                                 itemBuilder: (context, index1) {
                                                   return Padding(
                                                     padding: EdgeInsets.only(
                                                         top: MediaQuery.of(
-                                                            context)
-                                                            .size
-                                                            .height *
+                                                                    context)
+                                                                .size
+                                                                .height *
                                                             0.015,
                                                         left: MediaQuery.of(
-                                                            context)
-                                                            .size
-                                                            .height *
+                                                                    context)
+                                                                .size
+                                                                .height *
                                                             0.02),
                                                     child: Row(
                                                       mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .start,
+                                                          MainAxisAlignment
+                                                              .start,
                                                       crossAxisAlignment:
-                                                      CrossAxisAlignment
-                                                          .start,
+                                                          CrossAxisAlignment
+                                                              .start,
                                                       children: [
                                                         Text(
                                                           "${widget.masjid.jumma?.jammat?[index1]}",
                                                           style: TextStyle(
                                                               fontSize: SizeConfig
-                                                                  .blockSizeHorizontal *
+                                                                      .blockSizeHorizontal *
                                                                   3.3),
                                                           maxLines: 3,
                                                         ),
@@ -2793,8 +2832,8 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                                         fontFamily: "Roboto_Regular",
                                         fontWeight: FontWeight.w700,
                                         fontSize:
-                                        SizeConfig.blockSizeHorizontal *
-                                            4.0,
+                                            SizeConfig.blockSizeHorizontal *
+                                                4.0,
                                         color: CommonColor.WHITE_COLOR),
                                   ),
                                 ),
@@ -2839,26 +2878,26 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                                   Padding(
                                     padding: EdgeInsets.only(
                                         top:
-                                        MediaQuery.of(context).size.height *
-                                            0.02),
+                                            MediaQuery.of(context).size.height *
+                                                0.02),
                                     child: Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Padding(
                                           padding: EdgeInsets.only(
                                               left: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
+                                                      .size
+                                                      .width *
                                                   0.1,
                                               top: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
+                                                      .size
+                                                      .height *
                                                   0.0),
                                           child: Text("SAHAR",
                                               style: TextStyle(
                                                 fontSize: SizeConfig
-                                                    .blockSizeHorizontal *
+                                                        .blockSizeHorizontal *
                                                     4.3,
                                                 fontFamily: 'Roboto_Bold',
                                                 fontWeight: FontWeight.w600,
@@ -2868,56 +2907,56 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                                         Padding(
                                           padding: EdgeInsets.only(
                                               right: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
+                                                      .size
+                                                      .width *
                                                   0.1,
                                               top: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
+                                                      .size
+                                                      .height *
                                                   0.0),
                                           child: widget.masjid.sahr != null
                                               ? Text("${widget.masjid.sahr}",
-                                              style: TextStyle(
-                                                fontSize: SizeConfig
-                                                    .blockSizeHorizontal *
-                                                    4.3,
-                                                fontFamily: 'Roboto_Bold',
-                                                fontWeight: FontWeight.w600,
-                                                color:
-                                                CommonColor.BLACK_COLOR,
-                                              ))
+                                                  style: TextStyle(
+                                                    fontSize: SizeConfig
+                                                            .blockSizeHorizontal *
+                                                        4.3,
+                                                    fontFamily: 'Roboto_Bold',
+                                                    fontWeight: FontWeight.w600,
+                                                    color:
+                                                        CommonColor.BLACK_COLOR,
+                                                  ))
                                               : Text("5:30 AM",
-                                              style: TextStyle(
-                                                fontSize: SizeConfig
-                                                    .blockSizeHorizontal *
-                                                    4.3,
-                                                fontFamily: 'Roboto_Bold',
-                                                fontWeight: FontWeight.w600,
-                                                color:
-                                                CommonColor.BLACK_COLOR,
-                                              )),
+                                                  style: TextStyle(
+                                                    fontSize: SizeConfig
+                                                            .blockSizeHorizontal *
+                                                        4.3,
+                                                    fontFamily: 'Roboto_Bold',
+                                                    fontWeight: FontWeight.w600,
+                                                    color:
+                                                        CommonColor.BLACK_COLOR,
+                                                  )),
                                         ),
                                       ],
                                     ),
                                   ),
                                   Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Padding(
                                         padding: EdgeInsets.only(
                                             left: MediaQuery.of(context)
-                                                .size
-                                                .height *
+                                                    .size
+                                                    .height *
                                                 0.05,
                                             top: MediaQuery.of(context)
-                                                .size
-                                                .height *
+                                                    .size
+                                                    .height *
                                                 0.03),
                                         child: Text("IFTAR",
                                             style: TextStyle(
                                               fontSize: SizeConfig
-                                                  .blockSizeHorizontal *
+                                                      .blockSizeHorizontal *
                                                   4.3,
                                               fontFamily: 'Roboto_Bold',
                                               fontWeight: FontWeight.w600,
@@ -2927,34 +2966,34 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                                       Padding(
                                         padding: EdgeInsets.only(
                                             right: MediaQuery.of(context)
-                                                .size
-                                                .width *
+                                                    .size
+                                                    .width *
                                                 0.1,
                                             top: MediaQuery.of(context)
-                                                .size
-                                                .height *
+                                                    .size
+                                                    .height *
                                                 0.03),
                                         child: widget.masjid.iftar != null
                                             ? Text("${widget.masjid.iftar}",
-                                            style: TextStyle(
-                                              fontSize: SizeConfig
-                                                  .blockSizeHorizontal *
-                                                  4.3,
-                                              fontFamily: 'Roboto_Bold',
-                                              fontWeight: FontWeight.w600,
-                                              color:
-                                              CommonColor.BLACK_COLOR,
-                                            ))
+                                                style: TextStyle(
+                                                  fontSize: SizeConfig
+                                                          .blockSizeHorizontal *
+                                                      4.3,
+                                                  fontFamily: 'Roboto_Bold',
+                                                  fontWeight: FontWeight.w600,
+                                                  color:
+                                                      CommonColor.BLACK_COLOR,
+                                                ))
                                             : Text("5:30 AM",
-                                            style: TextStyle(
-                                              fontSize: SizeConfig
-                                                  .blockSizeHorizontal *
-                                                  4.3,
-                                              fontFamily: 'Roboto_Bold',
-                                              fontWeight: FontWeight.w600,
-                                              color:
-                                              CommonColor.BLACK_COLOR,
-                                            )),
+                                                style: TextStyle(
+                                                  fontSize: SizeConfig
+                                                          .blockSizeHorizontal *
+                                                      4.3,
+                                                  fontFamily: 'Roboto_Bold',
+                                                  fontWeight: FontWeight.w600,
+                                                  color:
+                                                      CommonColor.BLACK_COLOR,
+                                                )),
                                       )
                                     ],
                                   )
@@ -3003,8 +3042,8 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                                         fontFamily: "Roboto_Regular",
                                         fontWeight: FontWeight.w700,
                                         fontSize:
-                                        SizeConfig.blockSizeHorizontal *
-                                            4.0,
+                                            SizeConfig.blockSizeHorizontal *
+                                                4.0,
                                         color: CommonColor.WHITE_COLOR),
                                   ),
                                 ),
@@ -3025,7 +3064,7 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                                 top: MediaQuery.of(context).size.height * 0.0),
                             child: Container(
                                 height:
-                                MediaQuery.of(context).size.height * 0.2,
+                                    MediaQuery.of(context).size.height * 0.2,
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: const BorderRadius.only(
@@ -3052,7 +3091,7 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                                   children: [
                                     Expanded(
                                       child: ListView.builder(
-                                        // physics: NeverScrollableScrollPhysics(),
+                                          // physics: NeverScrollableScrollPhysics(),
                                           shrinkWrap: true,
                                           itemCount: widget.masjid.eid?.length,
                                           // physics: const NeverScrollableScrollPhysics(),
@@ -3062,38 +3101,38 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                                                 Padding(
                                                   padding: EdgeInsets.only(
                                                       top:
-                                                      MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                          0.02),
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.02),
                                                   child: Row(
                                                     mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
                                                     children: [
                                                       Padding(
                                                         padding: EdgeInsets.only(
                                                             left: MediaQuery.of(
-                                                                context)
-                                                                .size
-                                                                .width *
+                                                                        context)
+                                                                    .size
+                                                                    .width *
                                                                 0.1,
                                                             top: MediaQuery.of(
-                                                                context)
-                                                                .size
-                                                                .height *
+                                                                        context)
+                                                                    .size
+                                                                    .height *
                                                                 0.01),
                                                         child: Text(
                                                             "${widget.masjid.eid?[index].name}",
                                                             style: TextStyle(
                                                               fontSize: SizeConfig
-                                                                  .blockSizeHorizontal *
+                                                                      .blockSizeHorizontal *
                                                                   4.3,
                                                               fontFamily:
-                                                              'Roboto_Bold',
+                                                                  'Roboto_Bold',
                                                               fontWeight:
-                                                              FontWeight
-                                                                  .w600,
+                                                                  FontWeight
+                                                                      .w600,
                                                               color: CommonColor
                                                                   .BLACK_COLOR,
                                                             )),
@@ -3101,51 +3140,51 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                                                       Padding(
                                                         padding: EdgeInsets.only(
                                                             right: MediaQuery.of(
-                                                                context)
-                                                                .size
-                                                                .width *
+                                                                        context)
+                                                                    .size
+                                                                    .width *
                                                                 0.05,
                                                             top: MediaQuery.of(
-                                                                context)
-                                                                .size
-                                                                .height *
+                                                                        context)
+                                                                    .size
+                                                                    .height *
                                                                 0.01),
                                                         child: Row(
                                                           children: [
                                                             Text("Jammat",
                                                                 style:
-                                                                TextStyle(
+                                                                    TextStyle(
                                                                   fontSize:
-                                                                  SizeConfig
-                                                                      .blockSizeHorizontal *
-                                                                      4.3,
+                                                                      SizeConfig
+                                                                              .blockSizeHorizontal *
+                                                                          4.3,
                                                                   fontFamily:
-                                                                  'Roboto_Bold',
+                                                                      'Roboto_Bold',
                                                                   fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
+                                                                      FontWeight
+                                                                          .w600,
                                                                   color: CommonColor
                                                                       .BLACK_COLOR,
                                                                 )),
                                                             Column(
                                                               children: [
                                                                 for (int i = 0;
-                                                                i <
-                                                                    (widget.masjid.eid?[index].jammat?.length ??
-                                                                        0);
-                                                                i++)
+                                                                    i <
+                                                                        (widget.masjid.eid?[index].jammat?.length ??
+                                                                            0);
+                                                                    i++)
                                                                   Text(
                                                                     " ${widget.masjid.eid?[index].jammat?[i]}",
                                                                     style:
-                                                                    TextStyle(
+                                                                        TextStyle(
                                                                       fontSize:
-                                                                      SizeConfig.blockSizeHorizontal *
-                                                                          4.3,
+                                                                          SizeConfig.blockSizeHorizontal *
+                                                                              4.3,
                                                                       fontFamily:
-                                                                      'Roboto_Bold',
+                                                                          'Roboto_Bold',
                                                                       fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
+                                                                          FontWeight
+                                                                              .w600,
                                                                       color: CommonColor
                                                                           .BLACK_COLOR,
                                                                     ),
@@ -3198,8 +3237,11 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
 
     if (response.statusCode == 200) {
       log(response.body);
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>  ParentTabBarScreen(),
-      ));
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ParentTabBarScreen(),
+          ));
 
       return makePrimaryFromJson(response.body);
     } else {
