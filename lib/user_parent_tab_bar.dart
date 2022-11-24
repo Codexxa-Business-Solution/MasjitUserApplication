@@ -751,7 +751,7 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen>
     var headersList = {'Authorization': 'Bearer ${box.get(kToken)}'};
 
     var response = await http.get(
-        Uri.parse('http://masjid.exportica.in/api/user/logout'),
+        Uri.parse('http://admin.azan4salah.com/api/user/logout'),
         headers: headersList);
 
     if (response.statusCode == 200) {
@@ -773,7 +773,7 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen>
     var headersList = {'Authorization': 'Bearer ${box.get(kToken)}'};
 
     var response = await http.get(
-        Uri.parse('http://masjid.exportica.in/api/user/delete_account'),
+        Uri.parse('http://admin.azan4salah.com/api/user/delete_account'),
         headers: headersList);
 
     if (response.statusCode == 200) {

@@ -1703,7 +1703,7 @@ Future<AllMasjitJoinListResponceModel> getNoticeSection() async {
   var headersList = {'Authorization': 'Bearer ${box.get(kToken)}'};
 
   var response = await http.get(
-      Uri.parse('http://masjid.exportica.in/api/user/joined'),
+      Uri.parse('http://admin.azan4salah.com/api/user/joined'),
       headers: headersList);
 
   if (response.statusCode == 200) {
@@ -2280,7 +2280,7 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                                             image: DecorationImage(
                                           image: widget.masjid.images != null
                                               ? NetworkImage(
-                                                  "http://masjid.exportica.in/${widget.masjid.images?[index1]}",
+                                                  "http://admin.azan4salah.com/${widget.masjid.images?[index1]}",
                                                 )
                                               : const NetworkImage(""),
                                           fit: BoxFit.cover,
@@ -3199,7 +3199,7 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
     var headersList = {'Authorization': 'Bearer ${box.get(kToken)}'};
 
     var response = await http.get(
-        Uri.parse('http://masjid.exportica.in/api/user/primary/$priamryId'),
+        Uri.parse('http://admin.azan4salah.com/api/user/primary/$priamryId'),
         headers: headersList);
 
     if (response.statusCode == 200) {

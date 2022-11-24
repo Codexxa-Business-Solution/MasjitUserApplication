@@ -176,7 +176,7 @@ class _NoticeUserTabState extends State<NoticeUserTab> {
     };
 
     var response = await http.get(
-        Uri.parse('http://masjid.exportica.in/api/masjids/${widget.masjitNoticeId}'),
+        Uri.parse('http://admin.azan4salah.com/api/masjids/${widget.masjitNoticeId}'),
         headers:headersList
     );
 

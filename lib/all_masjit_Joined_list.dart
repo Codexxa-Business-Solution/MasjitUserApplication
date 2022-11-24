@@ -513,7 +513,7 @@ class _AllMasjitJoinedListState extends State<AllMasjitJoinedList> {
 
 
     var response = await http.get(
-      Uri.parse('http://masjid.exportica.in/api/user/joined'),
+      Uri.parse('http://admin.azan4salah.com/api/user/joined'),
     headers:headersList
     );
 

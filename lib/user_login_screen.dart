@@ -399,7 +399,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<UserLoginResponseModel> getLoginUsers() async {
     try {
       final result = await http
-          .post(Uri.parse("http://masjid.exportica.in/api/user/verify"), body: {
+          .post(Uri.parse("http://admin.azan4salah.com/api/user/verify"), body: {
         "email": emailController.text.trim(),
         "password": passwordController.text.trim(),
       });

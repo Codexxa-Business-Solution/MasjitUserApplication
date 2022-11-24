@@ -648,7 +648,7 @@ Future<AllMasjitDetailsResponceModel>getNoticeSection(masjitId) async {
 
 
   var response = await http.get(
-    Uri.parse('http://masjid.exportica.in/api/masjids/${masjitId}'),
+    Uri.parse('http://admin.azan4salah.com/api/masjids/${masjitId}'),
     headers:headersList,
     //  body: msg,
   );

@@ -150,7 +150,7 @@ class _MasjitNameLocationState extends State<MasjitNameLocation>
     var headersList = {'Authorization': 'Bearer ${box.get(kToken)}'};
 
     var response = await http.get(
-      Uri.parse('http://masjid.exportica.in/api/masjids/$masjitId'),
+      Uri.parse('http://admin.azan4salah.com/api/masjids/$masjitId'),
       headers: headersList,
       //  body: msg,
     );
@@ -1440,7 +1440,7 @@ class _JoinMasjidDetailsState extends State<JoinMasjidDetails> {
                                                                     image: DecorationImage(
                                                                         image: widget.masjid.images != null
                                                                             ? NetworkImage(
-                                                                                "http://masjid.exportica.in/${widget.masjid.images?[index1]}",
+                                                                                "http://admin.azan4salah.com/${widget.masjid.images?[index1]}",
                                                                               )
                                                                             : const NetworkImage(""),
                                                                         fit: BoxFit.cover)),
@@ -2350,7 +2350,7 @@ class _JoinMasjidDetailsState extends State<JoinMasjidDetails> {
     // });
 
     var response = await http.get(
-      Uri.parse('http://masjid.exportica.in/api/user/join?masjid=$masjitId'),
+      Uri.parse('http://admin.azan4salah.com/api/user/join?masjid=$masjitId'),
       headers: headersList,
       //  body: msg,
     );

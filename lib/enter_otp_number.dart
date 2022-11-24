@@ -173,7 +173,7 @@ class _EnterOtpNumberState extends State<EnterOtpNumber> {
   Future<UserPhoneNumberRegistrationResponceModel> getOtpApi() async {
     try {
       final result = await http
-          .post(Uri.parse("http://masjid.exportica.in/api/user/verify"), body: {
+          .post(Uri.parse("http://admin.azan4salah.com/api/user/verify"), body: {
 
         "phone": widget.mobileNumber.toString(),
 

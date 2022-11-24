@@ -63,7 +63,7 @@ class _BannersState extends State<Banners> with SingleTickerProviderStateMixin {
                           (BuildContext context, int itemIndex, int index1) {
                         final img = images[index1].isNotEmpty
                             ? NetworkImage(
-                                "http://masjid.exportica.in${images[index1]}",
+                                "http://admin.azan4salah.com${images[index1]}",
                               )
                             : const NetworkImage("");
 
@@ -136,7 +136,7 @@ Future<BannerImage> getBannerImage() async {
   final box = Hive.box(kBoxName);
   var headersList = {'Authorization': 'Bearer ${box.get(kToken)}'};
   var response = await http.get(
-      Uri.parse('http://masjid.exportica.in/api/user/banners'),
+      Uri.parse('http://admin.azan4salah.com/api/user/banners'),
       headers: headersList);
   if (response.statusCode == 200) {
     var jsonData = json.decode(response.body);

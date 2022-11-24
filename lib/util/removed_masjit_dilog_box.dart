@@ -206,7 +206,7 @@ class _EndFriendDialogState extends State<EndFriendDialog> {
 
     var response = await http.get(
         Uri.parse(
-            'http://masjid.exportica.in/api/user/remove?masjid=$masjitIdRemoved'),
+            'http://admin.azan4salah.com/api/user/remove?masjid=$masjitIdRemoved'),
         headers: headersList);
 
     if (response.statusCode == 200) {

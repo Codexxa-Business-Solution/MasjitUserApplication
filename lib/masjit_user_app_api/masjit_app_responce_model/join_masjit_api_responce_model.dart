@@ -42,8 +42,8 @@ class Datum {
   List<String>? images;
   List<WeeklyNamaz>? weeklyNamaz;
   Jumma? jumma;
-  dynamic? sahr;
-  dynamic? iftar;
+  String? sahr;
+  String? iftar;
   List<Eid>? eid;
   List<Place>? place;
 
@@ -53,9 +53,9 @@ class Datum {
     images: List<String>.from(json["images"].map((x) => x)),
     weeklyNamaz: List<WeeklyNamaz>.from(json["weekly_namaz"].map((x) => WeeklyNamaz.fromJson(x))),
     jumma: Jumma.fromJson(json["jumma"]),
-    sahr: json["sahr"],
-    iftar: json["iftar"],
-    eid: List<Eid>.from(json["eid"].map((x) => Eid.fromJson(x))),
+    sahr: json["sahr"] == null ? null : json["sahr"],
+    iftar: json["iftar"] == null ? null : json["iftar"],
+    eid: json["eid"] == null ? null : List<Eid>.from(json["eid"].map((x) => Eid.fromJson(x))),
     place: List<Place>.from(json["place"].map((x) => Place.fromJson(x))),
   );
 
@@ -65,33 +65,33 @@ class Datum {
     "images": List<dynamic>.from(images!.map((x) => x)),
     "weekly_namaz": List<dynamic>.from(weeklyNamaz!.map((x) => x.toJson())),
     "jumma": jumma?.toJson(),
-    "sahr": sahr,
-    "iftar": iftar,
-    "eid": List<dynamic>.from(eid!.map((x) => x.toJson())),
+    "sahr": sahr == null ? null : sahr,
+    "iftar": iftar == null ? null : iftar,
+    "eid": eid == null ? null : List<dynamic>.from(eid!.map((x) => x.toJson())),
     "place": List<dynamic>.from(place!.map((x) => x.toJson())),
   };
 }
 
 class Eid {
   Eid({
-    this.azan,
     this.name,
+    this.azan,
     this.jammat,
   });
 
-  String? azan;
   String? name;
+  String? azan;
   List<String>? jammat;
 
   factory Eid.fromJson(Map<String, dynamic> json) => Eid(
-    azan: json["azan"],
     name: json["name"],
+    azan: json["azan"],
     jammat: List<String>.from(json["jammat"].map((x) => x)),
   );
 
   Map<String, dynamic> toJson() => {
-    "azan": azan,
     "name": name,
+    "azan": azan,
     "jammat": List<dynamic>.from(jammat!.map((x) => x)),
   };
 }

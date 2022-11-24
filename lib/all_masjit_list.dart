@@ -192,7 +192,7 @@ class _AllMasjitListState extends State<AllMasjitList> {
                             ?.isNotEmpty ??
                             false
                             ? NetworkImage(
-                          "http://masjid.exportica.in/${snapshot.data?.data?[index].images?[0]}",
+                          "http://admin.azan4salah.com/${snapshot.data?.data?[index].images?[0]}",
                         )
                             : const NetworkImage(
                             "https://image.shutterstock.com/image-photo/medina-saudi-arabia-july-07-260nw-1773824582.jpg");
@@ -703,7 +703,7 @@ class _AllMasjitListState extends State<AllMasjitList> {
                             .data?.data?[index].images?.isNotEmpty ??
                             false
                             ? NetworkImage(
-                          "http://masjid.exportica.in/${snapshot.data?.data?[index].images?[0]}",
+                          "http://admin.azan4salah.com/${snapshot.data?.data?[index].images?[0]}",
                         )
                             : const NetworkImage(
                             "https://image.shutterstock.com/image-photo/medina-saudi-arabia-july-07-260nw-1773824582.jpg");
@@ -1184,7 +1184,7 @@ class _AllMasjitListState extends State<AllMasjitList> {
 
     var response = await http.get(
         Uri.parse(
-            'http://masjid.exportica.in/api/masjids?keyword=${searchController.text.trim()}'),
+            'http://admin.azan4salah.com/api/masjids?keyword=${searchController.text.trim()}'),
         headers: headersList);
 
     if (response.statusCode == 200) {
@@ -1204,7 +1204,7 @@ class _AllMasjitListState extends State<AllMasjitList> {
 
     var response = await http.get(
         Uri.parse(
-            'http://masjid.exportica.in/api/masjids/nearby?lat=${box.get(kUserLatitude)}&long=${box.get(kUserLongitude)}'),
+            'http://admin.azan4salah.com/api/masjids/nearby?lat=${box.get(kUserLatitude)}&long=${box.get(kUserLongitude)}'),
         headers: headersList);
 
     if (response.statusCode == 200) {

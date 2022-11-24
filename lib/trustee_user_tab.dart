@@ -176,7 +176,7 @@ class _TrusteeUserTabState extends State<TrusteeUserTab> {
     };
 
     var response = await http.get(
-        Uri.parse('http://masjid.exportica.in/api/masjids/${widget.masjitTrusteeId}'),
+        Uri.parse('http://admin.azan4salah.com/api/masjids/${widget.masjitTrusteeId}'),
         headers:headersList
     );
 

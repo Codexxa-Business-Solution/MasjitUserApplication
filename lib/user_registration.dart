@@ -835,7 +835,7 @@ class _UserRegistrationState extends State<UserRegistration> {
         " ${widget.phoneNum}");
     try {
       final result = await http.post(
-          Uri.parse("http://masjid.exportica.in/api/user/register"),
+          Uri.parse("http://admin.azan4salah.com/api/user/register"),
           body: {
             "phone": numberController.text.trim(),
             "email": emailController.text.trim(),
