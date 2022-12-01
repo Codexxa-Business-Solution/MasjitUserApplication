@@ -1820,134 +1820,129 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.01,),
-                    child: Image.asset(
-                      'assets/images/masjit_logo.png',
-                      width: 35,
-                      height: 35,
-                    ),
+              Padding(
+                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.01,),
+                child: Image.asset(
+                  'assets/images/masjit_logo.png',
+                  width: 35,
+                  height: 35,
+                ),
+              ),
+              Container(
+                width: 159,
+                // color: Colors.blue,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.02,
                   ),
-                  SizedBox(
-                    width: 80,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: SizeConfig.screenWidth*0.5,
+                        // color: Colors.red,
+                        child: Text(
+                          '${widget.masjid.place?[0].masjidName}',
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 14,
+                          ),
+                          maxLines: 1,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 60,
+                        child:
+                        Text('${widget.masjid.place?[0].subLocality}',
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 14,
+                            )),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              widget.masjid.isPrimary == true
+                  ? SizedBox(
+                    width: 67,
+                    height: 47,
                     child: Padding(
                       padding: EdgeInsets.only(
                         top: MediaQuery.of(context).size.height * 0.02,
+                        right: MediaQuery.of(context).size.width * 0.02,
                       ),
-                      child: SizedBox(
-                        width: 100,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '${widget.masjid.place?[0].masjidName}',
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 14,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 60,
-                              child:
-                                  Text('${widget.masjid.place?[0].subLocality}',
-                                      overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 14,
-                                      )),
-                            ),
-                          ],
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                              colors: [
+                                Colors.pink,
+                                Colors.red,
+                                Colors.orange
+                              ]),
+                          borderRadius: BorderRadius.circular(7),
                         ),
-                      ),
-                    ),
-                  ),
-
-                ],
-              ),
-              widget.masjid.isPrimary == true
-                  ? Padding(
-                    padding: EdgeInsets.only( left: 65),
-                    child: SizedBox(
-                      width: 67,
-                      height: 47,
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.02,
-                          right: MediaQuery.of(context).size.width * 0.02,
-                        ),
-                        child: Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                                begin: Alignment.centerLeft,
-                                end: Alignment.centerRight,
-                                colors: [
-                                  Colors.pink,
-                                  Colors.red,
-                                  Colors.orange
-                                ]),
-                            borderRadius: BorderRadius.circular(7),
-                          ),
-                          child: const Text(
-                            "Primary",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 12,
-                              color: CommonColor.WHITE_COLOR,
-                            ),
+                        child: const Text(
+                          "Primary",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 12,
+                            color: CommonColor.WHITE_COLOR,
                           ),
                         ),
                       ),
                     ),
                   )
                   : Padding(
-                      padding: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.02,
-                      left: 60),
-                      child: GestureDetector(
-                        onTap: () {
-                          showDialog(
-                              context: context,
-                              builder: (ctx) => AlertDialog(
-                                    title: const Center(
-                                        child: Text(
-                                      "Make Primary",
-                                      style: TextStyle(
-                                        color: CommonColor.REGISTRARTION_COLOR,
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 20,
-                                        fontFamily: 'Roboto_Medium',
-                                      ),
-                                    )),
-                                    content: Padding(
-                                      padding: EdgeInsets.only(
-                                          left: SizeConfig.screenWidth * 0.04),
-                                      child: const Text(
-                                        "Do you want to make this Masjid Primary?",
-                                        style: TextStyle(
-                                          color: CommonColor.BLACK,
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14,
-                                          fontFamily: 'Roboto_Medium',
-                                        ),
-                                      ),
-                                    ),
-                                    actions: <Widget>[
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            bottom:
-                                                SizeConfig.screenHeight * 0.03),
-                                        child: Center(
-                                          child: Column(
-                                            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              GestureDetector(
-                                                onTap: () {
-                                                  /* getLogoutUser().then((value) {
+                padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.02,
+                ),
+                child: GestureDetector(
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (ctx) => AlertDialog(
+                          title: const Center(
+                              child: Text(
+                                "Make Primary",
+                                style: TextStyle(
+                                  color: CommonColor.REGISTRARTION_COLOR,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 20,
+                                  fontFamily: 'Roboto_Medium',
+                                ),
+                              )),
+                          content: Padding(
+                            padding: EdgeInsets.only(
+                                left: SizeConfig.screenWidth * 0.04),
+                            child: const Text(
+                              "Do you want to make this Masjid Primary?",
+                              style: TextStyle(
+                                color: CommonColor.BLACK,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14,
+                                fontFamily: 'Roboto_Medium',
+                              ),
+                            ),
+                          ),
+                          actions: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  bottom:
+                                  SizeConfig.screenHeight * 0.03),
+                              child: Center(
+                                child: Column(
+                                  //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        /* getLogoutUser().then((value) {
                                                 box.delete(kToken);
                                                 //box.delete(kBoxName);
                                                 box.delete(kUserPhoneNumber);
@@ -1967,10 +1962,10 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                                                       builder: (context) =>
                                                           EnterMobileNumber()));*/ /*
                                               });*/
-                                                  //cityController.text.isEmpty ? _validate = true : _validate = false;
-                                                  makePrimaryApi(
-                                                      "${widget.masjid.id}");
-                                                  /* final file = File(
+                                        //cityController.text.isEmpty ? _validate = true : _validate = false;
+                                        makePrimaryApi(
+                                            "${widget.masjid.id}");
+                                        /* final file = File(
                                                   '/data/data/com.azanforsalah.user/app_flutter/time.json');
                                               if (!file.existsSync())
                                                 file.create(recursive: true);
@@ -1978,146 +1973,147 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                                               file.writeAsString(jsonEncode(
                                                   widget.masjid.weeklyNamaz));*/
 
-                                                  print(
-                                                      "new ${widget.masjid.weeklyNamaz}");
-                                                },
-                                                child: Padding(
-                                                  padding: EdgeInsets.only(
-                                                      left: SizeConfig
-                                                              .screenWidth *
-                                                          0.1,
-                                                      right: SizeConfig
-                                                              .screenWidth *
-                                                          0.1),
-                                                  child: Container(
-                                                      height: SizeConfig
-                                                              .screenHeight *
-                                                          0.05,
-                                                      decoration: BoxDecoration(
-                                                        gradient:
-                                                            const LinearGradient(
-                                                                begin: Alignment
-                                                                    .centerLeft,
-                                                                end: Alignment
-                                                                    .centerRight,
-                                                                colors: [
-                                                              CommonColor
-                                                                  .LEFT_COLOR,
-                                                              CommonColor
-                                                                  .RIGHT_COLOR
-                                                            ]),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(30),
-                                                      ),
-                                                      child: Center(
-                                                        child: Text(
-                                                          "Yes",
-                                                          style: TextStyle(
-                                                              fontFamily:
-                                                                  "Roboto_Regular",
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w700,
-                                                              fontSize: SizeConfig
-                                                                      .blockSizeHorizontal *
-                                                                  4.5,
-                                                              color: CommonColor
-                                                                  .WHITE_COLOR),
-                                                        ),
-                                                      )),
-                                                ),
+                                        print(
+                                            "new ${widget.masjid.weeklyNamaz}");
+                                      },
+                                      child: Padding(
+                                        padding: EdgeInsets.only(
+                                            left: SizeConfig
+                                                .screenWidth *
+                                                0.1,
+                                            right: SizeConfig
+                                                .screenWidth *
+                                                0.1),
+                                        child: Container(
+                                            height: SizeConfig
+                                                .screenHeight *
+                                                0.05,
+                                            decoration: BoxDecoration(
+                                              gradient:
+                                              const LinearGradient(
+                                                  begin: Alignment
+                                                      .centerLeft,
+                                                  end: Alignment
+                                                      .centerRight,
+                                                  colors: [
+                                                    CommonColor
+                                                        .LEFT_COLOR,
+                                                    CommonColor
+                                                        .RIGHT_COLOR
+                                                  ]),
+                                              borderRadius:
+                                              BorderRadius
+                                                  .circular(30),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                "Yes",
+                                                style: TextStyle(
+                                                    fontFamily:
+                                                    "Roboto_Regular",
+                                                    fontWeight:
+                                                    FontWeight
+                                                        .w700,
+                                                    fontSize: SizeConfig
+                                                        .blockSizeHorizontal *
+                                                        4.5,
+                                                    color: CommonColor
+                                                        .WHITE_COLOR),
                                               ),
-                                              GestureDetector(
-                                                onTap: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                child: Padding(
-                                                  padding: EdgeInsets.only(
-                                                      top: SizeConfig
-                                                              .screenHeight *
-                                                          0.03),
-                                                  child: GestureDetector(
-                                                    child: Padding(
-                                                      padding: EdgeInsets.only(
-                                                          top: SizeConfig
-                                                                  .screenHeight *
-                                                              0.0,
-                                                          left: SizeConfig
-                                                                  .screenWidth *
-                                                              0.1,
-                                                          right: SizeConfig
-                                                                  .screenWidth *
-                                                              0.1),
-                                                      child: Container(
-                                                          height: SizeConfig
-                                                                  .screenHeight *
-                                                              0.05,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            gradient: const LinearGradient(
-                                                                begin: Alignment
-                                                                    .centerLeft,
-                                                                end: Alignment
-                                                                    .centerRight,
-                                                                colors: [
-                                                                  CommonColor
-                                                                      .LEFT_COLOR,
-                                                                  CommonColor
-                                                                      .RIGHT_COLOR
-                                                                ]),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        30),
-                                                          ),
-                                                          child: Center(
-                                                            child: Text(
-                                                              "Cancel",
-                                                              style: TextStyle(
-                                                                  fontFamily:
-                                                                      "Roboto_Regular",
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w700,
-                                                                  fontSize:
-                                                                      SizeConfig
-                                                                              .blockSizeHorizontal *
-                                                                          4.5,
-                                                                  color: CommonColor
-                                                                      .WHITE_COLOR),
-                                                            ),
-                                                          )),
-                                                    ),
+                                            )),
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Padding(
+                                        padding: EdgeInsets.only(
+                                            top: SizeConfig
+                                                .screenHeight *
+                                                0.03),
+                                        child: GestureDetector(
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                                top: SizeConfig
+                                                    .screenHeight *
+                                                    0.0,
+                                                left: SizeConfig
+                                                    .screenWidth *
+                                                    0.1,
+                                                right: SizeConfig
+                                                    .screenWidth *
+                                                    0.1),
+                                            child: Container(
+                                                height: SizeConfig
+                                                    .screenHeight *
+                                                    0.05,
+                                                decoration:
+                                                BoxDecoration(
+                                                  gradient: const LinearGradient(
+                                                      begin: Alignment
+                                                          .centerLeft,
+                                                      end: Alignment
+                                                          .centerRight,
+                                                      colors: [
+                                                        CommonColor
+                                                            .LEFT_COLOR,
+                                                        CommonColor
+                                                            .RIGHT_COLOR
+                                                      ]),
+                                                  borderRadius:
+                                                  BorderRadius
+                                                      .circular(
+                                                      30),
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    "Cancel",
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                        "Roboto_Regular",
+                                                        fontWeight:
+                                                        FontWeight
+                                                            .w700,
+                                                        fontSize:
+                                                        SizeConfig
+                                                            .blockSizeHorizontal *
+                                                            4.5,
+                                                        color: CommonColor
+                                                            .WHITE_COLOR),
                                                   ),
-                                                ),
-                                              ),
-                                            ],
+                                                )),
                                           ),
                                         ),
                                       ),
-                                    ],
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(30),
                                     ),
-                                  ));
-                        },
-                        child: Container(
-                            width: 62,
-                            height: 30,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                    width: 1,
-                                    color: CommonColor.REGISTRARTION_COLOR)),
-                            child: Center(
-                              child: Text("Make Primary",
-                                  style: const TextStyle(
-                                      fontSize: 8,
-                                      fontWeight: FontWeight.bold)),
-                            )),
-                      ),
-                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                        ));
+                  },
+                  child: Container(
+                      width: 62,
+                      height: 30,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                              width: 1,
+                              color: CommonColor.REGISTRARTION_COLOR)),
+                      child: Center(
+                        child: Text("Make Primary",
+                            style: const TextStyle(
+                                fontSize: 8,
+                                fontWeight: FontWeight.bold)),
+                      )),
+                ),
+              ),
+
               GestureDetector(
                 onTap: () {
                   showGeneralDialog(

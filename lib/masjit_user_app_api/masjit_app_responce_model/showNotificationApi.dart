@@ -351,7 +351,7 @@ class NotificationService {
           day,
           nextNotificationTime.hour,
           nextNotificationTime.minute,
-        ).subtract(Duration(minutes: 1));
+        ).subtract(Duration(minutes: 5));
 
         AppPreferences.setSchedule(schedule);
 

@@ -295,28 +295,33 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                             // right: parentWidth * 0.05,
                                                               top: parentHeight *
                                                                   0.01),
-                                                          child: Text(
-                                                            "${snapshot.data?.data?[index].place?[0].masjidName}",
-                                                            style:
-                                                            TextStyle(
-                                                              fontSize:
-                                                              SizeConfig.blockSizeHorizontal *
-                                                                  4.3,
-                                                              fontFamily:
-                                                              'Roboto_Bold',
-                                                              fontWeight:
-                                                              FontWeight
-                                                                  .w500,
-                                                              color: CommonColor
-                                                                  .MASJIT_NAME,
+                                                          child: Container(
+                                                            width: parentWidth*0.39,
+                                                            // color: Colors.red,
+                                                            child: Text(
+                                                              "${snapshot.data?.data?[index].place?[0].masjidName}",
+                                                              style:
+                                                              TextStyle(
+                                                                fontSize:
+                                                                SizeConfig.blockSizeHorizontal *
+                                                                    4.3,
+                                                                fontFamily:
+                                                                'Roboto_Bold',
+                                                                fontWeight:
+                                                                FontWeight
+                                                                    .w500,
+                                                                color: CommonColor
+                                                                    .MASJIT_NAME,
+                                                              ),
+                                                              textAlign:
+                                                              TextAlign
+                                                                  .start,
+                                                              overflow:
+                                                              TextOverflow
+                                                                  .ellipsis,
+                                                              maxLines: 1,
+                                                              textScaleFactor: 1.0,
                                                             ),
-                                                            textAlign:
-                                                            TextAlign
-                                                                .start,
-                                                            overflow:
-                                                            TextOverflow
-                                                                .ellipsis,
-                                                            maxLines: 1,
                                                           ),
                                                         ),
                                                       ],
@@ -806,28 +811,32 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                             // right: parentWidth * 0.05,
                                                               top: parentHeight *
                                                                   0.01),
-                                                          child: Text(
-                                                            "${snapshot.data?.data?[index].place?[0].masjidName}",
-                                                            style:
-                                                            TextStyle(
-                                                              fontSize:
-                                                              SizeConfig.blockSizeHorizontal *
-                                                                  4.3,
-                                                              fontFamily:
-                                                              'Roboto_Bold',
-                                                              fontWeight:
-                                                              FontWeight
-                                                                  .w500,
-                                                              color: CommonColor
-                                                                  .MASJIT_NAME,
+                                                          child: Container(
+                                                            width: parentWidth*0.39,
+                                                            // color: Colors.red,
+                                                            child: Text(
+                                                              "${snapshot.data?.data?[index].place?[0].masjidName}",
+                                                              style:
+                                                              TextStyle(
+                                                                fontSize:
+                                                                SizeConfig.blockSizeHorizontal *
+                                                                    4.3,
+                                                                fontFamily:
+                                                                'Roboto_Bold',
+                                                                fontWeight:
+                                                                FontWeight
+                                                                    .w500,
+                                                                color: CommonColor
+                                                                    .MASJIT_NAME,
+                                                              ),
+                                                              textAlign:
+                                                              TextAlign
+                                                                  .start,
+                                                              overflow:
+                                                              TextOverflow
+                                                                  .ellipsis,
+                                                              maxLines: 1,
                                                             ),
-                                                            textAlign:
-                                                            TextAlign
-                                                                .start,
-                                                            overflow:
-                                                            TextOverflow
-                                                                .ellipsis,
-                                                            maxLines: 1,
                                                           ),
                                                         ),
                                                       ],
