@@ -7,6 +7,7 @@ import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/user
 import 'package:masjiduserapp/size_config.dart';
 import 'package:masjiduserapp/user_login_screen.dart';
 import 'package:masjiduserapp/user_registration.dart';
+import 'package:masjiduserapp/user_request_form.dart';
 import 'package:masjiduserapp/util/constant.dart';
 import 'package:masjiduserapp/util/get_location.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -279,6 +280,23 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen>
                             left: SizeConfig.screenWidth * 0.02),
                         child: const Text(
                           "Terms & Condition",
+                          style: TextStyle(
+                              fontSize: 13,
+                              fontFamily: 'Roboto_Medium',
+                              fontWeight: FontWeight.w500,
+                              color: CommonColor.REGISTRARTION_COLOR),
+                        ),
+                      ),
+                    ),
+                    ListTile(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>UserRequestForm()));
+                      },
+                      title: Padding(
+                        padding: EdgeInsets.only(
+                            left: SizeConfig.screenWidth * 0.02),
+                        child: const Text(
+                          "Request Masjid Form",
                           style: TextStyle(
                               fontSize: 13,
                               fontFamily: 'Roboto_Medium',
@@ -651,7 +669,7 @@ class _ParentTabBarScreenState extends State<ParentTabBarScreen>
                               fontSize: 13,
                               fontFamily: 'Roboto_Medium',
                               fontWeight: FontWeight.w500,
-                              color: CommonColor.REGISTRARTION_COLOR),
+                              color: CommonColor.RED_COLOR),
                         ),
                       ),
                     ),
