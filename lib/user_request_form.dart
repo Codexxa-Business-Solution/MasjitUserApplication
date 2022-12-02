@@ -31,6 +31,30 @@ class _UserRequestFormState extends State<UserRequestForm> {
 
   late Box box;
 
+  final _formKey = GlobalKey<FormState>();
+
+  Future<RequestFormResponse>? result;
+
+
+  validate() {
+    if (_formKey.currentState!.validate()) {
+      print("validated");
+      result = postRequestForm();
+
+      result?.then((value) {
+
+        showDialog(
+          context: context,
+          builder: (BuildContext context) => _buildPopupDialog(context),
+        );
+
+      });
+
+    } else {
+      print("not validated");
+    }
+  }
+
 
   @override
   void initState() {
@@ -104,264 +128,331 @@ class _UserRequestFormState extends State<UserRequestForm> {
   }
 
   Widget getAllLayout(double parentHeight, double parentWidth) {
-    return ListView(
-      shrinkWrap: true,
-      children: [
-        Padding(
-            padding: EdgeInsets.only(
-                left: parentWidth * 0.02, right: parentWidth * 0.02),
-            child: Padding(
-                padding: EdgeInsets.only(
-                    top: parentHeight * 0.03,
-                    left: parentWidth * 0.03,
-                    right: parentWidth * 0.03),
-                child: TextFormField(
-                    focusNode: _imamNameFocus,
-                    controller: imamNameController,
-                    keyboardType: TextInputType.text,
-                    validator: (String? value) {
-                      if (value!.isEmpty) {
-                        return 'Imam Name Field Is Required';
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                        labelText: 'Imam Name',
-                        labelStyle: const TextStyle(
-                            color: CommonColor.REGISTRARTION_COLOR),
-                        contentPadding: const EdgeInsets.all(12),
-                        isDense: true,
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 1,
-                                color: CommonColor.REGISTRARTION_COLOR),
-                            borderRadius: BorderRadius.circular(10.0)),
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 1,
-                                color: CommonColor.REGISTRARTION_COLOR),
-                            borderRadius: BorderRadius.circular(10.0)),
-                        border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 1,
-                                color: CommonColor.REGISTRARTION_COLOR),
-                            borderRadius: BorderRadius.circular(10.0)),
-                        hintStyle: TextStyle(
-                            fontFamily: "Roboto_Regular",
-                            fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                            color: CommonColor.SEARCH_TEXT_COLOR))))),
-        Padding(
-            padding: EdgeInsets.only(
-                left: parentWidth * 0.02, right: parentWidth * 0.02),
-            child: Padding(
-                padding: EdgeInsets.only(
-                    top: parentHeight * 0.03,
-                    left: parentWidth * 0.03,
-                    right: parentWidth * 0.03),
-                child: TextFormField(
-                    focusNode: _imamNumberFocus,
-                    controller: imamNumberController,
-                    keyboardType: TextInputType.number,
-                    validator: (String? value) {
-                      if (value!.isEmpty) {
-                        return 'Imam Number Field Is Required';
-                      }
-                      if (value.trim().length < 10 ||
-                          value.trim().length > 10) {
-                        return 'Please Enter Valid Number';
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                        labelText: 'Imam Number',
-                        labelStyle: const TextStyle(
-                            color: CommonColor.REGISTRARTION_COLOR),
-                        contentPadding: const EdgeInsets.all(12),
-                        isDense: true,
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 1,
-                                color: CommonColor.REGISTRARTION_COLOR),
-                            borderRadius: BorderRadius.circular(10.0)),
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 1,
-                                color: CommonColor.REGISTRARTION_COLOR),
-                            borderRadius: BorderRadius.circular(10.0)),
-                        border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 1,
-                                color: CommonColor.REGISTRARTION_COLOR),
-                            borderRadius: BorderRadius.circular(10.0)),
-                        hintStyle: TextStyle(
-                            fontFamily: "Roboto_Regular",
-                            fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                            color: CommonColor.SEARCH_TEXT_COLOR))))),
-        Padding(
-            padding: EdgeInsets.only(
-                left: parentWidth * 0.02, right: parentWidth * 0.02),
-            child: Padding(
-                padding: EdgeInsets.only(
-                    top: parentHeight * 0.03,
-                    left: parentWidth * 0.03,
-                    right: parentWidth * 0.03),
-                child: TextFormField(
-                    focusNode: _masjiNameFocus,
-                    controller: masjidNameController,
-                    keyboardType: TextInputType.text,
-                    validator: (String? value) {
-                      if (value!.isEmpty) {
-                        return 'Imam Name Field Is Required';
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                        labelText: 'Masjid Name',
-                        labelStyle: const TextStyle(
-                            color: CommonColor.REGISTRARTION_COLOR),
-                        contentPadding: const EdgeInsets.all(12),
-                        isDense: true,
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 1,
-                                color: CommonColor.REGISTRARTION_COLOR),
-                            borderRadius: BorderRadius.circular(10.0)),
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 1,
-                                color: CommonColor.REGISTRARTION_COLOR),
-                            borderRadius: BorderRadius.circular(10.0)),
-                        border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 1,
-                                color: CommonColor.REGISTRARTION_COLOR),
-                            borderRadius: BorderRadius.circular(10.0)),
-                        hintStyle: TextStyle(
-                            fontFamily: "Roboto_Regular",
-                            fontSize: SizeConfig.blockSizeHorizontal * 4.0,
-                            color: CommonColor.SEARCH_TEXT_COLOR))))),
+    return Form(
+      key: _formKey,
+      child: ListView(
+        shrinkWrap: true,
+        children: [
+          Padding(
+              padding: EdgeInsets.only(
+                  left: parentWidth * 0.02, right: parentWidth * 0.02),
+              child: Padding(
+                  padding: EdgeInsets.only(
+                      top: parentHeight * 0.03,
+                      left: parentWidth * 0.03,
+                      right: parentWidth * 0.03),
+                  child: TextFormField(
+                      focusNode: _imamNameFocus,
+                      controller: imamNameController,
+                      keyboardType: TextInputType.text,
+                      validator: (String? value) {
+                        if (value!.isEmpty) {
+                          return 'Imam Name Field Is Required';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                          labelText: 'Imam Name',
+                          labelStyle: const TextStyle(
+                              color: CommonColor.REGISTRARTION_COLOR),
+                          contentPadding: const EdgeInsets.all(12),
+                          isDense: true,
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  width: 1,
+                                  color: CommonColor.REGISTRARTION_COLOR),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  width: 1,
+                                  color: CommonColor.REGISTRARTION_COLOR),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  width: 1,
+                                  color: CommonColor.REGISTRARTION_COLOR),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          hintStyle: TextStyle(
+                              fontFamily: "Roboto_Regular",
+                              fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+                              color: CommonColor.SEARCH_TEXT_COLOR))))),
+          Padding(
+              padding: EdgeInsets.only(
+                  left: parentWidth * 0.02, right: parentWidth * 0.02),
+              child: Padding(
+                  padding: EdgeInsets.only(
+                      top: parentHeight * 0.03,
+                      left: parentWidth * 0.03,
+                      right: parentWidth * 0.03),
+                  child: TextFormField(
+                      focusNode: _imamNumberFocus,
+                      controller: imamNumberController,
+                      keyboardType: TextInputType.number,
+                      validator: (String? value) {
+                        if (value!.isEmpty) {
+                          return 'Imam Number Field Is Required';
+                        }
+                        if (value.trim().length < 10 ||
+                            value.trim().length > 10) {
+                          return 'Please Enter Valid Number';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                          labelText: 'Imam Number',
+                          labelStyle: const TextStyle(
+                              color: CommonColor.REGISTRARTION_COLOR),
+                          contentPadding: const EdgeInsets.all(12),
+                          isDense: true,
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  width: 1,
+                                  color: CommonColor.REGISTRARTION_COLOR),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  width: 1,
+                                  color: CommonColor.REGISTRARTION_COLOR),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  width: 1,
+                                  color: CommonColor.REGISTRARTION_COLOR),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          hintStyle: TextStyle(
+                              fontFamily: "Roboto_Regular",
+                              fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+                              color: CommonColor.SEARCH_TEXT_COLOR))))),
+          Padding(
+              padding: EdgeInsets.only(
+                  left: parentWidth * 0.02, right: parentWidth * 0.02),
+              child: Padding(
+                  padding: EdgeInsets.only(
+                      top: parentHeight * 0.03,
+                      left: parentWidth * 0.03,
+                      right: parentWidth * 0.03),
+                  child: TextFormField(
+                      focusNode: _masjiNameFocus,
+                      controller: masjidNameController,
+                      keyboardType: TextInputType.text,
+                      validator: (String? value) {
+                        if (value!.isEmpty) {
+                          return 'Imam Name Field Is Required';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                          labelText: 'Masjid Name',
+                          labelStyle: const TextStyle(
+                              color: CommonColor.REGISTRARTION_COLOR),
+                          contentPadding: const EdgeInsets.all(12),
+                          isDense: true,
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  width: 1,
+                                  color: CommonColor.REGISTRARTION_COLOR),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  width: 1,
+                                  color: CommonColor.REGISTRARTION_COLOR),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  width: 1,
+                                  color: CommonColor.REGISTRARTION_COLOR),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          hintStyle: TextStyle(
+                              fontFamily: "Roboto_Regular",
+                              fontSize: SizeConfig.blockSizeHorizontal * 4.0,
+                              color: CommonColor.SEARCH_TEXT_COLOR))))),
 
-        Padding(
-          padding: EdgeInsets.only(top: parentHeight * 0.03),
-          child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              height: 100,
-              child: Column(
-                children: [
-                  CSCPicker(
-                    showStates: true,
-                    showCities: true,
-                    flagState: CountryFlag.DISABLE,
-                    dropdownDecoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color: Colors.white,
-                        border: Border.all(
-                            color: Colors.grey.shade300, width: 1)),
-                    disabledDropdownDecoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color: Colors.grey.shade300,
-                        border: Border.all(
-                            color: Colors.grey.shade300, width: 1)),
-                    countrySearchPlaceholder: "Country",
-                    stateSearchPlaceholder: "State",
-                    citySearchPlaceholder: "City",
-                    countryDropdownLabel: "*Country",
-                    stateDropdownLabel: "*State",
-                    cityDropdownLabel: "*City",
-                    selectedItemStyle: TextStyle(
-                      color: Colors.black,
-                      fontSize: 14,
-                    ),
-                    dropdownHeadingStyle: TextStyle(
-                        color: Colors.black,
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold),
-                    dropdownItemStyle: TextStyle(
-                      color: Colors.black,
-                      fontSize: 14,
-                    ),
-                    dropdownDialogRadius: 10.0,
-                    searchBarRadius: 10.0,
-                    onCountryChanged: (value) {
-                      setState(() {
-                        value != null ? countryValue = value : "Country";
-                      });
-                    },
-                    onStateChanged: (value) {
-                      setState(() {
-                        value != null ? stateValue = value : "State";
-                      });
-                    },
-                    onCityChanged: (value) {
-                      setState(() {
-                        value != null ? cityValue = value : "City";
-                      });
-                    },
-                  ),
-
-                  /* TextButton(
-                        onPressed: () {
-                          setState(() {
-                            _addressss = "$cityValue, $stateValue, $countryValue";
-                          });
-                        },
-                        child: Text("Print Data")),
-                    Text(_addressss)*/
-                ],
-              )),
-        ),
-
-        GestureDetector(
-          onTap: () {
-            // var box = Hive.box(kBoxName);
-            // box.put(kUserLatitude, address?.lat);
-            // box.put(kUserLongitude, address?.long);
-            // box.put(kUserSubLocality, address?.subLocality);
-            // box.put(kUserLocality, address?.locality);
-            //
-            // print("${box.get("currentLatitude")}  ${box.get("currentLongitude")}");
-            //
-            //
-            // if(cityValue.isNotEmpty){
-            //   _address.isNotEmpty
-            //       ? validate()
-            //       : ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            //       content: Text("Please Select Your Current Location")));
-            // } else{
-            //   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            //       content: Text("Please Select Country, State, City")));
-            // }
-            postRequestForm();
-
-
-          },
-          child: Padding(
-            padding: EdgeInsets.only(
-                top: parentHeight * 0.1,
-                left: parentWidth * 0.1,
-                right: parentWidth * 0.1),
+          Padding(
+            padding: EdgeInsets.only(top: parentHeight * 0.03),
             child: Container(
-                height: parentHeight * 0.06,
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                      colors: [CommonColor.LEFT_COLOR, CommonColor.RIGHT_COLOR]),
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: Center(
-                  child: Text(
-                    "Submit",
-                    style: TextStyle(
-                        fontFamily: "Roboto_Regular",
-                        fontWeight: FontWeight.w700,
-                        fontSize: SizeConfig.blockSizeHorizontal * 4.5,
-                        color: CommonColor.WHITE_COLOR),
-                  ),
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                height: 100,
+                child: Column(
+                  children: [
+                    CSCPicker(
+                      showStates: true,
+                      showCities: true,
+                      flagState: CountryFlag.DISABLE,
+                      dropdownDecoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          color: Colors.white,
+                          border: Border.all(
+                              color: Colors.grey.shade300, width: 1)),
+                      disabledDropdownDecoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          color: Colors.grey.shade300,
+                          border: Border.all(
+                              color: Colors.grey.shade300, width: 1)),
+                      countrySearchPlaceholder: "Country",
+                      stateSearchPlaceholder: "State",
+                      citySearchPlaceholder: "City",
+                      countryDropdownLabel: "*Country",
+                      stateDropdownLabel: "*State",
+                      cityDropdownLabel: "*City",
+                      selectedItemStyle: TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                      ),
+                      dropdownHeadingStyle: TextStyle(
+                          color: Colors.black,
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold),
+                      dropdownItemStyle: TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                      ),
+                      dropdownDialogRadius: 10.0,
+                      searchBarRadius: 10.0,
+                      onCountryChanged: (value) {
+                        setState(() {
+                          value != null ? countryValue = value : "Country";
+                        });
+                      },
+                      onStateChanged: (value) {
+                        setState(() {
+                          value != null ? stateValue = value : "State";
+                        });
+                      },
+                      onCityChanged: (value) {
+                        setState(() {
+                          value != null ? cityValue = value : "City";
+                        });
+                      },
+                    ),
+
+                    /* TextButton(
+                          onPressed: () {
+                            setState(() {
+                              _addressss = "$cityValue, $stateValue, $countryValue";
+                            });
+                          },
+                          child: Text("Print Data")),
+                      Text(_addressss)*/
+                  ],
                 )),
           ),
-        )
-      ],
+
+          GestureDetector(
+            onTap: () {
+              // var box = Hive.box(kBoxName);
+              // box.put(kUserLatitude, address?.lat);
+              // box.put(kUserLongitude, address?.long);
+              // box.put(kUserSubLocality, address?.subLocality);
+              // box.put(kUserLocality, address?.locality);
+              //
+              // print("${box.get("currentLatitude")}  ${box.get("currentLongitude")}");
+              //
+              //
+              // if(cityValue.isNotEmpty){
+              //   _address.isNotEmpty
+              //       ? validate()
+              //       : ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              //       content: Text("Please Select Your Current Location")));
+              // } else{
+              //   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              //       content: Text("Please Select Country, State, City")));
+              // }
+
+              // postRequestForm();
+
+              if(countryValue.isNotEmpty && stateValue.isNotEmpty && cityValue.isNotEmpty){
+                validate();
+              }else{
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text("Please Select Country, State, City.")));
+              }
+
+
+
+            },
+            child: Padding(
+              padding: EdgeInsets.only(
+                  top: parentHeight * 0.1,
+                  left: parentWidth * 0.1,
+                  right: parentWidth * 0.1),
+              child: Container(
+                  height: parentHeight * 0.06,
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: [CommonColor.LEFT_COLOR, CommonColor.RIGHT_COLOR]),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  child: Center(
+                    child: Text(
+                      "Submit",
+                      style: TextStyle(
+                          fontFamily: "Roboto_Regular",
+                          fontWeight: FontWeight.w700,
+                          fontSize: SizeConfig.blockSizeHorizontal * 4.5,
+                          color: CommonColor.WHITE_COLOR),
+                    ),
+                  )),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+
+  Widget _buildPopupDialog(BuildContext context) {
+    return /*AlertDialog(
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [
+           Expanded(child: Center(child: Text('Will register your Masjid As soon as possible'))),
+        ],
+      ),
+    );*/  Container(
+      child: AlertDialog(
+            content: Padding(
+              padding: EdgeInsets.only(
+                  left: SizeConfig.screenWidth * 0.04),
+              child: Stack(
+                alignment: Alignment.topRight,
+                children: [
+                  Container(
+                    // color: Colors.red,
+                    height: 250,
+                    child: const Center(
+                      child:  Padding(
+                        padding: EdgeInsets.only(left: 15, right: 15),
+                        child: Text(
+                          "Will register your Masjid As soon as possible",
+                          style: TextStyle(
+                            color: Colors.green,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 20,
+                            fontFamily: 'Roboto_Medium',
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      color: Colors.transparent,
+                      child: Icon(Icons.clear_sharp,
+                        color: Colors.red,),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+          ),
     );
   }
 
@@ -389,8 +480,13 @@ class _UserRequestFormState extends State<UserRequestForm> {
 
       if(result.statusCode == 200){
 
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text("Request sent Successfully.")));
+        // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        //     content: Text("Request sent Successfully.")));
+        showDialog(
+          context: context,
+          builder: (BuildContext context) => _buildPopupDialog(context),
+        );
+
 
       }
 
