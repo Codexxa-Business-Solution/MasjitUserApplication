@@ -2,12 +2,16 @@ import 'dart:developer';
 
 import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
+import 'masjit_user_app_api/place.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:masjiduserapp/common.color.dart';
 import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/request_masjid_response.dart';
 import 'package:masjiduserapp/size_config.dart';
 import 'package:masjiduserapp/util/constant.dart';
 import 'package:http/http.dart' as http;
+import 'package:masjiduserapp/util/get_location.dart';
+
+
 
 class UserRequestForm extends StatefulWidget {
   const UserRequestForm({Key? key}) : super(key: key);
@@ -34,6 +38,9 @@ class _UserRequestFormState extends State<UserRequestForm> {
   final _formKey = GlobalKey<FormState>();
 
   Future<RequestFormResponse>? result;
+
+  Place? address;
+  String _address = '';
 
 
   validate() {
@@ -237,7 +244,7 @@ class _UserRequestFormState extends State<UserRequestForm> {
                       keyboardType: TextInputType.text,
                       validator: (String? value) {
                         if (value!.isEmpty) {
-                          return 'Imam Name Field Is Required';
+                          return 'Masjid Name Field Is Required';
                         }
                         return null;
                       },
@@ -266,7 +273,6 @@ class _UserRequestFormState extends State<UserRequestForm> {
                               fontFamily: "Roboto_Regular",
                               fontSize: SizeConfig.blockSizeHorizontal * 4.0,
                               color: CommonColor.SEARCH_TEXT_COLOR))))),
-
           Padding(
             padding: EdgeInsets.only(top: parentHeight * 0.03),
             child: Container(
@@ -336,7 +342,92 @@ class _UserRequestFormState extends State<UserRequestForm> {
                   ],
                 )),
           ),
+          Stack(
+            children: [
+              Visibility(
+                visible: _address.isNotEmpty ? false : true,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      top: parentHeight * 0.03,
+                      left: parentWidth * 0.3,
+                      right: parentWidth * 0.3),
+                  child: GestureDetector(
+                    onDoubleTap: () {},
+                    onTap: () {
+                      final result = Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const GetLocation(),
+                        ),
+                      );
 
+                      result.then((value) {
+                        if (value == null) return;
+                        setState(() {
+                          address = value;
+                          _address =
+                          'Area ${address?.lat},\n City ${address?.long}, \n Postal Code ${address?.postalCode},\n State ${address?.administrativeArea}, \n Country ${address?.country}';
+                          setState(() {});
+                        });
+                      });
+                    },
+                    child: Container(
+                      height: parentHeight * 0.06,
+                      decoration: BoxDecoration(
+
+                        //color: Colors.green,
+
+
+                          border: Border.all(color: CommonColor.REGISTRARTION_COLOR),
+                          borderRadius: BorderRadius.all(Radius.circular(20))
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: parentWidth * 0.01, right: parentWidth * 0.01),
+                            child: Text(
+                              "Select Location",
+                              style: TextStyle(
+                                  fontSize: SizeConfig.blockSizeHorizontal * 3.5,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Visibility(
+                visible: _address.isNotEmpty ? true : false,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      top: parentHeight * 0.02, left: parentWidth * 0.04,right: parentWidth*0.04),
+                  child: Container(
+                    width: parentWidth * 1,
+                    height: parentHeight * 0.06,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            width: 1, color: CommonColor.REGISTRARTION_COLOR),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(left: parentWidth * 0.02),
+                          child: _address.isNotEmpty
+                              ? Text(
+                              "${address?.subLocality}, ${address?.locality}, ${address?.postalCode}")
+                              : Text(""),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
           GestureDetector(
             onTap: () {
               // var box = Hive.box(kBoxName);
@@ -395,7 +486,7 @@ class _UserRequestFormState extends State<UserRequestForm> {
                     ),
                   )),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -467,6 +558,13 @@ class _UserRequestFormState extends State<UserRequestForm> {
         "country" : countryValue,
         "state" : stateValue,
         "city" : cityValue,
+            "locality":address?.locality.toString()??"",
+            "sub_locality" : address?.subLocality.toString()??"",
+            "postal_code" : address?.postalCode.toString()??"",
+            "street" : address?.street.toString()??"",
+            "lat" : address?.lat.toString()??"",
+            "lng": address?.long.toString()
+
 
       });
       print("new order:" + result.body);
