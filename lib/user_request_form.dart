@@ -403,14 +403,7 @@ class _UserRequestFormState extends State<UserRequestForm> {
 
 
   Widget _buildPopupDialog(BuildContext context) {
-    return /*AlertDialog(
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
-           Expanded(child: Center(child: Text('Will register your Masjid As soon as possible'))),
-        ],
-      ),
-    );*/  Container(
+    return Container(
       child: AlertDialog(
             content: Padding(
               padding: EdgeInsets.only(
