@@ -1852,7 +1852,7 @@ class _JoinedMasjidCardState extends State<JoinedMasjidCard>
                         ),
                       ),
                       SizedBox(
-                        width: 60,
+                        width: SizeConfig.screenWidth*0.6,
                         child:
                         Text('${widget.masjid.place?[0].subLocality}',
                             overflow: TextOverflow.ellipsis,

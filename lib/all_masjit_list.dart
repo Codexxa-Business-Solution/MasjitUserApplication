@@ -267,95 +267,89 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                 ],
                                               ),
                                             ),
-                                            SizedBox(
-                                              width: parentWidth * 0.44,
-                                              child: Padding(
-                                                padding: EdgeInsets.only(
-                                                    left: parentHeight *
-                                                        0.02,
-                                                    top: parentWidth *
-                                                        0.03),
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment
-                                                      .start,
-                                                  children: [
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .start,
-                                                      crossAxisAlignment:
-                                                      CrossAxisAlignment
-                                                          .center,
-                                                      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                      children: [
-                                                        Padding(
-                                                          padding: EdgeInsets
-                                                              .only(
-                                                            // right: parentWidth * 0.05,
-                                                              top: parentHeight *
-                                                                  0.01),
-                                                          child: Container(
-                                                            width: parentWidth*0.39,
-                                                            // color: Colors.red,
-                                                            child: Text(
-                                                              "${snapshot.data?.data?[index].place?[0].masjidName}",
-                                                              style:
-                                                              TextStyle(
-                                                                fontSize:
-                                                                SizeConfig.blockSizeHorizontal *
-                                                                    4.3,
-                                                                fontFamily:
-                                                                'Roboto_Bold',
-                                                                fontWeight:
-                                                                FontWeight
-                                                                    .w500,
-                                                                color: CommonColor
-                                                                    .MASJIT_NAME,
-                                                              ),
-                                                              textAlign:
-                                                              TextAlign
-                                                                  .start,
-                                                              overflow:
-                                                              TextOverflow
-                                                                  .ellipsis,
-                                                              maxLines: 1,
-                                                              textScaleFactor: 1.0,
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                  left: parentHeight *
+                                                      0.02,
+                                                  top: parentWidth *
+                                                      0.03),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment
+                                                    .start,
+                                                children: [
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .start,
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment
+                                                        .center,
+                                                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Padding(
+                                                        padding: EdgeInsets
+                                                            .only(
+                                                          // right: parentWidth * 0.05,
+                                                            top: parentHeight *
+                                                                0.01),
+                                                        child: Container(
+                                                          width: parentWidth*0.39,
+                                                          // color: Colors.red,
+                                                          child: Text(
+                                                            "${snapshot.data?.data?[index].place?[0].masjidName}",
+                                                            style:
+                                                            TextStyle(
+                                                              fontSize:
+                                                              SizeConfig.blockSizeHorizontal *
+                                                                  4.3,
+                                                              fontFamily:
+                                                              'Roboto_Bold',
+                                                              fontWeight:
+                                                              FontWeight
+                                                                  .w500,
+                                                              color: CommonColor
+                                                                  .MASJIT_NAME,
                                                             ),
+                                                            textAlign:
+                                                            TextAlign
+                                                                .start,
+                                                            overflow:
+                                                            TextOverflow
+                                                                .ellipsis,
+                                                            maxLines: 1,
+                                                            textScaleFactor: 1.0,
                                                           ),
                                                         ),
-                                                      ],
-                                                    ),
-                                                    Row(
-                                                      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                      children: [
-                                                        Padding(
-                                                          padding: EdgeInsets.only(
-                                                              right:
-                                                              parentHeight *
-                                                                  0.02,
-                                                              top: parentHeight *
-                                                                  0.0),
-                                                          child: Text(
-                                                              "${snapshot.data?.data?[index].place?[0].subLocality}",
-                                                              style:
-                                                              TextStyle(
-                                                                fontSize:
-                                                                SizeConfig.blockSizeHorizontal *
-                                                                    4.0,
-                                                                fontFamily:
-                                                                'Roboto_Bold',
-                                                                fontWeight:
-                                                                FontWeight
-                                                                    .w400,
-                                                                color: CommonColor
-                                                                    .BLACK_COLOR,
-                                                              )),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Container(
+                                                        // color: Colors.red,
+                                                        width: SizeConfig.screenWidth*0.4,
+                                                        child: Text(
+                                                            "${snapshot.data?.data?[index].place?[0].subLocality}",
+                                                            overflow: TextOverflow.ellipsis,
+                                                            style:
+                                                            TextStyle(
+                                                              fontSize:
+                                                              SizeConfig.blockSizeHorizontal *
+                                                                  4.0,
+                                                              fontFamily:
+                                                              'Roboto_Bold',
+                                                              fontWeight:
+                                                              FontWeight
+                                                                  .w400,
+                                                              color: CommonColor
+                                                                  .BLACK_COLOR,
+                                                            )),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                             Stack(
@@ -783,94 +777,88 @@ class _AllMasjitListState extends State<AllMasjitList> {
                                                 ],
                                               ),
                                             ),
-                                            SizedBox(
-                                              width: parentWidth * 0.44,
-                                              child: Padding(
-                                                padding: EdgeInsets.only(
-                                                    left: parentHeight *
-                                                        0.02,
-                                                    top: parentWidth *
-                                                        0.03),
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment
-                                                      .start,
-                                                  children: [
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .start,
-                                                      crossAxisAlignment:
-                                                      CrossAxisAlignment
-                                                          .center,
-                                                      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                      children: [
-                                                        Padding(
-                                                          padding: EdgeInsets
-                                                              .only(
-                                                            // right: parentWidth * 0.05,
-                                                              top: parentHeight *
-                                                                  0.01),
-                                                          child: Container(
-                                                            width: parentWidth*0.39,
-                                                            // color: Colors.red,
-                                                            child: Text(
-                                                              "${snapshot.data?.data?[index].place?[0].masjidName}",
-                                                              style:
-                                                              TextStyle(
-                                                                fontSize:
-                                                                SizeConfig.blockSizeHorizontal *
-                                                                    4.3,
-                                                                fontFamily:
-                                                                'Roboto_Bold',
-                                                                fontWeight:
-                                                                FontWeight
-                                                                    .w500,
-                                                                color: CommonColor
-                                                                    .MASJIT_NAME,
-                                                              ),
-                                                              textAlign:
-                                                              TextAlign
-                                                                  .start,
-                                                              overflow:
-                                                              TextOverflow
-                                                                  .ellipsis,
-                                                              maxLines: 1,
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                  left: parentHeight *
+                                                      0.02,
+                                                  top: parentWidth *
+                                                      0.03),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment
+                                                    .start,
+                                                children: [
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .start,
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment
+                                                        .center,
+                                                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Padding(
+                                                        padding: EdgeInsets
+                                                            .only(
+                                                          // right: parentWidth * 0.05,
+                                                            top: parentHeight *
+                                                                0.01),
+                                                        child: Container(
+                                                          width: parentWidth*0.39,
+                                                          // color: Colors.red,
+                                                          child: Text(
+                                                            "${snapshot.data?.data?[index].place?[0].masjidName}",
+                                                            style:
+                                                            TextStyle(
+                                                              fontSize:
+                                                              SizeConfig.blockSizeHorizontal *
+                                                                  4.3,
+                                                              fontFamily:
+                                                              'Roboto_Bold',
+                                                              fontWeight:
+                                                              FontWeight
+                                                                  .w500,
+                                                              color: CommonColor
+                                                                  .MASJIT_NAME,
                                                             ),
+                                                            textAlign:
+                                                            TextAlign
+                                                                .start,
+                                                            overflow:
+                                                            TextOverflow
+                                                                .ellipsis,
+                                                            maxLines: 1,
                                                           ),
                                                         ),
-                                                      ],
-                                                    ),
-                                                    Row(
-                                                      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                      children: [
-                                                        Padding(
-                                                          padding: EdgeInsets.only(
-                                                              right:
-                                                              parentHeight *
-                                                                  0.02,
-                                                              top: parentHeight *
-                                                                  0.0),
-                                                          child: Text(
-                                                              "${snapshot.data?.data?[index].place?[0].subLocality}",
-                                                              style:
-                                                              TextStyle(
-                                                                fontSize:
-                                                                SizeConfig.blockSizeHorizontal *
-                                                                    4.0,
-                                                                fontFamily:
-                                                                'Roboto_Bold',
-                                                                fontWeight:
-                                                                FontWeight
-                                                                    .w400,
-                                                                color: CommonColor
-                                                                    .BLACK_COLOR,
-                                                              )),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Container(
+                                                        width: SizeConfig.screenWidth*0.4,
+                                                        // color: Colors.red,
+                                                        child: Text(
+                                                            "${snapshot.data?.data?[index].place?[0].subLocality}",
+                                                            overflow: TextOverflow.ellipsis,
+                                                            style:
+                                                            TextStyle(
+                                                              fontSize:
+                                                              SizeConfig.blockSizeHorizontal *
+                                                                  4.0,
+                                                              fontFamily:
+                                                              'Roboto_Bold',
+                                                              fontWeight:
+                                                              FontWeight
+                                                                  .w400,
+                                                              color: CommonColor
+                                                                  .BLACK_COLOR,
+                                                            )),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                             Stack(
