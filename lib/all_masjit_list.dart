@@ -5,6 +5,7 @@ import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/all_
 import 'package:masjiduserapp/masjit_user_app_api/masjit_app_responce_model/searh_near_masjid_data.dart';
 import 'package:masjiduserapp/parent_masjit_location_name.dart';
 import 'package:masjiduserapp/size_config.dart';
+import 'package:masjiduserapp/user_request_form.dart';
 import 'package:masjiduserapp/util/constant.dart';
 
 import 'common.color.dart';
@@ -76,6 +77,13 @@ class _AllMasjitListState extends State<AllMasjitList> {
                 SizeConfig.screenHeight,
                 SizeConfig.screenWidth,
               ),
+
+
+              getRequestFormCode(
+                SizeConfig.screenHeight,
+                SizeConfig.screenWidth,
+              ),
+
               searchController.text.isEmpty
                   ? getAddSearchMasjidList(
                 SizeConfig.screenHeight,
@@ -88,6 +96,79 @@ class _AllMasjitListState extends State<AllMasjitList> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+
+  Widget getRequestFormCode(double parentHeight, parentWidth){
+    return /*RichText(
+      maxLines: 1,
+      text: TextSpan(
+        children: <TextSpan>[
+          TextSpan(text: "If you don't find masjid in the list click below",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: SizeConfig.blockSizeHorizontal*4.0,)),
+          TextSpan(text: " Click Here.",
+            style: TextStyle(
+              color: Colors.blue,
+              fontSize: SizeConfig.blockSizeHorizontal*3.5,),
+          ),
+        ],
+      ),
+    );*/
+
+    Padding(
+      padding: EdgeInsets.only(top: parentHeight*0.03, left: parentWidth* 0.15, right: parentWidth* 0.15),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Center(
+                  child: Text("If you don't find masjid in the list click below.",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: SizeConfig.blockSizeHorizontal*4.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,),
+                ),
+              ),
+            ],
+          ),
+
+          Padding(
+            padding: EdgeInsets.only(top: parentHeight*0.01),
+            child: GestureDetector(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>UserRequestForm()));
+              },
+              child: Container(
+                height: parentHeight*0.04,
+                width: parentWidth*0.42,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                      colors: [CommonColor.LEFT_COLOR, CommonColor.RIGHT_COLOR]),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Center(
+                  child: Text("Request For Masjid ?",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: SizeConfig.blockSizeHorizontal*4.0,
+                      fontWeight: FontWeight.w400
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
@@ -660,9 +741,12 @@ class _AllMasjitListState extends State<AllMasjitList> {
             ),
           )
               : Center(
-              child: Text(
-                "No Masjid Found at this Location",
-                style: TextStyle(color: Colors.black),
+              child: Padding(
+                padding: EdgeInsets.only(top: parentHeight*0.1),
+                child: Text(
+                  "No Masjid Found at this Location",
+                  style: TextStyle(color: Colors.black),
+                ),
               ));
         });
   }
@@ -684,8 +768,8 @@ class _AllMasjitListState extends State<AllMasjitList> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding:  EdgeInsets.only(top: parentHeight*0.05),
-                        child: Text(
+                        padding: EdgeInsets.only(top: parentHeight*0.05),
+                        child: const Text(
                           "No Masjid Found at this Location",
                           style: TextStyle(
                               color: Colors.black38,

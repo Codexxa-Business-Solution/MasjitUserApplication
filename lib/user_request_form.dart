@@ -98,7 +98,7 @@ class _UserRequestFormState extends State<UserRequestForm> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
-            padding: EdgeInsets.only(top: 5, left: 15),
+            padding: EdgeInsets.only(top: 25, left: 15),
             child: GestureDetector(
               onTap: () {
                 Navigator.pop(context);
@@ -113,7 +113,7 @@ class _UserRequestFormState extends State<UserRequestForm> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 3),
+            padding: EdgeInsets.only(top: 25),
             child: Text(
               "Request Masjid Form",
               style: TextStyle(
