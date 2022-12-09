@@ -573,11 +573,12 @@ class _UserRequestFormState extends State<UserRequestForm> {
 
         // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         //     content: Text("Request sent Successfully.")));
-        showDialog(
-          context: context,
-          builder: (BuildContext context) => _buildPopupDialog(context),
-        );
+        // showDialog(
+        //   context: context,
+        //   builder: (BuildContext context) => _buildPopupDialog(context),
+        // );
 
+        Navigator.pop(context);
 
       }
 
